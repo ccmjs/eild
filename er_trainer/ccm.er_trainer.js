@@ -95,7 +95,7 @@
 
     Instance: function () {
 
-      let $, dataset, phrase_nr;
+      let $, dataset, notation, phrase_nr;
 
       this.init = async () => {
 
@@ -128,7 +128,7 @@
         // get already existing app state data
         dataset = Object.assign( await $.dataset( this.data ), {
           correct: 0,
-          notation: this.default.notation,
+          notation: notation || this.default.notation,
           sections: [],
           total: this.phrases.length
         } );
@@ -165,7 +165,7 @@
 
       /** when selected entry for displayed notation changes */
       const onNotationChange = event => {
-        dataset.notation = event.target.value;
+        dataset.notation = notation = event.target.value;
         render();
       };
 
