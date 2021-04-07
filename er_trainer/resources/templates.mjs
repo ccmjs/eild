@@ -34,7 +34,7 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
         <!-- Notation Selection -->
         <section>
           <div class="d-flex align-items-center">
-            <label for="notation-input" class="m-0 text-nowrap"><b>${app.text.label}</b></label>
+            <label for="notation-input" class="m-0 text-nowrap"><b>${app.text.notation}</b></label>
             <select id="notation-input" class="form-control ml-2" @change=${onNotationChange}>
               ${Object.values(app.notations).map(({key,title})=>html`<option value="${key}" ?selected=${data.notation===key}>${title}</option>`)}
             </select>
@@ -63,7 +63,7 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
             <div>${app.text.entity2}</div>
           </div>
           <div id="diagram" class="d-flex justify-content-between align-items-center">
-            <div class="entity border rounded p-3 text-nowrap ${section.correct!==undefined&&(section.input[swap?1:0]===section.solution[swap?1:0]?'correct':'failed')}">
+            <div class="entity border rounded p-3 text-nowrap ${app.feedback&&section.correct!==undefined&&(section.input[swap?1:0]===section.solution[swap?1:0]?'correct':'failed')}">
               ${phrase.relationship[0]}
             </div>
             <div>
@@ -78,7 +78,7 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
             <div>
               <img id="right" src="${images[app.values.indexOf(section.input[swap?0:1])+1]}">
             </div>
-            <div class="entity border rounded p-3 text-nowrap ${section.correct!==undefined&&(section.input[swap?0:1]===section.solution[swap?0:1]?'correct':'failed')}">
+            <div class="entity border rounded p-3 text-nowrap ${this.feedback&&section.correct!==undefined&&(section.input[swap?0:1]===section.solution[swap?0:1]?'correct':'failed')}">
               ${phrase.relationship[2]}
             </div>
           </div>
@@ -101,7 +101,7 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
         </section>
 
         <!-- Correct Solution -->
-        <section class="d-flex flex-column align-items-center px-2" ?data-hidden=${section.correct===undefined||section.correct}>
+        <section class="d-flex flex-column align-items-center px-2" ?data-hidden=${!app.feedback||section.correct===undefined||section.correct}>
           <div class="lead">${app.text.correct_solution}</div>
           <div class="d-flex align-items-center mt-3">
             <div>
