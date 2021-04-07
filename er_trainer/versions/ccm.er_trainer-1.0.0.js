@@ -12,7 +12,7 @@
   const component = {
     name: 'er_trainer',
     version: [ 1, 0, 0 ],
-    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.2.1.js',
+    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.3.0.js',
     config: {
       "css": [ "ccm.load",
         [  // serial
