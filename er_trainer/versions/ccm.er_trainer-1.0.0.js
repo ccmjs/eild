@@ -28,14 +28,15 @@
         "notation": "crow",
         "path": "https://ccmjs.github.io/eild/er_trainer/resources/img/"
       },
+      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates.mjs" ],
+      "feedback": true,
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
         "backdrop_close": true,
         "content": "",
         "closed": true,
         "buttons": ""
       } ],
-      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates.mjs" ],
       "notations": {
         "abrial": {
           "key": "abrial",
@@ -71,6 +72,7 @@
 //    "oncancel": ( instance, phrase_nr ) => {},
       "onfinish": { "restart": true },
       "phrases": [ "ccm.get", { "name": "eild-er_trainer-phrases", "url": "https://ccm2.inf.h-brs.de" } ],
+      "show_solution": true,
       "text": {
         "cancel": "Abbrechen",
         "correct": "Ihre letzte Antwort war richtig!",
@@ -83,7 +85,7 @@
         "heading": "Bitte wählen Sie den zu der Phrase passenden Beziehungstyp in der Auswahlbox aus!",
         "input1": "Auswahl 1:",
         "input2": "Auswahl 2:",
-        "label": "Notation:",
+        "notation": "Notation:",
         "legend": "Legende",
         "next": "Weiter",
         "phrase": "Phrase [%%]:",
@@ -194,8 +196,7 @@
         section.input = [ this.element.querySelector( '#input1' ).value, this.element.querySelector( '#input2' ).value ];
         section.correct = section.input.toString() === section.solution.toString();
         if ( section.correct ) dataset.correct++;
-        this.element.classList.add( section.correct ? 'correct' : 'failed' );
-        this.element.classList.add( section.correct ? 'correct' : 'failed' );
+        this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
         render();
       };
 
