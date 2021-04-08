@@ -36,7 +36,7 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
           <div class="d-flex align-items-center">
             <label for="notation-input" class="m-0 text-nowrap"><b>${app.text.notation}</b></label>
             <select id="notation-input" class="form-control ml-2" @change=${onNotationChange}>
-              ${Object.values(app.notations).map(({key,title})=>html`<option value="${key}" ?selected=${data.notation===key}>${title}</option>`)}
+              ${Object.values(app.notations).sort( ( a, b ) => a.title.localeCompare( b.title ) ).map(({key,title})=>html`<option value="${key}" ?selected=${data.notation===key}>${title}</option>`)}
             </select>
           </div>
         </section>
