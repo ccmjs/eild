@@ -32,7 +32,7 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
       <div class="d-flex align-items-center text-nowrap px-2">
 
         <!-- Notation Selection -->
-        <section>
+        <section ?data-hidden=${Object.keys(app.notations).length===1}>
           <div class="d-flex align-items-center">
             <label for="notation-input" class="m-0 text-nowrap"><b>${app.text.notation}</b></label>
             <select id="notation-input" class="form-control ml-2" @change=${onNotationChange}>
@@ -42,9 +42,10 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
         </section>
 
         <!-- Legend -->
-        <section class="ml-2">
+        <section class="ml-2" ?data-hidden=${!app.legend}>
           <button class="btn btn-link" @click=${onLegendClick}>${app.text.legend}</button>
         </section>
+        
       </div>
     </header>
     <main class="border rounded-bottom border-top-0 px-4 py-2">

@@ -31,6 +31,7 @@
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates.mjs" ],
       "feedback": true,
+      "legend": true,
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
         "backdrop_close": true,
         "content": "",
@@ -149,7 +150,6 @@
       const nextPhrase = () => {
         const section = phrases.shift();
         phrase_nr++;
-        console.log( phrase_nr, section, phrases );
         dataset.sections.push( {
           input: [ '', '' ],
           relationship: section.relationship,
