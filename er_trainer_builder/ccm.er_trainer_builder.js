@@ -95,7 +95,7 @@
     },
 
     Instance: function () {
-      let $, editor, dataset;
+      let $, dataset; const self = this;
 
       this.ready = async () => {
         $ = Object.assign( {}, this.ccm.helper, this.helper ); $.use( this.ccm );  // set shortcut to help functions
@@ -107,6 +107,9 @@
 
         // get initial app configuration (priority order: [high] this.data -> this.defaults -> this.tool.config [low])
         dataset = await $.integrate( await $.dataset( this.data ), await $.integrate( this.defaults, this.tool.config ) );
+
+        // adjust notations data
+        adjustNotationsData( dataset );
 
         this.logger && this.logger.log( 'start', $.clone( dataset ) );                  // logging of 'start' event
         this.render( dataset );                                                         // render main HTML template
@@ -121,12 +124,24 @@
         // update app preview in modal dialog
         jQuery( '#erb-preview' ).on( 'show.bs.modal', () => this.tool.start( Object.assign( this.getValue(), { root: this.element.querySelector( '#erb-preview-body' ) } ) ) );
 
-        // listen to submit event of the HTML form
-        this.submit && this.element.querySelector( 'form' ).addEventListener( 'submit', event => {
+        // listen to submit event of the main HTML form
+        this.submit && this.element.querySelector( '#erb-main-form' ).addEventListener( 'submit', event => {
           event.preventDefault();
           const result_data = this.getValue();                                 // get result data
           this.logger && this.logger.log( 'finish', $.clone( result_data ) );  // logging of 'finish' event
           $.onFinish( this, result_data );                                     // trigger finish actions
+        } );
+
+        // listen to submit event of the HTML form for adding a notation
+        this.submit && this.element.querySelector( '#erb-notation-form' ).addEventListener( 'submit', event => {
+          event.preventDefault();
+          const form = this.element.querySelector( '#erb-notation-form' );
+          const notation = $.formData( form );
+          notation.key = notation.title.toLowerCase().trim().replace( /\W/g, '-' );
+          dataset.notations[ notation.key ] = notation;
+          jQuery( '#erb-add-notation' ).modal( 'hide' );
+          form.reset();
+          this.render( dataset );
         } );
 
       };
@@ -136,7 +151,7 @@
        * @param {Object} [config = this.getValue()] - app configuration
        */
       this.render = ( config = this.getValue() ) => {
-        this.html.render( this.html.main( config, this ), this.element );
+        this.html.render( this.html.main( config, this, onDeleteNotation, onResetNotations ), this.element );
       }
 
       /**
@@ -144,7 +159,7 @@
        * @returns {Object} app configuration
        */
       this.getValue = () => {
-        const config = $.formData( this.element );
+        const config = $.formData( this.element.querySelector( '#erb-main-form' ) );
         config.css = this.ignore.css[ config.css ].value;
         if ( !config.finish ) config.onfinish = ''; delete config.finish;
         if ( !config.onfinish ) return config;
@@ -174,7 +189,6 @@
         return config;
       };
 
-
       /**
        * prepares an input field for selectize
        * @param {string} selector - selector to select the input field
@@ -191,6 +205,25 @@
           plugins: [ 'drag_drop', 'remove_button' ]
         } );
       };
+
+      const adjustNotationsData = config => {
+        for ( const key in config.notations ) {
+          const notation = config.notations[ key ];
+          if ( !notation.images )
+            notation.images = config.default.images.map( image => image.includes( '.' ) ? image : ( notation.path || config.default.path ) + notation.key + '/' + image + '.' + ( notation.format || config.default.format ) );
+        }
+      };
+
+      function onDeleteNotation() {
+        delete dataset.notations[ this.dataset.key ];
+        self.render( dataset );
+      }
+
+      function onResetNotations() {
+        dataset.notations = $.clone( self.tool.config.notations );
+        adjustNotationsData( dataset );
+        self.render( dataset );
+      }
 
     }
   };

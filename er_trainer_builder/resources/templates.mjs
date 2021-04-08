@@ -3,7 +3,7 @@
  * @author André Kless <andre.kless@web.de> 2021
  */
 
-import { html, render } from 'https://esm.run/lit-html';
+import { html, render, repeat } from 'https://ccmjs.github.io/akless-components/libs/lit/lit.js';
 export { render };
 
 /**
@@ -12,9 +12,9 @@ export { render };
  * @param {Object} builder - app builder instance
  * @returns {TemplateResult} main HTML template
  */
-export function main( config, builder ) {
+export function main( config, builder, onDeleteNotation, onResetNotations ) {
   return html`
-    <form>
+    <form id="erb-main-form">
       <div class="accordion" id="erb-accordion">
         
         <!-- General Settings -->
@@ -26,7 +26,7 @@ export function main( config, builder ) {
               </button>
             </h2>
           </div>
-          <div id="erb-general-collapse" class="collapse show" aria-labelledby="erb-general-heading" data-parent="#erb-accordion">
+          <div id="erb-general-collapse" class="collapse" aria-labelledby="erb-general-heading" data-parent="#erb-accordion">
             <div class="card-body">
 
               <!-- Layout -->
@@ -61,7 +61,43 @@ export function main( config, builder ) {
                     How many phrases should be randomly selected and questioned?
                   </div>
                 </div>
-                <input type="number" min="1" name="number" class="form-control" id="erb-number" value="${config.number}">
+                <input type="number" required min="1" name="number" class="form-control" id="erb-number" value="${config.number}">
+              </div>
+
+              <!-- Default Notation -->
+              <div class="form-group" ?hidden=${Object.keys(config.notations).length<=1}>
+                <label for="erb-default-notation">Default Notation</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-default-notation" aria-expanded="false" aria-controls="erb-info-default-notation">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-default-notation">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose which notation is selected and displayed by default.
+                  </div>
+                </div>
+                <select class="form-control" name="default.notation" id="erb-default-notation">
+                  ${ Object.values( config.notations ).map( notation => html`<option value="${notation.key}" ?selected=${config.default.notation===notation.key}>${notation.title}</option>` )}
+                </select>
+              </div>
+
+              <!-- Legend -->
+              <div class="form-group">
+                <input type="checkbox" name="legend" id="erb-legend" ?checked=${config.legend}>
+                <label class="form-check-label pl-1" for="erb-legend">
+                  Show Legend
+                </label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-legend" aria-expanded="false" aria-controls="erb-info-legend">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-legend">
+                  <div class="bg-info text-light rounded p-2">
+                    If enabled, the app contains a legend that gives an overview of all available notation forms.
+                  </div>
+                </div>
               </div>
               
               <!-- Enable Feedback -->
@@ -113,8 +149,21 @@ export function main( config, builder ) {
               </button>
             </h2>
           </div>
-          <div id="erb-notations-collapse" class="collapse" aria-labelledby="erb-notations-heading" data-parent="#erb-accordion">
-            <div class="card-body"></div>
+          <div id="erb-notations-collapse" class="collapse show" aria-labelledby="erb-notations-heading" data-parent="#erb-accordion">
+            <div class="card-body p-0">
+              <table class="table table-hover m-0">
+                <tbody>
+                  ${repeat(Object.values(config.notations),notation=>notation.key,notation=>notationRow(notation,onDeleteNotation))}
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#erb-add-notation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Add Notation
+              </button>
+              <button type="button" class="btn btn-danger btn-sm btn-block" @click="${onResetNotations}">Reset</button>
+            </div>
           </div>
         </div>
 
@@ -575,13 +624,218 @@ export function main( config, builder ) {
             </div>
           </div>
         </div>
+        
       </div>
+
+      <!-- Modal for each Notation -->
+      ${repeat(Object.values(config.notations),notation=>notation.key,notation=>notationModal(notation))}
 
       <!-- Preview Button -->
       <button type="button" class="btn btn-info btn-block mt-0" data-toggle="modal" data-target="#erb-preview" ?data-hidden=${!builder.preview}>${builder.preview}</button>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary btn-block mt-0" ?data-hidden=${!builder.onfinish || !builder.submit}>${builder.submit}</button>
+      <button type="submit" class="btn btn-primary btn-block mt-0" ?data-hidden=${!builder.onfinish||!builder.submit}>${builder.submit}</button>
+      
+    </form>
+
+    <!-- Modal: Add Notation -->
+    <form id="erb-notation-form">
+      <div id="erb-add-notation" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Notation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <!-- Title -->
+              <div class="form-group">
+                <label for="erb-add-notation-title">Title</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-title" aria-expanded="false" aria-controls="erb-info-add-notation-title">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-title">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose the title of the notation.
+                    The notation is then listed under this title in the selection list for changing the notation.
+                  </div>
+                </div>
+                <input type="text" name="title" class="form-control" id="erb-add-notation-title" required>
+              </div>
+  
+              <!-- None -->
+              <div class="form-group">
+                <label for="erb-add-notation-e">None</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-e" aria-expanded="false" aria-controls="erb-info-add-notation-e">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-e">
+                  <div class="bg-info text-light rounded p-2">
+                    Image URL to the graphic for a not chosen dependency on the right entity.
+                    The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                    The graphic is centered vertically in the app, so the heights can be different.
+                  </div>
+                </div>
+                <input type="url" name="images.0" class="form-control" id="erb-add-notation-e">
+              </div>
+  
+              <!-- One -->
+              <div class="form-group">
+                <label for="erb-add-notation-1">One</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-1" aria-expanded="false" aria-controls="erb-info-add-notation-1">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-1">
+                  <div class="bg-info text-light rounded p-2">
+                    Image URL to the graphic for a 'mandatory' dependency on the right entity.
+                    The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                    The graphic is centered vertically in the app, so the heights can be different.
+                  </div>
+                </div>
+                <input type="url" name="images.1" class="form-control" id="erb-add-notation-1">
+              </div>
+  
+              <!-- Conditional -->
+              <div class="form-group">
+                <label for="erb-add-notation-c">Conditional</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-c" aria-expanded="false" aria-controls="erb-info-add-notation-c">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-c">
+                  <div class="bg-info text-light rounded p-2">
+                    Image URL to the graphic for a 'conditional' dependency on the right entity.
+                    The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                    The graphic is centered vertically in the app, so the heights can be different.
+                  </div>
+                </div>
+                <input type="url" name="images.2" class="form-control" id="erb-add-notation-c">
+              </div>
+  
+              <!-- Many -->
+              <div class="form-group">
+                <label for="erb-add-notation-n">Many</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-n" aria-expanded="false" aria-controls="erb-info-add-notation-n">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-n">
+                  <div class="bg-info text-light rounded p-2">
+                    Image URL to the graphic for a 'many' dependency on the right entity.
+                    The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                    The graphic is centered vertically in the app, so the heights can be different.
+                  </div>
+                </div>
+                <input type="url" name="images.3" class="form-control" id="erb-add-notation-n">
+              </div>
+  
+              <!-- Conditional Many -->
+              <div class="form-group">
+                <label for="erb-add-notation-cn">Conditional Many</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-cn" aria-expanded="false" aria-controls="erb-info-add-notation-cn">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-cn">
+                  <div class="bg-info text-light rounded p-2">
+                    Image URL to the graphic for a 'conditional many' dependency on the right entity.
+                    The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                    The graphic is centered vertically in the app, so the heights can be different.
+                  </div>
+                </div>
+                <input type="url" name="images.4" class="form-control" id="erb-add-notation-cn">
+              </div>
+  
+              <!-- Relation -->
+              <div class="form-group">
+                <label for="erb-add-notation-r">Relation</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-r" aria-expanded="false" aria-controls="erb-info-add-notation-r">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-r">
+                  <div class="bg-info text-light rounded p-2">
+                    Image URL to the graphic for the relation in the middle of the diagram.
+                    The graphic should have a width of exactly 240 pixels and the height should be a maximum of 100 pixels.
+                    The graphic is centered vertically in the app, so the heights can be different.
+                  </div>
+                </div>
+                <input type="url" name="images.5" class="form-control" id="erb-add-notation-r">
+              </div>
+              
+              <!-- Left -->
+              <div class="form-group">
+                <label for="erb-add-notation-left">Left Side</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-left" aria-expanded="false" aria-controls="erb-info-add-notation-left">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                  </span>
+                <div class="collapse" id="erb-info-add-notation-left">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose how the notation should be displayed in the diagram for the left entity.
+                  </div>
+                </div>
+                <select class="form-control" name="left" id="erb-add-notation-left">
+                  <option value="copied">Copied</option>
+                  <option value="mirrored">Mirrored</option>
+                </select>
+              </div>
+              
+              <!-- Swap -->
+              <div class="form-group">
+                <input type="checkbox" name="swap" id="erb-add-notation-swap">
+                <label class="form-check-label pl-1" for="erb-add-notation-swap">Swap</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-swap" aria-expanded="false" aria-controls="erb-info-add-notation-swap">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                  </span>
+                <div class="collapse" id="erb-info-add-notation-swap">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose this if the notation refers to the relation rather than the entity.
+                    A selection on one side then causes a graphical change in notation for the entity on the other side.
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Centered -->
+              <div class="form-group">
+                <input type="checkbox" name="centered" id="erb-add-notation-centered">
+                <label class="form-check-label pl-1" for="erb-add-notation-centered">Centered</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-centered" aria-expanded="false" aria-controls="erb-info-add-notation-centered">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                  </span>
+                <div class="collapse" id="erb-info-add-notation-centered">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose this if the label of the relation should be displayed vertically centered in the middle and not a bit higher above a solid line.
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
     
     <!-- Modal: Preview -->
@@ -604,6 +858,244 @@ export function main( config, builder ) {
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * returns the HTML template for a notation row
+ * @param {Object} notation - notation data
+ * @returns {TemplateResult} HTML template for a notation row
+ */
+function notationRow( notation, onDeleteNotation ) {
+  return html`
+    <tr>
+      <th class="align-middle">
+        <div class="d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea text-success" viewBox="0 0 16 16">
+            <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+          <div class="ml-1">${notation.title}</div>
+        </div>
+      </th>
+      <td class="text-right">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#notation-${notation.key}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" data-key="${notation.key}" @click="${onDeleteNotation}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+          </svg>
+        </button>
+      </td>
+    </tr>
+  `;
+}
+
+/**
+ * returns the HTML template for modal dialog to create/edit a notation
+ * @param {Object} notation - notation data
+ * @returns {TemplateResult} HTML template for modal dialog to create/edit a notation
+ */
+function notationModal( notation ) {
+  return html`
+    <div id="notation-${notation.key}" class="modal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">${notation.title}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <!-- Key -->
+            <input type="hidden" name="notations.${notation.key}.key" value="${notation.key}">
+            
+            <!-- Title -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-title">Title</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-title" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-title">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-title">
+                <div class="bg-info text-light rounded p-2">
+                  Choose the title of the notation.
+                  The notation is then listed under this title in the selection list for changing the notation.
+                </div>
+              </div>
+              <input type="text" name="notations.${notation.key}.title" class="form-control" id="erb-notation-${notation.key}-title" value="${notation.title}">
+            </div>
+
+            <!-- None -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-e">None</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-e" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-e">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-e">
+                <div class="bg-info text-light rounded p-2">
+                  Image URL to the graphic for a not chosen dependency on the right entity.
+                  The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                  The graphic is centered vertically in the app, so the heights can be different.
+                </div>
+              </div>
+              <input type="url" name="notations.${notation.key}.images.0" class="form-control" id="erb-notation-${notation.key}-e" value="${notation.images[0]}">
+            </div>
+
+            <!-- One -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-1">One</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-1" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-1">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-1">
+                <div class="bg-info text-light rounded p-2">
+                  Image URL to the graphic for a 'mandatory' dependency on the right entity.
+                  The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                  The graphic is centered vertically in the app, so the heights can be different.
+                </div>
+              </div>
+              <input type="url" name="notations.${notation.key}.images.1" class="form-control" id="erb-notation-${notation.key}-1" value="${notation.images[1]}">
+            </div>
+
+            <!-- Conditional -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-c">Conditional</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-c" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-c">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-c">
+                <div class="bg-info text-light rounded p-2">
+                  Image URL to the graphic for a 'conditional' dependency on the right entity.
+                  The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                  The graphic is centered vertically in the app, so the heights can be different.
+                </div>
+              </div>
+              <input type="url" name="notations.${notation.key}.images.2" class="form-control" id="erb-notation-${notation.key}-c" value="${notation.images[2]}">
+            </div>
+
+            <!-- Many -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-n">Many</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-n" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-n">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-n">
+                <div class="bg-info text-light rounded p-2">
+                  Image URL to the graphic for a 'many' dependency on the right entity.
+                  The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                  The graphic is centered vertically in the app, so the heights can be different.
+                </div>
+              </div>
+              <input type="url" name="notations.${notation.key}.images.3" class="form-control" id="erb-notation-${notation.key}-n" value="${notation.images[3]}">
+            </div>
+
+            <!-- Conditional Many -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-cn">Conditional Many</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-cn" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-cn">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-cn">
+                <div class="bg-info text-light rounded p-2">
+                  Image URL to the graphic for a 'conditional many' dependency on the right entity.
+                  The graphic should have a width of exactly 60 pixels and the height should be a maximum of 100 pixels.
+                  The graphic is centered vertically in the app, so the heights can be different.
+                </div>
+              </div>
+              <input type="url" name="notations.${notation.key}.images.4" class="form-control" id="erb-notation-${notation.key}-cn" value="${notation.images[4]}">
+            </div>
+
+            <!-- Relation -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-r">Relation</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-r" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-r">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-r">
+                <div class="bg-info text-light rounded p-2">
+                  Image URL to the graphic for the relation in the middle of the diagram.
+                  The graphic should have a width of exactly 240 pixels and the height should be a maximum of 100 pixels.
+                  The graphic is centered vertically in the app, so the heights can be different.
+                </div>
+              </div>
+              <input type="url" name="notations.${notation.key}.images.5" class="form-control" id="erb-notation-${notation.key}-r" value="${notation.images[5]}">
+            </div>
+            
+            <!-- Left -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-left">Left Side</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-left" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-left">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-left">
+                <div class="bg-info text-light rounded p-2">
+                  Choose how the notation should be displayed in the diagram for the left entity.
+                </div>
+              </div>
+              <select class="form-control" name="notations.${notation.key}.left" id="erb-notation-${notation.key}-left">
+                <option value="copied" ?selected=${notation.left==='copied'}>Copied</option>
+                <option value="mirrored" ?selected=${notation.left==='mirrored'}>Mirrored</option>
+              </select>
+            </div>
+            
+            <!-- Swap -->
+            <div class="form-group">
+              <input type="checkbox" name="notations.${notation.key}.swap" id="erb-notation-${notation.key}-swap" ?checked=${notation.swap}>
+              <label class="form-check-label pl-1" for="erb-notation-${notation.key}-swap">Swap</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-swap" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-swap">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-swap">
+                <div class="bg-info text-light rounded p-2">
+                  Choose this if the notation refers to the relation rather than the entity.
+                  A selection on one side then causes a graphical change in notation for the entity on the other side.
+                </div>
+              </div>
+            </div>
+
+            <!-- Centered -->
+            <div class="form-group">
+              <input type="checkbox" name="notations.${notation.key}.centered" id="erb-notation-${notation.key}-centered" ?checked=${notation.centered}>
+              <label class="form-check-label pl-1" for="erb-notation-${notation.key}-centered">Centered</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-notation-${notation.key}-centered" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-centered">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-centered">
+                <div class="bg-info text-light rounded p-2">
+                  Choose this if the label of the relation should be displayed vertically centered in the middle and not a bit higher above a solid line.
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
