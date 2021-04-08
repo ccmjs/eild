@@ -78,7 +78,7 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
             <div>
               <img id="right" src="${images[app.values.indexOf(section.input[swap?0:1])+1]}">
             </div>
-            <div class="entity border rounded p-3 text-nowrap ${this.feedback&&section.correct!==undefined&&(section.input[swap?0:1]===section.solution[swap?0:1]?'correct':'failed')}">
+            <div class="entity border rounded p-3 text-nowrap ${app.feedback&&section.correct!==undefined&&(section.input[swap?0:1]===section.solution[swap?0:1]?'correct':'failed')}">
               ${phrase.relationship[2]}
             </div>
           </div>

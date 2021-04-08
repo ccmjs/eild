@@ -97,7 +97,7 @@
 
     Instance: function () {
 
-      let $, dataset, notation, phrase_nr;
+      let $, dataset, notation, phrase_nr, phrases = [];
 
       this.init = async () => {
 
@@ -124,15 +124,15 @@
 
       this.start = async () => {
 
-        // select the needed amount of phrases randomly
-        this.phrases = $.shuffleArray( this.phrases ).slice( 0, this.number );
+        // clone and copy all possible phrases
+        if ( phrases.length < this.number ) phrases = $.shuffleArray( $.clone( this.phrases ) );
 
         // get already existing app state data
         dataset = Object.assign( await $.dataset( this.data ), {
           correct: 0,
           notation: notation || this.default.notation,
           sections: [],
-          total: this.phrases.length
+          total: this.number
         } );
 
         // render first phrase
@@ -146,7 +146,9 @@
 
       /** starts the next phrase */
       const nextPhrase = () => {
-        const section = $.clone( this.phrases[ phrase_nr++ ] );
+        const section = phrases.shift();
+        phrase_nr++;
+        console.log( phrase_nr, section, phrases );
         dataset.sections.push( {
           input: [ '', '' ],
           relationship: section.relationship,
