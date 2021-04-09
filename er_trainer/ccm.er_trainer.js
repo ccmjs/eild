@@ -121,6 +121,9 @@
           };
         }
 
+        // uniform phrases data
+        if ( $.isObject( this.phrases ) ) this.phrases = Object.values( this.phrases ).map( phrase => { delete phrase.key; return phrase; } );
+
       };
 
       this.ready = async () => {
