@@ -98,7 +98,7 @@
 
     Instance: function () {
 
-      let $, dataset, notation, phrase_nr, phrases = [];
+      let $, dataset, notation, phrase_nr, phrases;
 
       this.init = async () => {
 
@@ -121,11 +121,14 @@
           };
         }
 
+        // clone and shuffle original phrases
+        phrases = $.shuffleArray( $.clone( this.phrases ) );
+
       };
 
       this.start = async () => {
 
-        // clone and copy all possible phrases
+        // not enough phrases left? => clone and shuffle original phrases
         if ( phrases.length < this.number ) phrases = $.shuffleArray( $.clone( this.phrases ) );
 
         // get already existing app state data
