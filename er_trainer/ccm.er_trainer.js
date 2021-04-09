@@ -121,6 +121,10 @@
           };
         }
 
+      };
+
+      this.ready = async () => {
+
         // clone and shuffle original phrases
         phrases = $.shuffleArray( $.clone( this.phrases ) );
 
@@ -162,7 +166,7 @@
       };
 
       /** renders current phrase */
-      const render = () => this.html.render( this.html.main( this, dataset, phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputchange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ), this.element );
+      const render = () => this.html.render( this.html.main( this, dataset, phrases, phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputchange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ), this.element );
 
       /**
        * returns current app state data

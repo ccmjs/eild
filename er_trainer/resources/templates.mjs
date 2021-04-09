@@ -10,6 +10,7 @@ export { render };
  * returns the main HTML template
  * @param {Object} app - app instance
  * @param {Object} data - app state data
+ * @param {Array} phrases - data of remaining phrases
  * @param {number} phrase_nr - number of current phrase
  * @param {function} onNotationChange - when selected entry for displayed notation changes
  * @param {function} onLegendClick - when 'legend' button is clicked
@@ -21,9 +22,9 @@ export { render };
  * @param {function} onFinishClick - when 'finish' button is clicked
  * @returns {TemplateResult} main HTML template
  */
-export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputChange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ) {
+export function main( app, data, phrases, phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputChange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ) {
   let { centered, images, left, swap } = app.notations[ data.notation ];
-  const phrase = app.phrases[ phrase_nr - 1 ];
+  const phrase = phrases[ phrase_nr - 1 ];
   const section = data.sections[ phrase_nr - 1 ];
   return html`
     <h1 class="mx-3">${app.text.title}</h1> <!-- Title -->
