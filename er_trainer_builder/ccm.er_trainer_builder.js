@@ -106,10 +106,7 @@
       this.start = async () => {
 
         // get initial app configuration (priority order: [high] this.data -> this.defaults -> this.tool.config [low])
-        dataset = await $.integrate( await $.dataset( this.data ), await $.integrate( this.defaults, this.tool.config ) );
-
-        // adjust notations data
-        adjustNotationsData( dataset );
+        dataset = await adjustDataset( await $.integrate( await $.dataset( this.data ), await $.integrate( this.defaults, this.tool.config ) ) );
 
         this.logger && this.logger.log( 'start', $.clone( dataset ) );                  // logging of 'start' event
         this.render( dataset );                                                         // render main HTML template
@@ -151,7 +148,7 @@
        * @param {Object} [config = this.getValue()] - app configuration
        */
       this.render = ( config = this.getValue() ) => {
-        this.html.render( this.html.main( config, this, onDeleteNotation, onResetNotations ), this.element );
+        this.html.render( this.html.main( config, this, onDeleteNotation, onResetNotations, onDeletePhrase ), this.element );
       }
 
       /**
@@ -184,6 +181,7 @@
             }
             break;
         }
+        config.values = dataset.values;
         delete config.render;
         delete config.app;
         return config;
@@ -206,12 +204,17 @@
         } );
       };
 
-      const adjustNotationsData = config => {
+      const adjustDataset = async config => {
+        config.notations = $.clone( config.notations );
         for ( const key in config.notations ) {
           const notation = config.notations[ key ];
           if ( !notation.images )
             notation.images = config.default.images.map( image => image.includes( '.' ) ? image : ( notation.path || config.default.path ) + notation.key + '/' + image + '.' + ( notation.format || config.default.format ) );
         }
+        const phrases = {};
+        $.clone( await $.solveDependency( config.phrases ) ).forEach( phrase => { phrase.key = phrase.key || $.generateKey(); phrases[ phrase.key ] = phrase; } );
+        config.phrases = phrases;
+        return config;
       };
 
       function onDeleteNotation() {
@@ -219,9 +222,14 @@
         self.render( dataset );
       }
 
-      function onResetNotations() {
-        dataset.notations = $.clone( self.tool.config.notations );
-        adjustNotationsData( dataset );
+      async function onResetNotations() {
+        dataset.notations = self.tool.config.notations;
+        await adjustDataset( dataset );
+        self.render( dataset );
+      }
+
+      function onDeletePhrase() {
+        delete dataset.phrases[ this.dataset.key ];
         self.render( dataset );
       }
 

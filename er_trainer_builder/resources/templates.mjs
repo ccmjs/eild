@@ -12,7 +12,7 @@ export { render };
  * @param {Object} builder - app builder instance
  * @returns {TemplateResult} main HTML template
  */
-export function main( config, builder, onDeleteNotation, onResetNotations ) {
+export function main( config, builder, onDeleteNotation, onResetNotations, onDeletePhrase ) {
   return html`
     <form id="erb-main-form">
       <div class="accordion" id="erb-accordion">
@@ -113,7 +113,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-feedback">
                   <div class="bg-info text-light rounded p-2">
-                    If enabled, the user is shown what is right and what is wrong when answering a question.
+                    If enabled, the user is shown what is right and what is wrong when answering a phrase.
                   </div>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
               </button>
             </h2>
           </div>
-          <div id="erb-notations-collapse" class="collapse show" aria-labelledby="erb-notations-heading" data-parent="#erb-accordion">
+          <div id="erb-notations-collapse" class="collapse" aria-labelledby="erb-notations-heading" data-parent="#erb-accordion">
             <div class="card-body p-0">
               <table class="table table-hover m-0">
                 <tbody>
@@ -176,8 +176,20 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
               </button>
             </h2>
           </div>
-          <div id="erb-phrases-collapse" class="collapse" aria-labelledby="erb-phrases-heading" data-parent="#erb-accordion">
-            <div class="card-body"></div>
+          <div id="erb-phrases-collapse" class="collapse show" aria-labelledby="erb-phrases-heading" data-parent="#erb-accordion">
+            <div class="card-body p-0">
+              <table class="table table-hover m-0">
+                <tbody>
+                  ${repeat(Object.values(config.phrases),phrase=>phrase.key,phrase=>phraseRow(phrase,onDeletePhrase))}
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#erb-add-phrase">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Add Phrase
+              </button>
+            </div>
           </div>
         </div>
 
@@ -257,9 +269,9 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 <input type="text" name="text.legend" class="form-control" id="erb-text-legend" value="${config.text.legend}">
               </div>
 
-              <!-- Question Prefix -->
+              <!-- Phrase Prefix -->
               <div class="form-group">
-                <label for="erb-text-phrase">Question Prefix</label>
+                <label for="erb-text-phrase">Phrase Prefix</label>
                 <span type="button" data-toggle="collapse" data-target="#erb-info-text-phrase" aria-expanded="false" aria-controls="erb-info-text-phrase">
                   <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
@@ -267,8 +279,8 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-text-phrase">
                   <div class="bg-info text-light rounded p-2">
-                    Choose the prefix of a question.
-                    The placeholder "%%" will later be automatically replaced by the current question number dynamically.
+                    Choose the prefix of a phrase.
+                    The placeholder "%%" will later be automatically replaced by the current phrase number dynamically.
                   </div>
                 </div>
                 <input type="text" name="text.phrase" class="form-control" id="erb-text-phrase" value="${config.text.phrase}">
@@ -364,7 +376,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-text-correct">
                   <div class="bg-info text-light rounded p-2">
-                    This text appears when a question has been answered correctly.
+                    This text appears when a phrase has been answered correctly.
                   </div>
                 </div>
                 <input type="text" name="text.correct" class="form-control" id="erb-text-correct" value="${config.text.correct}">
@@ -380,7 +392,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-text-failed">
                   <div class="bg-info text-light rounded p-2">
-                    This text appears when a question has been answered incorrectly.
+                    This text appears when a phrase has been answered incorrectly.
                   </div>
                 </div>
                 <input type="text" name="text.failed" class="form-control" id="erb-text-failed" value="${config.text.failed}">
@@ -396,7 +408,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-text-correct_solution">
                   <div class="bg-info text-light rounded p-2">
-                    This text appears when a question is answered incorrectly and the correct solution is revealed.
+                    This text appears when a phrase is answered incorrectly and the correct solution is revealed.
                   </div>
                 </div>
                 <input type="text" name="text.correct_solution" class="form-control" id="erb-text-correct_solution" value="${config.text.correct_solution}">
@@ -412,7 +424,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-text-current_state">
                   <div class="bg-info text-light rounded p-2">
-                    This text informs the user how many questions have already been answered correctly.
+                    This text informs the user how many phrases have already been answered correctly.
                     The placeholders "%%" will later be automatically replaced by the current values dynamically.
                   </div>
                 </div>
@@ -429,7 +441,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-text-next">
                   <div class="bg-info text-light rounded p-2">
-                    Choose the label of the button that starts the next question.
+                    Choose the label of the button that starts the next phrase.
                   </div>
                 </div>
                 <input type="text" name="text.next" class="form-control" id="erb-text-next" value="${config.text.next}">
@@ -496,7 +508,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-finish">
                   <div class="bg-info text-light rounded p-2">
-                    If enabled, there is a finish button when all questions are answered for which individual actions such as saving solutions and displaying another app can be set.
+                    If enabled, there is a finish button when all phrases are answered for which individual actions such as saving solutions and displaying another app can be set.
                   </div>
                 </div>
               </div>
@@ -511,7 +523,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
                 </span>
                 <div class="collapse" id="erb-info-store">
                   <div class="bg-info text-light rounded p-2">
-                    The results are stored on the server of the computer science department of the Bonn-Rhein-Sieg University of Applied Sciences.
+                    The results are stored on a server of the computer science department of the Bonn-Rhein-Sieg University of Applied Sciences.
                     <ul class="m-0 pl-4">
                       <li><b>Collective Solution:</b> Everyone is working on a common solution. When the app is started, the last submitted solution is restored.</li>
                       <li><b>User Specific:</b> Each user has their own solution that is restored when the app starts. Anyone can correct their submitted solution afterwards. A user must log in to submit a solution.</li>
@@ -629,6 +641,9 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
 
       <!-- Modal for each Notation -->
       ${repeat(Object.values(config.notations),notation=>notation.key,notation=>notationModal(notation))}
+
+      <!-- Modal for each Phrase -->
+      ${repeat(Object.values(config.phrases),phrase=>phrase.key,phrase=>phraseModal(config,phrase))}
 
       <!-- Preview Button -->
       <button type="button" class="btn btn-info btn-block mt-0" data-toggle="modal" data-target="#erb-preview" ?data-hidden=${!builder.preview}>${builder.preview}</button>
@@ -837,6 +852,128 @@ export function main( config, builder, onDeleteNotation, onResetNotations ) {
         </div>
       </div>
     </form>
+
+    <!-- Modal: Add Phrase -->
+    <form id="erb-phrase-form">
+      <div id="erb-add-phrase" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Phrase</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <!-- Text -->
+              <div class="form-group">
+                <label for="erb-add-phrase-text">Text</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-text" aria-expanded="false" aria-controls="erb-info-add-phrase-text">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-text">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose the text of the phrase that describes the dependency between two entities.
+                  </div>
+                </div>
+                <textarea name="text" class="form-control" id="erb-add-phrase-text"></textarea>
+              </div>
+  
+              <!-- Left Entity -->
+              <div class="form-group">
+                <label for="erb-add-phrase-entity1">Left Entity</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-entity1" aria-expanded="false" aria-controls="erb-info-add-phrase-entity1">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-entity1">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose the name for the left entity.
+                  </div>
+                </div>
+                <input type="text" name="relationship.0" class="form-control" id="erb-add-phrase-entity1">
+              </div>
+              
+              <!-- Relation -->
+              <div class="form-group">
+                <label for="erb-add-phrase-relation">Relation</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-relation" aria-expanded="false" aria-controls="erb-info-add-phrase-relation">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-relation">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose the name for the relation between the two entities.
+                  </div>
+                </div>
+                <input type="text" name="relationship.1" class="form-control" id="erb-add-phrase-relation">
+              </div>
+              
+              <!-- Right Entity -->
+              <div class="form-group">
+                <label for="erb-add-phrase-entity2">Right Entity</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-entity2" aria-expanded="false" aria-controls="erb-info-add-phrase-entity2">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-entity2">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose the name for the right entity.
+                  </div>
+                </div>
+                <input type="text" name="relationship.2" class="form-control" id="erb-add-phrase-entity2">
+              </div>
+              
+              <!-- Left Solution -->
+              <div class="form-group">
+                <label for="erb-add-phrase-solution1">Left Solution</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-solution1" aria-expanded="false" aria-controls="erb-info-add-phrase-solution1">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-solution1">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose the correct solution for the left selector box for user answer.
+                  </div>
+                </div>
+                <select class="form-control" name="solution.0" id="erb-add-phrase-solution1">
+                  ${Object.values(config.values).map((value,i)=>html`<option value="${value}">${config.text.selection[i+1]}</option>`)}
+                </select>
+              </div>
+  
+              <!-- Right Solution -->
+              <div class="form-group">
+                <label for="erb-add-phrase-solution2">Right Solution</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-solution2" aria-expanded="false" aria-controls="erb-info-add-phrase-solution2">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-solution2">
+                  <div class="bg-info text-light rounded p-2">
+                    Choose the correct solution for the right selector box for user answer.
+                  </div>
+                </div>
+                <select class="form-control" name="solution.1" id="erb-add-phrase-solution2">
+                  ${Object.values(config.values).map((value,i)=>html`<option value="${value}">${config.text.selection[i+1]}</option>`)}
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     
     <!-- Modal: Preview -->
     <div class="modal fade" id="erb-preview" tabindex="-1" aria-labelledby="App Preview" aria-hidden="true">
@@ -875,10 +1012,12 @@ function notationRow( notation, onDeleteNotation ) {
     <tr>
       <th class="align-middle">
         <div class="d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea text-success" viewBox="0 0 16 16">
-            <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-          </svg>
-          <div class="ml-1">${notation.title}</div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea text-success" viewBox="0 0 16 16">
+              <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+            </svg>
+          </div>
+          <div class="ml-2">${notation.title}</div>
         </div>
       </th>
       <td class="text-right">
@@ -909,7 +1048,7 @@ function notationModal( notation ) {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">${notation.title}</h5>
+            <h5 class="modal-title">Edited Notation: ${notation.title}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -1096,6 +1235,177 @@ function notationModal( notation ) {
               </div>
             </div>
 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * returns the HTML template for a phrase row
+ * @param {Object} phrase - phrase data
+ * @returns {TemplateResult} HTML template for a phrase row
+ */
+function phraseRow( phrase, onDeletePhrase ) {
+  return html`
+    <tr>
+      <td class="align-middle">
+        <div class="d-flex align-items-center">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hdd-network text-success" viewBox="0 0 16 16">
+              <path d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8.5v3a1.5 1.5 0 0 1 1.5 1.5h5.5a.5.5 0 0 1 0 1H10A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5H.5a.5.5 0 0 1 0-1H6A1.5 1.5 0 0 1 7.5 10V7H2a2 2 0 0 1-2-2V4zm1 0v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1zm6 7.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5z"/>
+            </svg>
+          </div>
+          <div class="ml-2">${phrase.text}</div>
+        </div>
+      </td>
+      <td class="text-right text-nowrap">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phrase-${phrase.key}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" data-key="${phrase.key}" @click="${onDeletePhrase}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+          </svg>
+        </button>
+      </td>
+    </tr>
+  `;
+}
+
+/**
+ * returns the HTML template for modal dialog to create/edit a phrase
+ * @param {Object} config - initial app configuration
+ * @param {Object} phrase - phrase data
+ * @returns {TemplateResult} HTML template for modal dialog to create/edit a phrase
+ */
+function phraseModal( config, phrase ) {
+  return html`
+    <div id="phrase-${phrase.key}" class="modal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editing a Phrase</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <!-- Key -->
+            <input type="hidden" name="phrases.${phrase.key}.key" value="${phrase.key}">
+            
+            <!-- Text -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-text">Text</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-text" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-text">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-text">
+                <div class="bg-info text-light rounded p-2">
+                  Choose the text of the phrase that describes the dependency between two entities.
+                </div>
+              </div>
+              <textarea name="phrases.${phrase.key}.text" class="form-control" id="erb-phrase-${phrase.key}-text">${phrase.text}</textarea>
+            </div>
+
+            <!-- Left Entity -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-entity1">Left Entity</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-entity1" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-entity1">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-entity1">
+                <div class="bg-info text-light rounded p-2">
+                  Choose the name for the left entity.
+                </div>
+              </div>
+              <input type="text" name="phrases.${phrase.key}.relationship.0" class="form-control" id="erb-phrase-${phrase.key}-entity1" value="${phrase.relationship[0]}">
+            </div>
+            
+            <!-- Relation -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-relation">Relation</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-relation" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-relation">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-relation">
+                <div class="bg-info text-light rounded p-2">
+                  Choose the name for the relation between the two entities.
+                </div>
+              </div>
+              <input type="text" name="phrases.${phrase.key}.relationship.1" class="form-control" id="erb-phrase-${phrase.key}-relation" value="${phrase.relationship[1]}">
+            </div>
+            
+            <!-- Right Entity -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-entity2">Right Entity</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-entity2" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-entity2">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-entity2">
+                <div class="bg-info text-light rounded p-2">
+                  Choose the name for the right entity.
+                </div>
+              </div>
+              <input type="text" name="phrases.${phrase.key}.relationship.2" class="form-control" id="erb-phrase-${phrase.key}-entity2" value="${phrase.relationship[2]}">
+            </div>
+            
+            <!-- Left Solution -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-solution1">Left Solution</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-solution1" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-solution1">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-solution1">
+                <div class="bg-info text-light rounded p-2">
+                  Choose the correct solution for the left selector box for user answer.
+                </div>
+              </div>
+              <select class="form-control" name="phrases.${phrase.key}.solution.0" id="erb-phrase-${phrase.key}-solution1">
+                ${Object.values(config.values).map((value,i)=>html`<option value="${value}" ?selected=${phrase.solution[0]===value}>${config.text.selection[i+1]}</option>`)}
+              </select>
+            </div>
+
+            <!-- Right Solution -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-solution2">Right Solution</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-solution2" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-solution2">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-solution2">
+                <div class="bg-info text-light rounded p-2">
+                  Choose the correct solution for the right selector box for user answer.
+                </div>
+              </div>
+              <select class="form-control" name="phrases.${phrase.key}.solution.1" id="erb-phrase-${phrase.key}-solution2">
+                ${Object.values(config.values).map((value,i)=>html`<option value="${value}" ?selected=${phrase.solution[1]===value}>${config.text.selection[i+1]}</option>`)}
+              </select>
+            </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
