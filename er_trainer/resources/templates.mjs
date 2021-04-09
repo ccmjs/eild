@@ -108,6 +108,10 @@ export function main( app, data, phrase_nr, onNotationChange, onLegendClick, onL
             <div>
               <img class="${left}" id="left" src="${images[app.values.indexOf(section.solution[swap?1:0])+1]}">
             </div>
+            <div id="name">
+              <img id="middle" src="${images[5]}">
+              <div class="text-nowrap" ?data-centered=${centered}>${phrase.relationship[1]}</div>
+            </div>
             <div>
               <img id="right" src="${images[app.values.indexOf(section.solution[swap?0:1])+1]}">
             </div>
