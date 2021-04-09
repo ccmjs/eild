@@ -137,9 +137,10 @@
         if ( phrases.length < this.number ) phrases = $.shuffleArray( $.clone( this.phrases ) );
 
         // get already existing app state data
-        dataset = Object.assign( await $.dataset( this.data ), {
+        dataset = await $.dataset( this.data );
+        dataset = Object.assign( dataset, {
           correct: 0,
-          notation: notation || this.default.notation,
+          notation: notation || dataset.notation || this.default.notation,
           sections: [],
           total: this.number
         } );
@@ -155,19 +156,18 @@
 
       /** starts the next phrase */
       const nextPhrase = () => {
-        const section = phrases.shift();
         phrase_nr++;
         dataset.sections.push( {
           input: [ '', '' ],
-          relationship: section.relationship,
-          solution: section.solution,
-          text: section.text
+          relationship: phrases[ 0 ].relationship,
+          solution: phrases[ 0 ].solution,
+          text: phrases[ 0 ].text
         } );
         render();
       };
 
       /** renders current phrase */
-      const render = () => this.html.render( this.html.main( this, dataset, phrases, phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputchange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ), this.element );
+      const render = () => this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputchange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ), this.element );
 
       /**
        * returns current app state data
@@ -213,6 +213,7 @@
       const onNextClick = () => {
         this.element.classList.remove( 'correct' );
         this.element.classList.remove( 'failed' );
+        phrases.shift();
         nextPhrase();
       }
 
