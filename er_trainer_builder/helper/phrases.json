@@ -1,0 +1,1294 @@
+[
+  {
+    "key": "1616583419943X07816238718167612",
+    "text": "Ein Kontinent besteht aus mehreren Staaten. Es gibt allerdings auch Staaten, die auf mehreren Kontinenten liegen.",
+    "relationship": [
+      "Kontinent",
+      "besteht aus",
+      "Staat"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "Ein Kontinent besteht aus einem bis hin zu mehreren Staaten.",
+    "Ein Staat liegt auf einem oder auch mehreren Kontinenten."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420033X8090030402725776",
+    "text": "Ein Orchester hat genau einen Dirigenten.",
+    "relationship": [
+      "Dirigent",
+      "dirigiert",
+      "Orchester"
+    ],
+    "solution": [
+      "1",
+      "1"
+    ],
+    "comment": [
+    "Ein Dirigent dirigiert genau ein Orchester.",
+    "Ein Orchester wird von genau einem Dirigenten dirigiert."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420056X5457200187602396",
+    "text": "Eine Stadt kann eine Hauptstadt sein. Jeder Staat hat genau eine Hauptstadt.",
+    "relationship": [
+      "Staat",
+      "hauptstadt von",
+      "Stadt"
+    ],
+    "solution": [
+      "c",
+      "1"
+    ],
+    "comment": [
+    "Die Beziehung ist Hauptstadt ist nur für höchstens eine Stadt in einem Staat richtig und für alle anderen falsch.",
+    "Stadt kann nur Hauptstadt von genau einem Staat sein."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420078X07000891364194728",
+    "text": "Ein Musiker spielt ein oder mehrere Instrumete. Ein Instrument wird von mehreren Musikern gespielt.",
+    "relationship": [
+      "Musiker",
+      "spielt",
+      "Instrument"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "Musiker spielt mindestens ein bis hin zu mehreren Instrumenten.",
+    "Ein Instrument wird von mindestens einem bis hin zu mehreren Musikern gespielt."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420099X766745849544219",
+    "text": "Ein Komponist komponiert mehrere Musikstücke.",
+    "relationship": [
+      "Komponist",
+      "komponiert",
+      "Musikstück"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "Komponist komponiert mehrere Musikstücke.",
+    "Musikstück hat einen Komponisten."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420120X8235338961059921",
+    "text": "Jeder  Mensch spricht eine oder mehrere Sprachen. Es gibt aber auch sogenannte  \"tote\" Sprachen, die nicht mehr gesprochen werden. ",
+    "relationship": [
+      "Sprache ",
+      "spricht",
+      "Mensch"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "Es existieren Sprachen, die nicht mehr gesprochen werden. Manche Sprachen werden von vielen Menschen gesprochen.",
+    "Ein Mensch spricht mindestens eine bis hin zu mehreren Sprachen."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420142X7837071261517852",
+    "text": "Ein Mitarbeiter gehört einer oder auch mehreren Abteilungen an, eine Abteilung besteht aus mehreren Mitarbeitern.",
+    "relationship": [
+      "Abteilung",
+      "gehören",
+      "Mitarbeiter"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420163X29697267266682603",
+    "text": "Ein Kunde bestellt einen oder mehrere Artikel und ein Artikel wird von mindestens einem Kunden bestellt. \r\nZu Werbezwecken sind auch Adressen von Personen erfasst, die noch nichts gekauft haben. ",
+    "relationship": [
+      "Kunde ",
+      "bestellt",
+      "Artikel"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420184X46331309631304896",
+    "text": "Ein Kunde bestellt einen oder mehrere Artikel und ein Artikel wird von ggf. mehreren Kunden bestellt. \r\nUnter den Artikeln gibt es auch Ladenhüter, die noch nicht verkauft wurden. ",
+    "relationship": [
+      "Artikel",
+      "bestellt",
+      "Kunde"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420205X8828750665303293",
+    "text": "Jedem Mitarbeiter ist ein Arbeitsplatz zugewiesen. Aufgrund von Teilzeitarbeit wird ein Arbeitsplatz auch von mehreren Mitarbeitern genutzt.",
+    "relationship": [
+      "Arbeitsplatz",
+      "zugewiesen",
+      "Mitarbeiter"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420227X8414377290601651",
+    "text": "Um auf Teilzeitbeschäftigung flexibel reagieren zu können, sind einem Mitarbeiter mehrere mögliche Arbeitsplätze zugewiesen und ein Arbeitsplatz wird entsprechend von mehreren Mitarbeitern genutzt. ",
+    "relationship": [
+      "Arbeitsplatz",
+      "zugewiesen",
+      "Mitarbeiter"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420247X6547785489599716",
+    "text": "Ein Studierender schreibt sich für einen Studiengang ein. Studiengangwechsel sind nicht möglich. ",
+    "relationship": [
+      "Studierender",
+      "eingeschrieben",
+      "Studiengang"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420269X5007553029693104",
+    "text": "Ein Studierender schreibt sich für einen Studiengang ein. Studiengangwechsel sind möglich. ",
+    "relationship": [
+      "Studiengang",
+      "eingeschrieben",
+      "Student"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420290X3890511115135362",
+    "text": "Ein Studierender kann eine oder mehrere Klausuren in einer Prüfungsphase schreiben. Eine Klausur kann von einer oder mehreren Studierenden geschrieben werden. ",
+    "relationship": [
+      "Studierende",
+      "schreiben",
+      "Klausur"
+    ],
+    "solution": [
+      "cn",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420311X44153029594228244",
+    "text": "Um Bafög zu bekommen zu können, muss ein Studierender eine oder mehrere Klausuren in einer Prüfungsphase schreiben. \r\nEine Klausur kann von einer oder mehreren Studierenden geschrieben werden.",
+    "relationship": [
+      "Klausur",
+      "schreiben",
+      "Studierende"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420333X2626015328153837",
+    "text": "Ein Verein hat einen Präsidenten. Eine Person kann mehrere Präsidentenjobs in verschiedenen Vereinen übernehmen.",
+    "relationship": [
+      "Präsident",
+      "hat",
+      "Verein"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420354X967634650658546",
+    "text": "Ein Verein hat mehrere Mitglieder und eine Person kann mehreren Vereinen beitreten. ",
+    "relationship": [
+      "Person",
+      "Mitglied",
+      "Verein"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420376X542064814965934",
+    "text": "Ein Vereinsmitglied zahlt jedes Jahr seinen Beitrag. Wenn ein Mitglied neu angemeldet ist, wird der erste Beitrag erst nach drei Monaten eingezogen.",
+    "relationship": [
+      "Mitglied",
+      "zahlt",
+      "Beitrag"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420397X4913897517720003",
+    "text": "Ein Vereinsmitglied zahlt jedes Jahr seinen Beitrag. Ein Mitglied wird erst erfaßt, wenn sein erster Beitrag gezahlt ist.",
+    "relationship": [
+      "Mitglied",
+      "zahlt",
+      "Beitrag"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420423X02613508037717338",
+    "text": "Ein Vereinsmitglied bekommt immer die Vereinszeitung zugestellt. Weitere Fachgruppen-Zeitschriften können nach Wunsch bestellt werden. Es werden nur Zeitschriften gedruckt, die auch Abnehmer haben. ",
+    "relationship": [
+      "Mitglied",
+      "zugestellt",
+      "Zeitung"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420446X746233554765054",
+    "text": "Ein Vereinsmitglied kann Fachgruppen-Zeitschriften nach Wunsch bestellen. Es werden nur Zeitschriften gedruckt, die auch Abnehmer haben. ",
+    "relationship": [
+      "Mitglied",
+      "bestellen",
+      "Zeitung"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420468X5853587595696492",
+    "text": "Rechnungen werden unterteilt in den sog. Rechnungskopf mit Kunde, Datum, etc. und die Rechnungspositionen mit Artikel, Menge, Preis. \r\nEs kann keine Position ohne Kopf geben und umgekehrt. ",
+    "relationship": [
+      "Rechnungskopf",
+      "gehört zu",
+      "Rechnungsposition"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420490X3208733168283857",
+    "text": "Es werden Angebote geschrieben, für die dann ggf. ein Kunde einen Auftrag erteilt. \r\nDa es inhaltliche Anpassungen geben kann, wird der Auftrag auf der Basis des Angebots in einer neuen Entity-Menge gespeichert.",
+    "relationship": [
+      "Angebot",
+      "erteilt",
+      "Auftrag"
+    ],
+    "solution": [
+      "1",
+      "c"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420511X37512548638648036",
+    "text": "Kunden, die ihre Rechnung nicht innerhalb von 4 Wochen bezahlen, werden abgemahnt. Es gibt maximal 4 Mahnstufen.",
+    "relationship": [
+      "Rechnungen",
+      "abgemahnt",
+      "Mahnungen"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420532X7535084424472225",
+    "text": "Wurde eine Rechnung 4-mal erfolglos gemahnt, wird die Angelegenheit einem Inkassobüro übergeben",
+    "relationship": [
+      "Inkasso",
+      "übernimmt",
+      "Mahnungen"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420553X20332379121194144",
+    "text": "Ein Haus hat einen oder keinen Aufzug.",
+    "relationship": [
+      "Haus",
+      "hat",
+      "Aufzug"
+    ],
+    "solution": [
+      "1",
+      "c"
+    ],
+    "comment": [
+    "Haus hat einen oder keinen Aufzug, wenn es zB. nur Treppen oder nur ein Geschoß gibt.",
+    "Ein Aufzug gehört zu genau einem Haus."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420574X21746179613367067",
+    "text": "Ein Haus hat genau ein Dach.",
+    "relationship": [
+      "Haus ",
+      "hat",
+      "Dach"
+    ],
+    "solution": [
+      "1",
+      "1"
+    ],
+    "comment": [
+    "Ein Haus hat genau ein Dach.",
+    "Ein Dach gehört zu einem Haus."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420596X7684857580423949",
+    "text": "Ein Haus hat einen oder mehrere Eigentümer und einem Eigentümer können mehrere Häuser gehören.",
+    "relationship": [
+      "Eigentümer",
+      "hat",
+      "Haus"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420619X3057288813082464",
+    "text": "Ein Kunde bestellt einen oder mehrere Artikel und ein Artikel wird von mindestens einem Kunden bestellt.",
+    "relationship": [
+      "Kunde",
+      "bestellt",
+      "Artikel"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420641X7311306231793109",
+    "text": "Ein Patient hat einen oder keinen Blinddarm.",
+    "relationship": [
+      "Patient",
+      "hat",
+      "Blinddarm"
+    ],
+    "solution": [
+      "1",
+      "c"
+    ],
+    "comment": [
+    "Patient hat einen oder auch keinen Blinddarm, wenn dieser schon entfernt wurde.",
+    "Ein Blinddarm gehört genau zu einem Menschen."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420663X6265434422712357",
+    "text": "Ein Schüler besucht genau eine Klasse und eine Klasse hat mehrere Schüler.",
+    "relationship": [
+      "Klasse",
+      "besucht",
+      "Schüler"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420686X414457135527468",
+    "text": "Zu einem rechten Schuh gehört genau ein linker Schuh.",
+    "relationship": [
+      "Rechter Schuh",
+      "gehört zu",
+      "Linker Schuh"
+    ],
+    "solution": [
+      "1",
+      "1"
+    ],
+    "comment": [
+    "Zu einem rechten Schuh gehört genau ein linker Schuh.",
+    "Zu einem linken Schuh gehört genau ein rechter Schuh."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420709X48052092711432715",
+    "text": "Ein Ehemann hat höchsten eine Ehefrau. Auch Witwer und Witwen sollen abgebildet sein.",
+    "relationship": [
+      "Ehemann",
+      "hat",
+      "Ehefrau"
+    ],
+    "solution": [
+      "c",
+      "c"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420732X5095399112534138",
+    "text": "Ein Ehemann hat genau eine Ehefrau. Nur verheiratete Paare sind in der Datenbank, bei denen beide Ehepartner leben, gespeichert.",
+    "relationship": [
+      "Ehemann",
+      "hat",
+      "Ehefrau"
+    ],
+    "solution": [
+      "1",
+      "1"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420754X4247520667535123",
+    "text": "Ein Mitarbeiter hat mehrere Fähigkeiten, wobei einige Mitarbeiter auch gänzlich unbegabt sind und manche Fähigkeiten von keinem Mitarbeiter belegt sind.",
+    "relationship": [
+      "Mitarbeiter",
+      "besitzt",
+      "Fähigkeiten"
+    ],
+    "solution": [
+      "cn",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420776X4609283931543491",
+    "text": "Ein Mensch kann keine, eine oder mehrere Staatsangehörigkeiten haben.",
+    "relationship": [
+      "Mensch",
+      "besitzt",
+      "Staatsangehörigkeit"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420798X7983497181617383",
+    "text": "Eine Person kann Mitglied in einer Partei sein, aber nicht mehreren Parteien angehören.",
+    "relationship": [
+      "Partei",
+      "Mitglied",
+      "Person"
+    ],
+    "solution": [
+      "c",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420821X4187427548116016",
+    "text": "Zwischen zwei Standorten gibt es genau eine Distanz.",
+    "relationship": [
+      "Standort",
+      "Distanz",
+      "Standort"
+    ],
+    "solution": [
+      "1",
+      "1"
+    ],
+    "comment": [
+    "Es gibt genau eine Distanz zwischen zwei Standorten.",
+    "Es gibt genau eine Distanz zwischen zwei Standorten."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420843X10457345731103906",
+    "text": "Eine Person ist mit keiner, einer oder mehreren Personen befreundet. (Selbstreferenz/rekursive Beziehung, die darstellungstechnisch mit zwei Entitymengen dargestellt wird.)",
+    "relationship": [
+      "Person",
+      "befreundet",
+      "Person"
+    ],
+    "solution": [
+      "cn",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420865X7009093475518968",
+    "text": "Eine Stadt hat keinen, einen oder mehrere Bahnhöfe.",
+    "relationship": [
+      "Stadt",
+      "hat",
+      "Bahnhof"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420887X2763148467481489",
+    "text": "Ein Mitarbeiter hat höchsten einen PC und ein PC ist genau einem Mitarbeiter zugeordnet.",
+    "relationship": [
+      "Mitarbeiter",
+      "zugeordnet",
+      "PC"
+    ],
+    "solution": [
+      "1",
+      "c"
+    ],
+    "comment": [
+    "Mitarbeiter muss keinen PC haben. Wenn dann hat er aber höchstens einen PC.",
+    "Ein PC gehört immer nur einem Mitarbeiter. Es werden keine PCs unter den Mitarbeitern geteilt."
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420909X9456499851153144",
+    "text": "Eine Abteilung hat mehrere Mitarbeiter und ein Mitarbeiter gehört genau einer Abteilung an.",
+    "relationship": [
+      "Abteilung",
+      "zugehörig",
+      "Mitarbeiter"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420932X23375482088441846",
+    "text": "Ein Mitarbeiter kann in mehreren Projekten beteiligt sein und an einem Projekt sind ein oder mehrere Mitarbeiter beteiligt.",
+    "relationship": [
+      "Mitarbeiter",
+      "beteiligt",
+      "Projekt"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420953X37548859877486973",
+    "text": "Eine Student besucht mehrere Veranstaltungen und eine Veranstaltung besteht aus mindestens drei Studenten.",
+    "relationship": [
+      "Student",
+      "besucht",
+      "Veranstaltung"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583420977X053408782163849366",
+    "text": "Ein Kind hat einen Vater und ein Vater hat ein oder mehrere Kinder.",
+    "relationship": [
+      "Vater",
+      "hat",
+      "Kind"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:00+01:00",
+    "created_at": "2021-03-24T11:57:00+01:00"
+  },
+  {
+    "key": "1616583421001X30796314932136304",
+    "text": "Eine Fachhochschule besteht aus mehrere Fakultäten.",
+    "relationship": [
+      "Fachhochschule",
+      "besteht",
+      "Fakultät"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421023X527665587345217",
+    "text": "Eine Hand hat fünf Finger.",
+    "relationship": [
+      "Hand",
+      "hat",
+      "Finger"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421047X1493108197953803",
+    "text": "Ein Haus hat mehrere Räume.",
+    "relationship": [
+      "Haus",
+      "hat",
+      "Räume"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421069X3946822602985751",
+    "text": "Ein Buch hat einen oder mehrere Autoren und jeder Autor schreibt ein oder mehrere Bücher.",
+    "relationship": [
+      "Buch",
+      "geschrieben",
+      "Autor"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421092X9068991742578056",
+    "text": "Eine Mutter hat ein oder mehrere Kinder und ein Kind genau eine Mutter. ",
+    "relationship": [
+      "Mutter",
+      "hat",
+      "Kind"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421114X3698049576644409",
+    "text": "In einem Haus können Junggesellen wohnen und jeder Junggeselle wohnt in genau einem Haus.",
+    "relationship": [
+      "Haus",
+      "wohnen",
+      "Junggesellen"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421136X5730145146086294",
+    "text": "Eine Stadt hat genau einen Oberbürgermeister und ein Oberbürgermeister regiert genau eine Stadt.",
+    "relationship": [
+      "Stadt",
+      "regiert",
+      "Oberbürgermeister"
+    ],
+    "solution": [
+      "1",
+      "1"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421159X6312640223195494",
+    "text": "Eine Stadt hat mehrere Kirchen.",
+    "relationship": [
+      "Stadt",
+      "hat",
+      "Kirche"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421181X28224378610805334",
+    "text": "Eine Stadt hat höchstens eine U-Bahn.",
+    "relationship": [
+      "Stadt",
+      "hat",
+      "U-Bahn"
+    ],
+    "solution": [
+      "1",
+      "c"
+    ],
+    "comment": [
+    "Eine Stadt muss keine U-Bahn haben. Gibt es eine U-Bahn, dann höchstens eine.",
+    "Eine U-Bahn gehört genau zu  einer Stadt."
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421203X6593336169931256",
+    "text": "Eine Stadt kann mehrere U-Bahnhofstationen haben.",
+    "relationship": [
+      "Stadt",
+      "hat",
+      "U-Bahnhofstation"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "Eine Stadt muss keine U-Bahnstation haben. Es kann auch aber auch mehrere U-Bahnstationen in der Stadt geben.",
+    "Eine U-Bahnstation liegt genau in einer Stadt."
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421224X17963681252134833",
+    "text": "Eine Stadt liegt an einem, keinem oder mehreren Flüssen, die wiederum mehrere oder keine Städte durchfließen.",
+    "relationship": [
+      "Stadt",
+      "durchfließt",
+      "Fluß"
+    ],
+    "solution": [
+      "cn",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421249X4132406623045477",
+    "text": "Eine Mensch spricht eine oder mehrere Sprachen.",
+    "relationship": [
+      "Mensch",
+      "spricht",
+      "Sprache"
+    ],
+    "solution": [
+      "n",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421271X9637189742659666",
+    "text": "Eine Zutat wird in einem, keinem oder mehreren Rezepten verwendet und ein Rezept hat mehrere Zutaten.",
+    "relationship": [
+      "Zutat",
+      "verwendet",
+      "Rezept"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421293X7710473957112749",
+    "text": "Ein Mensch kann ein oder mehrere Geschwister haben. (Beziehung, die mit zwei Entitymengen dargestellt wird.)",
+    "relationship": [
+      "Mensch",
+      "ist Geschwister von",
+      "Mensch"
+    ],
+    "solution": [
+      "cn",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421314X9687229116301914",
+    "text": "Ein wissenschaftlicher Aufsatz wird in keinem, einem oder mehreren wissenschaftlichen Aufsätzen zitiert. (Selbstreferenz/rekursive Beziehung, die darstellungstechnisch mit zwei Entitymengen dargestellt wird.)",
+    "relationship": [
+      "Aufsatz",
+      "wird zitiert",
+      "Aufsatz"
+    ],
+    "solution": [
+      "cn",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421335X4230597460716079",
+    "text": "Eine Sonne hat einen oder mehrere Planeten.",
+    "relationship": [
+      "Sonne",
+      "hat",
+      "Planet"
+    ],
+    "solution": [
+      "1",
+      "n"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421358X9469178215856866",
+    "text": "Ein Planet hat keinen, einen odere mehrere Monde.",
+    "relationship": [
+      "Planet",
+      "hat",
+      "Mond"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421380X01667912042792663",
+    "text": "Ein Komponist kann ein oder mehrere Opern komponieren und  eine Oper hat mindestens einen oder mehrere Komponisten.",
+    "relationship": [
+      "Komponist",
+      "komponiert",
+      "Oper"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421402X985426549990172",
+    "text": "Ein Orchester besteht aus mehreren Musikern und ein Musiker kann zu keinem, einem oder mehreren Orchestern gehören.",
+    "relationship": [
+      "Musiker",
+      "gehört",
+      "Orchester"
+    ],
+    "solution": [
+      "n",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421426X7643824450622265",
+    "text": "Zu einer Weinsorte können mehrere Flaschen im Keller liegen und eine Weinflasche gehört genau zu einer Weinsorte, bis auf die selbstgebrauten Flaschen, die zu keiner Sorte gehören.",
+    "relationship": [
+      "Weinsorte",
+      "gehört zu",
+      "Weinflasche"
+    ],
+    "solution": [
+      "c",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421450X5009926036629044",
+    "text": "Zwischen zwei Haltestellen eines Verkehrsbetriebes besteht eine oder keine Verbindung.",
+    "relationship": [
+      "Haltestelle1",
+      "verbindet",
+      "Haltestelle2"
+    ],
+    "solution": [
+      "c",
+      "c"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421473X32401336036349226",
+    "text": "Ein Staat besteht aus keinem, einem oder mehreren Bundesländern.",
+    "relationship": [
+      "Staat",
+      "besteht aus",
+      "Bundesland"
+    ],
+    "solution": [
+      "1",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  },
+  {
+    "key": "1616583421495X8341642651796821",
+    "text": "Ein Staat grenzt an mehrere Bundsländer, wenn es kein Inselstaat ist.",
+    "relationship": [
+      "Staat1",
+      "grenzt an",
+      "Staat2"
+    ],
+    "solution": [
+      "cn",
+      "cn"
+    ],
+    "comment": [
+    "",
+    ""
+    ],
+    "updated_at": "2021-03-24T11:57:01+01:00",
+    "created_at": "2021-03-24T11:57:01+01:00"
+  }
+]

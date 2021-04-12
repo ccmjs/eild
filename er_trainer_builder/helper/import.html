@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<script src="https://ccmjs.github.io/ccm/ccm.js"></script>
+<script>
+  ( async () => {
+    if ( !confirm( 'Are you really sure to overwrite all phrases with the data in the JSON file?' ) ) return;
+    const phrases = await ccm.load( './phrases.json' );
+    console.log( 'Phrases in JSON file:', phrases );
+    const store = await ccm.store( { name: 'eild-er_trainer-phrases', url: 'https://ccm2.inf.h-brs.de' } );
+    phrases.forEach( phrase => store.set( phrase ) );
+    console.log( 'Updated Phrases in Database:', await store.get() );
+  } )();
+</script>
