@@ -20,7 +20,7 @@ ccm.files[ 'resources.js' ] = {
 
   "demo": {
     "data": {
-      "store": [ "ccm.store", { "local": [ "ccm.load", "https://ccmjs.github.io/akless-components/er_trainer/resources/resources.js" ] } ],
+      "store": [ "ccm.store", { "local": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources.js" ] } ],
       "key": "demo"
     },
     "onfinish": { "log": true },
@@ -28,7 +28,7 @@ ccm.files[ 'resources.js' ] = {
   },
 
   "dms": {
-    "css": [ "ccm.load", "https://ccmjs.github.io/akless-components/er_trainer_builder/resources/default.css" ],
+    "css": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer_builder/resources/default.css" ],
     "libs": null,
     "preview": null,
     "results": { "store": { "name": "er_trainer-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } },
