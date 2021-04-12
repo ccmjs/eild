@@ -209,7 +209,7 @@
         if ( section.correct ) dataset.correct++;
         this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
         render();
-        !this.show_solution && onNextClick();
+        !this.feedback && onNextClick();
       };
 
       /** when 'next' button is clicked */

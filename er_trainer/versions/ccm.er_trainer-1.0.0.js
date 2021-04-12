@@ -209,11 +209,8 @@
         section.correct = section.input.toString() === section.solution.toString();
         if ( section.correct ) dataset.correct++;
         this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
-        if ( this.show_solution ) {
-          phrases.shift();
-          nextPhrase();
-        }
-        else render();
+        render();
+        !this.feedback && onNextClick();
       };
 
       /** when 'next' button is clicked */
