@@ -1303,7 +1303,7 @@ function notationModal( notation ) {
                   An optional comment can be specified for each notation, which provides information on the peculiarities of the notation.
                 </div>
               </div>
-              <textarea name="notations.${notation.key}.comment" class="form-control" id="erb-notation-${notation.key}-comment">${notation.comment}</textarea>
+              <textarea name="notations.${notation.key}.comment" class="form-control" id="erb-notation-${notation.key}-comment" .value=${notation.comment}></textarea>
             </div>
 
           </div>
@@ -1388,7 +1388,7 @@ function phraseModal( config, phrase ) {
                   Choose the text of the phrase that describes the dependency between two entities.
                 </div>
               </div>
-              <textarea name="phrases.${phrase.key}.text" class="form-control" id="erb-phrase-${phrase.key}-text">${phrase.text}</textarea>
+              <textarea name="phrases.${phrase.key}.text" class="form-control" id="erb-phrase-${phrase.key}-text" .value=${phrase.text}></textarea>
             </div>
 
             <!-- Left Entity -->
@@ -1489,7 +1489,7 @@ function phraseModal( config, phrase ) {
                   The comment is only displayed if the phrase was answered incorrectly.
                 </div>
               </div>
-              <textarea name="phrases.${phrase.key}.comment.0" class="form-control" id="erb-phrase-${phrase.key}-comment1">${phrase.comment?phrase.comment[0]:''}</textarea>
+              <textarea name="phrases.${phrase.key}.comment.0" class="form-control" id="erb-phrase-${phrase.key}-comment1" .value=${phrase.comment?phrase.comment[0]:''}></textarea>
             </div>
 
             <!-- Right Comment -->
@@ -1506,7 +1506,7 @@ function phraseModal( config, phrase ) {
                   The comment is only displayed if the phrase was answered incorrectly.
                 </div>
               </div>
-              <textarea name="phrases.${phrase.key}.comment.1" class="form-control" id="erb-phrase-${phrase.key}-comment2">${phrase.comment?phrase.comment[1]:''}</textarea>
+              <textarea name="phrases.${phrase.key}.comment.1" class="form-control" id="erb-phrase-${phrase.key}-comment2" .value=${phrase.comment?phrase.comment[1]:''}></textarea>
             </div>
             
           </div>
