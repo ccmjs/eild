@@ -142,7 +142,7 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
         </section>
 
         <!-- Current State -->
-        <section class="text-center px-2 pb-2">
+        <section class="text-center px-2 pb-2" ?data-hidden=${!app.feedback}>
           <small id="current_state">${app.ccm.helper.html(app.text.current_state,data.correct.toString(),data.total.toString())}</small>
         </section>
         
