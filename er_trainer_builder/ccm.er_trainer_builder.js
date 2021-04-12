@@ -216,6 +216,11 @@
         } );
       };
 
+      /**
+       * adjusts notations and phrases data
+       * @param {Object} config
+       * @returns {Promise<Object>}
+       */
       const adjustDataset = async config => {
         config.notations = $.clone( config.notations );
         for ( const key in config.notations ) {
@@ -232,17 +237,20 @@
         return config;
       };
 
+      /** when 'delete' button of a notation is clicked */
       function onDeleteNotation() {
         delete dataset.notations[ this.dataset.key ];
         self.render( dataset );
       }
 
+      /** when 'reset' button for notations is clicked */
       async function onResetNotations() {
         dataset.notations = self.tool.config.notations;
         await adjustDataset( dataset );
         self.render( dataset );
       }
 
+      /** when 'delete' button of a phrase is clicked */
       function onDeletePhrase() {
         delete dataset.phrases[ this.dataset.key ];
         self.render( dataset );

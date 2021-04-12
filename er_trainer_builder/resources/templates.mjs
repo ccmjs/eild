@@ -10,6 +10,9 @@ export { render };
  * returns the main HTML template
  * @param {Object} config - initial app configuration
  * @param {Object} builder - app builder instance
+ * @param {Function} onDeleteNotation - when 'delete' button of a notation is clicked
+ * @param {Function} onResetNotations - when 'reset' button for notations is clicked
+ * @param {Function} onDeletePhrase - when 'delete' button of a phrase is clicked
  * @returns {TemplateResult} main HTML template
  */
 export function main( config, builder, onDeleteNotation, onResetNotations, onDeletePhrase ) {
@@ -1056,6 +1059,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
 /**
  * returns the HTML template for a notation row
  * @param {Object} notation - notation data
+ * @param {Function} onDeleteNotation - when 'delete' button of a notation is clicked
  * @returns {TemplateResult} HTML template for a notation row
  */
 function notationRow( notation, onDeleteNotation ) {
@@ -1315,6 +1319,7 @@ function notationModal( notation ) {
 /**
  * returns the HTML template for a phrase row
  * @param {Object} phrase - phrase data
+ * @param {Function} onDeletePhrase - when 'delete' button of a phrase is clicked
  * @returns {TemplateResult} HTML template for a phrase row
  */
 function phraseRow( phrase, onDeletePhrase ) {
