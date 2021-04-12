@@ -141,6 +141,18 @@
           this.render( dataset );
         } );
 
+        // listen to submit event of the HTML form for adding a phrase
+        this.submit && this.element.querySelector( '#erb-phrase-form' ).addEventListener( 'submit', event => {
+          event.preventDefault();
+          const form = this.element.querySelector( '#erb-phrase-form' );
+          const phrase = $.formData( form );
+          phrase.key = $.generateKey();
+          dataset.phrases[ phrase.key ] = phrase;
+          jQuery( '#erb-add-phrase' ).modal( 'hide' );
+          form.reset();
+          this.render( dataset );
+        } );
+
       };
 
       /**
@@ -212,7 +224,10 @@
             notation.images = config.default.images.map( image => image.includes( '.' ) ? image : ( notation.path || config.default.path ) + notation.key + '/' + image + '.' + ( notation.format || config.default.format ) );
         }
         const phrases = {};
-        $.clone( await $.solveDependency( config.phrases ) ).forEach( phrase => { phrase.key = phrase.key || $.generateKey(); phrases[ phrase.key ] = phrase; } );
+        $.clone( await $.solveDependency( config.phrases ) ).forEach( phrase => {
+          phrase.key = phrase.key || $.generateKey();
+          phrases[ phrase.key ] = phrase;
+        } );
         config.phrases = phrases;
         return config;
       };

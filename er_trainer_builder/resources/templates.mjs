@@ -842,7 +842,23 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                   </div>
                 </div>
               </div>
-  
+              
+              <!-- Comment -->
+              <div class="form-group">
+                <label for="erb-add-notation-comment">Comment</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-comment" aria-expanded="false" aria-controls="erb-info-add-notation-comment">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-notation-comment">
+                  <div class="bg-info text-light rounded p-2">
+                    An optional comment can be specified for each notation, which provides information on the peculiarities of the notation.
+                  </div>
+                </div>
+                <textarea name="comment" class="form-control" id="erb-add-notation-comment"></textarea>
+              </div>
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -965,6 +981,41 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                   ${Object.values(config.values).map((value,i)=>html`<option value="${value}">${config.text.selection[i+1]}</option>`)}
                 </select>
               </div>
+
+              <!-- Left Comment -->
+              <div class="form-group">
+                <label for="erb-add-phrase-comment1">Left Comment</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-comment1" aria-expanded="false" aria-controls="erb-info-add-phrase-comment1">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-comment1">
+                  <div class="bg-info text-light rounded p-2">
+                    An optional comment can be entered for the left solution that explains why this solution is correct.
+                    The comment is only displayed if the phrase was answered incorrectly.
+                  </div>
+                </div>
+                <textarea name="comment.0" class="form-control" id="erb-add-phrase-comment1"></textarea>
+              </div>
+              
+              <!-- Right Comment -->
+              <div class="form-group">
+                <label for="erb-add-phrase-comment1">Right Comment</label>
+                <span type="button" data-toggle="collapse" data-target="#erb-info-add-phrase-comment2" aria-expanded="false" aria-controls="erb-info-add-phrase-comment2">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+                <div class="collapse" id="erb-info-add-phrase-comment2">
+                  <div class="bg-info text-light rounded p-2">
+                    An optional comment can be entered for the right solution that explains why this solution is correct.
+                    The comment is only displayed if the phrase was answered incorrectly.
+                  </div>
+                </div>
+                <textarea name="comment.1" class="form-control" id="erb-add-phrase-comment2"></textarea>
+              </div>
+              
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1235,6 +1286,22 @@ function notationModal( notation ) {
               </div>
             </div>
 
+            <!-- Comment -->
+            <div class="form-group">
+              <label for="erb-notation-${notation.key}-comment">Comment</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-comment" aria-expanded="false" aria-controls="erb-info-notation-${notation.key}-comment">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+              <div class="collapse" id="erb-info-notation-${notation.key}-comment">
+                <div class="bg-info text-light rounded p-2">
+                  An optional comment can be specified for each notation, which provides information on the peculiarities of the notation.
+                </div>
+              </div>
+              <textarea name="notations.${notation.key}.comment" class="form-control" id="erb-notation-${notation.key}-comment">${notation.comment}</textarea>
+            </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1401,6 +1468,40 @@ function phraseModal( config, phrase ) {
               <select class="form-control" name="phrases.${phrase.key}.solution.1" id="erb-phrase-${phrase.key}-solution2">
                 ${Object.values(config.values).map((value,i)=>html`<option value="${value}" ?selected=${phrase.solution[1]===value}>${config.text.selection[i+1]}</option>`)}
               </select>
+            </div>
+
+            <!-- Left Comment -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-comment1">Left Comment</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-comment1" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-comment1">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-comment1">
+                <div class="bg-info text-light rounded p-2">
+                  An optional comment can be entered for the left solution that explains why this solution is correct.
+                  The comment is only displayed if the phrase was answered incorrectly.
+                </div>
+              </div>
+              <textarea name="phrases.${phrase.key}.comment.0" class="form-control" id="erb-phrase-${phrase.key}-comment1">${phrase.comment?phrase.comment[0]:''}</textarea>
+            </div>
+
+            <!-- Right Comment -->
+            <div class="form-group">
+              <label for="erb-phrase-${phrase.key}-comment2">Right Comment</label>
+              <span type="button" data-toggle="collapse" data-target="#erb-info-phrase-${phrase.key}-comment2" aria-expanded="false" aria-controls="erb-info-phrase-${phrase.key}-comment2">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
+              <div class="collapse" id="erb-info-phrase-${phrase.key}-comment2">
+                <div class="bg-info text-light rounded p-2">
+                  An optional comment can be entered for the right solution that explains why this solution is correct.
+                  The comment is only displayed if the phrase was answered incorrectly.
+                </div>
+              </div>
+              <textarea name="phrases.${phrase.key}.comment.1" class="form-control" id="erb-phrase-${phrase.key}-comment2">${phrase.comment?phrase.comment[1]:''}</textarea>
             </div>
             
           </div>
