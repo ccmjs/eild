@@ -6,7 +6,7 @@
 
 #element {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 1em;
+  padding: 1em;
 }
 
 #diagram {
@@ -93,4 +93,8 @@
 
 *[data-hidden] {
   display: none !important;
+}
+
+.phrase-comment {
+  max-width: 50%;
 }

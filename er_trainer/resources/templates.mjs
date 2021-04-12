@@ -23,7 +23,7 @@ export { render };
  * @returns {TemplateResult} main HTML template
  */
 export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputChange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ) {
-  let { centered, images, left, swap } = app.notations[ data.notation ];
+  let { centered, comment, images, left, swap } = app.notations[ data.notation ];
   const section = data.sections[ phrase_nr - 1 ];
   return html`
     <h1 class="mx-3">${app.text.title}</h1> <!-- Title -->
@@ -101,6 +101,21 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
           </div>
         </section>
 
+        <!-- Notation Comment -->
+        <section ?data-hidden=${!comment||app.feedback&&section.correct!==undefined}>
+          <div class="alert alert-info mt-3 mb-0" role="alert">${comment}</div>
+        </section>
+
+        <!-- Phrase Comments -->
+        <section class="d-flex justify-content-between" ?data-hidden=${!app.feedback||section.correct===undefined||section.correct||!phrase.comment||!phrase.comment[0]&&!phrase.comment[1]}>
+          <div class="mr-2 phrase-comment">
+            <div class="alert alert-info" role="alert" ?data-hidden=${section.input[swap?1:0]===section.solution[swap?1:0]||phrase.comment&&!phrase.comment[0]}>${phrase.comment&&phrase.comment[0]}</div>
+          </div>
+          <div class="ml-2 phrase-comment">
+            <div class="alert alert-info" role="alert" ?data-hidden=${section.input[swap?0:1]===section.solution[swap?0:1]||phrase.comment&&!phrase.comment[1]}>${phrase.comment&&phrase.comment[1]}</div>
+          </div>
+        </section>
+        
         <!-- Correct Solution -->
         <section class="d-flex flex-column align-items-center px-2" ?data-hidden=${!app.feedback||section.correct===undefined||section.correct}>
           <div class="lead">${app.text.correct_solution}</div>
