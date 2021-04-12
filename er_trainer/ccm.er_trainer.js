@@ -223,6 +223,7 @@
       const onFinishClick = () => {
         this.element.classList.remove( 'correct' );
         this.element.classList.remove( 'failed' );
+        phrases.shift();
         this.onfinish && $.onFinish( this );
       }
 
