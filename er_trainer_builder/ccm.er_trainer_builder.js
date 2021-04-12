@@ -228,14 +228,17 @@
           if ( !notation.images )
             notation.images = config.default.images.map( image => image.includes( '.' ) ? image : ( notation.path || config.default.path ) + notation.key + '/' + image + '.' + ( notation.format || config.default.format ) );
         }
-        const phrases = {};
-        $.clone( await $.solveDependency( config.phrases ) ).forEach( phrase => {
-          phrase.key = phrase.key || $.generateKey();
-          phrases[ phrase.key ] = phrase;
-        } );
-        config.phrases = phrases;
+        config.phrases = $.clone( await $.solveDependency( config.phrases ) );
+        if ( Array.isArray( config.phrases ) ) {
+          const phrases = {};
+          config.phrases.forEach( phrase => {
+            phrase.key = phrase.key || $.generateKey();
+            phrases[ phrase.key ] = phrase;
+          } );
+          config.phrases = phrases;
+        }
         return config;
-      };
+      }
 
       /** when 'delete' button of a notation is clicked */
       function onDeleteNotation() {
