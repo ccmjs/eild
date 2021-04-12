@@ -29,7 +29,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
               </button>
             </h2>
           </div>
-          <div id="erb-general-collapse" class="collapse" aria-labelledby="erb-general-heading" data-parent="#erb-accordion">
+          <div id="erb-general-collapse" class="collapse show" aria-labelledby="erb-general-heading" data-parent="#erb-accordion">
             <div class="card-body">
 
               <!-- Layout -->
@@ -179,7 +179,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
               </button>
             </h2>
           </div>
-          <div id="erb-phrases-collapse" class="collapse show" aria-labelledby="erb-phrases-heading" data-parent="#erb-accordion">
+          <div id="erb-phrases-collapse" class="collapse" aria-labelledby="erb-phrases-heading" data-parent="#erb-accordion">
             <div class="card-body p-0">
               <table class="table table-hover m-0">
                 <tbody>
