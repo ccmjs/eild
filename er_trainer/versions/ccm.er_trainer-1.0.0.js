@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for ER model training
  * @author André Kless <andre.kless@web.de> 2021
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version 1.0.0
  * @changes
  * version 1.0.0 (04.04.2021)
  */
@@ -11,6 +11,7 @@
 
   const component = {
     name: 'er_trainer',
+    version: [ 1, 0, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.3.0.js',
     config: {
       "css": [ "ccm.load",
