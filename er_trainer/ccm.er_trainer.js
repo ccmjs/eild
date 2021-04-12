@@ -117,7 +117,8 @@
             swap: !!notation.swap,
             centered: !!notation.centered,
             left: notation.left || this.default.left,
-            images: ( notation.images || this.default.images ).map( image => image.includes( '.' ) ? image : ( notation.path || this.default.path ) + notation.key + '/' + image + '.' + ( notation.format || this.default.format ) )
+            images: ( notation.images || this.default.images ).map( image => image.includes( '.' ) ? image : ( notation.path || this.default.path ) + notation.key + '/' + image + '.' + ( notation.format || this.default.format ) ),
+            comment: notation.comment
           };
         }
 
