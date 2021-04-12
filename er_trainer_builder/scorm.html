@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+
+<script src="https://ccmjs.github.io/ccm/ccm.js"></script>
+<script>
+  ( async () => {
+    const helper = await ccm.load( 'https://ccmjs.github.io/akless-components/modules/helper.mjs' );
+    let embed_code = `$script src="https://ccmjs.github.io/eild/er_trainer_builder/versions/ccm.er_trainer_builder-1.0.0.js"%$/script%$ccm-er_trainer_builder-1-0-0 key='["ccm.get","https://ccmjs.github.io/eild/er_trainer_builder/resources/resources.js","lea"]'%$/ccm-er_trainer_builder-1-0-0%`;
+    embed_code = embed_code.replace( /\$/g, '<' ).replace( /%/g, '>' );
+    await helper.scorm( embed_code );
+  } )();
+</script>
