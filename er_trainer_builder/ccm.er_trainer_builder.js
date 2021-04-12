@@ -170,6 +170,7 @@
       this.getValue = () => {
         const config = $.formData( this.element.querySelector( '#erb-main-form' ) );
         config.css = this.ignore.css[ config.css ].value;
+        config.default = Object.assign( dataset.default, config.default );
         if ( !config.finish ) config.onfinish = ''; delete config.finish;
         if ( !config.onfinish ) return config;
         const key = this.results.key || dataset.key || $.generateKey();
