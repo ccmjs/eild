@@ -117,7 +117,7 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
         </section>
         
         <!-- Correct Solution -->
-        <section class="d-flex flex-column align-items-center px-2" ?data-hidden=${!app.feedback||section.correct===undefined||section.correct}>
+        <section class="d-flex flex-column align-items-center px-2" ?data-hidden=${!app.feedback||!app.show_solution||section.correct===undefined||section.correct}>
           <div class="lead">${app.text.correct_solution}</div>
           <div class="d-flex align-items-center mt-3">
             <div>
