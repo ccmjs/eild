@@ -64,7 +64,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     How many phrases should be randomly selected and questioned?
                   </div>
                 </div>
-                <input type="number" required min="1" name="number" class="form-control" id="erb-number" value="${config.number}">
+                <input type="number" required min="1" name="number" class="form-control" id="erb-number" .value=${config.number}>
               </div>
 
               <!-- Default Notation -->
@@ -221,7 +221,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the displayed title of the app.
                   </div>
                 </div>
-                <input type="text" name="text.title" class="form-control" id="erb-text-title" value="${config.text.title}">
+                <input type="text" name="text.title" class="form-control" id="erb-text-title" .value=${config.text.title}>
               </div>
 
               <!-- Heading -->
@@ -237,7 +237,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the text for the headline.
                   </div>
                 </div>
-                <input type="text" name="text.heading" class="form-control" id="erb-text-heading" value="${config.text.heading}">
+                <input type="text" name="text.heading" class="form-control" id="erb-text-heading" .value=${config.text.heading}>
               </div>
 
               <!-- Selector Box for Used Notation -->
@@ -253,7 +253,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label for the selector box that determines the displayed notation in the diagram.
                   </div>
                 </div>
-                <input type="text" name="text.notation" class="form-control" id="erb-text-notation" value="${config.text.notation}">
+                <input type="text" name="text.notation" class="form-control" id="erb-text-notation" .value=${config.text.notation}>
               </div>
 
               <!-- Legend -->
@@ -269,7 +269,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label of the button that shows the legend.
                   </div>
                 </div>
-                <input type="text" name="text.legend" class="form-control" id="erb-text-legend" value="${config.text.legend}">
+                <input type="text" name="text.legend" class="form-control" id="erb-text-legend" .value=${config.text.legend}>
               </div>
 
               <!-- Phrase Prefix -->
@@ -286,7 +286,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     The placeholder "%%" will later be automatically replaced by the current phrase number dynamically.
                   </div>
                 </div>
-                <input type="text" name="text.phrase" class="form-control" id="erb-text-phrase" value="${config.text.phrase}">
+                <input type="text" name="text.phrase" class="form-control" id="erb-text-phrase" .value=${config.text.phrase}>
               </div>
 
               <!-- Left Entity -->
@@ -302,7 +302,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label for the left entity on the diagram.
                   </div>
                 </div>
-                <input type="text" name="text.entity1" class="form-control" id="erb-text-entity1" value="${config.text.entity1}">
+                <input type="text" name="text.entity1" class="form-control" id="erb-text-entity1" .value=${config.text.entity1}>
               </div>
 
               <!-- Right Entity -->
@@ -318,7 +318,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label for the right entity on the diagram.
                   </div>
                 </div>
-                <input type="text" name="text.entity2" class="form-control" id="erb-text-entity2" value="${config.text.entity2}">
+                <input type="text" name="text.entity2" class="form-control" id="erb-text-entity2" .value=${config.text.entity2}>
               </div>
 
               <!-- Left Selector Box -->
@@ -334,7 +334,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label for the left selector box for user answer.
                   </div>
                 </div>
-                <input type="text" name="text.input1" class="form-control" id="erb-text-input1" value="${config.text.input1}">
+                <input type="text" name="text.input1" class="form-control" id="erb-text-input1" .value=${config.text.input1}>
               </div>
 
               <!-- Right Selector Box -->
@@ -350,7 +350,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label of the right selector box for user answer.
                   </div>
                 </div>
-                <input type="text" name="text.input2" class="form-control" id="erb-text-input2" value="${config.text.input2}">
+                <input type="text" name="text.input2" class="form-control" id="erb-text-input2" .value=${config.text.input2}>
               </div>
 
               <!-- Selector Box Entries -->
@@ -382,7 +382,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     This text appears when a phrase has been answered correctly.
                   </div>
                 </div>
-                <input type="text" name="text.correct" class="form-control" id="erb-text-correct" value="${config.text.correct}">
+                <input type="text" name="text.correct" class="form-control" id="erb-text-correct" .value=${config.text.correct}>
               </div>
 
               <!-- Failed -->
@@ -398,7 +398,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     This text appears when a phrase has been answered incorrectly.
                   </div>
                 </div>
-                <input type="text" name="text.failed" class="form-control" id="erb-text-failed" value="${config.text.failed}">
+                <input type="text" name="text.failed" class="form-control" id="erb-text-failed" .value=${config.text.failed}>
               </div>
 
               <!-- Correct Solution -->
@@ -414,7 +414,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     This text appears when a phrase is answered incorrectly and the correct solution is revealed.
                   </div>
                 </div>
-                <input type="text" name="text.correct_solution" class="form-control" id="erb-text-correct_solution" value="${config.text.correct_solution}">
+                <input type="text" name="text.correct_solution" class="form-control" id="erb-text-correct_solution" .value=${config.text.correct_solution}>
               </div>
 
               <!-- Current State -->
@@ -431,7 +431,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     The placeholders "%%" will later be automatically replaced by the current values dynamically.
                   </div>
                 </div>
-                <input type="text" name="text.current_state" class="form-control" id="erb-text-current_state" value="${config.text.current_state}">
+                <input type="text" name="text.current_state" class="form-control" id="erb-text-current_state" .value=${config.text.current_state}>
               </div>
 
               <!-- Next Button -->
@@ -447,7 +447,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label of the button that starts the next phrase.
                   </div>
                 </div>
-                <input type="text" name="text.next" class="form-control" id="erb-text-next" value="${config.text.next}">
+                <input type="text" name="text.next" class="form-control" id="erb-text-next" .value=${config.text.next}>
               </div>
 
               <!-- Submit Button -->
@@ -463,7 +463,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label of the button that submits the solution selected by the user.
                   </div>
                 </div>
-                <input type="text" name="text.submit" class="form-control" id="erb-text-submit" value="${config.text.submit}">
+                <input type="text" name="text.submit" class="form-control" id="erb-text-submit" .value=${config.text.submit}>
               </div>
 
               <!-- Finish Button -->
@@ -479,7 +479,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Choose the label for the finish button.
                   </div>
                 </div>
-                <input type="text" name="text.finish" class="form-control" id="erb-text-finish" value="${config.text.finish}">
+                <input type="text" name="text.finish" class="form-control" id="erb-text-finish" .value=${config.text.finish}>
               </div>
 
             </div>
@@ -581,7 +581,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     To activate this, specify the text that will be displayed to the user in the confirm dialog.
                   </div>
                 </div>
-                <input type="text" name="onfinish.confirm" class="form-control" id="erb-confirm" value="${config.onfinish && config.onfinish.confirm || ''}">
+                <input type="text" name="onfinish.confirm" class="form-control" id="erb-confirm" .value=${config.onfinish&&config.onfinish.confirm||''}>
               </div>
 
               <!-- Success Message -->
@@ -597,7 +597,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     Here you can specify a message that will be displayed to the user when the submitted solution has been saved successfully.
                   </div>
                 </div>
-                <input type="text" name="onfinish.alert" class="form-control" id="erb-success" value="${config.onfinish && config.onfinish.alert || ''}">
+                <input type="text" name="onfinish.alert" class="form-control" id="erb-success" .value=${config.onfinish&&config.onfinish.alert||''}>
               </div>
 
               <!-- Next Content -->
@@ -634,7 +634,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
                     The app must be an app created in the Digital Makerspace.
                   </div>
                 </div>
-                <input type="text" name="app" class="form-control" id="erb-app" value="${config.onfinish && config.onfinish.render && config.onfinish.render.component && builder.helper.embedCode( config.onfinish.render.component, config.onfinish.render.config ) || ''}">
+                <input type="text" name="app" class="form-control" id="erb-app" .value=${config.onfinish&&config.onfinish.render&&config.onfinish.render.component&&builder.helper.embedCode(config.onfinish.render.component,config.onfinish.render.config)||''}>
               </div>
             </div>
           </div>
@@ -1111,7 +1111,7 @@ function notationModal( notation ) {
           <div class="modal-body">
 
             <!-- Key -->
-            <input type="hidden" name="notations.${notation.key}.key" value="${notation.key}">
+            <input type="hidden" name="notations.${notation.key}.key" .value=${notation.key}>
             
             <!-- Title -->
             <div class="form-group">
@@ -1127,7 +1127,7 @@ function notationModal( notation ) {
                   The notation is then listed under this title in the selection list for changing the notation.
                 </div>
               </div>
-              <input type="text" name="notations.${notation.key}.title" class="form-control" id="erb-notation-${notation.key}-title" value="${notation.title}">
+              <input type="text" name="notations.${notation.key}.title" class="form-control" id="erb-notation-${notation.key}-title" .value=${notation.title}>
             </div>
 
             <!-- None -->
@@ -1145,7 +1145,7 @@ function notationModal( notation ) {
                   The graphic is centered vertically in the app, so the heights can be different.
                 </div>
               </div>
-              <input type="url" name="notations.${notation.key}.images.0" class="form-control" id="erb-notation-${notation.key}-e" value="${notation.images[0]}">
+              <input type="url" name="notations.${notation.key}.images.0" class="form-control" id="erb-notation-${notation.key}-e" .value=${notation.images[0]}>
             </div>
 
             <!-- One -->
@@ -1163,7 +1163,7 @@ function notationModal( notation ) {
                   The graphic is centered vertically in the app, so the heights can be different.
                 </div>
               </div>
-              <input type="url" name="notations.${notation.key}.images.1" class="form-control" id="erb-notation-${notation.key}-1" value="${notation.images[1]}">
+              <input type="url" name="notations.${notation.key}.images.1" class="form-control" id="erb-notation-${notation.key}-1" .value=${notation.images[1]}>
             </div>
 
             <!-- Conditional -->
@@ -1181,7 +1181,7 @@ function notationModal( notation ) {
                   The graphic is centered vertically in the app, so the heights can be different.
                 </div>
               </div>
-              <input type="url" name="notations.${notation.key}.images.2" class="form-control" id="erb-notation-${notation.key}-c" value="${notation.images[2]}">
+              <input type="url" name="notations.${notation.key}.images.2" class="form-control" id="erb-notation-${notation.key}-c" .value=${notation.images[2]}>
             </div>
 
             <!-- Many -->
@@ -1199,7 +1199,7 @@ function notationModal( notation ) {
                   The graphic is centered vertically in the app, so the heights can be different.
                 </div>
               </div>
-              <input type="url" name="notations.${notation.key}.images.3" class="form-control" id="erb-notation-${notation.key}-n" value="${notation.images[3]}">
+              <input type="url" name="notations.${notation.key}.images.3" class="form-control" id="erb-notation-${notation.key}-n" .value=${notation.images[3]}>
             </div>
 
             <!-- Conditional Many -->
@@ -1217,7 +1217,7 @@ function notationModal( notation ) {
                   The graphic is centered vertically in the app, so the heights can be different.
                 </div>
               </div>
-              <input type="url" name="notations.${notation.key}.images.4" class="form-control" id="erb-notation-${notation.key}-cn" value="${notation.images[4]}">
+              <input type="url" name="notations.${notation.key}.images.4" class="form-control" id="erb-notation-${notation.key}-cn" .value=${notation.images[4]}>
             </div>
 
             <!-- Relation -->
@@ -1235,7 +1235,7 @@ function notationModal( notation ) {
                   The graphic is centered vertically in the app, so the heights can be different.
                 </div>
               </div>
-              <input type="url" name="notations.${notation.key}.images.5" class="form-control" id="erb-notation-${notation.key}-r" value="${notation.images[5]}">
+              <input type="url" name="notations.${notation.key}.images.5" class="form-control" id="erb-notation-${notation.key}-r" .value=${notation.images[5]}>
             </div>
             
             <!-- Left -->
@@ -1373,7 +1373,7 @@ function phraseModal( config, phrase ) {
           <div class="modal-body">
 
             <!-- Key -->
-            <input type="hidden" name="phrases.${phrase.key}.key" value="${phrase.key}">
+            <input type="hidden" name="phrases.${phrase.key}.key" .value=${phrase.key}>
             
             <!-- Text -->
             <div class="form-group">
@@ -1404,7 +1404,7 @@ function phraseModal( config, phrase ) {
                   Choose the name for the left entity.
                 </div>
               </div>
-              <input type="text" name="phrases.${phrase.key}.relationship.0" class="form-control" id="erb-phrase-${phrase.key}-entity1" value="${phrase.relationship[0]}">
+              <input type="text" name="phrases.${phrase.key}.relationship.0" class="form-control" id="erb-phrase-${phrase.key}-entity1" .value=${phrase.relationship[0]}>
             </div>
             
             <!-- Relation -->
@@ -1420,7 +1420,7 @@ function phraseModal( config, phrase ) {
                   Choose the name for the relation between the two entities.
                 </div>
               </div>
-              <input type="text" name="phrases.${phrase.key}.relationship.1" class="form-control" id="erb-phrase-${phrase.key}-relation" value="${phrase.relationship[1]}">
+              <input type="text" name="phrases.${phrase.key}.relationship.1" class="form-control" id="erb-phrase-${phrase.key}-relation" .value=${phrase.relationship[1]}>
             </div>
             
             <!-- Right Entity -->
@@ -1436,7 +1436,7 @@ function phraseModal( config, phrase ) {
                   Choose the name for the right entity.
                 </div>
               </div>
-              <input type="text" name="phrases.${phrase.key}.relationship.2" class="form-control" id="erb-phrase-${phrase.key}-entity2" value="${phrase.relationship[2]}">
+              <input type="text" name="phrases.${phrase.key}.relationship.2" class="form-control" id="erb-phrase-${phrase.key}-entity2" .value=${phrase.relationship[2]}>
             </div>
             
             <!-- Left Solution -->

@@ -108,15 +108,13 @@
         // get initial app configuration (priority order: [high] this.data -> this.defaults -> this.tool.config [low])
         dataset = await adjustDataset( await $.integrate( await $.dataset( this.data ), await $.integrate( this.defaults, this.tool.config ) ) );
 
-        this.logger && this.logger.log( 'start', $.clone( dataset ) );                  // logging of 'start' event
-        this.render( dataset );                                                         // render main HTML template
-        jQuery( '[data-toggle=popover]' ).popover();                                    // initialize popovers for info icons
-
-        // prepare input fields for lanes, members and priorities
-        selectize( '#erb-text-selection', dataset.text.selection, '' );
+        this.logger && this.logger.log( 'start', $.clone( dataset ) );   // logging of 'start' event
+        this.render( dataset );                                          // render main HTML template
+        jQuery( '[data-toggle=popover]' ).popover();                     // initialize popovers for info icons
+        selectize( '#erb-text-selection', dataset.text.selection, '' );  // initialize input field for selectize
 
         // listen to change events of the input fields
-        this.element.querySelectorAll( '*[name]' ).forEach( input => input.addEventListener( 'change', () => this.render() ) );
+        this.element.querySelectorAll( '*[name]' ).forEach( input => input.addEventListener( 'change', () => this.render( dataset = this.getValue() ) ) );
 
         // update app preview in modal dialog
         jQuery( '#erb-preview' ).on( 'show.bs.modal', () => this.tool.start( Object.assign( this.getValue(), { root: this.element.querySelector( '#erb-preview-body' ) } ) ) );
@@ -124,9 +122,9 @@
         // listen to submit event of the main HTML form
         this.submit && this.element.querySelector( '#erb-main-form' ).addEventListener( 'submit', event => {
           event.preventDefault();
-          const result_data = this.getValue();                                 // get result data
-          this.logger && this.logger.log( 'finish', $.clone( result_data ) );  // logging of 'finish' event
-          $.onFinish( this, result_data );                                     // trigger finish actions
+          const config = this.getValue();                                 // get result data
+          this.logger && this.logger.log( 'finish', $.clone( config ) );  // logging of 'finish' event
+          $.onFinish( this, config );                                     // trigger finish actions
         } );
 
         // listen to submit event of the HTML form for adding a notation
