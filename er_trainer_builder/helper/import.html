@@ -8,7 +8,14 @@
     const phrases = await ccm.load( './phrases.json' );
     console.log( 'Phrases in JSON file:', phrases );
     const store = await ccm.store( { name: 'eild-er_trainer-phrases', url: 'https://ccm2.inf.h-brs.de' } );
-    phrases.forEach( phrase => store.set( phrase ) );
+    phrases.forEach( phrase => {
+      if ( phrase.comment ) {
+        const comment = phrase.comment[ 1 ];
+        phrase.comment[ 1 ] = phrase.comment[ 0 ];
+        phrase.comment[ 0 ] = comment;
+      }
+      store.set( phrase );
+    } );
     console.log( 'Updated Phrases in Database:', await store.get() );
   } )();
 </script>
