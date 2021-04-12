@@ -1303,7 +1303,7 @@ function notationModal( notation ) {
                   An optional comment can be specified for each notation, which provides information on the peculiarities of the notation.
                 </div>
               </div>
-              <textarea name="notations.${notation.key}.comment" class="form-control" id="erb-notation-${notation.key}-comment" .value=${notation.comment}></textarea>
+              <textarea name="notations.${notation.key}.comment" class="form-control" id="erb-notation-${notation.key}-comment" .value=${notation.comment||''}></textarea>
             </div>
 
           </div>
