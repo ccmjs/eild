@@ -109,10 +109,10 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
         <!-- Phrase Comments -->
         <section class="d-flex justify-content-between" ?data-hidden=${!app.feedback||section.correct===undefined||section.correct||!phrase.comment||!phrase.comment[0]&&!phrase.comment[1]}>
           <div class="mr-2 phrase-comment">
-            <div class="alert alert-info" role="alert" ?data-hidden=${section.input[swap?1:0]===section.solution[swap?1:0]||phrase.comment&&!phrase.comment[swap?1:0]}>${phrase.comment&&phrase.comment[0]}</div>
+            <div class="alert alert-info" role="alert" ?data-hidden=${section.input[swap?1:0]===section.solution[swap?1:0]||phrase.comment&&!phrase.comment[swap?1:0]}>${phrase.comment&&phrase.comment[swap?1:0]}</div>
           </div>
           <div class="ml-2 phrase-comment">
-            <div class="alert alert-info" role="alert" ?data-hidden=${section.input[swap?0:1]===section.solution[swap?0:1]||phrase.comment&&!phrase.comment[swap?0:1]}>${phrase.comment&&phrase.comment[1]}</div>
+            <div class="alert alert-info" role="alert" ?data-hidden=${section.input[swap?0:1]===section.solution[swap?0:1]||phrase.comment&&!phrase.comment[swap?0:1]}>${phrase.comment&&phrase.comment[swap?0:1]}</div>
           </div>
         </section>
         
