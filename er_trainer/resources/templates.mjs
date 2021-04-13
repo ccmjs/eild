@@ -89,13 +89,13 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
         <section class="d-flex justify-content-between align-items-center px-2 py-3" ?data-hidden=${section.correct!==undefined}>
           <div class="d-flex align-items-center pr-2">
             <label for="input1" class="m-0 text-nowrap"><b>${app.text.input1}</b></label>
-            <select id="input1" class="form-control ml-2" @change=${onLeftInputChange}>
+            <select id="input1" class="form-control ml-2" @change=${swap?onRightInputChange:onLeftInputChange}>
               ${app.text.selection.map((caption,i)=>html`<option value="${app.values[i-1]||''}" ?selected=${app.values.indexOf(section.input[0])+1===i}>${caption}</option>`)}
             </select>
           </div>
           <div class="d-flex align-items-center pl-2">
             <label for="input2" class="m-0 text-nowrap"><b>${app.text.input2}</b></label>
-            <select id="input2" class="form-control ml-2" @change=${onRightInputChange}>
+            <select id="input2" class="form-control ml-2" @change=${swap?onLeftInputChange:onRightInputChange}>
               ${app.text.selection.map((caption,i)=>html`<option value="${app.values[i-1]||''}" ?selected=${app.values.indexOf(section.input[1])+1===i}>${caption}</option>`)}
             </select>
           </div>
