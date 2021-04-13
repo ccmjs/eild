@@ -73,6 +73,7 @@
       "onfinish": { "restart": true },
       "phrases": [ "ccm.get", { "name": "eild-er_trainer-phrases", "url": "https://ccm2.inf.h-brs.de" } ],
       "show_solution": true,
+      "shuffle": true,
       "text": {
         "cancel": "Abbrechen",
         "correct": "Ihre letzte Antwort war richtig!",
@@ -130,14 +131,18 @@
       this.ready = async () => {
 
         // clone and shuffle original phrases
-        phrases = $.shuffleArray( $.clone( this.phrases ) );
+        phrases = $.clone( this.phrases );
+        this.shuffle && $.shuffleArray( phrases );
 
       };
 
       this.start = async () => {
 
         // not enough phrases left? => clone and shuffle original phrases
-        if ( phrases.length < this.number ) phrases = $.shuffleArray( $.clone( this.phrases ) );
+        if ( phrases.length < this.number ) {
+          phrases = $.clone( this.phrases );
+          this.shuffle && $.shuffleArray( phrases );
+        }
 
         // get already existing app state data
         dataset = await $.dataset( this.data );
