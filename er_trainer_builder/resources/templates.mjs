@@ -69,7 +69,7 @@ export function main( config, builder, onDeleteNotation, onResetNotations, onDel
 
               <!-- Shuffle Phrases -->
               <div class="form-group">
-                <input type="checkbox" name="legend" id="erb-shuffle" ?checked=${config.shuffle}>
+                <input type="checkbox" name="shuffle" id="erb-shuffle" ?checked=${config.shuffle}>
                 <label class="form-check-label pl-1" for="erb-shuffle">
                   Shuffle Phrases
                 </label>
