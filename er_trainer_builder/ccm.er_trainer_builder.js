@@ -24,7 +24,7 @@
       ],
 //    "data": { "store": [ "ccm.store" ] },
       "defaults": {},
-      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
+      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.2.0.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer_builder/resources/templates.mjs" ],
       "ignore": {
         "css": {
@@ -140,7 +140,7 @@
         } );
 
         // listen to submit event of the HTML form for adding a phrase
-        this.submit && this.element.querySelector( '#erb-phrase-form' ).addEventListener( 'submit', event => {
+        this.element.querySelector( '#erb-phrase-form' ).addEventListener( 'submit', event => {
           event.preventDefault();
           const form = this.element.querySelector( '#erb-phrase-form' );
           const phrase = $.formData( form );
