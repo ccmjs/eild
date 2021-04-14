@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version 1.0.0
  * @changes
- * version 1.0.0 (12.04.2021)
+ * version 1.0.0 (14.04.2021)
  */
 
 ( () => {
@@ -128,7 +128,7 @@
         } );
 
         // listen to submit event of the HTML form for adding a notation
-        this.submit && this.element.querySelector( '#erb-notation-form' ).addEventListener( 'submit', event => {
+        this.element.querySelector( '#erb-notation-form' ).addEventListener( 'submit', event => {
           event.preventDefault();
           const form = this.element.querySelector( '#erb-notation-form' );
           const notation = $.formData( form );
