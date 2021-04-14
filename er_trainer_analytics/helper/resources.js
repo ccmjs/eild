@@ -7,7 +7,7 @@
 ccm.files[ 'resources.js' ] = {
 
   "analytics_config": {
-    "placeholder.captions": [ "", "", "", "Correct", "Result", "Created", "Last Update", "" ],
+    "placeholder.captions": [ "User", "", "", "Correct", "Result", "Created", "Last Update", "" ],
     "store": [ "ccm.store", { "name": "er_trainer-results", "url": "wss://ccm2.inf.h-brs.de" } ],
     "user": null
   }
