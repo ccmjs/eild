@@ -8,7 +8,6 @@
  */
 
 ( () => {
-
   const component = {
     name: 'er_trainer_builder',
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.3.0.js',

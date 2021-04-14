@@ -8,7 +8,6 @@
  */
 
 ( () => {
-
   const component = {
     name: 'er_trainer_builder',
     version: [ 1, 0, 0 ],
