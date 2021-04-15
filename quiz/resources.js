@@ -6,10 +6,10 @@
 
 ccm.files[ 'resources.js' ] = {
 
-  "db_ss21_eh02": {
+  "db-ss21-quiz-eh02": {
     "css": [ "ccm.load", "https://ccmjs.github.io/akless-components/quiz/resources/weblysleek.css", { "context": "head", "url": "https://ccmjs.github.io/akless-components/libs/weblysleekui/font.css" } ],
     "data": {
-      "key": "eh20",
+      "key": "db-ss21-quiz-eh20",
       "store": [
         "ccm.store",
         {
@@ -114,6 +114,19 @@ ccm.files[ 'resources.js' ] = {
       "next": "Nächste Frage",
       "finish": "Speichern"
     }
+  },
+
+  "db_ss21_analytics": {
+    "app": [
+      {
+        "name": "Multiple Choice",
+        "component": [ "ccm.component", "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.1.1.js" ],
+        "configs": [ "ccm.store", "https://ccmjs.github.io/eild/quiz/resources.js" ]
+      }
+    ],
+    "placeholder.captions": [ "User", "Component", "App", "Correct", "Result", "Created", "Last Update", " " ],
+    "store": [ "ccm.store", { "name": "db-ss21-quiz-results", "url": "wss://ccm2.inf.h-brs.de" } ],
+    "user": null
   }
 
 };
