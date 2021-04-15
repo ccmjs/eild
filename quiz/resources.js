@@ -19,7 +19,8 @@ ccm.files[ 'resources.js' ] = {
         },
       ],
       "login": true,
-      "user": true
+      "user": true,
+      "unique": true
     },
     "onfinish": {
       "store": true,
