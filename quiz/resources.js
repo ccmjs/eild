@@ -56,6 +56,38 @@ ccm.files[ 'resources.js' ] = {
             "comment": ""
           }
         ]
+      },
+      {
+        "text": "Die logische Datenunabhängigkeit bedeutet, dass ...",
+        "input": "checkbox",
+        "description": "\"Harald Kaputnik, Hauptstraße 18, 53117 Bonn\" und\n\"Petra Weizenkeim, 22.06.1999, 0228-12345678, 53117 Bonn\"",
+        "answers": [
+          {
+            "text": "der Datenzugriff lediglich über eine Beschreibung der gewünschten Daten und nicht über die Angabe der Speicheradresse erfolgt.",
+            "correct": false,
+            "comment": ""
+          },
+          {
+            "text": "die Datenbank eine Vereinigung der Daten vieler Anwendungsbereiche enthält.",
+            "correct": false,
+            "comment": ""
+          },
+          {
+            "text": "die interne Darstellung der Daten geändert werden kann, ohne dass die Anwendungsprogramme angepasst werden müssen.",
+            "correct": true,
+            "comment": ""
+          },
+          {
+            "text": "die Daten auf eine andere Datenbank verschoben werden können, ohne dass die Anwendungsprogramme angepasst werden müssen.",
+            "correct": false,
+            "comment": ""
+          },
+          {
+            "text": "sich der Name einer Tabelle oder einer Spalte ändern kann, ohne dass die Anwendungsprogramme angepasst werden müssen.",
+            "correct": true,
+            "comment": ""
+          }
+        ]
       }
     ],
     "start_button": false,
@@ -66,7 +98,7 @@ ccm.files[ 'resources.js' ] = {
     "anytime_finish": false,
     "time": 180,
     "shuffle": false,
-    "random": true,
+    "random": false,
     "escape": false,
     "user": [
       "ccm.instance",
