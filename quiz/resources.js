@@ -7,6 +7,7 @@
 ccm.files[ 'resources.js' ] = {
 
   "db-ss21-quiz-eh02": {
+    "key": "db-ss21-quiz-eh02",
     "css": [ "ccm.load", "https://ccmjs.github.io/akless-components/quiz/resources/weblysleek.css", { "context": "head", "url": "https://ccmjs.github.io/akless-components/libs/weblysleekui/font.css" } ],
     "data": {
       "key": "db-ss21-quiz-eh20",
