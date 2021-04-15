@@ -19,6 +19,7 @@ ccm.files[ 'resources.js' ] = {
       ]
     },
     "onfinish": {
+      "store": true,
       "confirm": "",
       "clear": false,
       "restart": true,
