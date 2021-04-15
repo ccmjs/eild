@@ -125,7 +125,7 @@ ccm.files[ 'resources.js' ] = {
     "app": [
       {
         "name": "Multiple Choice",
-        "component": [ "ccm.component", "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.1.1.js" ],
+        "component": [ "ccm.component", "https://ccmjs.github.io/akless-components/quiz/versions/ccm.quiz-4.1.2.js" ],
         "configs": [ "ccm.store", "https://ccmjs.github.io/eild/quiz/resources.js" ]
       }
     ],
