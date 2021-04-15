@@ -16,8 +16,10 @@ ccm.files[ 'resources.js' ] = {
         {
           "name": "db-ss21-quiz-results",
           "url": "https://ccm2.inf.h-brs.de"
-        }
-      ]
+        },
+      ],
+      "login": true,
+      "user": true
     },
     "onfinish": {
       "store": true,
