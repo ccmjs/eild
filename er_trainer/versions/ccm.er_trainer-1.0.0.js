@@ -215,8 +215,8 @@
       const onSubmitClick = () => {
         const section = dataset.sections[ phrase_nr - 1 ];
         section.input = [
-          this.element.querySelector( '#input' + ( this.notations[ notation || 0 ].swap ? 2 : 1 ) ).value,
-          this.element.querySelector( '#input' + ( this.notations[ notation || 0 ].swap ? 1 : 2 ) ).value
+          this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 2 : 1 ) ).value,
+          this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 1 : 2 ) ).value
         ];
         section.correct = section.input.toString() === section.solution.toString();
         if ( section.correct ) dataset.correct++;
