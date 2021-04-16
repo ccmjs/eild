@@ -177,7 +177,7 @@
 
       /** renders current phrase */
       const render = () => {
-        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputchange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ), this.element );
+        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, onNotationChange, onLegendClick, onLeftInputChange, onRightInputChange, onCancelClick, onSubmitClick, onNextClick, onFinishClick ), this.element );
         this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = true );  // workaround for lit-html bug
       };
 
@@ -203,7 +203,7 @@
       };
 
       /** when selected entry of right selector box changes */
-      const onRightInputchange = event => {
+      const onRightInputChange = event => {
         setInput( true, event.target.value );
         render();
       };
@@ -215,8 +215,8 @@
       const onSubmitClick = () => {
         const section = dataset.sections[ phrase_nr - 1 ];
         section.input = [
-          this.element.querySelector( '#input' + ( this.notations[ notation ].swap ? 2 : 1 ) ).value,
-          this.element.querySelector( '#input' + ( this.notations[ notation ].swap ? 1 : 2 ) ).value
+          this.element.querySelector( '#input' + ( this.notations[ notation || 0 ].swap ? 2 : 1 ) ).value,
+          this.element.querySelector( '#input' + ( this.notations[ notation || 0 ].swap ? 1 : 2 ) ).value
         ];
         section.correct = section.input.toString() === section.solution.toString();
         if ( section.correct ) dataset.correct++;
