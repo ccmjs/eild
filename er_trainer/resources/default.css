@@ -98,3 +98,13 @@
 .phrase-comment {
   max-width: 50%;
 }
+
+.btn:not(.btn-link) {
+  background-color: #B43092 !important;
+  border-color: #B43092 !important;
+  color: #ffffff !important;
+}
+
+.btn-link {
+  color: #A43992 !important;
+}
