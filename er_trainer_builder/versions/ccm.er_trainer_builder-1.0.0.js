@@ -37,6 +37,16 @@
                 "https://ccmjs.github.io/eild/er_trainer/resources/default.css"
               ]
             ]
+          },
+          "lea": {
+            "key": "lea",
+            "title": "LEA-like",
+            "value": [ "ccm.load",
+              [
+                "https://ccmjs.github.io/akless-components/libs/bootstrap-4/css/bootstrap.min.css",
+                "https://ccmjs.github.io/eild/er_trainer/resources/lea-like.css"
+              ]
+            ]
           }
         },
         "user": {
