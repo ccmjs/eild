@@ -1,0 +1,22 @@
+{
+  "name": "ER-Trainer",
+  "short_name": "ER-Trainer",
+  "icons": [
+    {
+      "src": "./../logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./../logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/er_trainer/",
+  "background_color" : "#3367D6",
+  "display": "standalone",
+  "scope": "/er_trainer/",
+  "theme_color": "#3367D6",
+  "description": ""
+}
