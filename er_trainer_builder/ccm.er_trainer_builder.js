@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (14.04.2021)
+ * version 1.0.0 (19.04.2021)
  */
 
 ( () => {
@@ -125,9 +125,6 @@
         // listen to change events of the input fields
         this.element.querySelectorAll( '*[name]' ).forEach( input => input.addEventListener( 'change', () => this.render( dataset = this.getValue() ) ) );
 
-        // update app preview in modal dialog
-        jQuery( '#erb-preview' ).on( 'show.bs.modal', () => this.tool.start( Object.assign( this.getValue(), { root: this.element.querySelector( '#erb-preview-body' ) } ) ) );
-
         // listen to submit event of the main HTML form
         this.submit && this.element.querySelector( '#erb-main-form' ).addEventListener( 'submit', event => {
           event.preventDefault();
@@ -166,9 +163,7 @@
        * renders the main HTML template
        * @param {Object} [config = this.getValue()] - app configuration
        */
-      this.render = ( config = this.getValue() ) => {
-        this.html.render( this.html.main( config, this, onDeleteNotation, onResetNotations, onDeletePhrase ), this.element );
-      }
+      this.render = ( config = this.getValue() ) => this.html.render( this.html.main( config, this, showPreview, onShowPhrase, onDeleteNotation, onResetNotations, onDeletePhrase ), this.element );
 
       /**
        * returns current result data
@@ -248,6 +243,19 @@
         return config;
       }
 
+      /**
+       * shows the preview in the modal dialog for app preview
+       * @param {Object} [config = this.getValue()] - app configuration
+       */
+      const showPreview = ( config = this.getValue() ) => {
+        clearPreview();
+        jQuery( '#erb-preview' ).modal( 'show' );
+        this.tool.start( Object.assign( config, { root: this.element.querySelector( '#erb-preview-body' ) } ) );
+      }
+
+      /** clears the preview */
+      const clearPreview = () => this.element.querySelector( '#erb-preview-body' ).innerHTML = '';
+
       /** when 'delete' button of a notation is clicked */
       function onDeleteNotation() {
         delete dataset.notations[ this.dataset.key ];
@@ -255,10 +263,22 @@
       }
 
       /** when 'reset' button for notations is clicked */
-      async function onResetNotations() {
+      const onResetNotations = async () => {
         dataset.notations = self.tool.config.notations;
         await adjustDataset( dataset );
         self.render( dataset );
+      };
+
+      /** when 'show' button of a phrase is clicked */
+      async function onShowPhrase() {
+        const config = self.getValue();
+        const phrase = config.phrases[ this.dataset.key ];
+        delete config.phrases[ this.dataset.key ];
+        config.phrases = Object.values( config.phrases );
+        config.shuffle && $.shuffleArray( config.phrases );
+        config.shuffle = false;
+        config.phrases.unshift( phrase );
+        showPreview( config );
       }
 
       /** when 'delete' button of a phrase is clicked */
