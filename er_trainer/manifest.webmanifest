@@ -3,20 +3,20 @@
   "short_name": "ER-Trainer",
   "icons": [
     {
-      "src": "./../logo.png",
+      "src": "https://ccmjs.github.io/eild/logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "./../logo.png",
+      "src": "https://ccmjs.github.io/eild/logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": "/er_trainer/",
+  "start_url": "/eild/",
   "background_color" : "#3367D6",
   "display": "standalone",
-  "scope": "/er_trainer/",
+  "scope": "/eild/",
   "theme_color": "#3367D6",
   "description": ""
 }
