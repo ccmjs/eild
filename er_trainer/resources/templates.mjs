@@ -102,7 +102,7 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
         </section>
 
         <!-- Notation Comment -->
-        <section ?data-hidden=${!comment}>
+        <section ?data-hidden=${!comment||app.feedback&&section.correct!==undefined}>
           <div class="alert alert-info mt-3 mb-0" role="alert">${comment}</div>
         </section>
 

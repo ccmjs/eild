@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (14.04.2021)
+ * version 1.0.0 (19.04.2021)
  */
 
 ( () => {
@@ -42,7 +42,8 @@
           "key": "abrial",
           "title": "Abrial",
           "swap": true,
-          "centered": true
+          "centered": true,
+          "comment": "Die Abrial bzw. (min,max)-Notation gibt für jeden an einer Beziehung beteiligten Entitätstyp an, mit wie vielen Entitäten auf der anderen Seite eine Entität dieses Typs mindestens und höchstens in Beziehung steht."
         },
         "arrow": {
           "key": "arrow",
@@ -52,7 +53,8 @@
         "chen": {
           "key": "chen",
           "title": "Chen",
-          "centered": true
+          "centered": true,
+          "comment": "In der Chen-Notation kann zur Spezifikation der Kardinalitäten jeder Entitätstyp entweder mit einer Kardinalität 1 oder mit einer Kardinalität N am Beziehungstyp partizipieren. (In dieser Grundform werden die Beziehungsmengen nur mit ihrer Maximalaussage genannt.)"
         },
         "crow": {
           "key": "crow",
