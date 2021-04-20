@@ -146,6 +146,11 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
           <small id="current_state">${app.ccm.helper.html(app.text.current_state,data.correct.toString(),data.total.toString())}</small>
         </section>
         
+        <!-- Logos -->
+        <section class="mx-3 mt-3 text-center">
+          <img src="https://ccmjs.github.io/eild/dh-nrw-nrw-logo.jpg">
+        </section>
+        
       </div>
     </main>
   `;

@@ -108,3 +108,8 @@
 .btn-link {
   color: #A43992 !important;
 }
+
+section > img {
+  max-width: 100%;
+  max-height: 150px;
+}
