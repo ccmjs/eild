@@ -29,6 +29,7 @@
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates.mjs" ],
+//    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
       "feedback": true,
       "legend": true,
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
@@ -136,6 +137,9 @@
         phrases = $.clone( this.phrases );
         this.shuffle && $.shuffleArray( phrases );
 
+        // logging of 'ready' event
+        this.logger && this.logger.log( 'ready', $.privatize( this, true ) );
+
       };
 
       this.start = async () => {
@@ -161,6 +165,9 @@
 
         // set content of modal dialog for legend table
         this.html.render( this.html.legend( this ), this.modal.element.querySelector( 'main' ) );
+
+        // logging of 'start' event
+        this.logger && this.logger.log( 'start', { dataset: $.clone( dataset ), phrases: $.clone( phrases ) } );
 
       };
 
@@ -232,7 +239,10 @@
         this.element.classList.remove( 'failed' );
         phrases.shift();
         nextPhrase();
-      }
+
+        // logging of 'next' event
+        this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );
+      };
 
       /** when 'finish' button is clicked */
       const onFinishClick = () => {
@@ -240,7 +250,10 @@
         this.element.classList.remove( 'failed' );
         phrases.shift();
         this.onfinish && $.onFinish( this );
-      }
+
+        // logging of 'finish' event
+        this.logger && this.logger.log( 'finish', this.getValue() );
+      };
 
       /**
        * updates selected value of left or right selector box in app state data
