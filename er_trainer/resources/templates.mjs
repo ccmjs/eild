@@ -148,7 +148,7 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
         
         <!-- Logos -->
         <section class="mx-3 mt-3 text-center">
-          <img src="https://ccmjs.github.io/eild/dh-nrw-nrw-logo.jpg">
+          <img src="https://ccmjs.github.io/eild/logos.jpg">
         </section>
         
       </div>
