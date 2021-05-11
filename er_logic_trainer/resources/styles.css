@@ -140,13 +140,13 @@ section > img {
   width: 100%;
 }
 
-.scheme svg {
+.scheme .icon {
   display: none;
   cursor: pointer;
 }
 
-.scheme header:hover svg,
-.scheme .attr:hover svg {
+.scheme header:hover .icon,
+.scheme .attr:hover .icon {
   display: inline;
 }
 

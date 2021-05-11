@@ -32,12 +32,27 @@
 //    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
       "feedback": true,
       "legend": true,
-      "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
-        "backdrop_close": true,
-        "content": "",
-        "closed": true,
-        "buttons": ""
-      } ],
+      "modal": {
+        "attr": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
+          "backdrop_close": true,
+          "content": "",
+          "closed": true,
+          "buttons": [
+            {
+              "html": "<button class='btn btn-primary' onclick='%%'>Speichern</button>"
+            },
+            {
+              "html": "<button class='btn btn-secondary' data-close>Abbrechen</button>"
+            }
+          ]
+        } ],
+        "legend": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
+          "backdrop_close": true,
+          "content": "",
+          "closed": true,
+          "buttons": ""
+        } ]
+      },
       "notations": {
         "abrial": {
           "key": "abrial",
@@ -109,8 +124,8 @@
         // set shortcut to help functions
         $ = Object.assign( {}, this.ccm.helper, this.helper ); $.use( this.ccm );
 
-        // set title of modal dialog
-        this.modal.title = this.text.legend;
+        // set title of modal dialog for legend
+        this.modal.legend.title = this.text.legend;
 
         // uniform notations data
         for ( const key in this.notations ) {
@@ -164,12 +179,18 @@
         nextPhrase();
 
         // set content of modal dialog for legend table
-        this.html.render( this.html.legend( this ), this.modal.element.querySelector( 'main' ) );
+        this.html.render( this.html.legend( this ), this.modal.legend.element.querySelector( 'main' ) );
 
         // logging of 'start' event
         this.logger && this.logger.log( 'start', { dataset: $.clone( dataset ), phrases: $.clone( phrases ) } );
 
       };
+
+      /**
+       * returns current app state data
+       * @returns {Object}
+       */
+      this.getValue = () => $.clone( dataset );
 
       /** starts the next phrase */
       const nextPhrase = () => {
@@ -207,103 +228,88 @@
 
       /** renders current phrase */
       const render = () => {
-        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, onNotationChange, onLegendClick, onLeftTableButtonClick, onMiddleTableButtonClick, onRightTableButtonClick, onRemoveTableClick, onRemoveTableAttributeClick, onCancelClick, onSubmitClick, onNextClick, onFinishClick ), this.element );
+        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events ), this.element );
         this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = true );  // workaround for lit-html bug
       };
 
       /**
-       * returns current app state data
-       * @returns {Object}
+       * contains all event handlers
+       * @type Object.<string,Function>
        */
-      this.getValue = () => $.clone( dataset );
+      const events = {
 
-      /** when selected entry for displayed notation changes */
-      const onNotationChange = event => {
-        dataset.notation = notation = event.target.value;
-        render();
-      };
+        /** when selected entry for displayed notation changes */
+        onNotationChange: event => {
+          dataset.notation = notation = event.target.value;
+          render();
+        },
 
-      /** when 'legend' button is clicked */
-      const onLegendClick = () => this.modal.open();
+        /** when 'legend' button is clicked */
+        onLegendClick: () => this.modal.legend.open(),
 
-      /** when ... */
-      const onLeftTableButtonClick = () => {
-        dataset.sections[ phrase_nr - 1 ].input[ 0 ] = [];
-        render();
-      };
+        /** when an 'add table' button is clicked */
+        onAddTable: table => {
+          dataset.sections[ phrase_nr - 1 ].input[ table ] = [];
+          render();
+        },
 
-      /** when ... */
-      const onMiddleTableButtonClick = () => {
-        dataset.sections[ phrase_nr - 1 ].input[ 1 ] = [];
-        render();
-      };
+        /** when a 'remove table' icon is clicked */
+        onRemoveTable: table => {
+          dataset.sections[ phrase_nr - 1 ].input[ table ] = null;
+          render();
+        },
 
-      /** when ... */
-      const onRightTableButtonClick = () => {
-        dataset.sections[ phrase_nr - 1 ].input[ 2 ] = [];
-        render();
-      };
+        /** when a 'add attribute' icon is clicked */
+        onAddAttr: table => {
+          console.log( 'click!', table );
+          render();
+        },
 
-      /** when ... */
-      const onRemoveTableClick = table => {
-        dataset.sections[ phrase_nr - 1 ].input[ table ] = null;
-        render();
-      };
+        /** when a 'remove attribute' icon is clicked */
+        onRemoveAttr: ( table, attr ) => {
+          dataset.sections[ phrase_nr - 1 ].input[ table ].splice( attr, 1 );
+          render();
+        },
 
-      /** when ... */
-      const onRemoveTableAttributeClick = ( table, attr ) => {
-        dataset.sections[ phrase_nr - 1 ].input[ table ].splice( attr, 1 );
-        render();
-      };
+        /** when 'cancel' button is clicked */
+        onCancelButton: () => this.oncancel && this.oncancel( this, phrase_nr ),
 
-      /** when 'cancel' button is clicked */
-      const onCancelClick = () => this.oncancel && this.oncancel( this, phrase_nr );
+        /** when 'submit' button is clicked */
+        onSubmitButton: () => {
+          const section = dataset.sections[ phrase_nr - 1 ];
+          section.input = [
+            this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 2 : 1 ) ).value,
+            this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 1 : 2 ) ).value
+          ];
+          section.correct = section.input.toString() === section.solution.toString();
+          if ( section.correct ) dataset.correct++;
+          this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
+          render();
+          !this.feedback && onNextClick();
+        },
 
-      /** when 'submit' button is clicked */
-      const onSubmitClick = () => {
-        const section = dataset.sections[ phrase_nr - 1 ];
-        section.input = [
-          this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 2 : 1 ) ).value,
-          this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 1 : 2 ) ).value
-        ];
-        section.correct = section.input.toString() === section.solution.toString();
-        if ( section.correct ) dataset.correct++;
-        this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
-        render();
-        !this.feedback && onNextClick();
-      };
+        /** when 'next' button is clicked */
+        onNextButton: () => {
+          this.element.classList.remove( 'correct' );
+          this.element.classList.remove( 'failed' );
+          phrases.shift();
+          nextPhrase();
 
-      /** when 'next' button is clicked */
-      const onNextClick = () => {
-        this.element.classList.remove( 'correct' );
-        this.element.classList.remove( 'failed' );
-        phrases.shift();
-        nextPhrase();
+          // logging of 'next' event
+          this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );
+        },
 
-        // logging of 'next' event
-        this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );
-      };
+        /** when 'finish' button is clicked */
+        onFinishButton: () => {
+          this.element.classList.remove( 'correct' );
+          this.element.classList.remove( 'failed' );
+          phrases.shift();
+          this.onfinish && $.onFinish( this );
 
-      /** when 'finish' button is clicked */
-      const onFinishClick = () => {
-        this.element.classList.remove( 'correct' );
-        this.element.classList.remove( 'failed' );
-        phrases.shift();
-        this.onfinish && $.onFinish( this );
+          // logging of 'finish' event
+          this.logger && this.logger.log( 'finish', this.getValue() );
+        }
 
-        // logging of 'finish' event
-        this.logger && this.logger.log( 'finish', this.getValue() );
-      };
-
-      /**
-       * updates selected value of left or right selector box in app state data
-       * @param {boolean} left_or_right - left: false, right: true
-       * @param {string} value - selected value
-       */
-      const setInput = ( left_or_right, value ) => {
-        const section = dataset.sections[ phrase_nr - 1 ];
-        if ( !section.input ) section.input = [];
-        section.input[ left_or_right ? 1 : 0 ] = value;
       };
 
     }
