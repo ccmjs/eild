@@ -37,9 +37,10 @@
           "backdrop_close": true,
           "content": "",
           "closed": true,
+          "breakpoints": false,
           "buttons": [
             {
-              "html": "<button class='btn btn-primary' onclick='%%'>Speichern</button>"
+              "html": "<input type='submit' class='btn btn-primary' form='attr-form' value='Speichern'>"
             },
             {
               "html": "<button class='btn btn-secondary' data-close>Abbrechen</button>"
@@ -199,7 +200,10 @@
           input: [
             [
               { primary: true },
-              { foreign: { to: 1, swap: false } },
+              {
+                foreign: { to: 1, swap: false },
+                opt: true
+              }
             ],
             [
               {
@@ -215,11 +219,13 @@
             ],
             [
               { primary: true },
-              { foreign: { to: 1, swap: true } }
+              {
+                foreign: { to: 1, swap: true },
+                opt: true
+              }
             ]
           ],
           relationship: phrases[ 0 ].relationship,
-          relation: phrases[ 0 ].relation,
           solution: phrases[ 0 ].solution,
           text: phrases[ 0 ].text
         } );
@@ -261,8 +267,33 @@
 
         /** when a 'add attribute' icon is clicked */
         onAddAttr: table => {
-          console.log( 'click!', table );
-          render();
+          const section = $.clone( dataset.sections[ phrase_nr - 1 ] );
+          const modal = this.modal.attr;
+          const main = modal.element.querySelector( 'main' );
+          const onChange = () => {
+            const key = $.formData( form );
+            if ( !key.fk )
+              delete key.foreign;
+            else
+              key.foreign.to = parseInt( key.foreign.to );
+            section.input[ table ] = [ key ];
+            renderAttrForm( 0 );
+          };
+          const onSubmit = event => {
+            event.preventDefault();
+            const key = $.formData( form );
+            if ( key.primary ) delete key.opt;
+            if ( !key.fk ) delete key.foreign;
+            delete key.fk;
+            if ( key.foreign ) key.foreign.to = parseInt( key.foreign.to );
+            dataset.sections[ phrase_nr - 1 ].input[ table ].push( key );
+            render();
+          };
+          const renderAttrForm = attr => this.html.render( this.html.attrForm( section, table, attr, onChange, onSubmit ), main );
+          renderAttrForm();
+          const form = modal.element.querySelector( 'form' );
+          modal.element.querySelector( '#title' ).innerText = 'Neues Schlüsselattribut';
+          modal.open();
         },
 
         /** when a 'remove attribute' icon is clicked */

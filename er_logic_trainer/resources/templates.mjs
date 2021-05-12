@@ -180,9 +180,9 @@ export function main( app, data, phrase, phrase_nr, events ) {
       return html`
         <div class="attr py-1 d-flex align-items-center">
           <span title="Name des Schlüsselattributs">${ ( key.primary && !key.foreign && toKey( section.relationship[ table ] ) || key.foreign && toKey( section.relationship[ key.foreign.to ] ) ) + '_id' }</span>
-          ${ key.primary && html`<span class="badge badge-primary" title="Primärschlüssel">PK</span>` }
-          ${ key.foreign && html`<span class="badge badge-warning" title="Fremdschlüssel">FK</span>` }
-          ${ key.opt && html`<span class="badge badge-secondary" title="Optionales Attribut">OPT</span>` }
+          ${ key.primary && html`<span class="badge badge-primary" title="Primärschlüssel: Attribut(e) mit dem/denen sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.">PK</span>` }
+          ${ key.foreign && html`<span class="badge badge-warning" title="Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.">FK</span>` }
+          ${ key.opt && html`<span class="badge badge-secondary" title="Optionales Attribut: Muss nicht zwingend einen Wert haben.">OPT</span>` }
           <span class="icon" title="Attribut entfernen" @click=${ () => events.onRemoveAttr( table, index ) }>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg text-danger ml-1" viewBox="0 0 16 16">
               <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
@@ -230,4 +230,68 @@ export function legend( app ) {
       </tbody>
     </table>
   `;
+}
+
+/**
+ * returns the HTML template for 'edit attribute'
+ * @param {Object} [section] - app state data of current section
+ * @param {number} [table] - table index (0: left, 1: middle, 2: right)
+ * @param {number} [index] - key attribute index (0: first attribute, 1: second attribute, ...)
+ * @param {Function} [onChange] - when value of checkbox for primary or foreign key changes
+ * @param {Function} [onSubmit] - when submit button is clicked
+ * @returns {TemplateResult} HTML template for 'edit attribute'
+ */
+export function attrForm( section, table, index, onChange, onSubmit ) {
+
+  /**
+   * key attribute data
+   * @type {Object}
+   */
+  const key = index !== undefined && section.input[ table ][ index ];
+
+  /**
+   * referencable tables
+   * @type {number[]}
+   */
+  const tables = [];
+  if ( section )
+    for ( let i = 0; i <= 2; i++ )
+      if ( table !== i && section.input[ i ] )
+        tables.push( i );
+
+  return html`
+    <form id="attr-form" @submit=${ onSubmit }>
+      
+      <!-- Primary Key -->
+      <div class="form-group" ?data-hidden=${ section.input[ table ].find( attr => attr.primary ) } title="Primärschlüssel: Attribut(e) mit dem/denen sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt. Geben Sie hier an, ob es sich bei dem Attribut um einen Primärschlüssel bzw. einen Teil des Primärschlüssels handelt.">
+        <input type="checkbox" name="primary" id="key-primary" ?checked=${ key && key.primary } @change=${ onChange }>
+        <label class="form-check-label pl-1" for="key-primary">Primärschlüssel</label>
+      </div>
+
+      <!-- Foreign Key -->
+      <div class="form-group" title="Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist. Geben Sie hier an, ob es sich bei dem Attribut um einen Fremdschlüssel handelt.">
+        <input type="checkbox" name="fk" id="key-foreign" ?checked=${ key && key.fk } @change=${ onChange }>
+        <label class="form-check-label pl-1" for="key-foreign">
+          Fremdschlüssel
+        </label>
+      </div>
+
+      <!-- Referenced Attribute -->
+      <div class="form-group" ?data-hidden=${ !key || key && !key.foreign && !key.fk || !tables.length } title="Geben Sie hier an auf welche Tabelle der Fremdschlüssel verweist.">
+        <label for="key-to">Referenzierte Tabelle</label>
+        <select class="form-control" name="foreign.to" id="key-to">
+          ${ tables.map( table => html`<option value="${ table }" ?selected=${ key && key.foreign && key.foreign.to === table }>${ section && section.relationship[ table ] }</option>` ) }
+        </select>
+      </div>
+
+      <!-- Optional Attribute -->
+      <div class="form-group" ?data-hidden=${ !key || key.primary || !key.foreign } title="Geben Sie hier an, ob es sich um ein optionales Attribut handelt.">
+        <input type="checkbox" name="opt" id="key-opt" ?checked=${ key && key.opt }>
+        <label class="form-check-label pl-1" for="key-opt">
+          Optionales Attribut
+        </label>
+      </div>
+    </form>
+  `;
+
 }
