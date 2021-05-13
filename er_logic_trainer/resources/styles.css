@@ -31,7 +31,7 @@
   width: 240px;
 }
 
-#left.mirrored {
+.mirrored {
   transform: scaleX(-1);
 }
 
@@ -132,7 +132,7 @@ section > img {
 
 #tables {
   display: grid;
-  grid-template-columns: auto 60px 1fr auto 1fr 60px auto;
+  grid-template-columns: auto 8px 1fr 8px auto 8px 1fr 8px auto;
 }
 
 .scheme header,
@@ -152,4 +152,19 @@ section > img {
 
 .badge {
   margin-left: 0.3rem;
+}
+
+.line {
+  height: 36px;
+}
+
+.line, .line > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.line > div:empty {
+  border: 1px solid black;
 }

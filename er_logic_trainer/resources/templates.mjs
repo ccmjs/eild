@@ -91,19 +91,34 @@ export function main( app, data, phrase, phrase_nr, events ) {
             ${ table( 0 ) }
           </div>
           <div>
-            <div></div>
+            ${ arrow( 2, 0, true ) }
+            ${ arrow( 1, 0, true ) }
           </div>
           <div>
-            <div></div>
+            ${ arrow( 2, 0 ) }
+            ${ arrow( 0, 1 ) }
           </div>
           <div>
-            ${ table( 1 ) }
+            ${ arrow( 2, 0 ) }
+            ${ arrow( 0, 1, true ) }
           </div>
           <div>
-            <div></div>
+            ${ arrow( 2, 0 ) }
+            <div>
+              ${ table( 1 ) }
+            </div>
           </div>
           <div>
-            <div></div>
+            ${ arrow( 0, 2 ) }
+            ${ arrow( 2, 1, true ) }
+          </div>
+          <div>
+            ${ arrow( 0, 2 ) }
+            ${ arrow( 1, 2 ) }
+          </div>
+          <div>
+            ${ arrow( 0, 2, true ) }
+            ${ arrow( 1, 2, true ) }
           </div>
           <div>
             ${ table( 2 ) }
@@ -113,7 +128,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
         <!-- Buttons -->
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
           <button class="btn btn-outline-danger m-1" @click=${ events.onCancelButton } ?data-hidden=${ !app.oncancel }>${ app.text.cancel }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onSubmitButton } ?data-hidden=${ true || section.correct !== undefined || !section.input[ 0 ] || !section.input[ 1 ] }>${ app.text.submit }</button>
+          <button class="btn btn-primary m-1" @click=${ events.onSubmitButton } ?data-hidden=${ section.correct !== undefined || !tablesConnected() }>${ app.text.submit }</button>
           <button class="btn btn-secondary m-1" @click=${ events.onNextButton } ?data-hidden=${ section.correct === undefined || phrase_nr === app.number }>${ app.text.next }</button>
           <button class="btn btn-success m-1" @click=${ events.onFinishButton } ?data-hidden=${ section.correct === undefined || phrase_nr < app.number || !app.onfinish }>${ app.text.finish }</button>
         </section>
@@ -143,6 +158,17 @@ export function main( app, data, phrase, phrase_nr, events ) {
         <button class="btn btn-primary btn-sm" @click=${ () => events.onAddTable( table ) } ?data-invisible=${ section.input[ table ] !== null }>+ "${ section.relationship[ table ] }"${ app.text.table }</button>
       </div>
     `;
+  }
+
+  /**
+   * returns the HTML template for an arrow line
+   * @param {number} [from] - index of the table from which the arrow starts
+   * @param {number} [to] - table index
+   * @param {boolean} [head] - is arrowhead
+   * @returns {TemplateResult} HTML template for an arrow line
+   */
+  function arrow( from, to, head ) {
+    return html`<div class="line" ?data-hidden=${ !section.input[ from ] || !section.input[ to ] || !section.input[ from ][ to ] && !section.input[ to ][ from ] }>${ html`<div>${ head && section.input[ from ] && section.input[ from ][ to ] ? html`<svg height="8" width="8" class="${ from - to > 0 ? 'mirrored' : '' }"><polygon points="0,0 8,4 0,8" style="fill:black"></polygon></svg>` : '' }</div>` }</div>`;
   }
 
   /**
@@ -217,6 +243,10 @@ export function main( app, data, phrase, phrase_nr, events ) {
       return string.toLowerCase().trim().replace( /ä/g, 'ae' ).replace( /ö/g, 'oe' ).replace( /ü/g, 'ue' ).replace( /ß/g, 'ss' ).replace( /\W/g, '_' ) + '_id';
     }
 
+  }
+
+  function tablesConnected() {
+    return false;
   }
 
 }
