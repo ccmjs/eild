@@ -102,9 +102,7 @@
         "entity2": "Entity 2",
         "failed": "Ihre letzte Antwort war falsch!",
         "finish": "Neustart",
-        "heading": "Wandle das ER-Diagramm in ein logisches Tabellenschema um!",
-        "input1": "Auswahl 1:",
-        "input2": "Auswahl 2:",
+        "heading": "Lösen Sie die gezeigte Beziehung zwischen den beiden Entitäten auf!",
         "notation": "ER-Notation:",
         "legend": "Legende",
         "next": "Weiter",
@@ -125,8 +123,9 @@
         // set shortcut to help functions
         $ = Object.assign( {}, this.ccm.helper, this.helper ); $.use( this.ccm );
 
-        // set title of modal dialog for legend
+        // set title for modal dialogs
         this.modal.legend.title = this.text.legend;
+        this.modal.attr.title = 'Neuer Fremdschlüssel';
 
         // uniform notations data
         for ( const key in this.notations ) {
@@ -199,30 +198,19 @@
         dataset.sections.push( {
           input: [
             [
-              { primary: true },
-              {
-                foreign: { to: 1, swap: false },
-                opt: true
-              }
+              null,
+              { arrow: true, opt: true },
+              { arrow: true, opt: true }
             ],
             [
-              {
-                primary: true,
-                foreign: { to: 0, swap: true },
-                opt: true
-              },
-              {
-                primary: true,
-                foreign: { to: 2, swap: false },
-                opt: true
-              }
+              { arrow: true, opt: true },
+              null,
+              { arrow: true, opt: true }
             ],
             [
-              { primary: true },
-              {
-                foreign: { to: 1, swap: true },
-                opt: true
-              }
+              { arrow: true, opt: true },
+              { arrow: true, opt: true },
+              null
             ]
           ],
           relationship: phrases[ 0 ].relationship,
@@ -255,7 +243,7 @@
 
         /** when an 'add table' button is clicked */
         onAddTable: table => {
-          dataset.sections[ phrase_nr - 1 ].input[ table ] = [];
+          dataset.sections[ phrase_nr - 1 ].input[ table ] = [ null, null, null ];
           render();
         },
 
@@ -267,38 +255,22 @@
 
         /** when a 'add attribute' icon is clicked */
         onAddAttr: table => {
-          const section = $.clone( dataset.sections[ phrase_nr - 1 ] );
+          const section = dataset.sections[ phrase_nr - 1 ];
           const modal = this.modal.attr;
-          const main = modal.element.querySelector( 'main' );
-          const onChange = () => {
-            const key = $.formData( form );
-            if ( !key.fk )
-              delete key.foreign;
-            else
-              key.foreign.to = parseInt( key.foreign.to );
-            section.input[ table ] = [ key ];
-            renderAttrForm( 0 );
-          };
           const onSubmit = event => {
             event.preventDefault();
-            const key = $.formData( form );
-            if ( key.primary ) delete key.opt;
-            if ( !key.fk ) delete key.foreign;
-            delete key.fk;
-            if ( key.foreign ) key.foreign.to = parseInt( key.foreign.to );
-            dataset.sections[ phrase_nr - 1 ].input[ table ].push( key );
+            const fk = $.formData( modal.element.querySelector( 'form' ) );
+            section.input[ table ][ fk.table ] = { opt: fk.opt };
             render();
+            modal.close();
           };
-          const renderAttrForm = attr => this.html.render( this.html.attrForm( section, table, attr, onChange, onSubmit ), main );
-          renderAttrForm();
-          const form = modal.element.querySelector( 'form' );
-          modal.element.querySelector( '#title' ).innerText = 'Neues Schlüsselattribut';
+          this.html.render( this.html.attrForm( section, table, onSubmit ), modal.element.querySelector( 'main' ) );
           modal.open();
         },
 
         /** when a 'remove attribute' icon is clicked */
-        onRemoveAttr: ( table, attr ) => {
-          dataset.sections[ phrase_nr - 1 ].input[ table ].splice( attr, 1 );
+        onRemoveAttr: ( from, to ) => {
+          dataset.sections[ phrase_nr - 1 ].input[ from ][ to ] = null;
           render();
         },
 

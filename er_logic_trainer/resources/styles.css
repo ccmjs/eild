@@ -141,13 +141,13 @@ section > img {
 }
 
 .scheme .icon {
-  display: none;
-  cursor: pointer;
+  visibility: hidden;
 }
 
 .scheme header:hover .icon,
 .scheme .attr:hover .icon {
-  display: inline;
+  visibility: visible;
+  cursor: pointer;
 }
 
 .badge {
