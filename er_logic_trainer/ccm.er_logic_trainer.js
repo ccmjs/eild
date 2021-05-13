@@ -39,12 +39,8 @@
           "closed": true,
           "breakpoints": false,
           "buttons": [
-            {
-              "html": "<input type='submit' class='btn btn-primary' form='attr-form' value='Speichern'>"
-            },
-            {
-              "html": "<button class='btn btn-secondary' data-close>Abbrechen</button>"
-            }
+            { "html": "<button class='btn btn-secondary' data-close>Abbrechen</button>" },
+            { "html": "<input type='submit' class='btn btn-primary' form='attr-form' value='Hinzufügen'>" }
           ]
         } ],
         "legend": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
@@ -249,7 +245,9 @@
 
         /** when a 'remove table' icon is clicked */
         onRemoveTable: table => {
-          dataset.sections[ phrase_nr - 1 ].input[ table ] = null;
+          const input = dataset.sections[ phrase_nr - 1 ].input;
+          input[ table ] = null;
+          input.forEach( fks => fks && ( fks[ table ] = null ) );
           render();
         },
 
@@ -264,7 +262,7 @@
             render();
             modal.close();
           };
-          this.html.render( this.html.attrForm( section, table, onSubmit ), modal.element.querySelector( 'main' ) );
+          this.html.render( this.html.fkForm( section, table, onSubmit ), modal.element.querySelector( 'main' ) );
           modal.open();
         },
 

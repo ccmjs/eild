@@ -140,7 +140,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
   function addTableButton( table ) {
     return html`
       <div class="text-${ table === 0 ? 'left' : ( table === 1 ? 'center' : 'right' ) }">
-        <button class="btn btn-primary btn-sm" @click=${ () => events.onAddTable( table ) } ?data-invisible=${ section.input[ table ] !== null }>+ ${ section.relationship[ table ] }"${ app.text.table }</button>
+        <button class="btn btn-primary btn-sm" @click=${ () => events.onAddTable( table ) } ?data-invisible=${ section.input[ table ] !== null }>+ "${ section.relationship[ table ] }"${ app.text.table }</button>
       </div>
     `;
   }
@@ -157,7 +157,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
       <div class="scheme border" ?data-invisible=${ keys === null }>
         <header class="bg-light border-bottom px-3 py-2 d-inline-flex justify-content-center align-items-center">
           <span title="Name der Tabelle">${ section.relationship[ table ] }</span>
-          <span class="icon" title="Tabelle entfernen" @click=${ () => events.onRemoveTable( table ) }>
+          <span class="icon" title="Tabelle entfernen" ?data-hidden=${ !section.input[ table ] } @click=${ () => events.onRemoveTable( table ) }>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg text-danger ml-1" viewBox="0 0 16 16">
               <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
             </svg>
@@ -166,7 +166,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
         <main class="px-3 py-2">
           ${ attr( toID( section.relationship[ table ] ), true, false, false ) }
           ${ keys && keys.map( ( fk, i ) => fk && attr( toID( section.relationship[ i ] ), false, i, fk.opt ) ) }
-          <button class="btn btn-link btn-sm mt-1 p-0" title="Fremdschlüssel hinzufügen" ?data-hidden=${ keys && keys.reduce( ( sum, value ) => sum + !!value, 0 ) > 1 } @click=${ () => events.onAddAttr( table ) }>+ Fremdschlüssel</button>
+          <button class="btn btn-link btn-sm mt-1 p-0" title="Fremdschlüssel hinzufügen" ?data-hidden=${ keys && !addableForeignKey() } @click=${ () => events.onAddAttr( table ) }>+ Fremdschlüssel</button>
         </main>
       </div>
     `;
@@ -175,7 +175,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
      * returns the HTML template for attribute of a logical scheme table
      * @param {string} name - attribute name
      * @param {boolean} pk - is primary key
-     * @param {number} fk - is foreign key to table with given index
+     * @param {boolean|number} fk - is foreign key to table with given index
      * @param {boolean} opt - is optional attribute
      * @returns {TemplateResult} HTML template for attribute
      */
@@ -184,9 +184,9 @@ export function main( app, data, phrase, phrase_nr, events ) {
         <div class="attr py-1 d-flex align-items-center">
           <span title="Name des Schlüsselattributs">${ name }</span>
           ${ pk ? html`<span class="badge badge-primary" title="Primärschlüssel: Attribut mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.">PK</span>` : '' }
-          ${ fk ? html`<span class="badge badge-warning" title="Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.">FK</span>` : '' }
+          ${ fk || fk === 0 ? html`<span class="badge badge-warning" title="Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.">FK</span>` : '' }
           ${ opt ? html`<span class="badge badge-secondary" title="Optionales Attribut: Muss nicht zwingend einen Wert haben.">OPT</span>` : '' }
-          <span class="icon" title="Attribut entfernen" ?data-hidden=${ !fk } @click=${ () => events.onRemoveAttr( table, fk ) }>
+          <span class="icon" title="Fremdschlüssel entfernen" ?data-hidden=${ !fk && fk !== 0 } @click=${ () => events.onRemoveAttr( table, fk ) }>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg text-danger ml-1" viewBox="0 0 16 16">
               <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
             </svg>
@@ -196,9 +196,22 @@ export function main( app, data, phrase, phrase_nr, events ) {
     }
 
     /**
-     * converts a string to a attribute ID
-     * @param string
-     * @returns {string}
+     * checks whether there are other tables that could be referenced with another foreign key
+     * @returns {boolean}
+     */
+    function addableForeignKey() {
+      for ( let i = 0; i <= 2; i++ )              // check for each possible table:
+        if ( table !== i )                        // - not the current table?
+          if ( section.input[ i ] )               // - table is created?
+            if ( !section.input[ table ][ i ] )   // - table is not already referenced by a foreign key in current table?
+              return true;                        // => table is referencable with another foreign key
+      return false;                               // => there is no other table that could be referenced with a foreign key
+    }
+
+    /**
+     * converts a string to a key attribute name
+     * @param {string} string
+     * @returns {string} key attribute name
      */
     function toID( string ) {
       return string.toLowerCase().trim().replace( /ä/g, 'ae' ).replace( /ö/g, 'oe' ).replace( /ü/g, 'ue' ).replace( /ß/g, 'ss' ).replace( /\W/g, '_' ) + '_id';
@@ -235,28 +248,31 @@ export function legend( app ) {
 }
 
 /**
- * returns the HTML template for 'attribute form'
- * @param {Object} [section] - app state data of current section
- * @param {number} [table] - table index (0: left, 1: middle, 2: right)
- * @param {Function} [onSubmit] - when form is submitted
+ * returns the HTML template for 'add foreign key' form
+ * @param {Object} section - app state data of current section
+ * @param {number} table - index of the table that will contain the foreign key (0: left, 1: middle, 2: right)
+ * @param {Function} onSubmit - when form is submitted
  * @returns {TemplateResult} HTML template for 'attribute form'
  */
-export function attrForm( section, table, onSubmit ) {
+export function fkForm( section, table, onSubmit ) {
 
   /**
    * referencable tables
    * @type {number[]}
    */
   const tables = [];
-  if ( section )
-    for ( let i = 0; i <= 2; i++ )
-      if ( table !== i && !section.input[ table ][ i ] )
-        tables.push( i );
+
+  // determine referencable tables
+  for ( let i = 0; i <= 2; i++ )              // check for each possible table:
+    if ( table !== i )                        // - not the table that will contain the foreign key?
+      if ( section.input[ i ] )               // - table is created?
+        if ( !section.input[ table ][ i ] )   // - table is not already referenced by the table that will contain the foreign key?
+          tables.push( i );                   // => table is referencable
 
   return html`
     <form id="attr-form" @submit=${ onSubmit }>
 
-      <!-- Referenced Logical Scheme Table -->
+      <!-- Referenced Table -->
       <div class="form-group" title="Geben Sie hier an auf welche Tabelle der Fremdschlüssel verweist.">
         <label for="fk-to">Referenzierte Tabelle</label>
         <select class="form-control" name="table" id="fk-to">
