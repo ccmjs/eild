@@ -139,7 +139,7 @@
 
         // uniform phrases data
         if ( $.isObject( this.phrases ) ) this.phrases = Object.values( this.phrases );
-        this.phrases.map( phrase => { delete phrase.key; return phrase; } );
+        this.phrases = this.phrases.filter( phrase => { delete phrase.key; return phrase.relationship[ 0 ] !== phrase.relationship[ 2 ]; } );
       };
 
       this.ready = async () => {

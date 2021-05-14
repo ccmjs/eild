@@ -261,8 +261,37 @@ export function main( app, data, phrase, phrase_nr, events ) {
 
   }
 
+  /**
+   * checks whether there are at least 2 tables and whether each table is connected to at least one other table
+   * @returns {boolean}
+   */
   function tablesConnected() {
-    return false;
+
+    // less than two tables? => at least two tables required
+    if ( section.input.keys.filter( table => table ).length < 2 ) return false;
+
+    // check for each table => is the table linked to at least one other table?
+    for ( let from = 0; from < section.input.keys.length; from++ )
+      if ( section.input.keys[ from ] )
+        if ( !isConnected( from ) )
+          return false;
+    return true;
+
+    /**
+     * checks whether a table is connected to at least one other table
+     * @param {number} from - table index (0: left, 1: middle, 2: right)
+     * @return {boolean}
+     */
+    function isConnected( from ) {
+      for ( let to = 0; to < section.input.keys.length; to++ )                                 // check for each table:
+        if ( from !== to )                                                                     // - only other tables
+          if ( section.input.keys[ to ] )                                                      // - other table is created?
+            if ( section.input.keys[ from ][ to ] || section.input.keys[ to ][ from ] )        // - both tables connected with a foreign key?
+              if ( section.input.arrows[ from ][ to ] || section.input.arrows[ to ][ from ] )  // - connection has an arrow head?
+                return true;                                                                   // => both tables are connected
+      return false;                                                                            // => table is not connected
+    }
+
   }
 
 }
