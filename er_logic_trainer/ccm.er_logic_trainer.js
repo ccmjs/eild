@@ -192,23 +192,14 @@
       const nextPhrase = () => {
         phrase_nr++;
         dataset.sections.push( {
-          input: [
-            [
-              null,
-              { arrow: true, opt: true },
-              { arrow: true, opt: true }
-            ],
-            [
-              { arrow: true, opt: true },
-              null,
-              { arrow: true, opt: true }
-            ],
-            [
-              { arrow: true, opt: true },
-              { arrow: true, opt: true },
-              null
+          input: {
+            keys: [ null, null, null ],
+            arrows: [
+              [ false, false, false ],
+              [ false, false, false ],
+              [ false, false, false ]
             ]
-          ],
+          },
           relationship: phrases[ 0 ].relationship,
           solution: phrases[ 0 ].solution,
           text: phrases[ 0 ].text
@@ -239,15 +230,15 @@
 
         /** when an 'add table' button is clicked */
         onAddTable: table => {
-          dataset.sections[ phrase_nr - 1 ].input[ table ] = [ null, null, null ];
+          dataset.sections[ phrase_nr - 1 ].input.keys[ table ] = [ null, null, null ];
           render();
         },
 
         /** when a 'remove table' icon is clicked */
         onRemoveTable: table => {
-          const input = dataset.sections[ phrase_nr - 1 ].input;
-          input[ table ] = null;
-          input.forEach( fks => fks && ( fks[ table ] = null ) );
+          const keys = dataset.sections[ phrase_nr - 1 ].input.keys;
+          keys[ table ] = null;
+          keys.forEach( fks => fks && ( fks[ table ] = null ) );
           render();
         },
 
@@ -258,7 +249,7 @@
           const onSubmit = event => {
             event.preventDefault();
             const fk = $.formData( modal.element.querySelector( 'form' ) );
-            section.input[ table ][ fk.table ] = { opt: fk.opt };
+            section.input.keys[ table ][ fk.table ] = { opt: fk.opt };
             render();
             modal.close();
           };
@@ -268,7 +259,13 @@
 
         /** when a 'remove attribute' icon is clicked */
         onRemoveAttr: ( from, to ) => {
-          dataset.sections[ phrase_nr - 1 ].input[ from ][ to ] = null;
+          dataset.sections[ phrase_nr - 1 ].input.keys[ from ][ to ] = null;
+          render();
+        },
+
+        /** when an arrowhead is changed */
+        onArrowChange: event => {
+          dataset.sections[ phrase_nr - 1 ].input.arrows[ event.target.dataset.from ][ event.target.dataset.to ] = !!parseInt( event.target.value );
           render();
         },
 

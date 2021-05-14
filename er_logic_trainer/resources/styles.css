@@ -132,7 +132,7 @@ section > img {
 
 #tables {
   display: grid;
-  grid-template-columns: auto 8px 1fr 8px auto 8px 1fr 8px auto;
+  grid-template-columns: auto 18px 1fr 18px auto 18px 1fr 18px auto;
 }
 
 .scheme header,
@@ -167,4 +167,33 @@ section > img {
 
 .line > div:empty {
   border: 1px solid black;
+}
+
+main select {
+  width: 18px;
+  padding-bottom: 4px;
+  z-index: 1;
+}
+
+#tables:hover .arrowhead > select {
+  display: inline;
+}
+
+#tables .arrowhead > .arrow {
+  display: flex;
+  align-items: center;
+}
+
+#tables .arrowhead > select,
+#tables:hover .arrowhead > .arrow {
+  display: none;
+}
+
+.arrowhead > .filler {
+  width: 10px;
+}
+
+.arrowhead > .arrow > div {
+  border: 1px solid black;
+  width: 8px;
 }

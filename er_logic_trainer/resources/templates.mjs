@@ -91,8 +91,8 @@ export function main( app, data, phrase, phrase_nr, events ) {
             ${ table( 0 ) }
           </div>
           <div>
-            ${ arrow( 2, 0, true ) }
-            ${ arrow( 1, 0, true ) }
+            ${ arrow( 2, 0, events.onArrowChange ) }
+            ${ arrow( 1, 0, events.onArrowChange ) }
           </div>
           <div>
             ${ arrow( 2, 0 ) }
@@ -100,7 +100,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
           </div>
           <div>
             ${ arrow( 2, 0 ) }
-            ${ arrow( 0, 1, true ) }
+            ${ arrow( 0, 1, events.onArrowChange ) }
           </div>
           <div>
             ${ arrow( 2, 0 ) }
@@ -110,15 +110,15 @@ export function main( app, data, phrase, phrase_nr, events ) {
           </div>
           <div>
             ${ arrow( 0, 2 ) }
-            ${ arrow( 2, 1, true ) }
+            ${ arrow( 2, 1, events.onArrowChange ) }
           </div>
           <div>
             ${ arrow( 0, 2 ) }
             ${ arrow( 1, 2 ) }
           </div>
           <div>
-            ${ arrow( 0, 2, true ) }
-            ${ arrow( 1, 2, true ) }
+            ${ arrow( 0, 2, events.onArrowChange ) }
+            ${ arrow( 1, 2, events.onArrowChange ) }
           </div>
           <div>
             ${ table( 2 ) }
@@ -139,7 +139,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
         </section>
         
         <!-- Logos -->
-        <section class="mx-3 mt-3 text-center">
+        <section class="mx-3 mt-5 text-center">
           <img src="https://ccmjs.github.io/eild/logos.jpg" title="Diese App ist im Rahmen des EILD-Projekts entstanden.">
         </section>
         
@@ -155,7 +155,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
   function addTableButton( table ) {
     return html`
       <div class="text-${ table === 0 ? 'left' : ( table === 1 ? 'center' : 'right' ) }">
-        <button class="btn btn-primary btn-sm" @click=${ () => events.onAddTable( table ) } ?data-invisible=${ section.input[ table ] !== null }>+ "${ section.relationship[ table ] }"${ app.text.table }</button>
+        <button class="btn btn-primary btn-sm" @click=${ () => events.onAddTable( table ) } ?data-invisible=${ section.input.keys[ table ] !== null }>+ "${ section.relationship[ table ] }"${ app.text.table }</button>
       </div>
     `;
   }
@@ -164,11 +164,27 @@ export function main( app, data, phrase, phrase_nr, events ) {
    * returns the HTML template for an arrow line
    * @param {number} [from] - index of the table from which the arrow starts
    * @param {number} [to] - table index
-   * @param {boolean} [head] - is arrowhead
+   * @param {Function} [onChange] - when the arrowhead is changed
    * @returns {TemplateResult} HTML template for an arrow line
    */
-  function arrow( from, to, head ) {
-    return html`<div class="line" ?data-hidden=${ !section.input[ from ] || !section.input[ to ] || !section.input[ from ][ to ] && !section.input[ to ][ from ] }>${ html`<div>${ head && section.input[ from ] && section.input[ from ][ to ] ? html`<svg height="8" width="8" class="${ from - to > 0 ? 'mirrored' : '' }"><polygon points="0,0 8,4 0,8" style="fill:black"></polygon></svg>` : '' }</div>` }</div>`;
+  function arrow( from, to, onChange ) {
+    return html`
+      <div class="line" ?data-hidden=${ !section.input.keys[ from ] || !section.input.keys[ to ] || !section.input.keys[ from ][ to ] && !section.input.keys[ to ][ from ] }>
+        <div class="arrowhead" ?data-hidden=${ !onChange }>
+          <select data-from="${ from }" data-to="${ to }" .value="${ ( section.input.arrows[ from ][ to ] + 0 ).toString() }" @change=${ onChange }>
+            <option value="0">−</option>
+            <option value="1">${ from - to > 0 ? '⟵' : '⟶' }</option>
+          </select>
+          <div class="arrow">
+            <div class="filler" ?data-hidden=${ from - to > 0 }></div>
+            <div ?data-hidden=${ section.input.arrows[ from ][ to ] }></div>
+            <svg ?data-hidden=${ !section.input.arrows[ from ][ to ] } height="8" width="8" class="${ from - to > 0 ? 'mirrored' : '' }"><polygon points="0,0 8,4 0,8" style="fill:black"></polygon></svg>
+            <div class="filler" ?data-hidden=${ from - to < 0 }></div>
+          </div>
+        </div>
+        <div ?data-hidden=${ onChange }></div>
+      </div>
+    `;
   }
 
   /**
@@ -178,12 +194,12 @@ export function main( app, data, phrase, phrase_nr, events ) {
    */
   function table( table ) {
 
-    const keys = section.input[ table ];
+    const keys = section.input.keys[ table ];
     return html`
       <div class="scheme border" ?data-invisible=${ keys === null }>
         <header class="bg-light border-bottom px-3 py-2 d-inline-flex justify-content-center align-items-center">
           <span title="Name der Tabelle">${ section.relationship[ table ] }</span>
-          <span class="icon" title="Tabelle entfernen" ?data-hidden=${ !section.input[ table ] } @click=${ () => events.onRemoveTable( table ) }>
+          <span class="icon" title="Tabelle entfernen" ?data-hidden=${ !section.input.keys[ table ] } @click=${ () => events.onRemoveTable( table ) }>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg text-danger ml-1" viewBox="0 0 16 16">
               <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
             </svg>
@@ -226,12 +242,12 @@ export function main( app, data, phrase, phrase_nr, events ) {
      * @returns {boolean}
      */
     function addableForeignKey() {
-      for ( let i = 0; i <= 2; i++ )              // check for each possible table:
-        if ( table !== i )                        // - not the current table?
-          if ( section.input[ i ] )               // - table is created?
-            if ( !section.input[ table ][ i ] )   // - table is not already referenced by a foreign key in current table?
-              return true;                        // => table is referencable with another foreign key
-      return false;                               // => there is no other table that could be referenced with a foreign key
+      for ( let i = 0; i <= 2; i++ )                  // check for each possible table:
+        if ( table !== i )                            // - not the current table?
+          if ( section.input.keys[ i ] )              // - table is created?
+            if ( !section.input.keys[ table ][ i ] )  // - table is not already referenced by a foreign key in current table?
+              return true;                            // => table is referencable with another foreign key
+      return false;                                   // => there is no other table that could be referenced with a foreign key
     }
 
     /**
@@ -293,11 +309,11 @@ export function fkForm( section, table, onSubmit ) {
   const tables = [];
 
   // determine referencable tables
-  for ( let i = 0; i <= 2; i++ )              // check for each possible table:
-    if ( table !== i )                        // - not the table that will contain the foreign key?
-      if ( section.input[ i ] )               // - table is created?
-        if ( !section.input[ table ][ i ] )   // - table is not already referenced by the table that will contain the foreign key?
-          tables.push( i );                   // => table is referencable
+  for ( let i = 0; i <= 2; i++ )                  // check for each possible table:
+    if ( table !== i )                            // - not the table that will contain the foreign key?
+      if ( section.input.keys[ i ] )              // - table is created?
+        if ( !section.input.keys[ table ][ i ] )  // - table is not already referenced by the table that will contain the foreign key?
+          tables.push( i );                       // => table is referencable
 
   return html`
     <form id="attr-form" @submit=${ onSubmit }>
