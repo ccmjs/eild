@@ -182,7 +182,9 @@ export function main( app, data, phrase, phrase_nr, events, solution ) {
         <main class="p-2">
           ${ attr( toID( section.relationship[ table ] ), true, false, false ) }
           ${ keys && keys.map( ( fk, i ) => fk && attr( toID( section.relationship[ i ] ), false, i, fk.opt ) ) }
-          <button class="btn btn-link btn-sm mt-1 p-0" title="Fremdschlüssel hinzufügen" ?data-hidden=${ solution || keys && !addableForeignKey() } @click=${ () => events.onAddAttr( table ) }>+ Fremdschlüssel</button>
+          <div class="px-1 rounded ${ solution ? ( solution.keys[ table ] && keys && !solution.keys[ table ].some( fk => fk && keys[ fk ] ) ? 'bg-danger' : 'bg-success' ) : '' }">
+            <button class="btn btn-link btn-sm mt-1 p-0" title="Fremdschlüssel hinzufügen" ?disabled=${ solution } ?data-hidden=${ keys && !addableForeignKey() } @click=${ () => events.onAddAttr( table ) }>+ Fremdschlüssel</button>
+          </div>
         </main>
       </div>
     `;
@@ -197,7 +199,7 @@ export function main( app, data, phrase, phrase_nr, events, solution ) {
      */
     function attr( name, pk, fk, opt ) {
       return html`
-        <div class="attr p-1 d-flex align-items-center rounded ${ solution && fk !== false ? ( JSON.stringify( section.input.keys[ table ][ fk ] ) === JSON.stringify( solution.keys[ table ][ fk ] ) ? 'bg-success' : 'bg-danger' ) : '' }">
+        <div class="attr p-1 d-flex align-items-center rounded ${ solution && solution.keys[ table ] && fk !== false ? ( JSON.stringify( section.input.keys[ table ][ fk ] ) === JSON.stringify( solution.keys[ table ][ fk ] ) ? 'bg-success' : 'bg-danger' ) : '' }">
           <span title="Name des Schlüsselattributs">${ name }</span>
           ${ pk ? html`<span class="badge badge-primary" title="Primärschlüssel: Attribut mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.">PK</span>` : '' }
           ${ fk || fk === 0 ? html`<span class="badge badge-warning" title="Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.">FK</span>` : '' }
@@ -245,7 +247,7 @@ export function main( app, data, phrase, phrase_nr, events, solution ) {
   function arrow( from, to, onChange ) {
     return html`
       <div class="line" ?data-hidden=${ !section.input.keys[ from ] || !section.input.keys[ to ] || !section.input.keys[ from ][ to ] && !section.input.keys[ to ][ from ] }>
-        <div class="arrowhead ${ solution ? ( section.input.arrows[ from ][ to ] === solution.arrows[ from ][ to ] ? 'bg-success' : 'bg-danger' ) : '' }" ?data-hidden=${ !onChange }>
+        <div class="arrowhead ${ solution && solution.keys[ from ] && solution.keys[ to ] && ( solution.keys[ from ][ to ] || solution.keys[ to ][ from ] ) ? ( section.input.arrows[ from ][ to ] === solution.arrows[ from ][ to ] ? 'bg-success' : 'bg-danger' ) : '' }" ?data-hidden=${ !onChange }>
           <select data-from="${ from }" data-to="${ to }" .value="${ ( section.input.arrows[ from ][ to ] + 0 ).toString() }" @change=${ onChange }>
             <option value="0">−</option>
             <option value="1">${ from - to > 0 ? '⟵' : '⟶' }</option>
