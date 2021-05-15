@@ -207,9 +207,12 @@
         render();
       };
 
-      /** renders current phrase */
-      const render = () => {
-        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events ), this.element );
+      /**
+       * renders current phrase
+       * @param {Object} [solution] - solution data for visual feedback
+       */
+      const render = solution => {
+        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events, solution ), this.element );
         this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = true );  // workaround for lit-html bug
       };
 
@@ -275,15 +278,27 @@
         /** when 'submit' button is clicked */
         onSubmitButton: () => {
           const section = dataset.sections[ phrase_nr - 1 ];
-          section.input = [
-            this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 2 : 1 ) ).value,
-            this.element.querySelector( '#input' + ( this.notations[ dataset.notation ].swap ? 1 : 2 ) ).value
-          ];
-          section.correct = section.input.toString() === section.solution.toString();
-          if ( section.correct ) dataset.correct++;
+          const left = section.solution[ 0 ];
+          const right = section.solution[ 1 ];
+          const multi = ( left === 'n' || left === 'cn' ) && ( right === 'n' || right === 'cn' );
+          const solution = {
+            keys: [
+              [ null, multi ? { opt: right === 'cn' } : null, right === '1' || right === 'c' ? { opt: right === 'c' || right === 'cn' } : null ],
+              multi ? [ { opt: false }, null, { opt: false } ] : null,
+              [ left === '1' || left === 'c' ? { opt: left === 'c' || left === 'cn' } : null, multi ? { opt: left === 'cn' } : null, null ]
+            ],
+            arrows: [
+              [ false, multi, right === '1' || right === 'c' ],
+              [ multi, false, multi ],
+              [ left === '1' || left === 'c', multi, false ]
+            ]
+          };
+//        section.input = solution;
+          section.correct = JSON.stringify( section.input ) === JSON.stringify( solution );
+          section.correct && dataset.correct++;
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
-          render();
-          !this.feedback && onNextClick();
+          render( solution );
+          !this.feedback && events.onNextButton();
         },
 
         /** when 'next' button is clicked */

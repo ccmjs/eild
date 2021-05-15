@@ -63,9 +63,11 @@
   padding-bottom: 0;
 }
 
-#element.correct header {
+.bg-success, .btn-success,
+#element.correct > header {
   background-color: #dff0d8 !important;
   border-color: #d6e9c6;
+  color: black;
 }
 
 #element.correct #heading {
@@ -73,32 +75,16 @@
   font-weight: bold;
 }
 
-#element.correct main {
-  border-color: #d6e9c6;
-}
-
-#element.failed header {
+.bg-danger, .btn-danger,
+#element.failed > header {
   background-color: #f2dede !important;
   border-color: #ebccd1;
+  color: black;
 }
 
 #element.failed #heading {
   color: #a94442;
   font-weight: bold;
-}
-
-#element.failed main {
-  border-color: #ebccd1;
-}
-
-.entity.correct {
-  background-color: #dff0d8;
-  border-color: #d6e9c6 !important;
-}
-
-.entity.failed {
-  background-color: #f2dede;
-  border-color: #ebccd1 !important;
 }
 
 *[data-hidden] {
@@ -144,8 +130,8 @@ section > img {
   visibility: hidden;
 }
 
-.scheme header:hover .icon,
-.scheme .attr:hover .icon {
+#element:not(.correct):not(.failed) .scheme header:hover .icon,
+#element:not(.correct):not(.failed) .scheme .attr:hover .icon {
   visibility: visible;
   cursor: pointer;
 }
@@ -175,7 +161,7 @@ main select {
   z-index: 1;
 }
 
-#tables:hover .arrowhead > select {
+#element:not(.correct):not(.failed) #tables:hover .arrowhead > select {
   display: inline;
 }
 
@@ -185,8 +171,12 @@ main select {
 }
 
 #tables .arrowhead > select,
-#tables:hover .arrowhead > .arrow {
+#element:not(.correct):not(.failed) #tables:hover .arrowhead > .arrow {
   display: none;
+}
+
+.arrowhead {
+  flex: 1;
 }
 
 .arrowhead > .filler {
@@ -196,4 +186,8 @@ main select {
 .arrowhead > .arrow > div {
   border: 1px solid black;
   width: 8px;
+}
+
+*[disabled] {
+  color: black !important;
 }

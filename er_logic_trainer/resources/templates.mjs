@@ -13,9 +13,10 @@ export { render };
  * @param {Object} phrase - phrase data
  * @param {number} phrase_nr - number of current phrase
  * @param {Object.<string,Function>} events - contains all event handlers
+ * @param {Object} [solution] - solution data for visual feedback
  * @returns {TemplateResult} main HTML template
  */
-export function main( app, data, phrase, phrase_nr, events ) {
+export function main( app, data, phrase, phrase_nr, events, solution ) {
 
   let { centered, comment, images, left, swap } = app.notations[ data.notation ];
   const section = data.sections[ phrase_nr - 1 ];
@@ -155,34 +156,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
   function addTableButton( table ) {
     return html`
       <div class="text-${ table === 0 ? 'left' : ( table === 1 ? 'center' : 'right' ) }">
-        <button class="btn btn-primary btn-sm" @click=${ () => events.onAddTable( table ) } ?data-invisible=${ section.input.keys[ table ] !== null }>+ "${ section.relationship[ table ] }"${ app.text.table }</button>
-      </div>
-    `;
-  }
-
-  /**
-   * returns the HTML template for an arrow line
-   * @param {number} [from] - index of the table from which the arrow starts
-   * @param {number} [to] - table index
-   * @param {Function} [onChange] - when the arrowhead is changed
-   * @returns {TemplateResult} HTML template for an arrow line
-   */
-  function arrow( from, to, onChange ) {
-    return html`
-      <div class="line" ?data-hidden=${ !section.input.keys[ from ] || !section.input.keys[ to ] || !section.input.keys[ from ][ to ] && !section.input.keys[ to ][ from ] }>
-        <div class="arrowhead" ?data-hidden=${ !onChange }>
-          <select data-from="${ from }" data-to="${ to }" .value="${ ( section.input.arrows[ from ][ to ] + 0 ).toString() }" @change=${ onChange }>
-            <option value="0">−</option>
-            <option value="1">${ from - to > 0 ? '⟵' : '⟶' }</option>
-          </select>
-          <div class="arrow">
-            <div class="filler" ?data-hidden=${ from - to > 0 }></div>
-            <div ?data-hidden=${ section.input.arrows[ from ][ to ] }></div>
-            <svg ?data-hidden=${ !section.input.arrows[ from ][ to ] } height="8" width="8" class="${ from - to > 0 ? 'mirrored' : '' }"><polygon points="0,0 8,4 0,8" style="fill:black"></polygon></svg>
-            <div class="filler" ?data-hidden=${ from - to < 0 }></div>
-          </div>
-        </div>
-        <div ?data-hidden=${ onChange }></div>
+        <button class="btn btn-${ solution ? ( solution.keys[ table ] ? 'danger' : 'success' ) : 'primary' } btn-sm" @click=${ () => events.onAddTable( table ) } ?disabled=${ solution } ?data-invisible=${ section.input.keys[ table ] !== null }>+ "${ section.relationship[ table ] }"${ app.text.table }</button>
       </div>
     `;
   }
@@ -197,7 +171,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
     const keys = section.input.keys[ table ];
     return html`
       <div class="scheme border" ?data-invisible=${ keys === null }>
-        <header class="bg-light border-bottom px-3 py-2 d-inline-flex justify-content-center align-items-center">
+        <header class="bg-${ solution ? ( solution.keys[ table ] ? 'success' : 'danger' ) : 'light' } border-bottom px-3 py-2 d-inline-flex justify-content-center align-items-center">
           <span title="Name der Tabelle">${ section.relationship[ table ] }</span>
           <span class="icon" title="Tabelle entfernen" ?data-hidden=${ !section.input.keys[ table ] } @click=${ () => events.onRemoveTable( table ) }>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg text-danger ml-1" viewBox="0 0 16 16">
@@ -205,10 +179,10 @@ export function main( app, data, phrase, phrase_nr, events ) {
             </svg>
           </span>
         </header>
-        <main class="px-3 py-2">
+        <main class="p-2">
           ${ attr( toID( section.relationship[ table ] ), true, false, false ) }
           ${ keys && keys.map( ( fk, i ) => fk && attr( toID( section.relationship[ i ] ), false, i, fk.opt ) ) }
-          <button class="btn btn-link btn-sm mt-1 p-0" title="Fremdschlüssel hinzufügen" ?data-hidden=${ keys && !addableForeignKey() } @click=${ () => events.onAddAttr( table ) }>+ Fremdschlüssel</button>
+          <button class="btn btn-link btn-sm mt-1 p-0" title="Fremdschlüssel hinzufügen" ?data-hidden=${ solution || keys && !addableForeignKey() } @click=${ () => events.onAddAttr( table ) }>+ Fremdschlüssel</button>
         </main>
       </div>
     `;
@@ -223,7 +197,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
      */
     function attr( name, pk, fk, opt ) {
       return html`
-        <div class="attr py-1 d-flex align-items-center">
+        <div class="attr p-1 d-flex align-items-center rounded ${ solution && fk !== false ? ( JSON.stringify( section.input.keys[ table ][ fk ] ) === JSON.stringify( solution.keys[ table ][ fk ] ) ? 'bg-success' : 'bg-danger' ) : '' }">
           <span title="Name des Schlüsselattributs">${ name }</span>
           ${ pk ? html`<span class="badge badge-primary" title="Primärschlüssel: Attribut mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.">PK</span>` : '' }
           ${ fk || fk === 0 ? html`<span class="badge badge-warning" title="Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.">FK</span>` : '' }
@@ -259,6 +233,33 @@ export function main( app, data, phrase, phrase_nr, events ) {
       return string.toLowerCase().trim().replace( /ä/g, 'ae' ).replace( /ö/g, 'oe' ).replace( /ü/g, 'ue' ).replace( /ß/g, 'ss' ).replace( /\W/g, '_' ) + '_id';
     }
 
+  }
+
+  /**
+   * returns the HTML template for an arrow line
+   * @param {number} [from] - index of the table from which the arrow starts
+   * @param {number} [to] - table index
+   * @param {Function} [onChange] - when the arrowhead is changed
+   * @returns {TemplateResult} HTML template for an arrow line
+   */
+  function arrow( from, to, onChange ) {
+    return html`
+      <div class="line" ?data-hidden=${ !section.input.keys[ from ] || !section.input.keys[ to ] || !section.input.keys[ from ][ to ] && !section.input.keys[ to ][ from ] }>
+        <div class="arrowhead ${ solution ? ( section.input.arrows[ from ][ to ] === solution.arrows[ from ][ to ] ? 'bg-success' : 'bg-danger' ) : '' }" ?data-hidden=${ !onChange }>
+          <select data-from="${ from }" data-to="${ to }" .value="${ ( section.input.arrows[ from ][ to ] + 0 ).toString() }" @change=${ onChange }>
+            <option value="0">−</option>
+            <option value="1">${ from - to > 0 ? '⟵' : '⟶' }</option>
+          </select>
+          <div class="arrow">
+            <div class="filler" ?data-hidden=${ from - to > 0 }></div>
+            <div ?data-hidden=${ section.input.arrows[ from ][ to ] }></div>
+            <svg ?data-hidden=${ !section.input.arrows[ from ][ to ] } height="8" width="8" class="${ from - to > 0 ? 'mirrored' : '' }"><polygon points="0,0 8,4 0,8" style="fill:black"></polygon></svg>
+            <div class="filler" ?data-hidden=${ from - to < 0 }></div>
+          </div>
+        </div>
+        <div ?data-hidden=${ onChange }></div>
+      </div>
+    `;
   }
 
   /**
