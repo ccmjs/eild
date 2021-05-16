@@ -126,11 +126,19 @@ section > img {
   width: 100%;
 }
 
-.scheme .icon {
+.scheme header .icon {
+  display: none;
+}
+
+.scheme .attr .icon {
   visibility: hidden;
 }
 
-#element:not(.correct):not(.failed) .scheme header:hover .icon,
+#element:not(.correct):not(.failed) .scheme header:hover .icon {
+  display: block;
+  cursor: pointer;
+}
+
 #element:not(.correct):not(.failed) .scheme .attr:hover .icon {
   visibility: visible;
   cursor: pointer;

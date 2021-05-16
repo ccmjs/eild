@@ -103,6 +103,8 @@
         "legend": "Legende",
         "next": "Weiter",
         "selection": [ "Bitte auswählen", "einfach", "bedingt", "mehrfach", "bedingt mehrfach" ],
+        "show_feedback": "Zeige Feedback",
+        "show_solution": "Zeige Lösung",
         "submit": "Antworten",
         "table": "-Tabelle",
         "title": "ER-zu-Schema-Trainer"
@@ -207,12 +209,9 @@
         render();
       };
 
-      /**
-       * renders current phrase
-       * @param {Object} [solution] - solution data for visual feedback
-       */
-      const render = solution => {
-        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events, solution ), this.element );
+      /** renders current phrase */
+      const render = () => {
+        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events ), this.element );
         this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = true );  // workaround for lit-html bug
       };
 
@@ -281,7 +280,7 @@
           const left = section.solution[ 0 ];
           const right = section.solution[ 1 ];
           const multi = ( left === 'n' || left === 'cn' ) && ( right === 'n' || right === 'cn' );
-          const solution = {
+          section.feedback = {
             keys: [
               [ null, multi ? { opt: right === 'cn' } : null, right === '1' || right === 'c' ? { opt: right === 'c' || right === 'cn' } : null ],
               multi ? [ { opt: false }, null, { opt: false } ] : null,
@@ -293,12 +292,19 @@
               [ left === '1' || left === 'c', multi, false ]
             ]
           };
-//        section.input = solution;
-          section.correct = JSON.stringify( section.input ) === JSON.stringify( solution );
+//        section.input = section.feedback;
+          section.correct = JSON.stringify( section.input ) === JSON.stringify( section.feedback );
           section.correct && dataset.correct++;
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
-          render( solution );
+          render();
           !this.feedback && events.onNextButton();
+        },
+
+        /** when 'solution' button is clicked */
+        onSolutionButton: () => {
+          const feedback = dataset.sections[ phrase_nr - 1 ].feedback;
+          feedback.show_solution = !feedback.show_solution;
+          render();
         },
 
         /** when 'next' button is clicked */
