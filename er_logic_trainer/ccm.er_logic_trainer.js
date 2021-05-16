@@ -309,19 +309,34 @@
 
         /** when 'next' button is clicked */
         onNextButton: () => {
+
+          const section = dataset.sections[ phrase_nr - 1 ];
+          delete section.feedback.show_solution;
+          section.solution = section.feedback;
+          delete section.feedback;
+
           this.element.classList.remove( 'correct' );
           this.element.classList.remove( 'failed' );
+
           phrases.shift();
           nextPhrase();
 
           // logging of 'next' event
           this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );
+
         },
 
         /** when 'finish' button is clicked */
         onFinishButton: () => {
+
+          const section = dataset.sections[ phrase_nr - 1 ];
+          delete section.feedback.show_solution;
+          section.solution = section.feedback;
+          delete section.feedback;
+
           this.element.classList.remove( 'correct' );
           this.element.classList.remove( 'failed' );
+
           phrases.shift();
           this.onfinish && $.onFinish( this );
 

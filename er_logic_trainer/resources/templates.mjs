@@ -132,7 +132,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
           <button class="btn btn-primary m-1" @click=${ events.onSubmitButton } ?data-hidden=${ section.correct !== undefined || !tablesConnected() }>${ app.text.submit }</button>
           <button class="btn btn-info m-1" @click=${ events.onSolutionButton } ?data-hidden=${ section.correct !== false || !app.show_solution }>${ section.feedback && section.feedback.show_solution ? app.text.show_feedback : app.text.show_solution }</button>
           <button class="btn btn-secondary m-1" @click=${ events.onNextButton } ?data-hidden=${ section.correct === undefined || phrase_nr === app.number }>${ app.text.next }</button>
-          <button class="btn btn-success m-1" @click=${ events.onFinishButton } ?data-hidden=${ section.correct === undefined || phrase_nr < app.number || !app.onfinish }>${ app.text.finish }</button>
+          <button class="btn btn-primary m-1" @click=${ events.onFinishButton } ?data-hidden=${ section.correct === undefined || phrase_nr < app.number || !app.onfinish }>${ app.text.finish }</button>
         </section>
 
         <!-- Current State -->
