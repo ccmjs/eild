@@ -91,7 +91,7 @@
       "shuffle": true,
       "text": {
         "cancel": "Abbrechen",
-        "correct": "Ihre letzte Antwort war richtig!",
+        "correct": "Ihre Antwort war richtig!",
         "correct_solution": "Richtige Lösung:",
         "current_state": "Sie haben %% von %% Aufgaben richtig beantwortet!",
         "entity1": "Entity 1",
