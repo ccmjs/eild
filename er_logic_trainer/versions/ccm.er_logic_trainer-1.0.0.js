@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for ER model to logical scheme training
  * @author André Kless <andre.kless@web.de> 2021
  * @license The MIT License (MIT)
- * @version 1.0.0
+ * @version latest (1.0.0)
  * @changes
  * version 1.0.0 (07.05.2021)
  */
@@ -17,7 +17,7 @@
       "css": [ "ccm.load",
         [  // serial
           "https://ccmjs.github.io/akless-components/libs/bootstrap-4/css/bootstrap.min.css",
-          "https://ccmjs.github.io/eild/er_trainer/resources/default.css"
+          "https://ccmjs.github.io/eild/er_logic_trainer/resources/default.css"
         ]
       ],
 //    "data": { "store": [ "ccm.store" ] },
@@ -26,10 +26,10 @@
         "images": [ "e", "1", "c", "n", "cn", "r" ],
         "left": "copied",
         "notation": "uml",
-        "path": "https://ccmjs.github.io/eild/er_trainer/resources/img/"
+        "path": "https://ccmjs.github.io/eild/er_logic_trainer/resources/img/"
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_logic_trainer/resources/templates.mjs" ],
 //    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
       "feedback": true,
       "legend": true,
