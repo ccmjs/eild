@@ -46,9 +46,10 @@ export function main( app, data, phrase, phrase_nr, events ) {
     <main class="border rounded-bottom border-top-0 px-4 py-2">
       <div>
 
-        <!-- Notation Comment -->
-        <section ?data-hidden=${ !comment }>
-          <div class="alert alert-info mt-3 mb-0" role="alert">${ comment }</div>
+        <!-- Phrase -->
+        <section class="lead text-nowrap px-2 py-3">
+          <b>${ app.ccm.helper.html( app.text.phrase, phrase_nr.toString() ) }</b>
+          <span class="text-wrap">${phrase.text}</span>
         </section>
 
         <!-- Diagram -->

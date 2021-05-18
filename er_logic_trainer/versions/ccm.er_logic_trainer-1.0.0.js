@@ -2,9 +2,9 @@
  * @overview ccmjs-based web component for ER model to logical scheme training
  * @author André Kless <andre.kless@web.de> 2021
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version 1.0.0
  * @changes
- * version 1.0.0 (07.05.2021)
+ * version 1.0.0 (18.05.2021)
  */
 
 ( () => {
@@ -25,7 +25,7 @@
         "format": "svg",
         "images": [ "e", "1", "c", "n", "cn", "r" ],
         "left": "copied",
-        "notation": "uml",
+        "notation": "abrial",
         "path": "https://ccmjs.github.io/eild/er_logic_trainer/resources/img/"
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
@@ -103,6 +103,7 @@
         "notation": "ER-Notation:",
         "legend": "Legende",
         "next": "Weiter",
+        "phrase": "Phrase [%%]:",
         "selection": [ "Bitte auswählen", "einfach", "bedingt", "mehrfach", "bedingt mehrfach" ],
         "show_feedback": "Zeige Feedback",
         "show_solution": "Zeige Lösung",
