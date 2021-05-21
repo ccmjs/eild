@@ -669,7 +669,7 @@ export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNota
       ${repeat(Object.values(config.phrases),phrase=>phrase.key,phrase=>phraseModal(config,phrase))}
 
       <!-- Preview Button -->
-      <button type="button" class="btn btn-info btn-block mt-0" @click="${onShowPreview}" ?data-hidden=${!builder.preview}>${builder.preview}</button>
+      <button type="button" class="btn btn-info btn-block mt-0" @click="${()=>onShowPreview()}" ?data-hidden=${!builder.preview}>${builder.preview}</button>
 
       <!-- Submit Button -->
       <button type="submit" class="btn btn-primary btn-block mt-0" ?data-hidden=${!builder.onfinish||!builder.submit}>${builder.submit}</button>
