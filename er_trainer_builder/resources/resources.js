@@ -35,10 +35,19 @@ ccm.files[ 'resources.js' ] = {
     "submit": null
   },
 
-  "lea": {
+  "dbs-ss21": {
     "data": {
       "store": [ "ccm.store", { "name": "dms-configs", "url": "https://ccm2.inf.h-brs.de" } ],
       "key": "1617572240691X6582447302605123"
+    },
+    "onfinish": { "log": true, "store": true, "alert": "Saved!" },
+    "results": { "store": { "name": "er_trainer-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } }
+  },
+
+  "eild-test": {
+    "data": {
+      "store": [ "ccm.store", { "name": "dms-configs", "url": "https://ccm2.inf.h-brs.de" } ],
+      "key": "1621582970875X5476706877170028"
     },
     "onfinish": { "log": true, "store": true, "alert": "Saved!" },
     "results": { "store": { "name": "er_trainer-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } }
