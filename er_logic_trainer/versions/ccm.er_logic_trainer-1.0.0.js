@@ -103,7 +103,7 @@
           "solution": [ "1", "c" ],
           "comment": [
             "Jeder Topf hat keinen oder genau einen Deckel und jeder Deckel gehört zu genau einem Topf.",
-            "Das stimmt, aber zur Sicherheit genau hinterfragen, ob je nach Kontext ein Topf auch mehrere Deckel haben könnte. Auch die Frage welche Deckel für einen Topf bisher verwendet wurden, könnte so nicht beantworten werden."
+            "Das ein Deckel immer zu genau einen Topf gehört, lässt sich mit den hier verfügbaren Mitteln nicht sicherstellen. Später in der Datenbank muss dies anders sichergestellt werden. Wenn es einen Deckel gibt, zu dem es keinen Topf gibt, der auf den Deckel verweist, hat der Deckel keinen Topf. Auch könnte es mehrere Deckel geben, die auf den gleichen Topf verweisen, dies lässt sich ebenfalls auf dieser Ebene nicht verhindern."
           ]
         },
         {
@@ -383,12 +383,12 @@
             keys: [
               [ null, null, single_right ? { opt: right === 'c' } : null ],
               multi ? [ { opt: false }, null, { opt: false } ] : null,
-              [ single_left ? { opt: left === 'c' } : null, null, null ]
+              [ single_left && !single_right ? { opt: left === 'c' } : null, null, null ]
             ],
             arrows: [
               [ false, false, single_right ],
               [ multi, false, multi ],
-              [ single_left, false, false ]
+              [ single_left && !single_right, false, false ]
             ]
           };
 //        section.input = section.feedback;
