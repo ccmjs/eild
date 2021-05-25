@@ -6,11 +6,18 @@
 
 ccm.files[ 'resources.js' ] = {
 
-  "analytics_config": {
+  "results": {
     "app": [ { "name": "ER-Trainer" } ],
     "placeholder.captions": [ "User", "", "", "Correct", "Result", "Created", "Last Update", "" ],
     "store": [ "ccm.store", { "name": "er_trainer-results", "url": "wss://ccm2.inf.h-brs.de" } ],
     "user": null
+  },
+
+  "log": {
+    "data": {
+      "store": [ "ccm.store", { "name": "db-ss21-er-log", "url": "https://ccm2.inf.h-brs.de" } ],
+      "key": {}
+    }
   }
 
 };
