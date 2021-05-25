@@ -127,6 +127,11 @@ export function main( app, data, phrase, phrase_nr, events ) {
           </div>
         </section>
 
+        <!-- Phrase Comment -->
+        <section ?data-hidden=${ !phrase.comment || !app.feedback || !section.correct || !phrase.comment[ section.correct ? 1 : 0 ] }>
+          <div class="alert alert-info mt-3 mb-0" role="alert">${ phrase.comment[ section.correct ? 1 : 0 ] }</div>
+        </section>
+
         <!-- Buttons -->
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
           <button class="btn btn-outline-danger m-1" @click=${ events.onCancelButton } ?data-hidden=${ !app.oncancel }>${ app.text.cancel }</button>

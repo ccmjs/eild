@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (18.05.2021)
+ * version 1.0.0 (25.05.2021)
  */
 
 ( () => {
@@ -83,10 +83,101 @@
           "title": "UML"
         }
       },
-      "number": 5,
+//    "number": 5,
 //    "oncancel": ( instance, phrase_nr ) => {},
       "onfinish": { "restart": true },
-      "phrases": [ "ccm.get", { "name": "eild-er_trainer-phrases", "url": "https://ccm2.inf.h-brs.de" } ],
+      "phrases": [
+        {
+          "text": "Ein Fahrzeug kann einen Anhänger haben.",
+          "relationship": [ "Fahrzeug", "hat", "Anhänger" ],
+          "solution": [ "c", "c" ],
+          "comment": [
+            "Ein Fahrzeug hat keinen oder genau einen Anhänger und ein Anhänger ist an kein oder genau ein Fahrzeug angehängt.",
+            "Richtig für den Fall, dass der aktuelle Zustand gespeichert werden soll. Die Frage an welche Fahrzeuge ein Anhänger in seiner Lebenszeit schon angehängt wurde, könnte so nicht beantwortet werden."
+          ]
+        },
+        {
+          "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
+          "relationship": [ "Topf", "hat", "Deckel" ],
+          "solution": [ "1", "c" ],
+          "comment": [
+            "Jeder Topf hat keinen oder genau einen Deckel und jeder Deckel gehört zu genau einem Topf.",
+            "Das stimmt, aber zur Sicherheit genau hinterfragen, ob je nach Kontext ein Topf auch mehrere Deckel haben könnte. Auch die Frage welche Deckel für einen Topf bisher verwendet wurden, könnte so nicht beantworten werden."
+          ]
+        },
+        {
+          "text": "Zu jedem Patienten gibt es eine Patientenakte.",
+          "relationship": [ "Patient", "hat", "Patientenakte" ],
+          "solution": [ "1", "1" ],
+          "comment": [
+            "Ein Patient hat genau eine Patientenakte und eine Patientenakte gehört zu genau einem Patienten.",
+            "Korrekt, in der Praxis fasst man eine 1-zu-1-Beziehung allerdings häufig zu einer Tabelle zusammen."
+          ]
+        },
+        {
+          "text": "Ein Rucksack kann mehrere Gegenstände enthalten.",
+          "relationship": [ "Rucksack", "enthält", "Gegenstände" ],
+          "solution": [ "c", "cn" ],
+          "comment": [
+            "Ein Rucksack enthält keinen, einen oder mehrere Gegenstände und ein Gegenstand befindet sich in keinem oder genau einem Rucksack.",
+            "Richtig, um den aktuellen Zustand eines Rucksacks festzuhalten. Die Historie, in welchen Rucksäcken ein Gegenstand bereits enthalten war, könnte man so aber nicht ermitteln."
+          ]
+        },
+        {
+          "text": "Ein Wald hat Bäume.",
+          "relationship": [ "Wald", "hat", "Baum" ],
+          "solution": [ "c", "n" ],
+          "comment": [
+            "Ein Wald hat einen oder mehrere Bäume und ein Baum gehört zu keinem oder genau einem Wald.",
+            "Richtig, aber es kann so auch einen Wald ohne Bäume geben, nämlich genau dann, wenn es zu einem Wald keinen Baum gibt, der auf ihn verweist. Dies lässt sich mit den hier verfügbaren Mitteln nicht verhindern. Später in der Datenbank muss anders sichergestellt werden, dass ein Wald immer mind. einen Baum hat."
+          ]
+        },
+        {
+          "text": "Ein Sonne kann Planeten haben, die sie umkreisen.",
+          "relationship": [ "Sonne", "hat", "Planeten" ],
+          "solution": [ "1", "cn" ],
+          "comment": [
+            "Eine Sonne hat keinen, einen oder mehrere Planeten und ein Planet umkreist genau eine Sonne.",
+            "Eine Sonne hat genau dann keinen Planeten, wenn es keinen Planeten in der Datenbank gibt, der auf die Sonne verweist."
+          ]
+        },
+        {
+          "text": "Ein Buch hat mehrere Seiten.",
+          "relationship": [ "Buch", "hat", "Seite" ],
+          "solution": [ "1", "n" ],
+          "comment": [
+            "Ein Buch hat mind. eine oder mehrere Seiten und eine Seite gehört zu genau einem Buch.",
+            ""
+          ]
+        },
+        {
+          "text": "Kunden kaufen Produkte.",
+          "relationship": [ "Kunde", "hat gekauft", "Produkt" ],
+          "solution": [ "cn", "cn" ],
+          "comment": [
+            "Ein Kunde hat keine, ein, oder mehrere Produkte gekauft und ein Produkt wurde von keinem, einem oder mehreren Kunden gekauft.",
+            ""
+          ]
+        },
+        {
+          "text": "Auf einem Rezept stehen Zutaten.",
+          "relationship": [ "Rezept", "hat", "Zutat" ],
+          "solution": [ "cn", "n" ],
+          "comment": [
+            "Ein Rezept hat mind. eine oder mehrere Zutaten und eine Zutat gehört zu keinem, einem oder mehreren Rezepten.",
+            "Das ein Rezept mind. eine Zutat hat, lässt sich mit den hier verfügbaren Mitteln nicht sicherstellen. Es ist möglich, dass es zu einem Rezept keine Zutat gibt, die auf das Rezept verweist. Später in der Datenbank muss anders sichergestellt werden, dass ein Rezept immer mind. eine Zutat hat."
+          ]
+        },
+        {
+          "text": "Ein Haus hat Eigentümer und Eigentümer haben Häuser.",
+          "relationship": [ "Haus", "hat", "Eigentümer" ],
+          "solution": [ "n", "n" ],
+          "comment": [
+            "Ein Haus hat mind. einen oder mehrere Eigentümer und ein Eigentümer hat mind. ein oder mehrere Häuser.",
+            "Das ein Haus mind. einen Eigentümer und ein Eigentümer mind. ein Haus hat, lässt sich erst später in der Datenbank mit anderen Mitteln sicherstellen. Wenn es zu z.B. zu einem Haus keinen Eigentümer gibt, der auf das Haus verweist, hat das Haus keinen Eigentümer."
+          ]
+        }
+      ],
       "show_solution": true,
       "shuffle": true,
       "text": {
@@ -143,6 +234,7 @@
         // uniform phrases data
         if ( $.isObject( this.phrases ) ) this.phrases = Object.values( this.phrases );
         this.phrases = this.phrases.filter( phrase => { delete phrase.key; return phrase.relationship[ 0 ] !== phrase.relationship[ 2 ]; } );
+
       };
 
       this.ready = async () => {
@@ -150,6 +242,9 @@
         // clone and shuffle original phrases
         phrases = $.clone( this.phrases );
         this.shuffle && $.shuffleArray( phrases );
+
+        // no number of phrases? => use all phrases
+        if ( !this.number ) this.number = phrases.length;
 
         // logging of 'ready' event
         this.logger && this.logger.log( 'ready', $.privatize( this, true ) );
@@ -280,17 +375,19 @@
           const section = dataset.sections[ phrase_nr - 1 ];
           const left = section.solution[ 0 ];
           const right = section.solution[ 1 ];
-          const multi = ( left === 'n' || left === 'cn' ) && ( right === 'n' || right === 'cn' );
+          const single_left = left === 'c' || left === '1';
+          const single_right = right === 'c' || right === '1';
+          const multi = ( left === 'cn' || left === 'n' ) && ( right === 'cn' || right === 'n' );
           section.feedback = {
             keys: [
-              [ null, multi ? { opt: right === 'cn' } : null, right === '1' || right === 'c' ? { opt: right === 'c' || right === 'cn' } : null ],
+              [ null, null, single_right ? { opt: right === 'c' } : null ],
               multi ? [ { opt: false }, null, { opt: false } ] : null,
-              [ left === '1' || left === 'c' ? { opt: left === 'c' || left === 'cn' } : null, multi ? { opt: left === 'cn' } : null, null ]
+              [ single_left ? { opt: left === 'c' } : null, null, null ]
             ],
             arrows: [
-              [ false, multi, right === '1' || right === 'c' ],
+              [ false, false, single_right ],
               [ multi, false, multi ],
-              [ left === '1' || left === 'c', multi, false ]
+              [ single_left, false, false ]
             ]
           };
 //        section.input = section.feedback;
