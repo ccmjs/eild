@@ -200,7 +200,7 @@
         "show_solution": "Zeige Lösung",
         "submit": "Antworten",
         "table": "-Tabelle",
-        "title": "ER-zu-Schema-Trainer"
+        "title": "ER-zu-relationales-Schema-Trainer"
       },
       "values": [ "1", "c", "n", "cn" ]
     },
