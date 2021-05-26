@@ -353,6 +353,7 @@
             modal.close();
           };
           this.html.render( this.html.fkForm( section, table, onSubmit ), modal.element.querySelector( 'main' ) );
+          modal.element.querySelector( 'input[name="opt"]' ).checked = false;
           modal.open();
         },
 
