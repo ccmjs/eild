@@ -17,7 +17,7 @@ export { render };
  */
 export function main( app, data, phrase, phrase_nr, events ) {
 
-  let { centered, comment, images, left, swap } = app.notations[ data.notation ];
+  let { centered, images, left, swap } = app.notations[ data.notation ];
   const section = data.sections[ phrase_nr - 1 ];
   const input = section.feedback && section.feedback.show_solution ? section.feedback : section.input;
   return html`
@@ -128,8 +128,8 @@ export function main( app, data, phrase, phrase_nr, events ) {
         </section>
 
         <!-- Phrase Comment -->
-        <section ?data-hidden=${ !phrase.comment || !app.feedback || !section.correct || !phrase.comment[ section.correct ? 1 : 0 ] }>
-          <div class="alert alert-info mt-3 mb-0" role="alert">${ phrase.comment[ section.correct ? 1 : 0 ] }</div>
+        <section ?data-hidden=${ !phrase.hints || !app.feedback || !section.correct || !phrase.hints[ section.correct ? 1 : 0 ] }>
+          <div class="alert alert-info mt-3 mb-0" role="alert">${ phrase.hints[ section.correct ? 1 : 0 ] }</div>
         </section>
 
         <!-- Buttons -->
