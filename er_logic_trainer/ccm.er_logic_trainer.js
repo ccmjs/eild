@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (26.05.2021)
+ * version 1.0.0 (27.05.2021)
  */
 
 ( () => {
@@ -135,11 +135,17 @@
         },
         {
           "text": "Ein Rucksack kann mehrere Gegenstände enthalten.",
-          "relationship": [ "Rucksack", "enthält", "Gegenstände" ],
+          "relationship": [ "Rucksack", "enthält", "Gegenstand" ],
           "solution": [ "c", "cn" ],
           "hints": [
-            "",
-            "Richtig, um den aktuellen Zustand eines Rucksacks festzuhalten. Die Historie, in welchen Rucksäcken ein Gegenstand bereits enthalten war, könnte man so aber nicht ermitteln."
+            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "enthält"-Tabelle benötigt.
+             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Gegenstand", hinzugefügt.
+             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
+             In diesem Fall kann ein Gegenstand immer nur in einem Rucksack enthalten sein.
+             Da ein Gegenstand sich auch in keinem Rucksack befinden kann, muss der Fremdschlüssel optional sein.
+             Da der Fremdschlüssel auf "Rucksack" verweist, geht der Pfeil von "Gegenstand" nach "Rucksack".`,
+            `Die Lösung ist korrekt, sofern es darum geht den aktuellen Zustand eines Rucksacks festzuhalten.
+             Die Historie, was für Gegenstände ein Rucksack jemals enthalten hat, könnte man so aber nicht ermitteln.`
           ]
         },
         {
@@ -147,17 +153,29 @@
           "relationship": [ "Wald", "hat", "Baum" ],
           "solution": [ "c", "n" ],
           "hints": [
-            "",
-            "Richtig, aber es kann so auch einen Wald ohne Bäume geben, nämlich genau dann, wenn es zu einem Wald keinen Baum gibt, der auf ihn verweist. Dies lässt sich mit den hier verfügbaren Mitteln nicht verhindern. Später in der Datenbank muss anders sichergestellt werden, dass ein Wald immer mind. einen Baum hat."
+            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Baum", hinzugefügt.
+             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
+             In diesem Fall kann ein Baum zu höchstens einem Wald gehören.
+             Da ein Baum sich auch in keinem Wald befinden kann, muss der Fremdschlüssel optional sein.
+             Da der Fremdschlüssel auf "Wald" verweist, geht der Pfeil von "Baum" nach "Wald".`,
+            `Es kann vorkommen, dass es einen Wald gibt, zu dem kein Baum existiert, der auf den Wald verweist und somit der Wald keine Bäume hat.
+             Das ein Wald immer mindestens einen Baum hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         },
         {
           "text": "Ein Sonne kann Planeten haben, die sie umkreisen.",
-          "relationship": [ "Sonne", "hat", "Planeten" ],
+          "relationship": [ "Sonne", "hat", "Planet" ],
           "solution": [ "1", "cn" ],
           "hints": [
-            "",
-            "Eine Sonne hat genau dann keinen Planeten, wenn es keinen Planeten in der Datenbank gibt, der auf die Sonne verweist."
+            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Planet", hinzugefügt.
+             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
+             In diesem Fall umkreist ein Planet immer genau eine Sonne.
+             Da der Fremdschlüssel auf "Sonne" verweist, geht der Pfeil von "Planet" nach "Sonne".`,
+            `Die NASA hat inzwischen einen Planeten entdeckt der zwei Sonnen umkreist.
+             Dies wurde in dieser Aufgabe nicht berücksichtigt.
+             Es sei aber zumindest an dieser Stelle erwähnt, falls es jemand ganz genau nimmt.`
           ]
         },
         {
@@ -165,8 +183,13 @@
           "relationship": [ "Buch", "hat", "Seite" ],
           "solution": [ "1", "n" ],
           "hints": [
-            "",
-            ""
+            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Seite", hinzugefügt.
+             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
+             In diesem Fall gehört eine Seite immer genau zu einem Buch.
+             Da der Fremdschlüssel auf "Buch" verweist, geht der Pfeil von "Seite" nach "Buch".`,
+            `Es kann vorkommen, dass es ein Buch gibt, zu dem keine Seite existiert, die auf das Buch verweist und somit das Buch keine Seiten hat.
+             Das ein Buch immer mindestens eine Seite hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         },
         {
@@ -174,7 +197,10 @@
           "relationship": [ "Kunde", "hat gekauft", "Produkt" ],
           "solution": [ "cn", "cn" ],
           "hints": [
-            "",
+            `Es handelt sich um eine N:M-Beziehung, daher muss eine "hat gekauft"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
+             Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Kunde" und "Produkt" hinzugefügt werden.
+             Damit jede Kombination aus "Kunde" und "Produkt" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
+             Da die beiden Fremdschlüssel der mittleren "hat gekauft"-Tabelle auf die beiden äußeren Tabellen "Kunde" und "Produkt" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
             ""
           ]
         },
@@ -183,8 +209,12 @@
           "relationship": [ "Rezept", "hat", "Zutat" ],
           "solution": [ "cn", "n" ],
           "hints": [
-            "",
-            "Das ein Rezept mind. eine Zutat hat, lässt sich mit den hier verfügbaren Mitteln nicht sicherstellen. Es ist möglich, dass es zu einem Rezept keine Zutat gibt, die auf das Rezept verweist. Später in der Datenbank muss anders sichergestellt werden, dass ein Rezept immer mind. eine Zutat hat."
+            `Es handelt sich um eine N:M-Beziehung, daher muss eine "hat"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
+             Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Rezept" und "Zutat" hinzugefügt werden.
+             Damit jede Kombination aus "Rezept" und "Zutat" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
+             Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die beiden äußeren Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
+            `Es ist möglich, dass es zu einem Rezept keine Zutat gibt, die auf das Rezept verweist und somit ein Rezept keine Zutaten hat.
+             Das ein Rezept immer mindestens eine Zutat hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         },
         {
@@ -192,8 +222,13 @@
           "relationship": [ "Haus", "hat", "Eigentümer" ],
           "solution": [ "n", "n" ],
           "hints": [
-            "",
-            "Das ein Haus mind. einen Eigentümer und ein Eigentümer mind. ein Haus hat, lässt sich erst später in der Datenbank mit anderen Mitteln sicherstellen. Wenn es zu z.B. zu einem Haus keinen Eigentümer gibt, der auf das Haus verweist, hat das Haus keinen Eigentümer."
+            `Es handelt sich um eine N:M-Beziehung, daher muss eine "hat"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
+             Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Haus" und "Eingentümer" hinzugefügt werden.
+             Damit jede Kombination aus "Haus" und "Eingentümer" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
+             Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die äußeren beiden Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
+            `Es ist möglich, dass es zu einem Haus keinen Eigentümer gibt, der auf das Haus verweist und somit ein Haus keinen Eigentümer hat.
+             Umgekehrt kann es auch vorkommen, dass es einen Eigentümer gibt, zu dem es kein Haus gibt, das auf den Eigentümer verweist und somit ein Eigentümer kein Haus hat.
+             Das ein Haus immer mindestens einen Eigentümer hat und ein Eigentümer immer mindestens ein Haus hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         }
       ],
