@@ -128,7 +128,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
         </section>
 
         <!-- Phrase Comment -->
-        <section ?data-hidden=${ !phrase.hints || !app.feedback || !section.correct || !phrase.hints[ section.correct ? 1 : 0 ] }>
+        <section ?data-hidden=${ !phrase.hints || !app.feedback || section.correct === undefined || !phrase.hints[ section.correct ? 1 : 0 ] }>
           <div class="alert alert-info mt-3 mb-0" role="alert">${ phrase.hints[ section.correct ? 1 : 0 ] }</div>
         </section>
 
@@ -189,7 +189,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
         </header>
         <main class="p-2">
           ${ attr( toID( section.relationship[ table ] ), true, false, false ) }
-          ${ fks && fks.map( ( fk, i ) => fk && attr( toID( section.relationship[ i ] ), false, i, fk.opt ) ) }
+          ${ fks && fks.map( ( fk, i ) => fk && attr( toID( section.relationship[ i ] ), false, i, fk.opt, fk.ak ) ) }
           <div class="px-1 ${ missed_fk ? 'bg-danger' : '' }">
             <button class="btn btn-link btn-sm mt-1 p-0" title="Fremdschlüssel hinzufügen" ?disabled=${ section.feedback } ?data-hidden=${ fks && !addableForeignKey() || section.feedback && !missed_fk } @click=${ () => events.onAddAttr( table ) }>+ Fremdschlüssel</button>
           </div>
@@ -203,14 +203,16 @@ export function main( app, data, phrase, phrase_nr, events ) {
      * @param {boolean} pk - is primary key
      * @param {boolean|number} fk - is foreign key to table with given index
      * @param {boolean} opt - is optional attribute
+     * @param {boolean} ak - is alternative key (or part of it)
      * @returns {TemplateResult} HTML template for attribute
      */
-    function attr( name, pk, fk, opt ) {
+    function attr( name, pk, fk, opt, ak ) {
       return html`
         <div class="attr p-1 d-flex align-items-center rounded ${ section.feedback && section.feedback.keys[ table ] && fk !== false ? ( JSON.stringify( fks[ fk ] ) === JSON.stringify( section.feedback.keys[ table ][ fk ] ) ? 'bg-success' : 'bg-danger' ) : '' }">
           <span title="Name des Schlüsselattributs">${ name }</span>
           ${ pk ? html`<span class="badge badge-primary" title="Primärschlüssel: Attribut mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.">PK</span>` : '' }
           ${ fk || fk === 0 ? html`<span class="badge badge-warning" title="Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.">FK</span>` : '' }
+          ${ ak ? html`<span class="badge badge-info" title="Alternativschlüssel: Weiterer Schlüssel mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.">AK</span>` : '' }
           ${ opt ? html`<span class="badge badge-secondary" title="Optionales Attribut: Muss nicht zwingend einen Wert haben.">OPT</span>` : '' }
           <span class="icon" title="Fremdschlüssel entfernen" ?data-hidden=${ !fk && fk !== 0 } @click=${ () => events.onRemoveAttr( table, fk ) }>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg text-danger ml-1" viewBox="0 0 16 16">
@@ -229,7 +231,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
       for ( let i = 0; i <= 2; i++ )          // check for each possible table:
         if ( table !== i )                    // - not the current table?
           if ( input.keys[ i ] )              // - table is created?
-            if ( !fks[ i ] )  // - table is not already referenced by a foreign key in current table?
+            if ( !fks[ i ] )                  // - table is not already referenced by a foreign key in current table?
               return true;                    // => table is referencable with another foreign key
       return false;                           // => there is no other table that could be referenced with a foreign key
     }
@@ -364,6 +366,12 @@ export function fkForm( section, table, onSubmit ) {
         <select class="form-control" name="table" id="fk-to">
           ${ tables.map( table => html`<option value="${ table }">${ section && section.relationship[ table ] }</option>` ) }
         </select>
+      </div>
+
+      <!-- Alternative Key -->
+      <div class="form-group" title="Geben Sie hier an, ob der Fremdschlüssel ein Alternativschlüssel ist bzw. zu einem zusammengesetzten Alternativschlüssel gehört.">
+        <input type="checkbox" name="ak" id="fk-ak">
+        <label class="form-check-label pl-1" for="fk-ak">Alternativschlüssel</label>
       </div>
 
       <!-- Optional Attribute -->

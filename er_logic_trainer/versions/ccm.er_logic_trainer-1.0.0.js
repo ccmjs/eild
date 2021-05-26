@@ -93,8 +93,15 @@
           "relationship": [ "Fahrzeug", "hat", "Anhänger" ],
           "solution": [ "c", "c" ],
           "hints": [
-            "Ein Fahrzeug hat keinen oder genau einen Anhänger und ein Anhänger ist an kein oder genau ein Fahrzeug angehängt.",
-            "Richtig für den Fall, dass der aktuelle Zustand gespeichert werden soll. Die Frage an welche Fahrzeuge ein Anhänger in seiner Lebenszeit schon angehängt wurde, könnte so nicht beantwortet werden."
+            `Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+             Da "Fahrzeug" und "Anhänger" über exakt identische Kardinalitäten verfügen, wird der Fremdschlüssel bei der Hauptentität "Fahrzeug" hinzugefügt.
+             Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.
+             Da ein Fahrzeug auch keinen Anhänger haben kann, muss der Fremdschlüssel optional sein.
+             Da der Fremdschlüssel auf "Anhänger" verweist, geht der Pfeil von "Fahrzeug" nach "Anhänger".`,
+            `Normalerweise muss bei einer 1:1-Beziehung der Fremdschlüssel ein Alternativschlüssel sein, dies geht aber nicht, da dieser bereits optional ist.
+             Wegen der Eindeutigkeit kann ein Fremdschlüssel nicht gleichzeitig ein Alternativschlüssel und optional sein.
+             Dadurch kann es aber vorkommen, dass es mehrere Fahrzeuge gibt, die auf den gleichen Anhänger verweisen und somit ein Anhänger mehrere Fahrzeuge hat.
+             Dies lässt sich im relationalen Schema nicht besser darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         },
         {
@@ -102,8 +109,13 @@
           "relationship": [ "Topf", "hat", "Deckel" ],
           "solution": [ "1", "c" ],
           "hints": [
-            "Jeder Topf hat keinen oder genau einen Deckel und jeder Deckel gehört zu genau einem Topf.",
-            "Das ein Deckel immer zu genau einen Topf gehört, lässt sich mit den hier verfügbaren Mitteln nicht sicherstellen. Später in der Datenbank muss dies anders sichergestellt werden. Wenn es einen Deckel gibt, zu dem es keinen Topf gibt, der auf den Deckel verweist, hat der Deckel keinen Topf. Auch könnte es mehrere Deckel geben, die auf den gleichen Topf verweisen, dies lässt sich ebenfalls auf dieser Ebene nicht verhindern."
+            `Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+             Da "Topf" und "Deckel" über unterschiedliche Kardinalitäten verfügen, wird der Fremdschlüssel bei der schwächeren Entität "Deckel" hinzugefügt.
+             Eine Entität ist eine schwache Entität, wenn ihre Existenz von der jeweils anderen Entität abhängt.
+             Hier kann der Deckel nicht ohne Topf existieren, der Topf aber ohne Deckel.
+             Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Deckel auf den gleichen Topf verweisen können.
+             Da der Fremdschlüssel auf "Topf" verweist, geht der Pfeil von "Deckel" nach "Topf".`,
+            ""
           ]
         },
         {
@@ -111,16 +123,23 @@
           "relationship": [ "Patient", "hat", "Patientenakte" ],
           "solution": [ "1", "1" ],
           "hints": [
-            "Ein Patient hat genau eine Patientenakte und eine Patientenakte gehört zu genau einem Patienten.",
-            "Korrekt, in der Praxis fasst man eine 1-zu-1-Beziehung allerdings häufig zu einer Tabelle zusammen."
+            `Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+             Da "Patient" und "Patientenakte" über exakt identische Kardinalitäten verfügen, wird der Fremdschlüssel bei der Hauptentität "Patient" hinzugefügt.
+             Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.
+             Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Patienten auf die gleiche Patientenakte verweisen können.
+             Da der Fremdschlüssel auf "Patientenakte" verweist, geht der Pfeil von "Patient" nach "Patientenakte".`,
+            `In der Praxis werden 1:1-Beziehungen häufig zu einer Tabelle zusammengefasst.
+             Es kann vorkommen, dass es eine Patientenakte gibt, zu der kein Patient existiert, der auf die Patientenakte verweist.
+             Das es zu jeder Patientenakte immer genau einen Patienten gibt, lässt sich hier im relationalen Schema nicht darstellen.
+             Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         },
         {
           "text": "Ein Rucksack kann mehrere Gegenstände enthalten.",
           "relationship": [ "Rucksack", "enthält", "Gegenstände" ],
           "solution": [ "c", "cn" ],
-          "comment": [
-            "Ein Rucksack enthält keinen, einen oder mehrere Gegenstände und ein Gegenstand befindet sich in keinem oder genau einem Rucksack.",
+          "hints": [
+            "",
             "Richtig, um den aktuellen Zustand eines Rucksacks festzuhalten. Die Historie, in welchen Rucksäcken ein Gegenstand bereits enthalten war, könnte man so aber nicht ermitteln."
           ]
         },
@@ -129,7 +148,7 @@
           "relationship": [ "Wald", "hat", "Baum" ],
           "solution": [ "c", "n" ],
           "hints": [
-            "Ein Wald hat einen oder mehrere Bäume und ein Baum gehört zu keinem oder genau einem Wald.",
+            "",
             "Richtig, aber es kann so auch einen Wald ohne Bäume geben, nämlich genau dann, wenn es zu einem Wald keinen Baum gibt, der auf ihn verweist. Dies lässt sich mit den hier verfügbaren Mitteln nicht verhindern. Später in der Datenbank muss anders sichergestellt werden, dass ein Wald immer mind. einen Baum hat."
           ]
         },
@@ -138,7 +157,7 @@
           "relationship": [ "Sonne", "hat", "Planeten" ],
           "solution": [ "1", "cn" ],
           "hints": [
-            "Eine Sonne hat keinen, einen oder mehrere Planeten und ein Planet umkreist genau eine Sonne.",
+            "",
             "Eine Sonne hat genau dann keinen Planeten, wenn es keinen Planeten in der Datenbank gibt, der auf die Sonne verweist."
           ]
         },
@@ -147,7 +166,7 @@
           "relationship": [ "Buch", "hat", "Seite" ],
           "solution": [ "1", "n" ],
           "hints": [
-            "Ein Buch hat mind. eine oder mehrere Seiten und eine Seite gehört zu genau einem Buch.",
+            "",
             ""
           ]
         },
@@ -156,7 +175,7 @@
           "relationship": [ "Kunde", "hat gekauft", "Produkt" ],
           "solution": [ "cn", "cn" ],
           "hints": [
-            "Ein Kunde hat keine, ein, oder mehrere Produkte gekauft und ein Produkt wurde von keinem, einem oder mehreren Kunden gekauft.",
+            "",
             ""
           ]
         },
@@ -165,7 +184,7 @@
           "relationship": [ "Rezept", "hat", "Zutat" ],
           "solution": [ "cn", "n" ],
           "hints": [
-            "Ein Rezept hat mind. eine oder mehrere Zutaten und eine Zutat gehört zu keinem, einem oder mehreren Rezepten.",
+            "",
             "Das ein Rezept mind. eine Zutat hat, lässt sich mit den hier verfügbaren Mitteln nicht sicherstellen. Es ist möglich, dass es zu einem Rezept keine Zutat gibt, die auf das Rezept verweist. Später in der Datenbank muss anders sichergestellt werden, dass ein Rezept immer mind. eine Zutat hat."
           ]
         },
@@ -174,7 +193,7 @@
           "relationship": [ "Haus", "hat", "Eigentümer" ],
           "solution": [ "n", "n" ],
           "hints": [
-            "Ein Haus hat mind. einen oder mehrere Eigentümer und ein Eigentümer hat mind. ein oder mehrere Häuser.",
+            "",
             "Das ein Haus mind. einen Eigentümer und ein Eigentümer mind. ein Haus hat, lässt sich erst später in der Datenbank mit anderen Mitteln sicherstellen. Wenn es zu z.B. zu einem Haus keinen Eigentümer gibt, der auf das Haus verweist, hat das Haus keinen Eigentümer."
           ]
         }
@@ -348,12 +367,12 @@
           const onSubmit = event => {
             event.preventDefault();
             const fk = $.formData( modal.element.querySelector( 'form' ) );
-            section.input.keys[ table ][ fk.table ] = { opt: fk.opt };
+            section.input.keys[ table ][ fk.table ] = { opt: fk.opt, ak: fk.ak };
             render();
             modal.close();
           };
           this.html.render( this.html.fkForm( section, table, onSubmit ), modal.element.querySelector( 'main' ) );
-          modal.element.querySelector( 'input[name="opt"]' ).checked = false;
+          modal.element.querySelectorAll( 'input[type="checkbox"]' ).forEach( checkbox => checkbox.checked = false );
           modal.open();
         },
 
@@ -382,9 +401,9 @@
           const multi = ( left === 'cn' || left === 'n' ) && ( right === 'cn' || right === 'n' );
           section.feedback = {
             keys: [
-              [ null, null, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? { opt: right === 'c' } : null ],
-              multi ? [ { opt: false }, null, { opt: false } ] : null,
-              [ single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? { opt: left === 'c' } : null, null, null ]
+              [ null, null, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? { opt: right === 'c', ak: single_left && single_right && !( left === 'c' && right === 'c' ) } : null ],
+              multi ? [ { opt: false, ak: true }, null, { opt: false, ak: true } ] : null,
+              [ single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? { opt: left === 'c', ak: single_left && single_right } : null, null, null ]
             ],
             arrows: [
               [ false, false, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ],
@@ -392,7 +411,6 @@
               [ single_left && ( !single_right || ( left === '1' && right === 'c' ) ), false, false ]
             ]
           };
-//        section.input = section.feedback;
           section.correct = JSON.stringify( section.input ) === JSON.stringify( section.feedback );
           section.correct && dataset.correct++;
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
