@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (25.05.2021)
+ * version 1.0.0 (26.05.2021)
  */
 
 ( () => {
@@ -381,14 +381,14 @@
           const multi = ( left === 'cn' || left === 'n' ) && ( right === 'cn' || right === 'n' );
           section.feedback = {
             keys: [
-              [ null, null, single_right ? { opt: right === 'c' } : null ],
+              [ null, null, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? { opt: right === 'c' } : null ],
               multi ? [ { opt: false }, null, { opt: false } ] : null,
-              [ single_left && !single_right ? { opt: left === 'c' } : null, null, null ]
+              [ single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? { opt: left === 'c' } : null, null, null ]
             ],
             arrows: [
-              [ false, false, single_right ],
+              [ false, false, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ],
               [ multi, false, multi ],
-              [ single_left && !single_right, false, false ]
+              [ single_left && ( !single_right || ( left === '1' && right === 'c' ) ), false, false ]
             ]
           };
 //        section.input = section.feedback;
