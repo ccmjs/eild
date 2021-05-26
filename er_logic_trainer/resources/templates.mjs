@@ -162,7 +162,7 @@ export function main( app, data, phrase, phrase_nr, events ) {
    */
   function addTableButton( table ) {
     return html`
-      <div class="text-${ table === 0 ? 'left' : ( table === 1 ? 'center' : 'right' ) }">
+      <div class="text-${ table === 0 ? 'left' : ( table === 1 ? 'center px-2' : 'right' ) }">
         <button class="btn btn-${ section.feedback ? ( section.feedback.keys[ table ] ? 'danger' : 'success' ) : 'primary' } btn-sm" @click=${ () => events.onAddTable( table ) } ?disabled=${ section.feedback } ?data-invisible=${ input.keys[ table ] !== null }>+ "${ section.relationship[ table ] }"${ app.text.table }</button>
       </div>
     `;

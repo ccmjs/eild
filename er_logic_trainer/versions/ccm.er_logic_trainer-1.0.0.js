@@ -214,8 +214,8 @@
              Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Rezept" und "Zutat" hinzugefügt werden.
              Damit jede Kombination aus "Rezept" und "Zutat" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
              Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die beiden äußeren Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
-            `Es ist möglich, dass es zu einem Rezept keine Zutat gibt, die auf das Rezept verweist und somit ein Rezept keine Zutaten hat.
-             Das ein Rezept immer mindestens eine Zutat hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
+            `Es ist möglich, dass ein Rezept keine Zutat hat.
+             Das ein Rezept mindestens eine Zutat hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         },
         {
@@ -227,9 +227,8 @@
              Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Haus" und "Eingentümer" hinzugefügt werden.
              Damit jede Kombination aus "Haus" und "Eingentümer" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
              Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die äußeren beiden Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
-            `Es ist möglich, dass es zu einem Haus keinen Eigentümer gibt, der auf das Haus verweist und somit ein Haus keinen Eigentümer hat.
-             Umgekehrt kann es auch vorkommen, dass es einen Eigentümer gibt, zu dem es kein Haus gibt, das auf den Eigentümer verweist und somit ein Eigentümer kein Haus hat.
-             Das ein Haus immer mindestens einen Eigentümer hat und ein Eigentümer immer mindestens ein Haus hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
+            `Es ist möglich, dass ein Haus keinen Eigentümer hat und ein Eigentümer kein Haus hat.
+             Das ein Haus mindestens einen Eigentümer und ein Eigentümer mindestens ein Haus hat, lässt sich im relationalen Schema nicht darstellen und muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         }
       ],
