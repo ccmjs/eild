@@ -92,7 +92,7 @@
           "text": "Ein Fahrzeug kann einen Anhänger haben.",
           "relationship": [ "Fahrzeug", "hat", "Anhänger" ],
           "solution": [ "c", "c" ],
-          "comment": [
+          "hints": [
             "Ein Fahrzeug hat keinen oder genau einen Anhänger und ein Anhänger ist an kein oder genau ein Fahrzeug angehängt.",
             "Richtig für den Fall, dass der aktuelle Zustand gespeichert werden soll. Die Frage an welche Fahrzeuge ein Anhänger in seiner Lebenszeit schon angehängt wurde, könnte so nicht beantwortet werden."
           ]
@@ -101,7 +101,7 @@
           "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
           "relationship": [ "Topf", "hat", "Deckel" ],
           "solution": [ "1", "c" ],
-          "comment": [
+          "hints": [
             "Jeder Topf hat keinen oder genau einen Deckel und jeder Deckel gehört zu genau einem Topf.",
             "Das ein Deckel immer zu genau einen Topf gehört, lässt sich mit den hier verfügbaren Mitteln nicht sicherstellen. Später in der Datenbank muss dies anders sichergestellt werden. Wenn es einen Deckel gibt, zu dem es keinen Topf gibt, der auf den Deckel verweist, hat der Deckel keinen Topf. Auch könnte es mehrere Deckel geben, die auf den gleichen Topf verweisen, dies lässt sich ebenfalls auf dieser Ebene nicht verhindern."
           ]
@@ -110,7 +110,7 @@
           "text": "Zu jedem Patienten gibt es eine Patientenakte.",
           "relationship": [ "Patient", "hat", "Patientenakte" ],
           "solution": [ "1", "1" ],
-          "comment": [
+          "hints": [
             "Ein Patient hat genau eine Patientenakte und eine Patientenakte gehört zu genau einem Patienten.",
             "Korrekt, in der Praxis fasst man eine 1-zu-1-Beziehung allerdings häufig zu einer Tabelle zusammen."
           ]
@@ -128,7 +128,7 @@
           "text": "Ein Wald hat Bäume.",
           "relationship": [ "Wald", "hat", "Baum" ],
           "solution": [ "c", "n" ],
-          "comment": [
+          "hints": [
             "Ein Wald hat einen oder mehrere Bäume und ein Baum gehört zu keinem oder genau einem Wald.",
             "Richtig, aber es kann so auch einen Wald ohne Bäume geben, nämlich genau dann, wenn es zu einem Wald keinen Baum gibt, der auf ihn verweist. Dies lässt sich mit den hier verfügbaren Mitteln nicht verhindern. Später in der Datenbank muss anders sichergestellt werden, dass ein Wald immer mind. einen Baum hat."
           ]
@@ -137,7 +137,7 @@
           "text": "Ein Sonne kann Planeten haben, die sie umkreisen.",
           "relationship": [ "Sonne", "hat", "Planeten" ],
           "solution": [ "1", "cn" ],
-          "comment": [
+          "hints": [
             "Eine Sonne hat keinen, einen oder mehrere Planeten und ein Planet umkreist genau eine Sonne.",
             "Eine Sonne hat genau dann keinen Planeten, wenn es keinen Planeten in der Datenbank gibt, der auf die Sonne verweist."
           ]
@@ -146,7 +146,7 @@
           "text": "Ein Buch hat mehrere Seiten.",
           "relationship": [ "Buch", "hat", "Seite" ],
           "solution": [ "1", "n" ],
-          "comment": [
+          "hints": [
             "Ein Buch hat mind. eine oder mehrere Seiten und eine Seite gehört zu genau einem Buch.",
             ""
           ]
@@ -155,7 +155,7 @@
           "text": "Kunden kaufen Produkte.",
           "relationship": [ "Kunde", "hat gekauft", "Produkt" ],
           "solution": [ "cn", "cn" ],
-          "comment": [
+          "hints": [
             "Ein Kunde hat keine, ein, oder mehrere Produkte gekauft und ein Produkt wurde von keinem, einem oder mehreren Kunden gekauft.",
             ""
           ]
@@ -164,7 +164,7 @@
           "text": "Auf einem Rezept stehen Zutaten.",
           "relationship": [ "Rezept", "hat", "Zutat" ],
           "solution": [ "cn", "n" ],
-          "comment": [
+          "hints": [
             "Ein Rezept hat mind. eine oder mehrere Zutaten und eine Zutat gehört zu keinem, einem oder mehreren Rezepten.",
             "Das ein Rezept mind. eine Zutat hat, lässt sich mit den hier verfügbaren Mitteln nicht sicherstellen. Es ist möglich, dass es zu einem Rezept keine Zutat gibt, die auf das Rezept verweist. Später in der Datenbank muss anders sichergestellt werden, dass ein Rezept immer mind. eine Zutat hat."
           ]
@@ -173,7 +173,7 @@
           "text": "Ein Haus hat Eigentümer und Eigentümer haben Häuser.",
           "relationship": [ "Haus", "hat", "Eigentümer" ],
           "solution": [ "n", "n" ],
-          "comment": [
+          "hints": [
             "Ein Haus hat mind. einen oder mehrere Eigentümer und ein Eigentümer hat mind. ein oder mehrere Häuser.",
             "Das ein Haus mind. einen Eigentümer und ein Eigentümer mind. ein Haus hat, lässt sich erst später in der Datenbank mit anderen Mitteln sicherstellen. Wenn es zu z.B. zu einem Haus keinen Eigentümer gibt, der auf das Haus verweist, hat das Haus keinen Eigentümer."
           ]
