@@ -8,9 +8,16 @@ ccm.files[ 'resources.js' ] = {
 
   "local": {
     "css.1.1": "./../er_logic_trainer/resources/styles.css",
+/*
+    "data": {
+      "store": [ "ccm.store", { "name": "test", "url": "https://ccm2.inf.h-brs.de" } ],
+      "key": "test"
+    },
+*/
+//  "number": 2,
     "html.1": "./../er_logic_trainer/resources/templates.mjs",
     "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
-    "onfinish": { "log": true, "restart": true }
+    "onfinish": { "log": true, "restart": true, "store": false }
   },
 
   "demo": {}

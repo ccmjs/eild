@@ -4,11 +4,10 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (27.05.2021)
+ * version 1.0.0 (31.05.2021)
  */
 
 ( () => {
-
   const component = {
     name: 'er_logic_trainer',
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.4.0.js',
@@ -24,7 +23,7 @@
         "format": "svg",
         "images": [ "e", "1", "c", "n", "cn", "r" ],
         "left": "copied",
-        "notation": "abrial",
+        "notation": "uml",
         "path": "https://ccmjs.github.io/eild/er_logic_trainer/resources/img/"
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
@@ -38,10 +37,7 @@
           "content": "",
           "closed": true,
           "breakpoints": false,
-          "buttons": [
-            { "html": "<button class='btn btn-secondary' data-close>Abbrechen</button>" },
-            { "html": "<input type='submit' class='btn btn-primary' form='attr-form' value='Hinzufügen'>" }
-          ]
+          "buttons": ""
         } ],
         "legend": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.0.0.js", {
           "backdrop_close": true,
@@ -67,7 +63,7 @@
           "key": "chen",
           "title": "Chen",
           "centered": true,
-          "comment": "In der Chen-Notation kann zur Spezifikation der Kardinalitäten jeder Entitätstyp entweder mit einer Kardinalität 1 oder mit einer Kardinalität N am Beziehungstyp partizipieren. (In dieser Grundform werden die Beziehungsmengen nur mit ihrer Maximalaussage genannt.)"
+          "comment": "In der Chen-Notation sind nur einfache und mehrfache Beziehungstypen (1 und N) darstellbar, da die Beziehungsmengen bei Chen nur in ihrer Maximalaussage genannt werden. Bei Phrasen die auf einen bedingten oder mehrfach bedingten Beziehungstyp hindeuten, sollte besser zu einer anderen Notation gewechselt werden."
         },
         "crow": {
           "key": "crow",
@@ -92,7 +88,8 @@
           "relationship": [ "Fahrzeug", "hat", "Anhänger" ],
           "solution": [ "c", "c" ],
           "hints": [
-            `Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
              Da "Fahrzeug" und "Anhänger" über exakt identische Kardinalitäten verfügen, wird der Fremdschlüssel bei der Hauptentität "Fahrzeug" hinzugefügt.
              Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.
              Da ein Fahrzeug auch keinen Anhänger haben kann, muss der Fremdschlüssel optional sein.
@@ -108,7 +105,8 @@
           "relationship": [ "Topf", "hat", "Deckel" ],
           "solution": [ "1", "c" ],
           "hints": [
-            `Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
              Da "Topf" und "Deckel" über unterschiedliche Kardinalitäten verfügen, wird der Fremdschlüssel bei der schwächeren Entität "Deckel" hinzugefügt.
              Eine Entität ist eine schwache Entität, wenn ihre Existenz von der jeweils anderen Entität abhängt.
              Hier kann der Deckel nicht ohne Topf existieren, der Topf aber ohne Deckel.
@@ -122,7 +120,8 @@
           "relationship": [ "Patient", "hat", "Patientenakte" ],
           "solution": [ "1", "1" ],
           "hints": [
-            `Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine 1:1-Beziehung, daher wird keine "hat"-Tabelle benötigt.
              Da "Patient" und "Patientenakte" über exakt identische Kardinalitäten verfügen, wird der Fremdschlüssel bei der Hauptentität "Patient" hinzugefügt.
              Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.
              Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Patienten auf die gleiche Patientenakte verweisen können.
@@ -138,7 +137,8 @@
           "relationship": [ "Rucksack", "enthält", "Gegenstand" ],
           "solution": [ "c", "cn" ],
           "hints": [
-            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "enthält"-Tabelle benötigt.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine 1:N-Beziehung, daher wird keine "enthält"-Tabelle benötigt.
              Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Gegenstand", hinzugefügt.
              Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
              In diesem Fall kann ein Gegenstand immer nur in einem Rucksack enthalten sein.
@@ -153,7 +153,8 @@
           "relationship": [ "Wald", "hat", "Baum" ],
           "solution": [ "c", "n" ],
           "hints": [
-            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
              Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Baum", hinzugefügt.
              Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
              In diesem Fall kann ein Baum zu höchstens einem Wald gehören.
@@ -168,7 +169,9 @@
           "relationship": [ "Sonne", "hat", "Planet" ],
           "solution": [ "1", "cn" ],
           "hints": [
-            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+             Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
              Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Planet", hinzugefügt.
              Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
              In diesem Fall umkreist ein Planet immer genau eine Sonne.
@@ -183,7 +186,8 @@
           "relationship": [ "Buch", "hat", "Seite" ],
           "solution": [ "1", "n" ],
           "hints": [
-            `Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine 1:N-Beziehung, daher wird keine "hat"-Tabelle benötigt.
              Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität, also hier bei "Seite", hinzugefügt.
              Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
              In diesem Fall gehört eine Seite immer genau zu einem Buch.
@@ -197,7 +201,8 @@
           "relationship": [ "Kunde", "hat gekauft", "Produkt" ],
           "solution": [ "cn", "cn" ],
           "hints": [
-            `Es handelt sich um eine N:M-Beziehung, daher muss eine "hat gekauft"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine N:M-Beziehung, daher muss auch eine "hat gekauft"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
              Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Kunde" und "Produkt" hinzugefügt werden.
              Damit jede Kombination aus "Kunde" und "Produkt" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
              Da die beiden Fremdschlüssel der mittleren "hat gekauft"-Tabelle auf die beiden äußeren Tabellen "Kunde" und "Produkt" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
@@ -209,7 +214,8 @@
           "relationship": [ "Rezept", "hat", "Zutat" ],
           "solution": [ "cn", "n" ],
           "hints": [
-            `Es handelt sich um eine N:M-Beziehung, daher muss eine "hat"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine N:M-Beziehung, daher muss auch eine "hat"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
              Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Rezept" und "Zutat" hinzugefügt werden.
              Damit jede Kombination aus "Rezept" und "Zutat" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
              Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die beiden äußeren Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
@@ -222,7 +228,8 @@
           "relationship": [ "Haus", "hat", "Eigentümer" ],
           "solution": [ "n", "n" ],
           "hints": [
-            `Es handelt sich um eine N:M-Beziehung, daher muss eine "hat"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
+            `Die beiden äußeren Tabellen benötigen jeweils einen eigenen künstlichen Primärschlüssel.
+             Es handelt sich um eine N:M-Beziehung, daher muss auch eine "hat"-Tabelle angelegt werden, um die N:M-Beziehung in zwei 1:N-Beziehungen zu überführen.
              Dieser Tabelle muss dann je ein Fremdschlüssel für jede der beiden Entitäten "Haus" und "Eingentümer" hinzugefügt werden.
              Damit jede Kombination aus "Haus" und "Eingentümer" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
              Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die äußeren beiden Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
@@ -234,19 +241,38 @@
       "show_solution": true,
       "shuffle": true,
       "text": {
+        "ak": "Alternativschlüssel",
+        "ak_badge": "Alternativschlüssel: Weiterer Schlüssel mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.",
+        "ak_input": "Geben Sie hier an, ob der Fremdschlüssel ein Alternativschlüssel ist bzw. zum zusammengesetzten Alternativschlüssel gehört.",
+        "attr_modal_cancel": "Abbrechen",
+        "attr_modal_confirm": "Hinzufügen",
+        "attr_modal_title": "Neues Schlüsselattribut",
+        "attr_name": "Name des Schlüsselattributs",
         "cancel": "Abbrechen",
         "correct": "Ihre Antwort war richtig!",
-        "correct_solution": "Richtige Lösung:",
         "current_state": "Sie haben %% von %% Aufgaben richtig beantwortet!",
         "entity1": "Entity 1",
         "entity2": "Entity 2",
         "failed": "Ihre letzte Antwort war falsch!",
         "finish": "Neustart",
+        "fk": "Fremdschlüssel",
+        "fk_badge": "Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.",
+        "fk_input": "Geben Sie hier an, ob der Schlüssel ein Fremdschlüssel ist.",
         "heading": "Lösen Sie die gezeigte Beziehung zwischen den beiden Entitäten auf!",
-        "notation": "ER-Notation:",
+        "key_attr": "Schlüsselattribut",
         "legend": "Legende",
         "next": "Weiter",
+        "notation": "ER-Notation:",
+        "opt": "Optional",
+        "opt_badge": "Optionales Attribut: Muss nicht zwingend einen Wert haben.",
+        "opt_input": "Geben Sie hier an, ob es sich bei dem Fremdschlüssel um ein optionales Attribut handelt.",
         "phrase": "Phrase [%%]:",
+        "pk": "Primärschlüssel",
+        "pk_badge": "Primärschlüssel: Attribut mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.",
+        "pk_input": "Geben Sie hier an, ob der Schlüssel ein Primärschlüssel ist bzw. zum zusammengesetzten Primärschlüssel gehört.",
+        "ref_table": "Referenzierte Tabelle:",
+        "ref_table_input": "Geben Sie hier an auf welche Tabelle der Fremdschlüssel verweist.",
+        "remove_attr": "Schlüsselattribut entfernen",
         "selection": [ "Bitte auswählen", "einfach", "bedingt", "mehrfach", "bedingt mehrfach" ],
         "show_feedback": "Zeige Feedback",
         "show_solution": "Zeige Lösung",
@@ -256,19 +282,21 @@
       },
       "values": [ "1", "c", "n", "cn" ]
     },
-
     Instance: function () {
-
-      let $, dataset, notation, phrase_nr, phrases;
+      let $, dataset, phrase_nr, phrases;
 
       this.init = async () => {
 
         // set shortcut to help functions
         $ = Object.assign( {}, this.ccm.helper, this.helper ); $.use( this.ccm );
 
-        // set title for modal dialogs
+        // set title and buttons for modal dialogs
         this.modal.legend.title = this.text.legend;
-        this.modal.attr.title = 'Neuer Fremdschlüssel';
+        this.modal.attr.title = this.text.attr_modal_title;
+        this.modal.attr.buttons = [
+          { html: `<button class="btn btn-secondary" data-close>${ this.text.attr_modal_cancel }</button>` },
+          { html: `<input type="submit" class="btn btn-primary" form="attr-form" value="${ this.text.attr_modal_confirm }">` }
+        ];
 
         // uniform notations data
         for ( const key in this.notations ) {
@@ -284,23 +312,20 @@
           };
         }
 
-        // uniform phrases data
+        // phrases given as associative array? => convert phrases to simple array
         if ( $.isObject( this.phrases ) ) this.phrases = Object.values( this.phrases );
+
+        // remove phrases with entities of the same name (prevent recursive entity relationships) and remove key of each phrase
         this.phrases = this.phrases.filter( phrase => { delete phrase.key; return phrase.relationship[ 0 ] !== phrase.relationship[ 2 ]; } );
 
       };
 
       this.ready = async () => {
 
-        // clone and shuffle original phrases
-        phrases = $.clone( this.phrases );
-        this.shuffle && $.shuffleArray( phrases );
-
-        // no number of phrases? => use all phrases
-        if ( !this.number ) this.number = phrases.length;
-
-        // logging of 'ready' event
-        this.logger && this.logger.log( 'ready', $.privatize( this, true ) );
+        phrases = $.clone( this.phrases );                                     // clone original phrases
+        this.shuffle && $.shuffleArray( phrases );                             // shuffle cloned phrases
+        if ( !this.number ) this.number = phrases.length;                      // no number of phrases? => use all phrases
+        this.logger && this.logger.log( 'ready', $.privatize( this, true ) );  // logging of 'ready' event
 
       };
 
@@ -312,18 +337,17 @@
           this.shuffle && $.shuffleArray( phrases );
         }
 
-        // get already existing app state data
-        dataset = await $.dataset( this.data );
-        dataset = Object.assign( dataset, {
+        // set initial app state data
+        dataset = await $.dataset( this.data );  // load already existing app state data
+        dataset = Object.assign( dataset, {      // reset most values
           correct: 0,
-          notation: notation || dataset.notation || this.default.notation,
+          notation: dataset.notation || this.default.notation,  // keep last used notation
           sections: [],
           total: this.number
         } );
 
-        // render first phrase
-        phrase_nr = 0;
-        nextPhrase();
+        // start with first phrase
+        phrase_nr = 0; nextPhrase();
 
         // set content of modal dialog for legend table
         this.html.render( this.html.legend( this ), this.modal.legend.element.querySelector( 'main' ) );
@@ -342,10 +366,12 @@
       /** starts the next phrase */
       const nextPhrase = () => {
         phrase_nr++;
+
+        // set initial app state data for current phrase
         dataset.sections.push( {
           input: {
-            keys: [ null, null, null ],
-            arrows: [
+            keys: [ null, null, null ],  // no tables
+            arrows: [                    // no arrows
               [ false, false, false ],
               [ false, false, false ],
               [ false, false, false ]
@@ -355,14 +381,12 @@
           solution: phrases[ 0 ].solution,
           text: phrases[ 0 ].text
         } );
+
         render();
       };
 
-      /** renders current phrase */
-      const render = () => {
-        this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events ), this.element );
-        this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = true );  // workaround for lit-html bug
-      };
+      /** renders actual state of current phrase */
+      const render = () => this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events ), this.element );
 
       /**
        * contains all event handlers
@@ -370,48 +394,167 @@
        */
       const events = {
 
-        /** when selected entry for displayed notation changes */
+        /**
+         * when selected entry for displayed notation changes
+         * @param {Object} event - event object of the change event of the selector box for displaying the legend
+         */
         onNotationChange: event => {
-          dataset.notation = notation = event.target.value;
+          dataset.notation = event.target.value;
           render();
         },
 
         /** when 'legend' button is clicked */
         onLegendClick: () => this.modal.legend.open(),
 
-        /** when an 'add table' button is clicked */
+        /**
+         * when an 'add table' button is clicked
+         * @param {number} table - table index (0: left, 1: middle, 2: right)
+         */
         onAddTable: table => {
-          dataset.sections[ phrase_nr - 1 ].input.keys[ table ] = [ null, null, null ];
+
+          // create empty table without any key attribute
+          dataset.sections[ phrase_nr - 1 ].input.keys[ table ] = [
+            false,  // foreign key to left table
+            false,  // foreign key to middle table
+            false,  // foreign key to right table
+            true    // artificial primary key
+          ];
+
           render();
         },
 
-        /** when a 'remove table' icon is clicked */
+        /**
+         * when a 'remove table' icon is clicked
+         * @param {number} table - table index (0: left, 1: middle, 2: right)
+         */
         onRemoveTable: table => {
+
+          /**
+           * key attributes of the logical scheme tables
+           * @type {(string|boolean)[][]}
+           */
           const keys = dataset.sections[ phrase_nr - 1 ].input.keys;
+
+          // remove table and any foreign keys in other tables that reference that table
           keys[ table ] = null;
-          keys.forEach( fks => fks && ( fks[ table ] = null ) );
+          keys.forEach( fks => fks && ( fks[ table ] = false ) );
+
           render();
         },
 
-        /** when a 'add attribute' icon is clicked */
+        /**
+         * when an 'add key attribute' button is clicked
+         * @param {number} table - table index (0: left, 1: middle, 2: right)
+         */
         onAddAttr: table => {
-          const section = dataset.sections[ phrase_nr - 1 ];
+
+          /**
+           * app state data for current phrase
+           * @type {Object}
+           */
+          const phrase = dataset.sections[ phrase_nr - 1 ];
+
+          /**
+           * instance of ccmjs-based web component for the modal dialog for adding a key attribute
+           * @type {Object}
+           */
           const modal = this.modal.attr;
+
+          /**
+           * when the submit button in the modal dialog is clicked
+           * @param {Object} event - event object of the change event of the selector box for displaying the legend
+           */
           const onSubmit = event => {
             event.preventDefault();
-            const fk = $.formData( modal.element.querySelector( 'form' ) );
-            section.input.keys[ table ][ fk.table ] = { opt: fk.opt, ak: fk.ak };
-            render();
-            modal.close();
+
+            /**
+             * result data from the web form
+             * @type {Object}
+             */
+            const key = $.formData( modal.element.querySelector( 'form' ) );
+
+            // add key attribute in table
+            if ( key.fk )
+              phrase.input.keys[ table ][ key.table ] = key.pk && 'pk' || key.opt && 'opt' || key.ak && 'ak' || 'fk';  // foreign key
+            else
+              phrase.input.keys[ table ][ 3 ] = true;  // artificial primary key
+
+            modal.close(); render();
           };
-          this.html.render( this.html.fkForm( section, table, onSubmit ), modal.element.querySelector( 'main' ) );
-          modal.element.querySelectorAll( 'input[type="checkbox"]' ).forEach( checkbox => checkbox.checked = false );
+
+          // render web form in modal dialog
+          this.html.render( this.html.addKeyForm( this, phrase, table, onSubmit ), modal.element.querySelector( 'main' ) );
+
+          const pk = modal.element.querySelector( '#key-pk' );                            // checkbox for primary key
+          const fk = modal.element.querySelector( '#key-fk' );                            // checkbox for foreign key
+          const ak = modal.element.querySelector( '#key-ak' );                            // checkbox for alternative key
+          const opt = modal.element.querySelector( '#key-opt' );                          // checkbox for optional attribute
+          const ref = modal.element.querySelector( '#key-fk-table' );                     // selector box for selecting the table referenced by the foreign key
+          const submit = modal.element.querySelector( 'input[type="submit"]' );           // submit button of the web form
+          const checkboxes = modal.element.querySelectorAll( 'input[type="checkbox"]' );  // all checkboxes of the web form
+
+          // uncheck all checkboxes, deselect options of selector box
+          checkboxes.forEach( checkbox => checkbox.checked = false );
+          modal.element.querySelectorAll( 'option' ).forEach( option => option.selected = false );
+
+          pk.disabled = phrase.input.keys[ table ][ 3 ];  // enable checkbox for primary key
+          ref.disabled = true;     // disable selector box for selecting the table referenced by the foreign key
+          ak.disabled = true;      // disable checkbox for alternative key
+          opt.disabled = true;     // disable checkbox for optional attribute
+          submit.disabled = true;  // disable submit button of the web form
+
+          // listen to change event of checkbox for primary key
+          pk.addEventListener( 'change', event => {
+            ak.disabled = event.target.checked || !fk.checked;   // a primary key cannot also be an alternative key
+            opt.disabled = event.target.checked || !fk.checked;  // a primary key cannot also be an optional attribute
+            submit.disabled = !pk.checked && !fk.checked;        // the key attribute must be either a primary key or a foreign key
+          } );
+
+          // listen to change event of checkbox for foreign key
+          fk.addEventListener( 'change', event => {
+            pk.disabled = !event.target.checked && phrase.input.keys[ table ][ 3 ];  // a foreign key can be a primary key
+            ref.disabled = !event.target.checked;                // the referenced table can only be selected for a foreign key
+            ak.disabled = !event.target.checked || pk.checked;   // only a foreign key can be an alternate key
+            opt.disabled = !event.target.checked || pk.checked;  // only a foreign key can be a optional key
+            submit.disabled = !pk.checked && !fk.checked;        // the key attribute must be either a primary key or a foreign key
+
+            // foreign key has been unchecked?
+            if ( !event.target.checked ) {
+              ak.checked = false;           // uncheck alternative key
+              opt.checked = false;          // uncheck optional attribute
+            }
+          } );
+
+          // listen to change event of checkbox for alternative key
+          ak.addEventListener( 'change', event => {
+            pk.disabled = event.target.checked;      // an alternative key cannot be an primary key
+            opt.disabled = event.target.checked;     // an alternative key cannot be an optional attribute
+          } );
+
+          // listen to change event of checkbox for optional attribute
+          opt.addEventListener( 'change', event => {
+            pk.disabled = event.target.checked;       // a optional attribute cannot be a primary key
+            ak.disabled = event.target.checked;       // a optional attribute cannot be a alternative key
+          } );
+
           modal.open();
         },
 
         /** when a 'remove attribute' icon is clicked */
         onRemoveAttr: ( from, to ) => {
-          dataset.sections[ phrase_nr - 1 ].input.keys[ from ][ to ] = null;
+
+          /**
+           * key attributes of the logical scheme tables
+           * @type {(string|boolean)[][]}
+           */
+          const keys = dataset.sections[ phrase_nr - 1 ].input.keys;
+
+          // remove attribute from table
+          if ( to === false )
+            keys[ from ][ 3 ] = to;      // artificial primary key
+          else
+            keys[ from ][ to ] = false;  // foreign key
+
           render();
         },
 
@@ -426,17 +569,23 @@
 
         /** when 'submit' button is clicked */
         onSubmitButton: () => {
+
+          // analyse solution data of current phrase
           const section = dataset.sections[ phrase_nr - 1 ];
           const left = section.solution[ 0 ];
           const right = section.solution[ 1 ];
           const single_left = left === 'c' || left === '1';
           const single_right = right === 'c' || right === '1';
           const multi = ( left === 'cn' || left === 'n' ) && ( right === 'cn' || right === 'n' );
+          const fk_l2r = ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? ( right === 'c' ? 'opt' : ( single_left && single_right && !( left === 'c' && right === 'c' ) ? 'ak' : 'fk' ) ) : false;
+          const fk_r2l = single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? ( left === 'c' ? 'opt' : ( single_left && single_right ? 'ak': 'fk' ) ) : false;
+
+          // define correct solution for feedback
           section.feedback = {
             keys: [
-              [ null, null, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? { opt: right === 'c', ak: single_left && single_right && !( left === 'c' && right === 'c' ) } : null ],
-              multi ? [ { opt: false, ak: true }, null, { opt: false, ak: true } ] : null,
-              [ single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? { opt: left === 'c', ak: single_left && single_right } : null, null, null ]
+              [ false, false, fk_l2r, true ],
+              multi ? [ 'pk', false, 'pk', false ] : null,
+              [ fk_r2l, false, false, true ]
             ],
             arrows: [
               [ false, false, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ],
@@ -444,11 +593,17 @@
               [ single_left && ( !single_right || ( left === '1' && right === 'c' ) ), false, false ]
             ]
           };
+
+          // compare current app state data of current phrase with correct solution
           section.correct = JSON.stringify( section.input ) === JSON.stringify( section.feedback );
           section.correct && dataset.correct++;
-          this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
+
+          // no feedback? => show directly the next phrase
+          if ( !this.feedback ) return events.onNextButton();
+
+          // show visual feedback
+          this.element.classList.add( section.correct ? 'correct' : 'failed' );
           render();
-          !this.feedback && events.onNextButton();
         },
 
         /** when 'solution' button is clicked */
@@ -461,16 +616,23 @@
         /** when 'next' button is clicked */
         onNextButton: () => {
 
+          /**
+           * app state data for current phrase
+           * @type {Object}
+           */
           const section = dataset.sections[ phrase_nr - 1 ];
+
+          // update solution data with correct solution
           delete section.feedback.show_solution;
           section.solution = section.feedback;
-          delete section.feedback;
 
+          // remove feedback-relevant data
+          delete section.feedback;
           this.element.classList.remove( 'correct' );
           this.element.classList.remove( 'failed' );
 
-          phrases.shift();
-          nextPhrase();
+          // start next phrase
+          phrases.shift(); nextPhrase();
 
           // logging of 'next' event
           this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );
@@ -480,25 +642,28 @@
         /** when 'finish' button is clicked */
         onFinishButton: () => {
 
+          /**
+           * app state data for current phrase
+           * @type {Object}
+           */
           const section = dataset.sections[ phrase_nr - 1 ];
+
+          // update solution data with correct solution and remove feedback-relevant data
           delete section.feedback.show_solution;
           section.solution = section.feedback;
           delete section.feedback;
-
           this.element.classList.remove( 'correct' );
           this.element.classList.remove( 'failed' );
 
-          phrases.shift();
-          this.onfinish && $.onFinish( this );
+          phrases.shift();                                              // current phrase is finished
+          this.onfinish && $.onFinish( this );                          // perform finish actions
+          this.logger && this.logger.log( 'finish', this.getValue() );  // logging of 'finish' event
 
-          // logging of 'finish' event
-          this.logger && this.logger.log( 'finish', this.getValue() );
         }
 
       };
 
     }
   };
-
   let b="ccm."+component.name+(component.version?"-"+component.version.join("."):"")+".js";if(window.ccm&&null===window.ccm.files[b])return window.ccm.files[b]=component;(b=window.ccm&&window.ccm.components[component.name])&&b.ccm&&(component.ccm=b.ccm);"string"===typeof component.ccm&&(component.ccm={url:component.ccm});let c=(component.ccm.url.match(/(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)/)||[""])[0];if(window.ccm&&window.ccm[c])window.ccm[c].component(component);else{var a=document.createElement("script");document.head.appendChild(a);component.ccm.integrity&&a.setAttribute("integrity",component.ccm.integrity);component.ccm.crossorigin&&a.setAttribute("crossorigin",component.ccm.crossorigin);a.onload=function(){(c="latest"?window.ccm:window.ccm[c]).component(component);document.head.removeChild(a)};a.src=component.ccm.url}
 } )();
