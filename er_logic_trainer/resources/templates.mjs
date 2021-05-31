@@ -89,7 +89,7 @@ export function main( instance, state, phrase, phrase_nr, events ) {
        </section>
 
         <!-- Notation Comment -->
-        <section class="comment" ?data-hidden=${ !comment || section.input.keys.find( table => table ) }>
+        <section class="comment" ?data-hidden=${ phrase_nr !== 1 || !comment || section.input.keys.find( table => table ) }>
           <div class="alert alert-info mt-3 mb-0" role="alert">${comment}</div>
         </section>
 
