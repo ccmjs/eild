@@ -1,0 +1,204 @@
+/**
+ * @overview default layout of ccmjs-based web component for ER model to relational scheme training
+ * @author André Kless <andre.kless@web.de> 2021
+ * @license The MIT License (MIT)
+ */
+
+#element {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 0.9em;
+}
+
+#element > header {
+  overflow: auto;
+}
+
+#element > main {
+  display: grid;
+  justify-content: center;
+}
+
+#element main > div {
+  max-width: 960px;
+  overflow: auto;
+}
+
+#left, #right {
+  width: 60px;
+}
+
+#middle {
+  width: 240px;
+}
+
+.mirrored {
+  transform: scaleX(-1);
+}
+
+.filler {
+  flex: 1;
+  height: 2px;
+  background-color: black;
+}
+
+#diagram img {
+  display: block;
+  max-height: 100px;
+}
+
+#name {
+  position: relative;
+}
+
+#name > div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate( -50%, -50% );
+  font-size: smaller;
+  padding-bottom: 20px;
+}
+
+#name > div[data-centered] {
+  padding-bottom: 0;
+}
+
+.bg-success, .btn-success,
+#element.correct > header {
+  background-color: #dff0d8 !important;
+  border-color: #d6e9c6;
+  color: black;
+}
+
+#element.correct #heading {
+  color: #3c763d;
+  font-weight: bold;
+}
+
+.bg-danger, .btn-danger,
+#element.failed > header {
+  background-color: #f2dede !important;
+  border-color: #ebccd1;
+  color: black;
+}
+
+#element.failed #heading {
+  color: #a94442;
+  font-weight: bold;
+}
+
+*[data-hidden] {
+  display: none !important;
+}
+
+*[data-invisible] {
+  visibility: hidden;
+}
+
+.phrase-comment {
+  max-width: 50%;
+}
+
+footer > img {
+  max-width: 100%;
+}
+
+#diagram {
+  display: grid;
+  grid-template-columns: auto 60px 1fr 240px 1fr 60px auto;
+  align-items: center;
+}
+
+#table_buttons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  min-height: 3em;
+}
+
+#tables {
+  display: grid;
+  grid-template-columns: auto 18px 1fr 18px auto 18px 1fr 18px auto;
+}
+
+.scheme header,
+.scheme main {
+  width: 100%;
+}
+
+.scheme header .icon {
+  display: none;
+}
+
+.scheme .attr .icon {
+  visibility: hidden;
+}
+
+#element:not(.correct):not(.failed) .scheme header:hover .icon {
+  display: block;
+  cursor: pointer;
+}
+
+#element:not(.correct):not(.failed) .scheme .attr:hover .icon {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.badge {
+  margin-left: 0.3rem;
+}
+
+.line {
+  height: 36px;
+}
+
+.line, .line > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.line > div:empty {
+  border: 1px solid black;
+}
+
+main select {
+  width: 18px;
+  padding-bottom: 4px;
+  z-index: 1;
+}
+
+#element:not(.correct):not(.failed) #tables:hover .arrowhead > select {
+  display: inline;
+}
+
+#tables .arrowhead > .arrow {
+  display: flex;
+  align-items: center;
+}
+
+#tables .arrowhead > select,
+#element:not(.correct):not(.failed) #tables:hover .arrowhead > .arrow {
+  display: none;
+}
+
+.arrowhead {
+  flex: 1;
+}
+
+.arrowhead > .filler {
+  width: 10px;
+}
+
+.arrowhead > .arrow > div {
+  border: 1px solid black;
+  width: 8px;
+}
+
+*[disabled] {
+  color: black !important;
+}
+
+.comment {
+  max-width: fit-content;
+}
