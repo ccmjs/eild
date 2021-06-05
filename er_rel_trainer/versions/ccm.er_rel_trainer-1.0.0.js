@@ -25,7 +25,7 @@
         "images": [ "e", "1", "c", "n", "cn", "r" ],
         "left": "copied",
         "notation": "uml",
-        "path": "https://ccmjs.github.io/eild/er_rel_trainer/resources/img/"
+        "path": "https://ccmjs.github.io/eild/er_trainer/resources/img/"
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_rel_trainer/resources/templates.mjs" ],
