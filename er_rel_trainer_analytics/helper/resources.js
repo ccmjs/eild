@@ -9,13 +9,13 @@ ccm.files[ 'resources.js' ] = {
   "results": {
     "app": [ { "name": "ER-REL-Trainer" } ],
     "placeholder.captions": [ "User", "", "", "Correct", "Result", "Created", "Last Update", "" ],
-    "store": [ "ccm.store", { "name": "er_logic_trainer-results", "url": "wss://ccm2.inf.h-brs.de" } ],
+    "store": [ "ccm.store", { "name": "dbs-ss21-er_rel_trainer-results", "url": "wss://ccm2.inf.h-brs.de" } ],
     "user": null
   },
 
   "log": {
     "data": {
-      "store": [ "ccm.store", { "name": "db-ss21-erl-log", "url": "https://ccm2.inf.h-brs.de" } ],
+      "store": [ "ccm.store", { "name": "dbs-ss21-er_rel_trainer-log", "url": "https://ccm2.inf.h-brs.de" } ],
       "key": {}
     }
   }
