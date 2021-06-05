@@ -15,7 +15,7 @@
       "css": [ "ccm.load",
         [  // serial
           "https://ccmjs.github.io/akless-components/libs/bootstrap-4/css/bootstrap.min.css",
-          "https://ccmjs.github.io/eild/er_logic_trainer/resources/styles.css"
+          "https://ccmjs.github.io/eild/er_rel_trainer/resources/styles.css"
         ]
       ],
 //    "data": { "store": [ "ccm.store" ] },
@@ -27,7 +27,7 @@
         "path": "https://ccmjs.github.io/eild/er_trainer/resources/img/"
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.1.0.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_logic_trainer/resources/templates.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_rel_trainer/resources/templates.mjs" ],
 //    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
       "feedback": true,
       "legend": true,
