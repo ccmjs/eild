@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for ER model to relational scheme training
  * @author André Kless <andre.kless@web.de> 2021
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version 1.0.0
  * @changes
  * version 1.0.0 (05.06.2021)
  */
@@ -417,7 +417,7 @@
             false,  // foreign key to left table
             false,  // foreign key to middle table
             false,  // foreign key to right table
-            true    // artificial primary key
+            false   // artificial primary key
           ];
 
           render();
