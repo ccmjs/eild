@@ -109,7 +109,8 @@
              Wenn bei einer 1:1-Beziehung beide Entitäten über unterschiedliche Kardinalitäten verfügen, wird der Fremdschlüssel bei der schwächeren Entität (hier "Deckel") hinzugefügt.
              Eine Entität ist eine schwache Entität, wenn ihre Existenz von der jeweils anderen Entität abhängt.
              Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Datensätze von "Deckel" über den Fremdschlüssel auf denselben "Topf"-Datensatz verweisen können.
-             Da ein "Topf"-Datensatz auch keinen zugehörigen "Deckel"-Datensatz haben kann, muss der Fremdschlüssel optional sein.`,
+             Da ein "Topf"-Datensatz auch keinen zugehörigen "Deckel"-Datensatz haben kann, muss der Fremdschlüssel optional sein.
+             Da der Fremdschlüssel bei "Deckel" gesetzt ist und auf "Topf" verweist, geht der Pfeil von "Deckel" nach "Topf".`,
             ""
           ]
         },
@@ -199,7 +200,7 @@
             `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
              Es handelt sich um eine N:M-Beziehung, daher muss auch eine mittlere "hat gekauft"-Tabelle angelegt werden.
              Bei einer N:M-Beziehung muss der mittleren "hat gekauft"-Tabelle je ein Fremdschlüssel für jede der beiden Entitäten "Kunde" und "Produkt" hinzugefügt werden.
-             Damit jede Kombination aus "Kunde" und "Produkt" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Alternativschlüssel bilden.
+             Damit jede Kombination aus "Kunde" und "Produkt" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Primärschlüssel bilden.
              Da die beiden Fremdschlüssel der mittleren "hat gekauft"-Tabelle auf die beiden äußeren Tabellen "Kunde" und "Produkt" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
             ""
           ]
@@ -216,7 +217,7 @@
              Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die beiden äußeren Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
             `Richtig! Hier noch ein paar ergänzende Hinweise:
              Es kann vorkommen, dass es einen "Rezept"-Datensatz gibt, zu dem in der mittleren "hat"-Tabelle kein Datensatz existiert, der dem "Rezept"-Datensatz einen "Zutat"-Datensatz zuordnet.
-             Das es zu jedem "Rezept"-Datensatz immer mindestens einen zugehörigen "Seite"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
+             Das es zu jedem "Rezept"-Datensatz immer mindestens einen zugehörigen "Zutat"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
              Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
         },
@@ -232,7 +233,7 @@
              Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die beiden äußeren Tabellen "Haus" und "Eigentümer" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
             `Richtig! Hier noch ein paar ergänzende Hinweise:
              Es kann vorkommen, dass es einen "Haus"-Datensatz gibt, zu dem in der mittleren "hat"-Tabelle kein Datensatz existiert, der dem "Haus"-Datensatz einen "Eigentümer"-Datensatz zuordnet.
-             Umgekehrt kann es auch vorkommen, dass es zu einen "Eigentümer"-Datensatz keinen zugehörigen "Haus"-Datensatz gibt.
+             Umgekehrt kann es auch vorkommen, dass es zu einem "Eigentümer"-Datensatz keinen zugehörigen "Haus"-Datensatz gibt.
              Das es zu jedem "Haus"-Datensatz immer mindestens einen zugehörigen "Eigentümer"-Datensatz gibt und umgekehrt zu jedem "Eigentümer"-Datensatz immer mindestens einen zugehörigen "Haus"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
              Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
           ]
