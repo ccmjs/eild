@@ -44,7 +44,7 @@ ccm.files[ 'resources.js' ] = {
     "results": { "store": { "name": "er_trainer-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } }
   },
 
-  "eild-test": {
+  "eild": {
     "data": {
       "store": [ "ccm.store", { "name": "dms-configs", "url": "https://ccm2.inf.h-brs.de" } ],
       "key": "1621582970875X5476706877170028"
