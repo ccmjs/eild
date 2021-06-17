@@ -10,6 +10,9 @@ export { render };
  * returns the main HTML template
  * @param {Object} config - initial app configuration
  * @param {Object} builder - app builder instance
+ * @param {Function} onImportPhrases - when 'import' button is clicked
+ * @param {Function} onUploadPhrases - when a CSV file has been selected from file system
+ * @param {Function} onExportPhrases - when 'export' button is clicked
  * @param {Function} onShowPreview - when 'preview' button is clicked
  * @param {Function} onShowPhrase - when 'show' button of a phrase is clicked
  * @param {Function} onDeleteNotation - when 'delete' button of a notation is clicked
@@ -17,7 +20,7 @@ export { render };
  * @param {Function} onDeletePhrase - when 'delete' button of a phrase is clicked
  * @returns {TemplateResult} main HTML template
  */
-export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNotation, onResetNotations, onDeletePhrase ) {
+export function main( config, builder, onImportPhrases, onFileSelected, onExportPhrases, onShowPreview, onShowPhrase, onDeleteNotation, onResetNotations, onDeletePhrase ) {
   return html`
     <form id="erb-main-form">
       <div class="accordion" id="erb-accordion">
@@ -206,12 +209,29 @@ export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNota
                   ${repeat(Object.values(config.phrases),phrase=>phrase.key,phrase=>phraseRow(phrase,onShowPhrase,onDeletePhrase))}
                 </tbody>
               </table>
-              <button type="button" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#erb-add-phrase">
+              <button type="button" class="btn btn-success btn-sm btn-block border-bottom" data-toggle="modal" data-target="#erb-add-phrase">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
                 Add Phrase
               </button>
+              <div class="d-flex flex-direction-column align-items-stretched">
+                <button type="button" class="btn btn-warning btn-sm btn-block d-flex justify-content-center align-items-center border-right" @click="${onImportPhrases}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                  </svg>
+                  <span class="pl-2">Import</span>
+                </button>
+                <input type="file" hidden @change="${onFileSelected}">
+                <button type="button" class="btn btn-info btn-sm btn-block d-flex justify-content-center align-items-center" @click="${onExportPhrases}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                  </svg>
+                  <span class="pl-2">Export</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -818,10 +838,10 @@ export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNota
               <div class="form-group">
                 <label for="erb-add-notation-left">Left Side</label>
                 <span type="button" data-toggle="collapse" data-target="#erb-info-add-notation-left" aria-expanded="false" aria-controls="erb-info-add-notation-left">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                    </svg>
-                  </span>
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle-fill text-info mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                </span>
                 <div class="collapse" id="erb-info-add-notation-left">
                   <div class="bg-info text-light rounded p-2">
                     Choose how the notation should be displayed in the diagram for the left entity.
@@ -879,7 +899,7 @@ export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNota
                     An optional comment can be specified for each notation, which provides information on the peculiarities of the notation.
                   </div>
                 </div>
-                <textarea name="comment" class="form-control" id="erb-add-notation-comment"></textarea>
+                <input type="text" name="comment" class="form-control" id="erb-add-notation-comment">
               </div>
 
             </div>
@@ -918,7 +938,7 @@ export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNota
                     Choose the text of the phrase that describes the dependency between two entities.
                   </div>
                 </div>
-                <textarea name="text" class="form-control" id="erb-add-phrase-text"></textarea>
+                <input type="text" name="text" class="form-control" id="erb-add-phrase-text">
               </div>
   
               <!-- Left Entity -->
@@ -1019,7 +1039,7 @@ export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNota
                     The comment is only displayed if the phrase was answered incorrectly.
                   </div>
                 </div>
-                <textarea name="comment.0" class="form-control" id="erb-add-phrase-comment1"></textarea>
+                <input type="text" name="comment.0" class="form-control" id="erb-add-phrase-comment1">
               </div>
               
               <!-- Right Comment -->
@@ -1036,7 +1056,7 @@ export function main( config, builder, onShowPreview, onShowPhrase, onDeleteNota
                     The comment is only displayed if the phrase was answered incorrectly.
                   </div>
                 </div>
-                <textarea name="comment.1" class="form-control" id="erb-add-phrase-comment2"></textarea>
+                <input type="text" name="comment.1" class="form-control" id="erb-add-phrase-comment2">
               </div>
               
             </div>
@@ -1323,7 +1343,7 @@ function notationModal( notation ) {
                   An optional comment can be specified for each notation, which provides information on the peculiarities of the notation.
                 </div>
               </div>
-              <textarea name="notations.${notation.key}.comment" class="form-control" id="erb-notation-${notation.key}-comment" .value=${notation.comment||''}></textarea>
+              <input type="text" name="notations.${notation.key}.comment" class="form-control" id="erb-notation-${notation.key}-comment" .value=${notation.comment||''}>
             </div>
 
           </div>
@@ -1415,7 +1435,7 @@ function phraseModal( config, phrase ) {
                   Choose the text of the phrase that describes the dependency between two entities.
                 </div>
               </div>
-              <textarea name="phrases.${phrase.key}.text" class="form-control" id="erb-phrase-${phrase.key}-text" .value=${phrase.text}></textarea>
+              <input type="text" name="phrases.${phrase.key}.text" class="form-control" id="erb-phrase-${phrase.key}-text" .value=${phrase.text}>
             </div>
 
             <!-- Left Entity -->
@@ -1516,7 +1536,7 @@ function phraseModal( config, phrase ) {
                   The comment is only displayed if the phrase was answered incorrectly.
                 </div>
               </div>
-              <textarea name="phrases.${phrase.key}.comment.0" class="form-control" id="erb-phrase-${phrase.key}-comment1" .value=${phrase.comment?phrase.comment[0]:''}></textarea>
+              <input type="text" name="phrases.${phrase.key}.comment.0" class="form-control" id="erb-phrase-${phrase.key}-comment1" .value=${phrase.comment?phrase.comment[0]:''}>
             </div>
 
             <!-- Right Comment -->
@@ -1533,7 +1553,7 @@ function phraseModal( config, phrase ) {
                   The comment is only displayed if the phrase was answered incorrectly.
                 </div>
               </div>
-              <textarea name="phrases.${phrase.key}.comment.1" class="form-control" id="erb-phrase-${phrase.key}-comment2" .value=${phrase.comment?phrase.comment[1]:''}></textarea>
+              <input type="text" name="phrases.${phrase.key}.comment.1" class="form-control" id="erb-phrase-${phrase.key}-comment2" .value=${phrase.comment?phrase.comment[1]:''}>
             </div>
             
           </div>
