@@ -10,7 +10,12 @@ ccm.files[ 'resources.js' ] = {
     "css.1.1": "./../er_trainer/resources/default.css",
     "html.1": "./../er_trainer/resources/templates.mjs",
     "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
-    "onfinish": { "log": true, "restart": true }
+    "oncancel": [ "ccm.load", "./../er_trainer/helper/helper.mjs#oncancel" ],
+    "onchange": [ "ccm.load", "./../er_trainer/helper/helper.mjs#onchange" ],
+    "onstart": [ "ccm.load", "./../er_trainer/helper/helper.mjs#onstart" ],
+    "onfinish": { "log": true, "restart": true },
+    "text.cancel": "ER-REL-Trainer",
+    "default.notation": "abrial"
   },
 
   "demo": {}

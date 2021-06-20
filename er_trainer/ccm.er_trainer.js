@@ -55,7 +55,7 @@
           "key": "chen",
           "title": "Chen",
           "centered": true,
-          "comment": "In der Chen-Notation kann zur Spezifikation der Kardinalitäten jeder Entitätstyp entweder mit einer Kardinalität 1 oder mit einer Kardinalität N am Beziehungstyp partizipieren. (In dieser Grundform werden die Beziehungsmengen nur mit ihrer Maximalaussage genannt.)"
+          "comment": "In der Chen-Notation sind nur einfache und mehrfache Beziehungstypen (1 und N) darstellbar, da die Beziehungsmengen bei Chen nur in ihrer Maximalaussage genannt werden. Bei Phrasen die auf einen bedingten oder mehrfach bedingten Beziehungstyp hindeuten, sollte besser zu einer anderen Notation gewechselt werden."
         },
         "crow": {
           "key": "crow",
@@ -73,6 +73,8 @@
       },
       "number": 5,
 //    "oncancel": ( instance, phrase_nr ) => {},
+//    "onchange": event => console.log( event ),
+//    "onstart": instance => console.log( instance ),
       "onfinish": { "restart": true },
       "phrases": [ "ccm.get", { "name": "eild-er_trainer-phrases", "url": "https://ccm2.inf.h-brs.de" } ],
       "show_solution": true,
@@ -166,6 +168,8 @@
         // set content of modal dialog for legend table
         this.html.render( this.html.legend( this ), this.modal.element.querySelector( 'main' ) );
 
+        this.onstart && await this.onstart( this );
+
         // logging of 'start' event
         this.logger && this.logger.log( 'start', { dataset: $.clone( dataset ), phrases: $.clone( phrases ) } );
 
@@ -199,25 +203,34 @@
       const onNotationChange = event => {
         dataset.notation = notation = event.target.value;
         render();
+        this.onchange && this.onchange( { event: 'notation', instance: this } );
       };
 
       /** when 'legend' button is clicked */
-      const onLegendClick = () => this.modal.open();
+      const onLegendClick = () => {
+        this.modal.open();
+        this.onchange && this.onchange( { event: 'legend', instance: this } );
+      }
 
       /** when selected entry of left selector box changes */
       const onLeftInputChange = event => {
         setInput( false, event.target.value );
         render();
+        this.onchange && this.onchange( { event: 'left', instance: this, phrase: phrase_nr } );
       };
 
       /** when selected entry of right selector box changes */
       const onRightInputChange = event => {
         setInput( true, event.target.value );
         render();
+        this.onchange && this.onchange( { event: 'right', instance: this, phrase: phrase_nr } );
       };
 
       /** when 'cancel' button is clicked */
-      const onCancelClick = () => this.oncancel && this.oncancel( this, phrase_nr );
+      const onCancelClick = () => {
+        this.oncancel && this.oncancel( this, phrase_nr );
+        this.onchange && this.onchange( { event: 'cancel', instance: this, phrase: phrase_nr } );
+      }
 
       /** when 'submit' button is clicked */
       const onSubmitClick = () => {
@@ -230,6 +243,7 @@
         if ( section.correct ) dataset.correct++;
         this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
         render();
+        this.onchange && this.onchange( { event: 'submit', instance: this, phrase: phrase_nr } );
         !this.feedback && onNextClick();
       };
 
@@ -239,6 +253,7 @@
         this.element.classList.remove( 'failed' );
         phrases.shift();
         nextPhrase();
+        this.onchange && this.onchange( { event: 'next', instance: this, phrase: phrase_nr } );
 
         // logging of 'next' event
         this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );

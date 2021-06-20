@@ -135,7 +135,7 @@ export function main( app, data, phrase, phrase_nr, onNotationChange, onLegendCl
 
         <!-- Buttons -->
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
-          <button class="btn btn-outline-danger m-1" @click=${onCancelClick} ?data-hidden=${!app.oncancel}>${app.text.cancel}</button>
+          <button class="btn btn-outline-danger m-1" id="cancel" @click=${onCancelClick} ?data-hidden=${!app.oncancel}>${app.text.cancel}</button>
           <button class="btn btn-primary m-1" @click=${onSubmitClick} ?data-hidden=${section.correct!==undefined||!section.input[0]||!section.input[1]}>${app.text.submit}</button>
           <button class="btn btn-primary m-1" @click=${onNextClick} ?data-hidden=${section.correct===undefined||phrase_nr===app.number}>${app.text.next}</button>
           <button class="btn btn-success m-1" @click=${onFinishClick} ?data-hidden=${section.correct===undefined||phrase_nr<app.number||!app.onfinish}>${app.text.finish}</button>
