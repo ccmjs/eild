@@ -474,6 +474,9 @@ export function main( config, builder, onImportPhrases, onFileSelected, onExport
                 <input type="text" name="text.current_state" class="form-control" id="erb-text-current_state" .value=${config.text.current_state}>
               </div>
 
+              <!-- Cancel Button -->
+              <input type="hidden" name="text.cancel" class="form-control" id="erb-text-cancel" .value=${config.text.cancel}>
+
               <!-- Next Button -->
               <div class="form-group">
                 <label for="erb-text-next">Next Button</label>
