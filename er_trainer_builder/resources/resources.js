@@ -51,6 +51,15 @@ ccm.files[ 'resources.js' ] = {
     },
     "onfinish": { "log": true, "store": true, "alert": "Saved!" },
     "results": { "store": { "name": "er_trainer-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } }
+  },
+
+  "playground": {
+    "data": {
+      "store": [ "ccm.store", { "name": "dms-configs", "url": "https://ccm2.inf.h-brs.de" } ],
+      "key": "1624283532040X746466302845141"
+    },
+    "onfinish": { "log": true, "store": true, "alert": "Saved!" },
+    "results": { "store": { "name": "er_trainer-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } }
   }
 
 };
