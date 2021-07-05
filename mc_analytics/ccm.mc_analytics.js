@@ -15,12 +15,12 @@
       "chart": [ "ccm.component", "https://ccmjs.github.io/akless-components/highchart/versions/ccm.highchart-3.0.4.js" ],
       "css": [ "ccm.load", [
         "https://ccmjs.github.io/akless-components/libs/bootstrap-5/css/bootstrap.min.css",
-        "https://ccmjs.github.io/akless-components/mc_analytics/resources/styles.css"
+        "https://ccmjs.github.io/eild/mc_analytics/resources/styles.css"
       ] ],
       "data": {},
 //    "editor": [ "ccm.start", "https://ccmjs.github.io/tkless-components/editor/versions/ccm.editor-4.0.0.js" ],
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.4.0.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/akless-components/mc_analytics/resources/templates.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc_analytics/resources/templates.mjs" ],
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.1.0.js", {
         "backdrop_close": true,
         "buttons": null,
