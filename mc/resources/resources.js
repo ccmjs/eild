@@ -14,7 +14,6 @@ ccm.files[ 'resources.js' ] = {
       "key": "test"
     },
     "feedback": true,
-    "helper.1": "./../modules/helper.mjs",
     "html.1": "./../mc/resources/templates.mjs",
     "onfinish": { "log": true, "store": true, "restart": true },
     "questions": [ "ccm.get", { "name": "dbs-questions", "url": "https://ccm2.inf.h-brs.de" } ],

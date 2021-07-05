@@ -29,7 +29,6 @@ ccm.files[ 'resources.js' ] = {
         "theme": "snow"
       }
     } ],
-    "helper.1": "./../modules/helper.mjs",
     "html.1": "./../mc_analytics/resources/templates.mjs",
     "source": [ "ccm.store", { "name": "dbs-questions", "url": "https://ccm2.inf.h-brs.de" } ],
     "text": {
