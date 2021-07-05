@@ -13,14 +13,14 @@
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.4.0.js',
     config: {
       "css": [ "ccm.load", [
-        "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
-        "https://ccmjs.github.io/akless-components/mc/resources/styles.css"
+        "https://ccmjs.github.io/akless-components/libs/bootstrap-5/css/bootstrap.min.css",
+        "https://ccmjs.github.io/eild/mc/resources/styles.css"
       ] ],
 //    "data": { "store": [ "ccm.store" ] },
 //    "escape": true,
 //    "feedback": true,
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.3.0.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/akless-components/mc/resources/templates.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/templates.mjs" ],
 //    "onfinish": instance => console.log( instance.getValue() ),
       "questions": [],
       "random": true,
