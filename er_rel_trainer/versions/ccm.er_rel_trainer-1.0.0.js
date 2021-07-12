@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version 1.0.0
  * @changes
- * version 1.0.0 (05.06.2021)
+ * version 1.0.0 (12.07.2021)
  */
 
 ( () => {
@@ -87,156 +87,52 @@
         {
           "text": "Ein Fahrzeug kann einen Anhänger haben.",
           "relationship": [ "Fahrzeug", "hat", "Anhänger" ],
-          "solution": [ "c", "c" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine 1:1-Beziehung, daher wird keine mittlere "hat"-Tabelle benötigt.
-             Wenn bei einer 1:1-Beziehung beide Entitäten über exakt identische Kardinalitäten verfügen, wird ein Fremdschlüssel bei der Hauptentität (hier "Fahrzeug") hinzugefügt.
-             Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.
-             Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Datensätze von "Fahrzeug" über den Fremdschlüssel auf denselben "Anhänger"-Datensatz verweisen können.
-             Da ein "Fahrzeug"-Datensatz auch keinen zugehörigen "Anhänger"-Datensatz haben kann, muss der Fremdschlüssel optional sein.
-             Da der Fremdschlüssel bei "Fahrzeug" gesetzt ist und auf "Anhänger" verweist, geht der Pfeil von "Fahrzeug" nach "Anhänger".`,
-            ""
-          ]
+          "solution": [ "c", "c" ]
         },
         {
           "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
           "relationship": [ "Topf", "hat", "Deckel" ],
-          "solution": [ "1", "c" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine 1:1-Beziehung, daher wird keine mittlere "hat"-Tabelle benötigt.
-             Wenn bei einer 1:1-Beziehung beide Entitäten über unterschiedliche Kardinalitäten verfügen, wird der Fremdschlüssel bei der schwächeren Entität (hier "Deckel") hinzugefügt.
-             Eine Entität ist eine schwache Entität, wenn ihre Existenz von der jeweils anderen Entität abhängt.
-             Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Datensätze von "Deckel" über den Fremdschlüssel auf denselben "Topf"-Datensatz verweisen können.
-             Da ein "Topf"-Datensatz auch keinen zugehörigen "Deckel"-Datensatz haben kann, muss der Fremdschlüssel optional sein.
-             Da der Fremdschlüssel bei "Deckel" gesetzt ist und auf "Topf" verweist, geht der Pfeil von "Deckel" nach "Topf".`,
-            ""
-          ]
+          "solution": [ "1", "c" ]
         },
         {
           "text": "Zu jedem Patienten gibt es eine Patientenakte.",
           "relationship": [ "Patient", "hat", "Patientenakte" ],
-          "solution": [ "1", "1" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine 1:1-Beziehung, daher wird keine mittlere "hat"-Tabelle benötigt.
-             Wenn bei einer 1:1-Beziehung beide Entitäten über exakt identische Kardinalitäten verfügen, wird ein Fremdschlüssel bei der Hauptentität (hier "Patient") hinzugefügt.
-             Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.
-             Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Datensätze von "Patient" über den Fremdschlüssel auf denselben "Patientenakte"-Datensatz verweisen können.
-             Da der Fremdschlüssel bei "Patient" gesetzt ist und auf "Patientenakte" verweist, geht der Pfeil von "Patient" nach "Patientenakte".`,
-            `Richtig! Hier noch ein paar ergänzende Hinweise:
-             In der Praxis werden 1:1-Beziehungen häufig zu einer Tabelle zusammengefasst.
-             Es kann vorkommen, dass es einen "Patientenakte"-Datensatz gibt, zu dem kein "Patient"-Datensatz existiert, der über den Fremdschlüssel auf den "Patientenakte"-Datensatz verweist.
-             Das es zu jedem "Patientenakte"-Datensatz immer genau einen "Patient"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
-             Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
-          ]
+          "solution": [ "1", "1" ]
         },
         {
           "text": "Ein Rucksack kann mehrere Gegenstände enthalten.",
           "relationship": [ "Rucksack", "enthält", "Gegenstand" ],
-          "solution": [ "c", "cn" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine 1:N-Beziehung, daher wird keine mittlere "enthält"-Tabelle benötigt.
-             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität (hier "Gegenstand") hinzugefügt.
-             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
-             Da ein "Gegenstand"-Datensatz auch keinen zugehörigen "Rucksack"-Datensatz haben kann, muss der Fremdschlüssel optional sein.
-             Da der Fremdschlüssel bei "Gegenstand" gesetzt ist und auf "Rucksack" verweist, geht der Pfeil von "Gegenstand" nach "Rucksack".`,
-            ""
-          ]
+          "solution": [ "c", "cn" ]
         },
         {
           "text": "Ein Wald hat Bäume.",
           "relationship": [ "Wald", "hat", "Baum" ],
-          "solution": [ "c", "n" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine 1:N-Beziehung, daher wird keine mittlere "hat"-Tabelle benötigt.
-             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität (hier "Baum") hinzugefügt.
-             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
-             Da ein "Baum"-Datensatz auch keinen zugehörigen "Wald"-Datensatz haben kann, muss der Fremdschlüssel optional sein.
-             Da der Fremdschlüssel bei "Baum" gesetzt ist und auf "Wald" verweist, geht der Pfeil von "Baum" nach "Wald".`,
-            `Richtig! Hier noch ein paar ergänzende Hinweise:
-             Es kann vorkommen, dass es einen "Wald"-Datensatz gibt, zu dem kein "Baum"-Datensatz existiert, der über den Fremdschlüssel auf den "Wald"-Datensatz verweist.
-             Das es zu jedem "Wald"-Datensatz immer mindestens einen "Baum"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
-             Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`,
-          ]
+          "solution": [ "c", "n" ]
         },
         {
           "text": "Ein Planet kann Monde haben, die ihn umkreisen.",
           "relationship": [ "Planet", "hat", "Mond" ],
-          "solution": [ "1", "cn" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine 1:N-Beziehung, daher wird keine mittlere "hat"-Tabelle benötigt.
-             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität (hier "Mond") hinzugefügt.
-             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
-             Da der Fremdschlüssel bei "Mond" gesetzt ist und auf "Planet" verweist, geht der Pfeil von "Mond" nach "Planet".`,
-            ""
-          ]
+          "solution": [ "1", "cn" ]
         },
         {
           "text": "Ein Buch hat mehrere Seiten.",
           "relationship": [ "Buch", "hat", "Seite" ],
-          "solution": [ "1", "n" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine 1:N-Beziehung, daher wird keine mittlere "hat"-Tabelle benötigt.
-             Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität (hier "Seite") hinzugefügt.
-             Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.
-             Da der Fremdschlüssel bei "Seite" gesetzt ist und auf "Buch" verweist, geht der Pfeil von "Seite" nach "Buch".`,
-            `Richtig! Hier noch ein paar ergänzende Hinweise:
-             Es kann vorkommen, dass es einen "Buch"-Datensatz gibt, zu dem kein "Seite"-Datensatz existiert, der über den Fremdschlüssel auf den "Buch"-Datensatz verweist.
-             Das es zu jedem "Buch"-Datensatz immer mindestens einen "Seite"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
-             Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
-          ]
+          "solution": [ "1", "n" ]
         },
         {
           "text": "Kunden kaufen Produkte.",
           "relationship": [ "Kunde", "hat gekauft", "Produkt" ],
-          "solution": [ "cn", "cn" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine N:M-Beziehung, daher muss auch eine mittlere "hat gekauft"-Tabelle angelegt werden.
-             Bei einer N:M-Beziehung muss der mittleren "hat gekauft"-Tabelle je ein Fremdschlüssel für jede der beiden Entitäten "Kunde" und "Produkt" hinzugefügt werden.
-             Damit jede Kombination aus "Kunde" und "Produkt" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Primärschlüssel bilden.
-             Da die beiden Fremdschlüssel der mittleren "hat gekauft"-Tabelle auf die beiden äußeren Tabellen "Kunde" und "Produkt" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
-            ""
-          ]
+          "solution": [ "cn", "cn" ]
         },
         {
           "text": "Auf einem Rezept stehen Zutaten.",
           "relationship": [ "Rezept", "hat", "Zutat" ],
-          "solution": [ "cn", "n" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine N:M-Beziehung, daher muss auch eine mittlere "hat"-Tabelle angelegt werden.
-             Bei einer N:M-Beziehung muss der mittleren "hat"-Tabelle je ein Fremdschlüssel für jede der beiden Entitäten "Rezept" und "Zutat" hinzugefügt werden.
-             Damit jede Kombination aus "Rezept" und "Zutat" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Primärschlüssel bilden.
-             Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die beiden äußeren Tabellen "Rezept" und "Zutat" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
-            `Richtig! Hier noch ein paar ergänzende Hinweise:
-             Es kann vorkommen, dass es einen "Rezept"-Datensatz gibt, zu dem in der mittleren "hat"-Tabelle kein Datensatz existiert, der dem "Rezept"-Datensatz einen "Zutat"-Datensatz zuordnet.
-             Das es zu jedem "Rezept"-Datensatz immer mindestens einen zugehörigen "Zutat"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
-             Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
-          ]
+          "solution": [ "cn", "n" ]
         },
         {
           "text": "Ein Haus hat Eigentümer und Eigentümer haben Häuser.",
           "relationship": [ "Haus", "hat", "Eigentümer" ],
-          "solution": [ "n", "n" ],
-          "hints": [
-            `Benötigt werden immer die beiden äußeren Tabellen mit jeweils einem eigenen künstlichen Primärschlüssel.
-             Es handelt sich um eine N:M-Beziehung, daher muss auch eine mittlere "hat"-Tabelle angelegt werden.
-             Bei einer N:M-Beziehung muss der mittleren "hat"-Tabelle je ein Fremdschlüssel für jede der beiden Entitäten "Haus" und "Eigentümer" hinzugefügt werden.
-             Damit jede Kombination aus "Haus" und "Eigentümer" nur einmal vorkommen kann, müssen die beiden Fremdschlüssel einen zusammengesetzten Primärschlüssel bilden.
-             Da die beiden Fremdschlüssel der mittleren "hat"-Tabelle auf die beiden äußeren Tabellen "Haus" und "Eigentümer" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.`,
-            `Richtig! Hier noch ein paar ergänzende Hinweise:
-             Es kann vorkommen, dass es einen "Haus"-Datensatz gibt, zu dem in der mittleren "hat"-Tabelle kein Datensatz existiert, der dem "Haus"-Datensatz einen "Eigentümer"-Datensatz zuordnet.
-             Umgekehrt kann es auch vorkommen, dass es zu einem "Eigentümer"-Datensatz keinen zugehörigen "Haus"-Datensatz gibt.
-             Das es zu jedem "Haus"-Datensatz immer mindestens einen zugehörigen "Eigentümer"-Datensatz gibt und umgekehrt zu jedem "Eigentümer"-Datensatz immer mindestens einen zugehörigen "Haus"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen.
-             Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.`
-          ]
+          "solution": [ "n", "n" ]
         }
       ],
       "show_solution": true,
@@ -250,6 +146,27 @@
         "attr_modal_title": "Neues Schlüsselattribut",
         "attr_name": "Name des Schlüsselattributs",
         "cancel": "Abbrechen",
+        "comment": {
+          "missing_arrow": "Hinweis: Für die Beziehungen zwischen Entitäten müssen bei der Verbindungslinie die Pfeilspitzen gesetzt werden, um die Richtung der Abhängigkeit anzuzeigen.",
+          "missing_entity_table": "Hinweis: Für jede der beiden Entitäten muss eine Tabelle erstellt werden.",
+          "missing_entity_pk": "Hinweis: Jede der beiden Entitätstabelle benötigt einen künstlichen Primärschlüssel.",
+          "no_nm_table": "Hinweis: Die mittlere \"%middle%\"-Tabelle wird nur bei einer N:M-Beziehung benötigt.",
+          "missing_nm_table": "Hinweis: Da es sich um eine N:M-Beziehung handelt, wird eine \"%middle%\"-Tabelle benötigt.",
+          "missing_nm_fk": "Hinweis: Die \"%middle%\"-Tabelle benötigt zwei Fremdschlüssel die jeweils auf eine der beiden Entitätstabellen verweisen.",
+          "missing_nm_pk": "Hinweis: Damit jede Kombination aus \"%fk%\" und \"%nofk%\" nur einmal vorkommen kann, müssen in der \"%middle%\"-Tabelle die beiden Fremdschlüssel einen zusammengesetzten Primärschlüssel bilden.",
+          "missing_11_fk": "Hinweis: Wenn bei einer 1:1-Beziehung beide Entitäten über exakt identische Kardinalitäten verfügen, wird ein Fremdschlüssel bei der Hauptentität (hier \"%fk%\") hinzugefügt. Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.",
+          "missing_1c_fk": "Hinweis: Wenn bei einer 1:1-Beziehung beide Entitäten über unterschiedliche Kardinalitäten verfügen, wird der Fremdschlüssel bei der schwächeren Entität (hier \"%fk%\") hinzugefügt. Eine Entität ist eine schwache Entität, wenn ihre Existenz von der jeweils anderen Entität abhängt.",
+          "missing_1n_fk": "Hinweis: Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität (hier \"%fk%\") hinzugefügt. Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.",
+          "missing_ak": "Hinweis: Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Datensätze von \"%fk%\" über den Fremdschlüssel auf denselben \"%nofk%\"-Datensatz verweisen können.",
+          "missing_opt": "Hinweis: Da ein \"%fk%\"-Datensatz auch keinen zugehörigen \"%nofk%\"-Datensatz haben kann, muss der Fremdschlüssel optional sein.",
+          "missing_arrowhead": "Hinweis: Da der Fremdschlüssel bei \"%fk%\" gesetzt ist und auf \"%nofk%\" verweist, geht der Pfeil von \"%fk%\" nach \"%nofk%\".",
+          "missing_arrowhead_nm": "Hinweis: Da die beiden Fremdschlüssel der \"%middle%\"-Tabelle auf die beiden äußeren Tabellen \"%fk%\" und \"%nofk%\" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.",
+          "mandatory_11": "Anmerkung: Es kann vorkommen, dass es einen \"%nofk%\"-Datensatz gibt, zu dem kein \"%fk%\"-Datensatz existiert, der über den Fremdschlüssel auf den \"%nofk%\"-Datensatz verweist. Das es zu jedem \"%nofk%\"-Datensatz immer genau einen \"%fk%\"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen. Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.",
+          "mandatory_1n": "Anmerkung: Es kann vorkommen, dass es einen \"%nofk%\"-Datensatz gibt, zu dem kein \"%fk%\"-Datensatz existiert, der über den Fremdschlüssel auf den \"%nofk%\"-Datensatz verweist. Das es zu jedem \"%nofk%\"-Datensatz immer mindestens einen \"%fk%\"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen. Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.",
+          "mandatory_nm": "Anmerkung: Es kann vorkommen, dass es einen \"%nofk%\"-Datensatz gibt, zu dem in der \"%middle%\"-Tabelle kein Datensatz existiert, der dem \"%nofk%\"-Datensatz einen \"%fk%\"-Datensatz zuordnet. Das es zu jedem \"%nofk%\"-Datensatz immer mindestens einen zugehörigen \"%fk%\"-Datensatz gibt, lässt sich hier im relationalen Schema nicht darstellen. Dies muss später in der Datenbank mit anderen Mitteln sichergestellt werden.",
+          "merge_11": "Anmerkung: In der Praxis werden 1:1-Beziehungen häufig zu einer Tabelle zusammengefasst."
+        },
+        "comment_prefix": "Richtig! Hier noch ein paar ergänzende Hinweise:",
         "correct": "Ihre Antwort war richtig!",
         "current_state": "Sie haben %% von %% Aufgaben richtig beantwortet!",
         "entity1": "Entity 1",
@@ -262,6 +179,7 @@
         "heading": "Lösen Sie die gezeigte Beziehung zwischen den beiden Entitäten auf!",
         "key_attr": "Schlüsselattribut",
         "legend": "Legende",
+        "multi_pk_badge": "Zusammengesetzter Primärschlüssel: Attribute mit denen sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.",
         "next": "Weiter",
         "notation": "ER-Notation:",
         "opt": "Optional",
@@ -284,8 +202,35 @@
       "values": [ "1", "c", "n", "cn" ]
     },
     Instance: function () {
-      let $, dataset, phrase_nr, phrases;
 
+      /**
+       * shortcut to help functions
+       * @type {Object.<string,Function>}
+       */
+      let $;
+
+      /**
+       * current app state data
+       * @type {Object}
+       */
+      let data;
+
+      /**
+       * current phrase number
+       * @type {number}
+       */
+      let phrase_nr;
+
+      /**
+       * data of used phrases in final order
+       * @type {Object[]}
+       */
+      let phrases;
+
+      /**
+       * when the instance is created, when all dependencies have been resolved and before the dependent sub-instances are initialized and ready
+       * @returns {Promise<void>}
+       */
       this.init = async () => {
 
         // set shortcut to help functions
@@ -321,6 +266,10 @@
 
       };
 
+      /**
+       * when the instance is created after all dependent sub-instances are initialized and ready
+       * @returns {Promise<void>}
+       */
       this.ready = async () => {
 
         phrases = $.clone( this.phrases );                                     // clone original phrases
@@ -330,6 +279,10 @@
 
       };
 
+      /**
+       * starts the app
+       * @returns {Promise<void>}
+       */
       this.start = async () => {
 
         // not enough phrases left? => clone and shuffle original phrases
@@ -339,10 +292,10 @@
         }
 
         // set initial app state data
-        dataset = await $.dataset( this.data );  // load already existing app state data
-        dataset = Object.assign( dataset, {      // reset most values
+        data = await $.dataset( this.data );  // load already existing app state data
+        data = Object.assign( data, {         // reset most values
           correct: 0,
-          notation: dataset.notation || this.default.notation,  // keep last used notation
+          notation: data.notation || this.default.notation,  // keep last used notation
           sections: [],
           total: this.number
         } );
@@ -354,7 +307,7 @@
         this.html.render( this.html.legend( this ), this.modal.legend.element.querySelector( 'main' ) );
 
         // logging of 'start' event
-        this.logger && this.logger.log( 'start', { dataset: $.clone( dataset ), phrases: $.clone( phrases ) } );
+        this.logger && this.logger.log( 'start', { dataset: $.clone( data ), phrases: $.clone( phrases ) } );
 
       };
 
@@ -362,14 +315,14 @@
        * returns current app state data
        * @returns {Object}
        */
-      this.getValue = () => $.clone( dataset );
+      this.getValue = () => $.clone( data );
 
       /** starts the next phrase */
       const nextPhrase = () => {
         phrase_nr++;
 
         // set initial app state data for current phrase
-        dataset.sections.push( {
+        data.sections.push( {
           input: {
             keys: [ null, null, null ],  // no tables
             arrows: [                    // no arrows
@@ -387,11 +340,11 @@
       };
 
       /** renders actual state of current phrase */
-      const render = () => this.html.render( this.html.main( this, dataset, phrases[ 0 ], phrase_nr, events ), this.element );
+      const render = () => this.html.render( this.html.main( this, data, phrases[ 0 ], phrase_nr, events ), this.element );
 
       /**
        * contains all event handlers
-       * @type Object.<string,Function>
+       * @type {Object.<string,Function>}
        */
       const events = {
 
@@ -400,7 +353,7 @@
          * @param {Object} event - event object of the change event of the selector box for displaying the legend
          */
         onNotationChange: event => {
-          dataset.notation = event.target.value;
+          data.notation = event.target.value;
           render();
         },
 
@@ -414,7 +367,7 @@
         onAddTable: table => {
 
           // create empty table without any key attribute
-          dataset.sections[ phrase_nr - 1 ].input.keys[ table ] = [
+          data.sections[ phrase_nr - 1 ].input.keys[ table ] = [
             false,  // foreign key to left table
             false,  // foreign key to middle table
             false,  // foreign key to right table
@@ -434,7 +387,7 @@
            * key attributes of the relational scheme tables
            * @type {(string|boolean)[][]}
            */
-          const keys = dataset.sections[ phrase_nr - 1 ].input.keys;
+          const keys = data.sections[ phrase_nr - 1 ].input.keys;
 
           // remove table and any foreign keys in other tables that reference that table
           keys[ table ] = null;
@@ -453,7 +406,7 @@
            * app state data for current phrase
            * @type {Object}
            */
-          const phrase = dataset.sections[ phrase_nr - 1 ];
+          const phrase = data.sections[ phrase_nr - 1 ];
 
           /**
            * instance of ccmjs-based web component for the modal dialog for adding a key attribute
@@ -476,7 +429,7 @@
 
             // add key attribute in table
             if ( key.fk )
-              phrase.input.keys[ table ][ key.table ] = key.pk && 'pk' || key.opt && 'opt' || key.ak && 'ak' || 'fk';  // foreign key
+              phrase.input.keys[ table ][ key.table ] = key.pk && 'pk' || key.opt && key.ak && 'opt_ak' || key.opt && 'opt' || key.ak && 'ak' || 'fk';  // foreign key
             else
               phrase.input.keys[ table ][ 3 ] = true;  // artificial primary key
 
@@ -529,13 +482,11 @@
           // listen to change event of checkbox for alternative key
           ak.addEventListener( 'change', event => {
             pk.disabled = event.target.checked;      // an alternative key cannot be an primary key
-            opt.disabled = event.target.checked;     // an alternative key cannot be an optional attribute
           } );
 
           // listen to change event of checkbox for optional attribute
           opt.addEventListener( 'change', event => {
             pk.disabled = event.target.checked;       // a optional attribute cannot be a primary key
-            ak.disabled = event.target.checked;       // a optional attribute cannot be a alternative key
           } );
 
           modal.open();
@@ -548,20 +499,22 @@
            * key attributes of the relational scheme tables
            * @type {(string|boolean)[][]}
            */
-          const keys = dataset.sections[ phrase_nr - 1 ].input.keys;
+          const keys = data.sections[ phrase_nr - 1 ].input.keys;
 
-          // remove attribute from table
-          if ( to === false )
-            keys[ from ][ 3 ] = to;      // artificial primary key
-          else
-            keys[ from ][ to ] = false;  // foreign key
+          // is artificial primary key?
+          if ( to === false ) {
+            keys[ from ][ 3 ] = false;                              // remove artificial primary key
+            keys.forEach( fks => fks && ( fks[ from ] = false ) );  // remove any foreign keys in other tables that reference that table
+          }
+          // is foreign key => remove
+          else keys[ from ][ to ] = false;  // foreign key
 
           render();
         },
 
         /** when an arrowhead is changed */
         onArrowChange: event => {
-          dataset.sections[ phrase_nr - 1 ].input.arrows[ event.target.dataset.from ][ event.target.dataset.to ] = !!parseInt( event.target.value );
+          data.sections[ phrase_nr - 1 ].input.arrows[ event.target.dataset.from ][ event.target.dataset.to ] = !!parseInt( event.target.value );
           render();
         },
 
@@ -572,14 +525,14 @@
         onSubmitButton: () => {
 
           // analyse solution data of current phrase
-          const section = dataset.sections[ phrase_nr - 1 ];
+          const section = data.sections[ phrase_nr - 1 ];
           const left = section.solution[ 0 ];
           const right = section.solution[ 1 ];
           const single_left = left === 'c' || left === '1';
           const single_right = right === 'c' || right === '1';
           const multi = ( left === 'cn' || left === 'n' ) && ( right === 'cn' || right === 'n' );
-          const fk_l2r = ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? ( right === 'c' ? 'opt' : ( single_left && single_right && !( left === 'c' && right === 'c' ) ? 'ak' : 'fk' ) ) : false;
-          const fk_r2l = single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? ( left === 'c' ? 'opt' : ( single_left && single_right ? 'ak': 'fk' ) ) : false;
+          const fk_l2r = ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? ( right === 'c' ? ( left === 'c' ? 'opt_ak' : 'opt' ) : ( single_left ? 'ak' : 'fk' ) ) : false;
+          const fk_r2l = single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? ( left === 'c' ? 'opt' : ( single_right ? 'ak': 'fk' ) ) : false;
 
           // define correct solution for feedback
           section.feedback = {
@@ -597,7 +550,7 @@
 
           // compare current app state data of current phrase with correct solution
           section.correct = JSON.stringify( section.input ) === JSON.stringify( section.feedback );
-          section.correct && dataset.correct++;
+          section.correct && data.correct++;
 
           // no feedback? => show directly the next phrase
           if ( !this.feedback ) return events.onNextButton();
@@ -609,7 +562,7 @@
 
         /** when 'solution' button is clicked */
         onSolutionButton: () => {
-          const feedback = dataset.sections[ phrase_nr - 1 ].feedback;
+          const feedback = data.sections[ phrase_nr - 1 ].feedback;
           feedback.show_solution = !feedback.show_solution;
           render();
         },
@@ -621,7 +574,7 @@
            * app state data for current phrase
            * @type {Object}
            */
-          const section = dataset.sections[ phrase_nr - 1 ];
+          const section = data.sections[ phrase_nr - 1 ];
 
           // update solution data with correct solution
           delete section.feedback.show_solution;
@@ -647,7 +600,7 @@
            * app state data for current phrase
            * @type {Object}
            */
-          const section = dataset.sections[ phrase_nr - 1 ];
+          const section = data.sections[ phrase_nr - 1 ];
 
           // update solution data with correct solution and remove feedback-relevant data
           delete section.feedback.show_solution;

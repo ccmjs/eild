@@ -3,7 +3,7 @@
  * @author André Kless <andre.kless@web.de> 2021
  */
 
-import { html, render } from 'https://esm.run/lit-html';
+import { html, render } from 'https://ccmjs.github.io/akless-components/libs/lit/lit.js';
 export { render };
 
 /**
@@ -17,9 +17,13 @@ export { render };
  */
 export function main( instance, state, phrase, phrase_nr, events ) {
 
-  let { centered, comment, images, left, swap } = instance.notations[ state.notation ];                 // data of the currently used notation
+  const notation = instance.notations[ state.notation ];                                                // data of the currently used notation
   const section = state.sections[ phrase_nr - 1 ];                                                      // app state data of current phrase
   const input = section.feedback && section.feedback.show_solution ? section.feedback : section.input;  // current user input data
+  const left = section.solution[ 0 ];                                                                   // left cardinality
+  const right = section.solution[ 1 ];                                                                  // right cardinality
+  const is_single = ( left === 'c' || left === '1' ) && ( right === 'c' || right === '1' );             // is one-to-one relationship
+  const is_multi = ( left === 'cn' || left === 'n' ) && ( right === 'cn' || right === 'n' );            // is many-to-many relationship
 
   return html`
     <h1 class="mx-3">${ instance.text.title }</h1> <!-- Title -->
@@ -64,16 +68,16 @@ export function main( instance, state, phrase, phrase_nr, events ) {
               ${ phrase.relationship[ 0 ] }
             </div>
             <div>
-              <img id="left" class="${ left }" src="${ images[ instance.values.indexOf( section.solution[ swap ? 1 : 0 ] ) + 1 ] }">
+              <img id="left" class="${ notation.left }" src="${ notation.images[ instance.values.indexOf( section.solution[ notation.swap ? 1 : 0 ] ) + 1 ] }">
             </div>
             <div class="filler"></div>
             <div id="name">
-              <img id="middle" src="${ images[ 5 ] }">
-              <div class="text-nowrap" ?data-centered=${ centered }>${ phrase.relationship[ 1 ] }</div>
+              <img id="middle" src="${ notation.images[ 5 ] }">
+              <div class="text-nowrap" ?data-centered=${ notation.centered }>${ phrase.relationship[ 1 ] }</div>
             </div>
             <div class="filler"></div>
             <div>
-              <img id="right" src="${ images[ instance.values.indexOf( section.solution[ swap ? 0 : 1 ] ) + 1 ] }">
+              <img id="right" src="${ notation.images[ instance.values.indexOf( section.solution[ notation.swap ? 0 : 1 ] ) + 1 ] }">
             </div>
             <div class="entity border rounded p-3 text-nowrap">
               ${ phrase.relationship[ 2 ] }
@@ -89,8 +93,8 @@ export function main( instance, state, phrase, phrase_nr, events ) {
        </section>
 
         <!-- Notation Comment -->
-        <section class="comment" ?data-hidden=${ phrase_nr !== 1 || !comment || section.input.keys.find( table => table ) }>
-          <div class="alert alert-info mt-3 mb-0" role="alert">${comment}</div>
+        <section class="comment" ?data-hidden=${ phrase_nr !== 1 || !notation.comment || section.input.keys.find( table => table ) }>
+          <div class="alert alert-info mt-3 mb-0" role="alert">${ notation.comment }</div>
         </section>
 
         <!-- Relational Scheme Tables -->
@@ -133,10 +137,25 @@ export function main( instance, state, phrase, phrase_nr, events ) {
           </div>
         </section>
 
-        <!-- Phrase Comment -->
-        <section class="comment" ?data-hidden=${ !phrase.hints || !instance.feedback || !section.feedback || !phrase.hints[ section.correct ? 1 : 0 ] }>
-          <div class="alert alert-info mt-3 mb-0" role="alert">${ phrase.hints[ section.correct ? 1 : 0 ] }</div>
-        </section>
+        <!-- Phrase Comments -->
+        ${ !section.feedback && missingArrowheads() && phraseComment( instance.text.comment.missing_arrow ) || '' }
+        ${ instance.feedback && section.feedback && ( !section.input.keys[ 0 ] || !section.input.keys[ 2 ] ) && phraseComment( instance.text.comment.missing_entity_table ) || '' }
+        ${ instance.feedback && section.feedback && ( section.input.keys[ 0 ] && !section.input.keys[ 0 ][ 3 ] || section.input.keys[ 2 ] && !section.input.keys[ 2 ][ 3 ] ) && phraseComment( instance.text.comment.missing_entity_pk ) || '' }
+        ${ instance.feedback && section.feedback && !is_multi && section.input.keys[ 1 ] && phraseComment( instance.text.comment.no_nm_table ) || '' }
+        ${ instance.feedback && section.feedback && is_multi && !section.input.keys[ 1 ] && phraseComment( instance.text.comment.missing_nm_table ) || '' }
+        ${ instance.feedback && section.feedback && is_multi && section.input.keys[ 1 ] && ( !section.input.keys[ 1 ][ 0 ] || !section.input.keys[ 1 ][ 2 ] ) && phraseComment( instance.text.comment.missing_nm_fk ) || '' }
+        ${ instance.feedback && section.feedback && is_multi && section.input.keys[ 1 ] && section.input.keys[ 1 ][ 0 ] && section.input.keys[ 1 ][ 2 ] && ( section.input.keys[ 1 ][ 0 ] !== 'pk' || section.input.keys[ 1 ][ 2 ] !== 'pk' ) && phraseComment( instance.text.comment.missing_nm_pk, 0 ) || '' }
+        ${ instance.feedback && section.feedback && is_single && section.input.keys[ 0 ] && section.input.keys[ 2 ] && left === right && !section.input.keys[ 0 ][ 2 ] && phraseComment( instance.text.comment.missing_11_fk, 0 ) || '' }
+        ${ instance.feedback && section.feedback && is_single && section.input.keys[ 0 ] && section.input.keys[ 2 ] && left !== right && !section.input.keys[ left === 'c' ? 0 : 2 ][ left === 'c' ? 2 : 0 ] && phraseComment( instance.text.comment.missing_1c_fk, left === 'c' ? 0 : 2 ) || '' }
+        ${ instance.feedback && section.feedback && !is_single && !is_multi && section.input.keys[ 0 ] && section.input.keys[ 2 ] && !section.input.keys[ left === 'c' || left === '1' ? 2 : 0 ][ left === 'c' || left === '1' ? 0 : 2 ] && phraseComment( instance.text.comment.missing_1n_fk, left === 'c' || left === '1' ? 2 : 0 ) || '' }
+        ${ instance.feedback && section.feedback && is_single && section.input.keys[ 0 ] && section.input.keys[ 2 ] && !section.input.keys[ left === right || left === 'c' ? 0 : 2 ][ left === right || left === 'c' ? 2 : 0 ].startsWith( 'ak' ) && phraseComment( instance.text.comment.missing_ak, left === right || left === 'c' ? 0 : 2 ) || '' }
+        ${ instance.feedback && section.feedback && !is_multi && section.input.keys[ 0 ] && section.input.keys[ 2 ] && ( left === 'c' || right === 'c' ) && ( !is_single || left === right ) && phraseComment( instance.text.comment.missing_opt, right === 'c' ? 0 : 2 ) || '' }
+        ${ instance.feedback && section.feedback && !is_multi && JSON.stringify( section.input.keys ) === JSON.stringify( section.feedback.keys ) && JSON.stringify( section.input.arrows ) !== JSON.stringify( section.feedback.arrows ) && phraseComment( instance.text.comment.missing_arrowhead, section.input.keys[ 0 ][ 2 ] ? 0 : 2 ) || '' }
+        ${ instance.feedback && section.feedback && is_multi && section.input.keys[ 1 ] && section.input.keys[ 1 ][ 0 ] && section.input.keys[ 1 ][ 2 ] && JSON.stringify( section.input.arrows ) !== JSON.stringify( section.feedback.arrows ) && phraseComment( instance.text.comment.missing_arrowhead_nm, 0 ) || '' }
+        ${ instance.feedback && section.feedback && left === '1' && right === '1' && JSON.stringify( section.input ) === JSON.stringify( section.feedback ) && phraseComment( instance.text.comment.mandatory_11, 0 ) || '' }
+        ${ instance.feedback && section.feedback && left === '1' && right === '1' && JSON.stringify( section.input ) === JSON.stringify( section.feedback ) && phraseComment( instance.text.comment.merge_11 ) || '' }
+        ${ instance.feedback && section.feedback && !is_single && !is_multi && ( left === 'n' || right === 'n' ) && JSON.stringify( section.input ) === JSON.stringify( section.feedback ) && phraseComment( instance.text.comment.mandatory_1n, left === 'n' ? 0 : 2 ) || '' }
+        ${ instance.feedback && section.feedback && is_multi && ( left === 'n' || right === 'n' ) && JSON.stringify( section.input ) === JSON.stringify( section.feedback ) && phraseComment( instance.text.comment.mandatory_nm, left === 'n' ? 0 : 2 ) || '' }
 
         <!-- Buttons -->
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
@@ -191,6 +210,12 @@ export function main( instance, state, phrase, phrase_nr, events ) {
      */
     const missed_keys = section.feedback && section.feedback.keys[ table ] && keys && section.feedback.keys[ table ].find( ( key, table ) => key && !keys[ table ] );
 
+    /**
+     * table has a composite primary key
+     * @type {boolean}
+     */
+    const multi_pk = keys && ( ( keys[ 0 ] === 'pk' ) + ( keys[ 1 ] === 'pk' ) + ( keys[ 2 ] === 'pk' ) + keys[ 3 ] ) > 1;
+
     return html`
       <div class="scheme border" ?data-invisible=${ keys === null }>
         <header class="bg-${ section.feedback ? ( section.feedback.keys[ table ] ? 'success' : 'danger' ) : 'light' } border-bottom px-3 py-2 d-inline-flex justify-content-center align-items-center">
@@ -202,8 +227,17 @@ export function main( instance, state, phrase, phrase_nr, events ) {
           </span>
         </header>
         <main class="p-2">
-          ${ keys && keys[ 3 ] ? attr( toID( section.relationship[ table ] ), true, false, false, false ) : '' }
-          ${ keys && keys.map( ( fk, i ) => i < 3 && fk !== false ? attr( toID( section.relationship[ i ] ), fk === 'pk', i, fk === 'ak', fk === 'opt' ) : '' ) }
+          <div class="d-flex align-items-stretch border border-primary rounded bg-light" ?data-hidden=${ !multi_pk }>
+            <div>
+              ${ multi_pk && keys && keys[ 3 ] ? attr( toID( section.relationship[ table ] ), true, false, false, false ) : '' }
+              ${ multi_pk && keys && keys.map( ( fk, i ) => i < 3 && fk !== false && fk === 'pk' ? attr( toID( section.relationship[ i ] ), fk === 'pk', i, fk === 'ak', fk === 'opt' ) : '' ) || '' }
+            </div>
+            <div class="bg-primary d-flex align-items-center">
+              <span class="badge badge-primary ml-0" title="${ instance.text.multi_pk_badge }">PK</span>
+            </div>
+          </div>
+          ${ !multi_pk && keys && keys[ 3 ] ? attr( toID( section.relationship[ table ] ), true, false, false, false ) : '' }
+          ${ keys && keys.map( ( fk, i ) => i < 3 && fk !== false && !( fk === 'pk' && multi_pk ) ? attr( toID( section.relationship[ i ] ), fk === 'pk', i, fk === 'ak' || fk === 'opt_ak', fk === 'opt' || fk === 'opt_ak' ) : '' ) }
           <div class="px-1 ${ missed_keys ? 'bg-danger' : '' }">
             <button class="btn btn-link btn-sm mt-1 p-0" .disabled=${ section.feedback } ?data-hidden=${ keys && keys[ 3 ] && !addableForeignKey( input.keys, table ) || section.feedback && !missed_keys } @click=${ () => events.onAddAttr( table ) }>+ ${ instance.text.key_attr }</button>
           </div>
@@ -224,7 +258,7 @@ export function main( instance, state, phrase, phrase_nr, events ) {
       return html`
         <div class="attr p-1 d-flex align-items-center ${ section.feedback && section.feedback.keys[ table ] ? ( fk !== false && keys[ fk ] === section.feedback.keys[ table ][ fk ] || fk === false && pk && keys[ 3 ] === section.feedback.keys[ table ][ 3 ] ? 'bg-success' : 'bg-danger' ) : '' }">
           <span title="${ instance.text.attr_name }">${ name }</span>
-          ${ pk ? html`<span class="badge badge-primary" title="${ instance.text.pk_badge }">PK</span>` : '' }
+          ${ pk && !multi_pk ? html`<span class="badge badge-primary" title="${ instance.text.pk_badge }">PK</span>` : '' }
           ${ fk || fk === 0 ? html`<span class="badge badge-warning" title="${ instance.text.fk_badge }">FK</span>` : '' }
           ${ ak ? html`<span class="badge badge-info" title="${ instance.text.ak_badge }">AK</span>` : '' }
           ${ opt ? html`<span class="badge badge-secondary" title="${ instance.text.opt_badge }">OPT</span>` : '' }
@@ -276,6 +310,20 @@ export function main( instance, state, phrase, phrase_nr, events ) {
   }
 
   /**
+   * returns the HTML template for a comment
+   * @param {string} text - comment text
+   * @param {number} [fk_table] - index of the table that needs a foreign key
+   * @returns {TemplateResult} HTML template for a comment
+   */
+  function phraseComment( text, fk_table ) {
+    return html`
+      <section class="comment">
+        <div class="alert alert-info mt-2 mb-0" role="alert">${ text.replaceAll( '%middle%', phrase.relationship[ 1 ] ).replaceAll( '%fk%', phrase.relationship[ fk_table ] ).replaceAll( '%nofk%', phrase.relationship[ fk_table ? 0 : 2 ] ) }</div>
+      </section>
+    `;
+  }
+
+  /**
    * checks whether there are at least 2 tables and whether each table is connected to at least one other table
    * @returns {boolean}
    */
@@ -306,6 +354,21 @@ export function main( instance, state, phrase, phrase_nr, events ) {
       return false;                                                            // => table is not connected
     }
 
+  }
+
+  /**
+   * checks whether there are missing arrowheads
+   * @returns {boolean}
+   */
+  function missingArrowheads() {
+    for ( let i = 0; i < input.keys.length; i++ )
+      if ( input.keys[ i ] )
+        for ( let j = 0; j < input.keys[ i ].length; j++ )
+          if ( input.keys[ i ][ j ] === 'fk' ) {
+            if ( !input.arrows[ i ][ j ] && !input.arrows[ j ][ i ] )
+              return true;
+          }
+    return false;
   }
 
 }
@@ -353,11 +416,12 @@ export function addKeyForm( instance, section, table, onSubmit ) {
   const tables = [];
 
   // determine referencable tables
-  for ( let i = 0; i <= 2; i++ )                  // check for each possible table:
-    if ( table !== i )                            // - not the table that will contain the foreign key?
-      if ( section.input.keys[ i ] )              // - table is created?
-        if ( !section.input.keys[ table ][ i ] )  // - table is not already referenced by the table that will contain the foreign key?
-          tables.push( i );                       // => table is referencable
+  for ( let i = 0; i <= 2; i++ )                    // check for each possible table:
+    if ( table !== i )                              // - not the table that will contain the foreign key?
+      if ( section.input.keys[ i ] )                // - table is created?
+        if ( section.input.keys[ i ][ 3 ] )         // - table has an artificial primary key?
+          if ( !section.input.keys[ table ][ i ] )  // - table is not already referenced by the table that will contain the foreign key?
+            tables.push( i );                       // => table is referencable
 
   return html`
     <form id="attr-form" @submit=${ onSubmit }>
@@ -419,11 +483,12 @@ export function addKeyForm( instance, section, table, onSubmit ) {
  */
 function addableForeignKey( keys, table ) {
 
-  for ( let i = 0; i <= 2; i++ )    // check for each possible table:
-    if ( table !== i )              // - not the current table?
-      if ( keys[ i ] )              // - table is created?
-        if ( !keys[ table ][ i ] )  // - table is not already referenced by a foreign key in current table?
-          return true;              // => table is referencable with another foreign key
+  for ( let i = 0; i <= 2; i++ )      // check for each possible table:
+    if ( table !== i )                // - not the current table?
+      if ( keys[ i ] )                // - table is created?
+        if ( keys[ i ][ 3 ] )         // - table has an artificial primary key?
+          if ( !keys[ table ][ i ] )  // - table is not already referenced by a foreign key in current table?
+            return true;              // => table is referencable with another foreign key
 
-  return false;                     // => there is no other table that could be referenced with a foreign key
+  return false;                       // => there is no other table that could be referenced with a foreign key
 }
