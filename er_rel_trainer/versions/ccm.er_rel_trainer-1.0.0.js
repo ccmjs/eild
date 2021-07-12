@@ -64,7 +64,7 @@
           "key": "chen",
           "title": "Chen",
           "centered": true,
-          "comment": "In der Chen-Notation sind nur einfache und mehrfache Beziehungstypen (1 und N) darstellbar, da die Beziehungsmengen bei Chen nur in ihrer Maximalaussage genannt werden. Bei Phrasen die auf einen bedingten oder mehrfach bedingten Beziehungstyp hindeuten, sollte besser zu einer anderen Notation gewechselt werden."
+          "comment": "In der Chen-Notation sind nur einfache und mehrfache Beziehungstypen (1 und N) darstellbar, da die Beziehungsmengen bei Chen nur in ihrer Maximalaussage genannt werden. Bei Phrasen die auf einen bedingten oder mehrfach bedingten Beziehungstyp hindeuten, sind andere Notationen besser geeignet."
         },
         "crow": {
           "key": "crow",
@@ -177,7 +177,7 @@
         "fk": "Fremdschlüssel",
         "fk_badge": "Fremdschlüssel: Attribut das auf einen Datensatz einer anderen Tabelle verweist.",
         "fk_input": "Geben Sie hier an, ob der Schlüssel ein Fremdschlüssel ist.",
-        "heading": "Lösen Sie die gezeigte Beziehung zwischen den beiden Entitäten auf!",
+        "heading": "Gegeben ist ein ER-Diagramm, das eine binäre Beziehung zwischen zwei Entitäten zeigt. Ihre Aufgabe ist es das ER-Diagramm in ein logisches relationales Schema zu überführen und dafür die nötigen Tabellen anzulegen, darin die erforderlichen Schlüsselattribute zu ergänzen und die Richtung festzulegen, in der die Tabellen miteinander in Beziehung stehen.",
         "key_attr": "Schlüsselattribut",
         "legend": "Legende",
         "multi_pk_badge": "Zusammengesetzter Primärschlüssel: Attribute mit denen sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.",

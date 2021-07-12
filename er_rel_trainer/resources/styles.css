@@ -19,6 +19,7 @@
 }
 
 #element main > div {
+  min-width: 160px;
   max-width: 960px;
   overflow: auto;
 }
