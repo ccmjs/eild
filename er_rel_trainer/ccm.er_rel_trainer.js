@@ -134,6 +134,7 @@
           "solution": [ "n", "n" ]
         }
       ],
+      "retry": true,
       "show_solution": true,
       "shuffle": true,
       "text": {
@@ -191,6 +192,7 @@
         "ref_table": "Referenzierte Tabelle:",
         "ref_table_input": "Geben Sie hier an auf welche Tabelle der Fremdschlüssel verweist.",
         "remove_attr": "Schlüsselattribut entfernen",
+        "retry": "Korrigieren",
         "selection": [ "Bitte auswählen", "einfach", "bedingt", "mehrfach", "bedingt mehrfach" ],
         "show_feedback": "Zeige Feedback",
         "show_solution": "Zeige Lösung",
@@ -505,8 +507,14 @@
             keys[ from ][ 3 ] = false;                              // remove artificial primary key
             keys.forEach( fks => fks && ( fks[ from ] = false ) );  // remove any foreign keys in other tables that reference that table
           }
-          // is foreign key => remove
-          else keys[ from ][ to ] = false;  // foreign key
+          // is foreign key => remove key and corresponding arrowheads
+          else {
+            keys[ from ][ to ] = false;
+            if ( !keys[ to ][ from ] ) {
+              data.sections[ phrase_nr - 1 ].input.arrows[ from ][ to ] = false;
+              data.sections[ phrase_nr - 1 ].input.arrows[ to ][ from ] = false;
+            }
+          }
 
           render();
         },
@@ -559,8 +567,20 @@
           render();
         },
 
+        /** when 'retry' button is clicked */
+        onRetryButton: () => {
+          if ( !this.retry ) return;
+          const section = data.sections[ phrase_nr - 1 ];
+          this.element.classList.remove( section.correct ? 'correct' : 'failed' );
+          section.correct && data.correct--;
+          delete section.feedback;
+          delete section.correct;
+          render();
+        },
+
         /** when 'solution' button is clicked */
         onSolutionButton: () => {
+          if ( !this.show_solution ) return;
           const feedback = data.sections[ phrase_nr - 1 ].feedback;
           feedback.show_solution = !feedback.show_solution;
           render();

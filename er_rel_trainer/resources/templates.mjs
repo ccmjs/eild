@@ -161,6 +161,7 @@ export function main( instance, state, phrase, phrase_nr, events ) {
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
           <button class="btn btn-outline-danger m-1" @click=${ events.onCancelButton } ?data-hidden=${ !instance.oncancel }>${ instance.text.cancel }</button>
           <button class="btn btn-primary m-1" @click=${ events.onSubmitButton } ?data-hidden=${ section.feedback || !tablesConnected() }>${ instance.text.submit }</button>
+          <button class="btn btn-warning m-1" @click=${ events.onRetryButton } ?data-hidden=${ section.correct !== false || !instance.retry }>${ instance.text.retry }</button>
           <button class="btn btn-info m-1" @click=${ events.onSolutionButton } ?data-hidden=${ section.correct !== false || !instance.show_solution }>${ section.feedback && section.feedback.show_solution ? instance.text.show_feedback : instance.text.show_solution }</button>
           <button class="btn btn-secondary m-1" @click=${ events.onNextButton } ?data-hidden=${ !section.feedback || phrase_nr === instance.number }>${ instance.text.next }</button>
           <button class="btn btn-primary m-1" @click=${ events.onFinishButton } ?data-hidden=${ !section.feedback || phrase_nr < instance.number || !instance.onfinish }>${ instance.text.finish }</button>
