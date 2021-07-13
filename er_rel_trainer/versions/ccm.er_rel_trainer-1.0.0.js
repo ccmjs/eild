@@ -148,7 +148,9 @@
         "attr_name": "Name des Schlüsselattributs",
         "cancel": "Abbrechen",
         "comment": {
-          "missing_arrow": "Hinweis: Für die Beziehungen zwischen Entitäten müssen bei der Verbindungslinie die Pfeilspitzen gesetzt werden, um die Richtung der Abhängigkeit anzuzeigen.",
+          "create_tables": "Hinweis: Legen Sie mit Hilfe der Buttons die nötigen Tabellen an.",
+          "add_keys": "Hinweis: Ergänzen Sie in jeder angelegten Tabelle die erforderlichen Schlüsselattribute.",
+          "missing_arrow": "Hinweis: Setzen Sie für die Verbindungslinie zwischen zwei Tabellen die Pfeilspitzen, um die Richtung festzulegen, in der die Tabellen miteinander in Beziehung stehen.",
           "missing_entity_table": "Hinweis: Für jede der beiden Entitäten muss eine Tabelle erstellt werden.",
           "missing_entity_pk": "Hinweis: Jede der beiden Entitätstabelle benötigt einen künstlichen Primärschlüssel.",
           "no_nm_table": "Hinweis: Die mittlere \"%middle%\"-Tabelle wird nur bei einer N:M-Beziehung benötigt.",

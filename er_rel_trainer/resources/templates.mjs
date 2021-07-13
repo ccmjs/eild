@@ -92,10 +92,11 @@ export function main( instance, state, phrase, phrase_nr, events ) {
           ${ addTableButton( 2 ) }
        </section>
 
-        <!-- Notation Comment -->
+        <!-- Notation Comment
         <section class="comment" ?data-hidden=${ phrase_nr !== 1 || !notation.comment || section.input.keys.find( table => table ) }>
           <div class="alert alert-info mt-3 mb-0" role="alert">${ notation.comment }</div>
         </section>
+        -->
 
         <!-- Relational Scheme Tables -->
         <section id="tables" class="px-2 text-nowrap">
@@ -138,6 +139,8 @@ export function main( instance, state, phrase, phrase_nr, events ) {
         </section>
 
         <!-- Phrase Comments -->
+        ${ !section.feedback && !section.input.keys.some( table => table ) && phraseComment( instance.text.comment.create_tables ) || '' }
+        ${ !section.feedback && !section.input.keys.every( table => !table || table.some( key => key ) ) && phraseComment( instance.text.comment.add_keys ) || '' }
         ${ !section.feedback && missingArrowheads() && phraseComment( instance.text.comment.missing_arrow ) || '' }
         ${ instance.feedback && section.feedback && ( !section.input.keys[ 0 ] || !section.input.keys[ 2 ] ) && phraseComment( instance.text.comment.missing_entity_table ) || '' }
         ${ instance.feedback && section.feedback && ( section.input.keys[ 0 ] && !section.input.keys[ 0 ][ 3 ] || section.input.keys[ 2 ] && !section.input.keys[ 2 ][ 3 ] ) && phraseComment( instance.text.comment.missing_entity_pk ) || '' }
