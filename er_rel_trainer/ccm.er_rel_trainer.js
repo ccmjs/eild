@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (12.07.2021)
+ * version 1.0.0 (19.07.2021)
  */
 
 ( () => {
@@ -84,11 +84,6 @@
       "onfinish": { "restart": true },
       "phrases": [
         {
-          "text": "Ein Fahrzeug kann einen Anhänger haben.",
-          "relationship": [ "Fahrzeug", "hat", "Anhänger" ],
-          "solution": [ "c", "c" ]
-        },
-        {
           "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
           "relationship": [ "Topf", "hat", "Deckel" ],
           "solution": [ "1", "c" ]
@@ -138,9 +133,6 @@
       "show_solution": true,
       "shuffle": true,
       "text": {
-        "ak": "Alternativschlüssel",
-        "ak_badge": "Alternativschlüssel: Weiterer Schlüssel mit dem sich ein Datensatz dieser Tabelle eindeutig identifizieren lässt.",
-        "ak_input": "Geben Sie hier an, ob der Fremdschlüssel ein Alternativschlüssel ist bzw. zum zusammengesetzten Alternativschlüssel gehört.",
         "attr_modal_cancel": "Abbrechen",
         "attr_modal_confirm": "Hinzufügen",
         "attr_modal_title": "Neues Schlüsselattribut",
@@ -151,7 +143,7 @@
           "add_keys": "Hinweis: Ergänzen Sie in jeder angelegten Tabelle die erforderlichen Schlüsselattribute.",
           "missing_arrow": "Hinweis: Setzen Sie für die Verbindungslinie zwischen zwei Tabellen die Pfeilspitzen, um die Richtung festzulegen, in der die Tabellen miteinander in Beziehung stehen.",
           "missing_entity_table": "Hinweis: Für jede der beiden Entitäten muss eine Tabelle erstellt werden.",
-          "missing_entity_pk": "Hinweis: Jede der beiden Entitätstabelle benötigt einen künstlichen Primärschlüssel.",
+          "missing_entity_pk": "Hinweis: Jede der beiden Entitätstabelle benötigt einen Primärschlüssel.",
           "no_nm_table": "Hinweis: Die mittlere \"%middle%\"-Tabelle wird nur bei einer N:M-Beziehung benötigt.",
           "missing_nm_table": "Hinweis: Da es sich um eine N:M-Beziehung handelt, wird eine \"%middle%\"-Tabelle benötigt.",
           "missing_nm_fk": "Hinweis: Die \"%middle%\"-Tabelle benötigt zwei Fremdschlüssel die jeweils auf eine der beiden Entitätstabellen verweisen.",
@@ -159,7 +151,7 @@
           "missing_11_fk": "Hinweis: Wenn bei einer 1:1-Beziehung beide Entitäten über exakt identische Kardinalitäten verfügen, wird ein Fremdschlüssel bei der Hauptentität (hier \"%fk%\") hinzugefügt. Die Hauptentität (hier immer auf der linken Seite) ist die Entität, auf die in der zukünftigen Anwendung in der Regel zuerst zugegriffen wird.",
           "missing_1c_fk": "Hinweis: Wenn bei einer 1:1-Beziehung beide Entitäten über unterschiedliche Kardinalitäten verfügen, wird der Fremdschlüssel bei der schwächeren Entität (hier \"%fk%\") hinzugefügt. Eine Entität ist eine schwache Entität, wenn ihre Existenz von der jeweils anderen Entität abhängt.",
           "missing_1n_fk": "Hinweis: Bei einer 1:N-Beziehung wird der Fremdschlüssel bei der einfachen Entität (hier \"%fk%\") hinzugefügt. Eine einfache Entität ist die Entität, die höchstens einmal mit der jeweils anderen Entität verbunden ist.",
-          "missing_ak": "Hinweis: Bei einer 1:1-Beziehung muss der Fremdschlüssel ein Alternativschlüssel sein, damit nicht mehrere Datensätze von \"%fk%\" über den Fremdschlüssel auf denselben \"%nofk%\"-Datensatz verweisen können.",
+          "missing_11_unique": "Hinweis: Bei einer 1:1-Beziehung muss der Fremdschlüssel eindeutig sein, damit nicht mehrere Datensätze von \"%fk%\" über den Fremdschlüssel auf denselben \"%nofk%\"-Datensatz verweisen können.",
           "missing_opt": "Hinweis: Da ein \"%fk%\"-Datensatz auch keinen zugehörigen \"%nofk%\"-Datensatz haben kann, muss der Fremdschlüssel optional sein.",
           "missing_arrowhead": "Hinweis: Da der Fremdschlüssel bei \"%fk%\" gesetzt ist und auf \"%nofk%\" verweist, geht der Pfeil von \"%fk%\" nach \"%nofk%\".",
           "missing_arrowhead_nm": "Hinweis: Da die beiden Fremdschlüssel der \"%middle%\"-Tabelle auf die beiden äußeren Tabellen \"%fk%\" und \"%nofk%\" verweisen, gehen die Pfeile von der mittleren Tabelle zu den äußeren Tabellen.",
@@ -432,7 +424,7 @@
 
             // add key attribute in table
             if ( key.fk )
-              phrase.input.keys[ table ][ key.table ] = key.pk && 'pk' || key.opt && key.ak && 'opt_ak' || key.opt && 'opt' || key.ak && 'ak' || 'fk';  // foreign key
+              phrase.input.keys[ table ][ key.table ] = key.pk && 'pk' || key.opt && 'opt' || 'fk';  // foreign key
             else
               phrase.input.keys[ table ][ 3 ] = true;  // artificial primary key
 
@@ -444,7 +436,6 @@
 
           const pk = modal.element.querySelector( '#key-pk' );                            // checkbox for primary key
           const fk = modal.element.querySelector( '#key-fk' );                            // checkbox for foreign key
-          const ak = modal.element.querySelector( '#key-ak' );                            // checkbox for alternative key
           const opt = modal.element.querySelector( '#key-opt' );                          // checkbox for optional attribute
           const ref = modal.element.querySelector( '#key-fk-table' );                     // selector box for selecting the table referenced by the foreign key
           const submit = modal.element.querySelector( 'input[type="submit"]' );           // submit button of the web form
@@ -456,13 +447,11 @@
 
           pk.disabled = phrase.input.keys[ table ][ 3 ];  // enable checkbox for primary key
           ref.disabled = true;     // disable selector box for selecting the table referenced by the foreign key
-          ak.disabled = true;      // disable checkbox for alternative key
           opt.disabled = true;     // disable checkbox for optional attribute
           submit.disabled = true;  // disable submit button of the web form
 
           // listen to change event of checkbox for primary key
           pk.addEventListener( 'change', event => {
-            ak.disabled = event.target.checked || !fk.checked;   // a primary key cannot also be an alternative key
             opt.disabled = event.target.checked || !fk.checked;  // a primary key cannot also be an optional attribute
             submit.disabled = !pk.checked && !fk.checked;        // the key attribute must be either a primary key or a foreign key
           } );
@@ -471,20 +460,13 @@
           fk.addEventListener( 'change', event => {
             pk.disabled = !event.target.checked && phrase.input.keys[ table ][ 3 ];  // a foreign key can be a primary key
             ref.disabled = !event.target.checked;                // the referenced table can only be selected for a foreign key
-            ak.disabled = !event.target.checked || pk.checked;   // only a foreign key can be an alternate key
             opt.disabled = !event.target.checked || pk.checked;  // only a foreign key can be a optional key
             submit.disabled = !pk.checked && !fk.checked;        // the key attribute must be either a primary key or a foreign key
 
             // foreign key has been unchecked?
             if ( !event.target.checked ) {
-              ak.checked = false;           // uncheck alternative key
               opt.checked = false;          // uncheck optional attribute
             }
-          } );
-
-          // listen to change event of checkbox for alternative key
-          ak.addEventListener( 'change', event => {
-            pk.disabled = event.target.checked;      // an alternative key cannot be an primary key
           } );
 
           // listen to change event of checkbox for optional attribute
@@ -540,15 +522,15 @@
           const single_left = left === 'c' || left === '1';
           const single_right = right === 'c' || right === '1';
           const multi = ( left === 'cn' || left === 'n' ) && ( right === 'cn' || right === 'n' );
-          const fk_l2r = ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ? ( right === 'c' ? ( left === 'c' ? 'opt_ak' : 'opt' ) : ( single_left ? 'ak' : 'fk' ) ) : false;
-          const fk_r2l = single_left && ( !single_right || ( left === '1' && right === 'c' ) ) ? ( left === 'c' ? 'opt' : ( single_right ? 'ak': 'fk' ) ) : false;
+          const fk_l2r = single_right && !( left === '1' && right === 'c' ) ? ( right === 'c' ? 'opt' : ( single_left ? 'pk' : 'fk' ) ) : false;
+          const fk_r2l = single_left && right !== '1' ? ( left === 'c' ? 'opt' : ( single_right ? 'pk': 'fk' ) ) : false;
 
           // define correct solution for feedback
           section.feedback = {
             keys: [
-              [ false, false, fk_l2r, true ],
+              [ false, false, fk_l2r, !( single_left && single_right && right !== 'c' ) ],
               multi ? [ 'pk', false, 'pk', false ] : null,
-              [ fk_r2l, false, false, true ]
+              [ fk_r2l, false, false, !( single_left && single_right && right === 'c' ) ]
             ],
             arrows: [
               [ false, false, ( !single_left || !( left === '1' && right === 'c' ) ) && single_right ],

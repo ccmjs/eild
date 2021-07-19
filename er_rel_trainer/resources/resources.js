@@ -14,7 +14,7 @@ ccm.files[ 'resources.js' ] = {
       "key": "test"
     },
 */
-    "default.notation": "abrial",
+    "default.notation": "uml",
     "html.1": "./../er_rel_trainer/resources/templates.mjs",
     "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
 //  "number": 2,
@@ -921,7 +921,8 @@ ccm.files[ 'resources.js' ] = {
           "Ein Staat kann kein bis hin zu mehreren Bundesländern haben."
         ]
       }
-    }
+    },
+    "shuffle": true
   },
 
   "demo": {}
