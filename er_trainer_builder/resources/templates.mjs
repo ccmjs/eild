@@ -11,7 +11,7 @@ export { render };
  * @param {Object} config - initial app configuration
  * @param {Object} builder - app builder instance
  * @param {Function} onImportPhrases - when 'import' button is clicked
- * @param {Function} onUploadPhrases - when a CSV file has been selected from file system
+ * @param {Function} onFileSelected - when a CSV file has been selected from file system
  * @param {Function} onExportPhrases - when 'export' button is clicked
  * @param {Function} onShowPreview - when 'preview' button is clicked
  * @param {Function} onShowPhrase - when 'show' button of a phrase is clicked
