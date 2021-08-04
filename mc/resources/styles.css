@@ -37,3 +37,11 @@
   width: 24px;
   height: 24px;
 }
+
+p, ul, ol {
+  margin: 0;
+}
+
+*[data-hidden] {
+  display: none;
+}

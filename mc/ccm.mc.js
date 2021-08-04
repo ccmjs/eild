@@ -4,13 +4,13 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (29.06.2021)
+ * version 1.0.0 (04.08.2021)
  */
 
 ( () => {
   const component = {
     name: 'mc',
-    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.4.0.js',
+    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.4.4.js',
     config: {
       "css": [ "ccm.load", [
         "https://ccmjs.github.io/akless-components/libs/bootstrap-5/css/bootstrap.min.css",
@@ -19,17 +19,18 @@
 //    "data": { "store": [ "ccm.store" ] },
 //    "escape": true,
 //    "feedback": true,
-      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.3.0.mjs" ],
+      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.4.0.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/templates.mjs" ],
+//    "number": 5,
 //    "onfinish": instance => console.log( instance.getValue() ),
       "questions": [],
       "random": true,
       "shuffle": true,
       "text": {
-        "question": "Question %nr%/%total%",
-        "buttons": [ "Yes", "", "No" ],
+        "buttons": [ "TRUE", "", "FALSE" ],
         "finish": "Finish",
         "next": "Next",
+        "question": "Question %nr%/%total%",
         "submit": "Submit"
       },
 //    "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "guest" ] ]
@@ -58,9 +59,14 @@
         $ = Object.assign( {}, this.ccm.helper, this.helper ); $.use( this.ccm );
 
         // set identifier and original order number for each question and each answer
+        this.questions = $.clone( this.questions );
+        if ( $.isObject( this.questions ) )
+          this.questions = Object.values( this.questions );
         this.questions.forEach( ( question, i ) => {
           if ( !question.key ) question.key = $.toKey( question.text );
           question.nr = i + 1;
+          if ( $.isObject( question.answers ) )
+            question.answers = Object.values( question.answers );
           question.answers.forEach( ( answer, i ) => {
             if ( !answer.key ) answer.key = $.toKey( answer.text );
             answer.nr = i + 1;
@@ -80,6 +86,7 @@
         if ( !data.nr ) {
           data.questions = $.clone( this.questions );
           this.shuffle && $.shuffleArray( data.questions );
+          if ( this.number && this.number <= data.questions.length ) data.questions = data.questions.slice( 0, this.number );
           this.random && data.questions.forEach( question => $.shuffleArray( question.answers ) );
           data.nr = 1;
         }
@@ -112,7 +119,7 @@
          */
         onSubmit: event => {
           event.preventDefault();
-          if ( data.questions[ data.nr - 1 ].answers[ 0 ].input !== undefined ) return;
+          if ( !data.questions[ data.nr - 1 ].answers.length || data.questions[ data.nr - 1 ].answers[ 0 ].input !== undefined ) return;
           const input = $.formData( this.element.querySelector( 'form' ) ).input;
           input.forEach( ( input, i ) => data.questions[ data.nr - 1 ].answers[ i ].input = input );
           this.feedback ? render() : events.onNext();
@@ -120,14 +127,14 @@
 
         /** when 'next' button is clicked */
         onNext: () => {
-          if ( data.questions[ data.nr - 1 ].answers[ 0 ].input === undefined || data.nr === data.questions.length ) return;
+          if ( data.questions[ data.nr - 1 ].answers.length && data.questions[ data.nr - 1 ].answers[ 0 ].input === undefined || data.nr === data.questions.length ) return;
           data.nr++;
           render();
         },
 
         /** when 'finish' button is clicked */
         onFinish: () => {
-          if ( data.questions[ data.nr - 1 ].answers[ 0 ].input === undefined || data.nr !== data.questions.length ) return;
+          if ( data.questions[ data.nr - 1 ].answers.length && data.questions[ data.nr - 1 ].answers[ 0 ].input === undefined || data.nr !== data.questions.length ) return;
           delete data.nr;
           $.onFinish( this );
         }
