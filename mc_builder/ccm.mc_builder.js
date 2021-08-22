@@ -15,7 +15,7 @@
       "css": [ "ccm.load",
         [  // serial
           "https://ccmjs.github.io/akless-components/libs/bootstrap-4/css/bootstrap.min.css",
-          "https://ccmjs.github.io/eild/er_trainer_builder/resources/default.css"
+          "https://ccmjs.github.io/eild/mc_builder/resources/default.css"
         ]
       ],
 //    "data": { "store": [ "ccm.store" ] },
