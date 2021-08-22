@@ -1,0 +1,46 @@
+/**
+ * @overview default layout of ccmjs-based web component for building a multiple choice
+ * @author André Kless <andre.kless@web.de.de> 2021
+ * @license The MIT License (MIT)
+ */
+
+.accordion > .card, form > button {
+  border-radius: 0 !important;
+}
+
+.bg-info {
+  font-size: small;
+}
+
+li b {
+  text-decoration: underline;
+}
+
+*[disabled] {
+  cursor: not-allowed;
+}
+
+*[data-hidden] {
+  display: none;
+}
+
+.btn-block {
+  border-radius: 0;
+  margin: 0 !important;
+}
+
+code {
+  color: gold;
+}
+
+*[colspan] {
+  padding: 0 !important;
+}
+
+.qa {
+  border-left: 10px solid #007bff;
+}
+
+circle {
+  cursor: pointer;
+}
