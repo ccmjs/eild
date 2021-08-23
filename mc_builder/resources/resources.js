@@ -30,9 +30,9 @@ ccm.files[ 'resources.js' ] = {
   "dms": {
     "css": [ "ccm.load", "https://ccmjs.github.io/eild/mc_builder/resources/default.css" ],
     "libs": null,
-    "preview": null,
     "results": { "store": { "name": "mc-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } },
-    "submit": null
+    "text.preview": null,
+    "text.submit": null
   },
 
   "dbs-ss21": {
