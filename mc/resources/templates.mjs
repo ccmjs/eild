@@ -33,8 +33,8 @@ export function question( instance, events ) {
       </div>
       <div class="py-3">
         <button type="submit" class="btn btn-primary btn-sm" .disabled="${ !question.answers.length || question.answers[ 0 ].input !== undefined }" @click="${ events.onSubmit }">${ instance.text.submit }</button>
-        <button type="button" class="btn btn-primary btn-sm" .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr === data.questions.length }" @click="${ events.onNext }">${ instance.text.next }</button>
-        <button type="button" class="btn btn-primary btn-sm" data-hidden=${ !instance.onfinish } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr !== data.questions.length }" @click="${ events.onFinish }">${ instance.text.finish }</button>
+        <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ instance.questions.length <= 1 } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr === data.questions.length }" @click="${ events.onNext }">${ instance.text.next }</button>
+        <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ !instance.onfinish } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr !== data.questions.length }" @click="${ events.onFinish }">${ instance.text.finish }</button>
       </div>
     </form>
   `;

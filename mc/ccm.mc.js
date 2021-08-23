@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (04.08.2021)
+ * version 1.0.0 (23.08.2021)
  */
 
 ( () => {
@@ -19,7 +19,7 @@
 //    "data": { "store": [ "ccm.store" ] },
 //    "escape": true,
 //    "feedback": true,
-      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.4.0.mjs" ],
+      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.4.1.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/templates.mjs" ],
 //    "number": 5,
 //    "onfinish": instance => console.log( instance.getValue() ),
@@ -119,7 +119,8 @@
          */
         onSubmit: event => {
           event.preventDefault();
-          if ( !data.questions[ data.nr - 1 ].answers.length || data.questions[ data.nr - 1 ].answers[ 0 ].input !== undefined ) return;
+          const question = data.questions[ data.nr - 1 ];
+          if ( !question.answers.length || question.answers[ 0 ].input !== undefined ) return;
           const input = $.formData( this.element.querySelector( 'form' ) ).input;
           input.forEach( ( input, i ) => data.questions[ data.nr - 1 ].answers[ i ].input = input );
           this.feedback ? render() : events.onNext();
@@ -127,14 +128,16 @@
 
         /** when 'next' button is clicked */
         onNext: () => {
-          if ( data.questions[ data.nr - 1 ].answers.length && data.questions[ data.nr - 1 ].answers[ 0 ].input === undefined || data.nr === data.questions.length ) return;
+          const question = data.questions[ data.nr - 1 ];
+          if ( data.questions.length <= 1 || question.answers.length && data.questions[ data.nr - 1 ].answers[ 0 ].input === undefined || data.nr === data.questions.length ) return;
           data.nr++;
           render();
         },
 
         /** when 'finish' button is clicked */
         onFinish: () => {
-          if ( data.questions[ data.nr - 1 ].answers.length && data.questions[ data.nr - 1 ].answers[ 0 ].input === undefined || data.nr !== data.questions.length ) return;
+          const question = data.questions[ data.nr - 1 ];
+          if ( !this.onfinish || question.answers.length && question.answers[ 0 ].input === undefined || data.nr !== data.questions.length ) return;
           delete data.nr;
           $.onFinish( this );
         }
