@@ -20,7 +20,7 @@ export function question( instance, events ) {
     <form class="p-2">
       <div>
         <span class="badge bg-info text-dark">
-          ${ instance.text.question.replace( /%nr%/g, data.nr ).replace( /%total%/g, instance.questions.length ) }
+          ${ instance.text.question.replace( /%nr%/g, data.nr ).replace( /%total%/g, instance.number || instance.questions.length ) }
         </span>
       </div>
       <div class="my-2">
