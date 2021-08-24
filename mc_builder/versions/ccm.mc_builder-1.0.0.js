@@ -230,7 +230,7 @@
         result.questions = $.clone( mc_config.questions );
         if ( !result.finish ) result.onfinish = ''; delete result.finish;
         if ( result.onfinish ) {
-          const key = this.results.key || $.deepValue( result, 'data.key' ) || $.deepValue( result, 'onfinish.store.settings.key' ) || $.generateKey();
+          const key = this.results.key || $.deepValue( mc_config, 'data.key' ) || $.deepValue( mc_config, 'onfinish.store.key' ) || $.generateKey();
           switch ( result.store ) {
             case 'collective': result.onfinish.store = true; result.data = { store: [ 'ccm.store', this.results.store ], key: key }; break;
             case 'user': result.onfinish.store = true; result.data = { store: [ 'ccm.store', this.results.store ], key: key, login: true, user: true, permissions: this.results.permissions }; break;
