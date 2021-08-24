@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (22.08.2021)
+ * version 1.0.0 (24.08.2021)
  */
 
 ( () => {
@@ -215,49 +215,48 @@
 
       /**
        * renders the webpage area
-       * @param {Object} [config = this.getValue()] - initial multiple choice configuration
+       * @param {Object} [mc_config = this.getValue()] - initial multiple choice configuration
        */
-      this.render = ( config = this.getValue() ) => this.html.render( this.html.main( config, this, events ), this.element );
+      this.render = ( mc_config = this.getValue() ) => this.html.render( this.html.main( mc_config, this, events ), this.element );
 
       /**
        * returns current resulting multiple choice configuration
        * @returns {Object} current resulting multiple choice configuration
        */
       this.getValue = () => {
-        const form_data = $.formData( this.element.querySelector( '#mcb-main-form' ) );
-        form_data.css = this.ignore.css[ form_data.css ].value;
-        form_data.logger = mc_config.logger;
-        form_data.questions = $.clone( mc_config.questions );
-        if ( !form_data.finish ) form_data.onfinish = ''; delete form_data.finish;
-        if ( form_data.onfinish ) {
-          const key = this.results.key || mc_config.key || $.generateKey();
-          switch ( form_data.store ) {
-            case 'collective': form_data.onfinish.store = true; form_data.data = { store: [ 'ccm.store', this.results.store ], key: key }; break;
-            case 'user': form_data.onfinish.store = true; form_data.data = { store: [ 'ccm.store', this.results.store ], key: key, login: true, user: true, permissions: this.results.permissions }; break;
-            case 'unique': form_data.onfinish.login = true; form_data.onfinish.store = { settings: [ 'ccm.store', this.results.store ], key: key, login: true, user: true, unique: true, permissions: this.results.permissions }; form_data.data = ''; break;
+        const result = Object.assign( {}, mc_config, $.formData( this.element.querySelector( '#mcb-main-form' ) ) );
+        result.css = this.ignore.css[ result.css ].value;
+        result.questions = $.clone( mc_config.questions );
+        if ( !result.finish ) result.onfinish = ''; delete result.finish;
+        if ( result.onfinish ) {
+          const key = this.results.key || $.deepValue( result.data.key ) || $.deepValue( result.onfinish.store.settings.key ) || $.generateKey();
+          switch ( result.store ) {
+            case 'collective': result.onfinish.store = true; result.data = { store: [ 'ccm.store', this.results.store ], key: key }; break;
+            case 'user': result.onfinish.store = true; result.data = { store: [ 'ccm.store', this.results.store ], key: key, login: true, user: true, permissions: this.results.permissions }; break;
+            case 'unique': result.onfinish.login = true; result.onfinish.store = { settings: [ 'ccm.store', this.results.store ], key: key, login: true, user: true, unique: true, permissions: this.results.permissions }; result.data = ''; break;
             default:
-              form_data.data = {};
+              result.data = {};
           }
-          if ( !form_data.store || form_data.store === 'collective' ) form_data.user = '';
-          if ( form_data.user ) form_data.user = this.ignore.user[ form_data.user ].value;
-          switch ( form_data.render ) {
-            case 'clear': form_data.onfinish.clear = true; break;
-            case 'restart': form_data.onfinish.restart = true; break;
+          if ( !result.store || result.store === 'collective' ) result.user = '';
+          if ( result.user ) result.user = this.ignore.user[ result.user ].value;
+          switch ( result.render ) {
+            case 'clear': result.onfinish.clear = true; break;
+            case 'restart': result.onfinish.restart = true; break;
             case 'app':
-              form_data.onfinish.render = {};
-              if ( form_data.app ) {
-                form_data.onfinish.render = $.decomposeEmbedCode( form_data.app );
-                form_data.onfinish.render.config = [ 'ccm.get', form_data.onfinish.render.config.store, form_data.onfinish.render.config.key ];
+              result.onfinish.render = {};
+              if ( result.app ) {
+                result.onfinish.render = $.decomposeEmbedCode( result.app );
+                result.onfinish.render.config = [ 'ccm.get', result.onfinish.render.config.store, result.onfinish.render.config.key ];
               }
               break;
           }
         }
         else
-          delete form_data.user;
-        delete form_data.store;
-        delete form_data.render;
-        delete form_data.app;
-        return form_data;
+          delete result.user;
+        delete result.store;
+        delete result.render;
+        delete result.app;
+        return result;
       };
 
       /**
