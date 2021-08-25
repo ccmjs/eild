@@ -20,7 +20,7 @@
 //    "data": { "store": [ "ccm.store" ] },
 //    "escape": true,
 //    "feedback": true,
-      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.4.1.mjs" ],
+      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.5.0.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/templates.mjs" ],
 //    "number": 5,
 //    "onfinish": instance => console.log( instance.getValue() ),
