@@ -19,7 +19,7 @@
       ] ],
       "data": {},
 //    "editor": [ "ccm.start", "https://ccmjs.github.io/tkless-components/editor/versions/ccm.editor-4.0.0.js" ],
-      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.4.0.mjs" ],
+      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.5.0.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc_analytics/resources/templates.mjs" ],
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.1.0.js", {
         "backdrop_close": true,
