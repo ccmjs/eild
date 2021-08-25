@@ -29,11 +29,8 @@
         "title": ""
       } ],
 //    "onstart": instance => { ... },
+      "sort": [ "ccm.load", "https://ccmjs.github.io/eild/mc_analytics/resources/resources.mjs#sort" ],
 //    "source": [ "ccm.store" ],
-      "sort": {
-        "question": ( a, b ) => a.nr - b.nr,
-        "answer":   ( a, b ) => a.nr - b.nr
-      },
       "text": {
         "answer": "Multiple Choice Answer",
         "average": "Achieved Average Points",
