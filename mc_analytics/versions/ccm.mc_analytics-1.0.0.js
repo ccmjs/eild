@@ -11,7 +11,7 @@
   const component = {
     name: 'mc_analytics',
     version: [ 1, 0, 0 ],
-    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.4.0.js',
+    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-26.4.4.js',
     config: {
       "chart": [ "ccm.component", "https://ccmjs.github.io/akless-components/highchart/versions/ccm.highchart-3.0.4.js" ],
       "css": [ "ccm.load", [
