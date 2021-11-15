@@ -197,7 +197,7 @@
         this.modal.open();
         question = questions[ question ];
         const answers = Object.values( question.answers ).sort( this.sort.answer );
-        const categories = [ '', '', '', '', '' ].map( ( _, i ) => this.text.qchart.column.replaceAll( '%nr%', i + 1 ) );
+        const categories = Array( answers.length ).fill( '' ).map( ( _, i ) => this.text.qchart.column.replaceAll( '%nr%', i + 1 ) );
         this.chart.start( {
           root: content,
           settings: {
