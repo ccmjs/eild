@@ -36,7 +36,6 @@ ccm.files[ 'resources.js' ] = {
   },
 
   "dms2": {
-    "libs": null,
     "results": { "store": { "name": "dms2-mc-data", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } },
     "text.preview": null,
     "text.submit": null
