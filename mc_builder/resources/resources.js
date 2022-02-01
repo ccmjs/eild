@@ -35,6 +35,11 @@ ccm.files[ 'resources.js' ] = {
     "text.submit": null
   },
 
+  "dms2": {
+    "results": { "store": { "name": "dms2-mc-data", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } },
+    "text.preview": null,
+    "text.submit": null
+  },
   "dbs-ss21": {
     "data": {
       "store": [ "ccm.store", { "name": "dms-configs", "url": "https://ccm2.inf.h-brs.de" } ],
