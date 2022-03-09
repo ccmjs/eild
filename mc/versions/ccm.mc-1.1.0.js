@@ -48,7 +48,7 @@
 //    "random": true,
 //    "shuffle": true,
       "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#en" ],
-//    "user": [ "ccm.start", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.js" ]
+//    "user": [ "ccm.start", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js" ]
     },
     Instance: function () {
 

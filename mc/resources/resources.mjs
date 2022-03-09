@@ -111,5 +111,5 @@ export const demo = {
   "questions": example,
   "random": true,
   "shuffle": true,
-  "text.1": de
+  "text": de
 };
