@@ -21,11 +21,11 @@
     config: {
       "css": [ "ccm.load",
         [  // serial
-          "https://ccmjs.github.io/tkless-components/libs/bootstrap-5/css/bootstrap.min.css",
-          "https://ccmjs.github.io/tkless-components/libs/bootstrap-5/css/bootstrap-dark.min.css",
-          "https://ccmjs.github.io/tkless-components/mc/resources/styles.min.css"
+          "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap.min.css",
+          "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-dark.min.css",
+          "https://ccmjs.github.io/eild/mc/resources/styles.min.css"
         ],
-        { "url": "https://ccmjs.github.io/tkless-components/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
+        { "url": "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
       ],
 //    "dark": "auto",
 //    "data": { "store": [ "ccm.store" ] },
