@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for multiple choice
  * @author André Kless <andre.kless@web.de> 2021-2022
  * @license The MIT License (MIT)
- * @version latest (1.1.0)
+ * @version 1.1.0
  * @changes
  * version 1.1.0 (09.03.2022)
  * - uses ccmjs v27.3.1 as default
@@ -16,15 +16,16 @@
 ( () => {
   const component = {
     name: 'mc',
+    version: [ 1, 1, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "css": [ "ccm.load",
         [  // serial
-          "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap.min.css",
-          "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-dark.min.css",
-          "https://ccmjs.github.io/eild/comment/resources/styles.min.css"
+          "https://ccmjs.github.io/tkless-components/libs/bootstrap-5/css/bootstrap.min.css",
+          "https://ccmjs.github.io/tkless-components/libs/bootstrap-5/css/bootstrap-dark.min.css",
+          "https://ccmjs.github.io/tkless-components/comment/resources/styles.min.css"
         ],
-        { "url": "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
+        { "url": "https://ccmjs.github.io/tkless-components/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
       ],
 //    "dark": "auto",
 //    "data": { "store": [ "ccm.store" ] },

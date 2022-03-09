@@ -1,3 +1,5 @@
+/*----------------------------------------------------- DEPRECATED ---------------------------------------------------*/
+
 /**
  * @overview static data-based resources of ccmjs-based web component for multiple choice
  * @author André Kless <andre.kless@web.de> 2021

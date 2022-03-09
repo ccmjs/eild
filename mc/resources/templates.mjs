@@ -8,35 +8,38 @@ export { render };
 
 /**
  * returns the HTML template for a question
- * @param {Object} instance - ccmjs-based instance for multiple choice
+ * @param {Object} app - ccmjs-based app instance for multiple choice
  * @param {Object.<string,Function>} events - contains all event handlers
  * @returns {TemplateResult} HTML template for the data table
  */
-export function question( instance, events ) {
-  const data = instance.getValue();
+export function question( app, events ) {
+  const data = app.getValue();
   const question = data.questions[ data.nr - 1 ];
   if ( !question ) return html``;
   return html`
-    <form class="p-2">
-      <div>
-        <span class="badge bg-info text-dark">
-          ${ instance.text.question.replace( /%nr%/g, data.nr ).replace( /%total%/g, instance.number || instance.questions.length ) }
-        </span>
-      </div>
-      <div class="my-2">
-        <div class="alert alert-secondary" role="alert">
-          ${ instance.escape ? question.text : unsafeHTML( question.text ) }
+    <header></header>
+    <main class="p-2">
+      <form>
+        <div>
+          <span class="badge bg-info text-dark">
+            <span data-lang="question" ?data-hidden=${ !app.text.question }>${ app.text.question }</span> ${ data.nr }/${ app.number || app.questions.length }
+          </span>
         </div>
-      </div>
-      <div class="border border-bottom-0">
-        ${ repeat( question.answers, answer => answer.key, answerTemplate ) }
-      </div>
-      <div class="py-3">
-        <button type="submit" class="btn btn-primary btn-sm" .disabled="${ !question.answers.length || question.answers[ 0 ].input !== undefined }" @click="${ events.onSubmit }">${ instance.text.submit }</button>
-        <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ instance.questions.length <= 1 } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr === data.questions.length }" @click="${ events.onNext }">${ instance.text.next }</button>
-        <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ !instance.onfinish } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr !== data.questions.length }" @click="${ events.onFinish }">${ instance.text.finish }</button>
-      </div>
-    </form>
+        <div class="my-2">
+          <div class="alert alert-secondary" role="alert">
+            ${ app.escape ? question.text : unsafeHTML( question.text ) }
+          </div>
+        </div>
+        <div class="border border-bottom-0">
+          ${ repeat( question.answers, answer => answer.key, answerTemplate ) }
+        </div>
+        <div class="py-3">
+          <button type="submit" class="btn btn-primary btn-sm" data-lang="submit" .disabled="${ !question.answers.length || question.answers[ 0 ].input !== undefined }" @click="${ events.onSubmit }">${ app.text.submit }</button>
+          <button type="button" class="btn btn-primary btn-sm" data-lang="next" ?data-hidden=${ app.questions.length <= 1 } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr === data.questions.length }" @click="${ events.onNext }">${ app.text.next }</button>
+          <button type="button" class="btn btn-primary btn-sm" data-lang="finish" ?data-hidden=${ !app.onfinish } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr !== data.questions.length }" @click="${ events.onFinish }">${ app.text.finish }</button>
+        </div>
+      </form>
+    </main>
   `;
 
   /**
@@ -48,19 +51,19 @@ export function question( instance, events ) {
   function answerTemplate( answer, i ) {
     const nr = i + 1;
     return html`
-      <div class="p-2 d-flex justify-content-between align-items-center border-bottom answer${ instance.feedback && answer.input !== undefined && ' ' + ( answer.input === '' ? 'none' : answer.input === answer.solution ? 'correct' : 'wrong' ) || '' }">
+      <div class="p-2 d-flex justify-content-between align-items-center border-bottom answer${ app.feedback && answer.input !== undefined && ' ' + ( answer.input === '' ? 'none' : answer.input === answer.solution ? 'correct' : 'wrong' ) || '' }">
         <div class="d-flex align-items-center">
           <div class="icon">${ icon() }</div>
-          <div class="mx-2">${ instance.escape ? answer.text : unsafeHTML( answer.text ) }</div>
+          <div class="mx-2">${ app.escape ? answer.text : unsafeHTML( answer.text ) }</div>
         </div>
         <div class="ms-2">
           <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="input.${ i }" value="true" id="answer-${ nr }-1" autocomplete="off" .disabled="${ answer.input !== undefined }" ?checked="${ answer.input === true }">
-            <label class="btn btn-outline-success" for="answer-${ nr }-1">${ instance.text.buttons[ 0 ] }</label>
+            <label class="btn btn-outline-success" for="answer-${ nr }-1" data-lang="btn_true">${ app.text.btn_true }</label>
             <input type="radio" class="btn-check middle" name="input.${ i }" value="" id="answer-${ nr }-2" autocomplete="off" .disabled="${ answer.input !== undefined }" ?checked="${ answer.input === undefined || answer.input === '' }">
-            <label class="btn btn-outline-secondary" for="answer-${ nr }-2">${ instance.text.buttons[ 1 ] }</label>
+            <label class="btn btn-outline-secondary" for="answer-${ nr }-2" data-lang="btn_neutral">${ app.text.btn_neutral }</label>
             <input type="radio" class="btn-check" name="input.${ i }" value="false" id="answer-${ nr }-3" autocomplete="off" .disabled="${ answer.input !== undefined }" ?checked="${ answer.input === false }">
-            <label class="btn btn-outline-danger" for="answer-${ nr }-3">${ instance.text.buttons[ 2 ] }</label>
+            <label class="btn btn-outline-danger" for="answer-${ nr }-3" data-lang="btn_false">${ app.text.btn_false }</label>
           </div>
         </div>
       </div>
@@ -71,7 +74,7 @@ export function question( instance, events ) {
      * @returns {*}
      */
     function icon() {
-      if ( !instance.feedback || answer.input === undefined )
+      if ( !app.feedback || answer.input === undefined )
         return html`<span class="badge rounded-pill bg-primary">${ nr }</span>`;
       if ( answer.input === '' )
         return html`<svg xmlns="http://www.w3.org/2000/svg" height="24"></svg>`;
