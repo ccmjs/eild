@@ -1,6 +1,6 @@
 /**
  * @overview HTML templates of ccmjs-based web component for multiple choice
- * @author André Kless <andre.kless@web.de> 2021
+ * @author André Kless <andre.kless@web.de> 2021-2022
  */
 
 import { html, render, repeat, unsafeHTML } from 'https://ccmjs.github.io/akless-components/libs/lit/lit.js';
