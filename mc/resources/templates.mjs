@@ -37,7 +37,7 @@ export function question( app, events ) {
         </div>
         <div class="py-3">
           <button type="submit" class="btn btn-primary btn-sm" .disabled="${ is_submitted }" @click="${ events.onSubmit }" data-lang="submit">${ app.text.submit }</button>
-          <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ app.questions.length <= 1 } .disabled="${ !is_submitted }" @click="${ events.onRetry }" data-lang="retry">${ app.text.retry }</button>
+          <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ !app.retry } .disabled="${ !is_submitted }" @click="${ events.onRetry }" data-lang="retry">${ app.text.retry }</button>
           <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ !app.feedback || app.questions.length <= 1 } .disabled="${ !is_submitted || is_last }" @click="${ events.onNext }" data-lang="next">${ app.text.next }</button>
           <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ !app.feedback || !app.onfinish } .disabled="${ !is_submitted || !is_last }" @click="${ events.onFinish }" data-lang="finish">${ app.text.finish }</button>
         </div>
