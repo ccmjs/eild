@@ -49,7 +49,8 @@ export const de = {
   "finish": "Abschließen",
   "next": "Weiter",
   "question": "Frage",
-  "submit": "Auswerten"
+  "retry": "Korrigieren",
+  "submit": "Abschicken"
 };
 
 /**
@@ -63,6 +64,7 @@ export const en = {
   "finish": "Finish",
   "next": "Next",
   "question": "Question",
+  "retry": "Retry",
   "submit": "Submit"
 };
 
@@ -89,6 +91,7 @@ export const test = {
   "onfinish": { "log": true, "restart": true },
   "questions": example,
   "random": true,
+  "retry": true,
   "shuffle": true,
   "text": de
 };

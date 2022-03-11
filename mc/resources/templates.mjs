@@ -15,6 +15,8 @@ export { render };
 export function question( app, events ) {
   const data = app.getValue();
   const question = data.questions[ data.nr - 1 ];
+  const is_submitted = question.answers.length && question.answers[ 0 ].input !== undefined;
+  const is_last = data.nr === data.questions.length;
   if ( !question ) return html``;
   return html`
     <header></header>
@@ -34,9 +36,10 @@ export function question( app, events ) {
           ${ repeat( question.answers, answer => answer.key, answerTemplate ) }
         </div>
         <div class="py-3">
-          <button type="submit" class="btn btn-primary btn-sm" data-lang="submit" .disabled="${ !question.answers.length || question.answers[ 0 ].input !== undefined }" @click="${ events.onSubmit }">${ app.text.submit }</button>
-          <button type="button" class="btn btn-primary btn-sm" data-lang="next" ?data-hidden=${ app.questions.length <= 1 } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr === data.questions.length }" @click="${ events.onNext }">${ app.text.next }</button>
-          <button type="button" class="btn btn-primary btn-sm" data-lang="finish" ?data-hidden=${ !app.onfinish } .disabled="${ question.answers.length && question.answers[ 0 ].input === undefined || data.nr !== data.questions.length }" @click="${ events.onFinish }">${ app.text.finish }</button>
+          <button type="submit" class="btn btn-primary btn-sm" .disabled="${ is_submitted }" @click="${ events.onSubmit }" data-lang="submit">${ app.text.submit }</button>
+          <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ app.questions.length <= 1 } .disabled="${ !is_submitted }" @click="${ events.onRetry }" data-lang="retry">${ app.text.retry }</button>
+          <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ !app.feedback || app.questions.length <= 1 } .disabled="${ !is_submitted || is_last }" @click="${ events.onNext }" data-lang="next">${ app.text.next }</button>
+          <button type="button" class="btn btn-primary btn-sm" ?data-hidden=${ !app.feedback || !app.onfinish } .disabled="${ !is_submitted || !is_last }" @click="${ events.onFinish }" data-lang="finish">${ app.text.finish }</button>
         </div>
       </form>
     </main>

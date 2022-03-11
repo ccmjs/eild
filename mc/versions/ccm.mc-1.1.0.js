@@ -4,12 +4,13 @@
  * @license The MIT License (MIT)
  * @version 1.1.0
  * @changes
- * version 1.1.0 (09.03.2022)
+ * version 1.1.0 (11.03.2022)
  * - uses ccmjs v27.3.1 as default
  * - uses helper.mjs v8.1.0 as default
  * - added optional multilingualism
  * - added optional dark mode
  * - added header with language selection and login/logout button
+ * - added optional 'retry' button
  * version 1.0.0 (23.08.2021)
  */
 
@@ -46,6 +47,7 @@
         }
       ],
 //    "random": true,
+//    "retry": true,
 //    "shuffle": true,
       "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#en" ],
 //    "user": [ "ccm.start", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js" ]
@@ -146,12 +148,19 @@
          * @param {Object} event
          */
         onSubmit: event => {
+
           event.preventDefault();
           const question = data.questions[ data.nr - 1 ];
           if ( !question.answers.length || question.answers[ 0 ].input !== undefined ) return;
           const input = $.formData( this.element.querySelector( 'form' ) ).input;
-          input.forEach( ( input, i ) => data.questions[ data.nr - 1 ].answers[ i ].input = input );
-          this.feedback ? render() : events.onNext();
+          input.forEach( ( input, i ) => question.answers[ i ].input = input );
+          this.feedback ? render() : events[ data.nr < data.questions.length ? 'onNext' : 'onFinish' ]();
+        },
+
+        /** when 'retry' button is clicked */
+        onRetry: () => {
+          data.questions[ data.nr - 1 ].answers.forEach( answer => delete answer.input );
+          render();
         },
 
         /** when 'next' button is clicked */
