@@ -32,7 +32,7 @@
 //    "escape": true,
 //    "feedback": true,
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-8.1.0.min.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/templates.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/templates-v2.mjs" ],
 //    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
 //    "number": 5,
 //    "onfinish": instance => console.log( instance.getValue() ),

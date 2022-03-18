@@ -75,16 +75,16 @@ export const en = {
 export const test = {
   "css": [ "ccm.load",
     [  // serial
-      "./../libs/bootstrap-5/css/bootstrap.min.css",
-      "./../libs/bootstrap-5/css/bootstrap-dark.min.css",
-      "./../mc/resources/styles.min.css"
+      "./../libs/bootstrap-5/css/bootstrap.css",
+      "./../libs/bootstrap-5/css/bootstrap-dark.css",
+      "./../mc/resources/styles.css"
     ],
-    { "url": "./../libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
+    { "url": "./../libs/bootstrap-5/css/bootstrap-fonts.css", "context": "head" }
   ],
   "dark": "auto",
   "feedback": true,
   "helper.1": "./../libs/ccm/helper.mjs",
-  "html.1": "./../mc/resources/templates.mjs",
+  "html.1": "./../mc/resources/templates-v2.mjs",
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
   } ],
