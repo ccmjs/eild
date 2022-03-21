@@ -4,6 +4,7 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
+  if ( window.bootstrap ) return; // already loaded? => abort
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.bootstrap = factory());
@@ -6809,4 +6810,3 @@
   return index_umd;
 
 }));
-//# sourceMappingURL=bootstrap.bundle.js.map
