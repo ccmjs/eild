@@ -4,18 +4,18 @@
  * @license The MIT License (MIT)
  */
 
-export function onstart( instance ) {
+export function onstart( { instance } ) {
   instance.element.querySelector( '#cancel' ).style.display = 'none';
 }
 
-export function onchange( event ) {
-  if ( event.event === 'submit' )
-    event.instance.element.querySelector( '#cancel' ).style.display = 'block';
+export function onchange( { event, instance } ) {
+  if ( event === 'submit' )
+    instance.element.querySelector( '#cancel' ).style.display = 'block';
   if ( event.event === 'next' )
-    event.instance.element.querySelector( '#cancel' ).style.display = 'none';
+    instance.element.querySelector( '#cancel' ).style.display = 'none';
 }
 
-export function oncancel( instance, phrase_nr ) {
+export function oncancel( { instance, phrase_nr } ) {
   instance.element.style.display = 'none';
   const div = document.createElement( 'div' );
   instance.shadow.appendChild( div );
