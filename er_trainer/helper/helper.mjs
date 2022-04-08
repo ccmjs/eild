@@ -9,7 +9,6 @@ export function onstart( event ) {
 }
 
 export function onchange( { event, instance } ) {
-  debugger;
   if ( event === 'submit' )
     instance.element.querySelector( '#cancel' ).style.display = 'block';
   if ( event === 'next' )
