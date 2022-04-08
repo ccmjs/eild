@@ -8,10 +8,7 @@ ccm.files[ 'resources.js' ] = {
 
   "local": {
     "css.1.1.1": "./resources/default.css",
-    "data": {
-      "store": [ "ccm.store", { "local": [ "ccm.load", "./../er_trainer/resources/resources.js" ] } ],
-      "key": "local"
-    },
+    "data": [ "ccm.load", "./../er_trainer/resources/resources.mjs#test" ],
     "html.1": "./resources/templates.mjs",
     "onfinish": { "log": true },
     "results": { "store": { "name": "er_trainer-results", "url": "https://ccm2.inf.h-brs.de" }, "permissions": { "access": { "get": "all", "set": "creator", "del": "creator" } } },
