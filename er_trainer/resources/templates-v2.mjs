@@ -10,16 +10,9 @@ export { render };
  * returns the main HTML template
  * @param {Object} app - app instance
  * @param {Object} data - app state data
+ * @param {Object.<string,Function>} events - contains all event handlers
  * @param {Object} phrase - phrase data
  * @param {number} phrase_nr - number of current phrase
- * @param {function} onNotationChange - when selected entry for displayed notation changes
- * @param {function} onLegendClick - when 'legend' button is clicked
- * @param {function} onLeftInputChange - when selected entry of left selector box changes
- * @param {function} onRightInputChange - when selected entry of right selector box changes
- * @param {function} onCancelClick - when 'cancel' button is clicked
- * @param {function} onSubmitClick - when 'submit' button is clicked
- * @param {function} onNextClick - when 'next' button is clicked
- * @param {function} onFinishClick - when 'finish' button is clicked
  * @returns {TemplateResult} main HTML template
  */
 export function main( app, data, events, phrase, phrase_nr ) {
