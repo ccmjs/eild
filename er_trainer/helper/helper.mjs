@@ -4,8 +4,8 @@
  * @license The MIT License (MIT)
  */
 
-export function onstart( { instance } ) {
-  instance.element.querySelector( '#cancel' ).style.display = 'none';
+export function onstart( event ) {
+  ( event.instance || event ).element.querySelector( '#cancel' ).style.display = 'none';
 }
 
 export function onchange( { event, instance } ) {
