@@ -249,7 +249,7 @@
 
         /** when 'finish' button is clicked */
         onFinishClick: () => {
-          this.element.classList.remove( 'correct failed' );
+          this.element.classList.remove( 'correct', 'failed' );
           phrases.shift(); this.onfinish && $.onFinish( this );
           this.logger && this.logger.log( 'finish', this.getValue() );
         }
