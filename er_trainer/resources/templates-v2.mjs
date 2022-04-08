@@ -1,6 +1,6 @@
 /**
  * @overview HTML templates of ccmjs-based web component for training of a binary relationship in an ER diagram
- * @author André Kless <andre.kless@web.de> 2021-2022
+ * @author André Kless <andre.kless@web.de> 2022
  */
 
 import { html, render } from 'https://ccmjs.github.io/akless-components/libs/lit/lit.js';
@@ -178,7 +178,7 @@ export function legend( app ) {
       <thead>
         <tr>
           <th scope="col"></th>
-          ${ app.text.selection.map( ( selection, i ) => !i ? '' : html`<th scope="col">${ selection }</th>` ) }
+          ${ app.text.selection.map( ( selection, i ) => !i ? '' : html`<th scope="col" data-lang="selection.${ i }">${ selection }</th>` ) }
         </tr>
       </thead>
       <tbody>

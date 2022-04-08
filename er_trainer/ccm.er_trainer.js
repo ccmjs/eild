@@ -37,7 +37,7 @@
         "path": "https://ccmjs.github.io/eild/er_trainer/resources/img/"
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-8.1.0.min.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates-v2.mjs" ],
 //    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
 //    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.min.js", "greedy" ] ],
       "feedback": true,
@@ -176,7 +176,6 @@
 
         // set content of modal dialog for legend table
         this.html.render( this.html.legend( this ), this.modal.element.querySelector( 'main' ) );
-        //this.lang.parent = this.modal; this.lang.translate(); this.lang.parent = this;
 
         // trigger and log 'start' event
         this.onstart && await this.onstart( { instance: this } );
@@ -206,6 +205,7 @@
         /** when 'legend' button is clicked */
         onLegendClick: () => {
           this.modal.open();
+          this.lang.translate( this.modal.element );
           this.onchange && this.onchange( { event: 'legend', instance: this } );
         },
 

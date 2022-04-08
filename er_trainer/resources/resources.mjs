@@ -152,7 +152,7 @@ export const test = {
   "css.1.2": "./../er_trainer/resources/default.css",
   "dark": false,
   "helper": [ "ccm.load", "./../libs/ccm/helper.mjs" ],
-  "html.1": "./../er_trainer/resources/templates.mjs",
+  "html.1": "./../er_trainer/resources/templates-v2.mjs",
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
   } ],
