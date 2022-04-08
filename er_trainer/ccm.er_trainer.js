@@ -235,6 +235,7 @@
           if ( section.correct ) data.correct++;
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
           render();
+          debugger;
           this.onchange && this.onchange( { event: 'submit', instance: this, phrase: phrase_nr } );
           !this.feedback && events.onNextClick();
         },

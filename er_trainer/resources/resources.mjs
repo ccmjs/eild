@@ -99,7 +99,7 @@ export const phrases = [
  * @type {Object}
  */
 export const de = {
-  "cancel": "Abbrechen",
+  "cancel": "ER-REL-Trainer",
   "correct": "Ihre letzte Antwort war richtig!",
   "correct_solution": "Richtige Lösung:",
   "current_state": "Sie haben %% von %% Phrasen richtig beantwortet!",
@@ -124,7 +124,7 @@ export const de = {
  * @type {Object}
  */
 export const en = {
-  "cancel": "Cancel",
+  "cancel": "ER-REL-Trainer",
   "correct": "Your last answer was correct!",
   "correct_solution": "Correct solution:",
   "current_state": "You answered %% of %% phrases correctly!",
@@ -149,7 +149,7 @@ export const en = {
  * @type {Object}
  */
 export const test = {
-  "css.1.2": "./../er_trainer/resources/default.css",
+  "css.1.1": "./../er_trainer/resources/styles.css",
   "helper": [ "ccm.load", "./../libs/ccm/helper.mjs" ],
   "html.1": "./../er_trainer/resources/templates-v2.mjs",
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
@@ -163,7 +163,6 @@ export const test = {
   "onfinish": { "log": true, "restart": true },
   "phrases": phrases,
   "text": en,
-  "text.cancel": "ER-REL-Trainer",
   "default.notation": "abrial"
 };
 
