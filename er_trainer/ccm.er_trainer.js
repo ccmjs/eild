@@ -22,12 +22,10 @@
       "css": [ "ccm.load",
         [  // serial
           "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap.min.css",
-          "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-dark.min.css",
           "https://ccmjs.github.io/eild/er_trainer/resources/styles.min.css"
         ],
         { "url": "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
       ],
-//    "dark": "auto",
 //    "data": { "store": [ "ccm.store" ] },
       "default": {
         "format": "svg",
@@ -133,10 +131,6 @@
         // clone and shuffle original phrases
         phrases = $.clone( this.phrases );
         this.shuffle && $.shuffleArray( phrases );
-
-        // setup dark mode
-        this.dark === 'auto' && this.element.classList.add( 'dark_auto' );
-        this.dark === true && this.element.classList.add( 'dark_mode' );
 
         // log 'ready' event
         this.logger && this.logger.log( 'ready', $.privatize( this, true ) );
