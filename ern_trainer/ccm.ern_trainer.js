@@ -20,11 +20,6 @@
         { "url": "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
       ],
 //    "data": { "store": [ "ccm.store" ] },
-      "notation": {
-        "format": "svg",
-        "images": [ "e", "1", "c", "n", "cn", "r" ],
-        "path": "https://ccmjs.github.io/eild/ern_trainer/resources/img/"
-      },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-8.1.0.min.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/ern_trainer/resources/templates.mjs" ],
 //    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
@@ -37,6 +32,12 @@
         "closed": true,
         "buttons": ""
       } ],
+      "notation": {
+        "format": "svg",
+        "images": [ "e", "1", "c", "n", "cn", "r" ],
+        "path": "http://localhost:63342/eild/ern_trainer/resources/img/",
+        "title": "Abrial"
+      },
       "number": 1,
 //    "oncancel": event => console.log( event ),
 //    "onchange": event => console.log( event ),
@@ -87,6 +88,9 @@
 
         // set title of modal dialog
         this.modal.title = this.text.legend;
+
+        // uniform notation data
+        this.notation.images = this.notation.images.map( image => this.notation.path + image + '.' + this.notation.format );
 
         // uniform phrases data
         if ( $.isObject( this.phrases ) ) this.phrases = Object.values( this.phrases ).map( phrase => { delete phrase.key; return phrase; } );

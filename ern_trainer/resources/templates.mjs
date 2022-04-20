@@ -18,6 +18,7 @@ export { render };
 export function main( app, data, events, phrase, phrase_nr ) {
   const section = data.sections[ phrase_nr - 1 ];
   const heading = section.correct === undefined ? 'heading' : ( section.correct ? 'correct' : 'failed' );
+  const binary = phrase.entities.length === 2;
   return html`
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="mx-3" data-lang="title">${ app.text.title }</h1>
@@ -32,8 +33,9 @@ export function main( app, data, events, phrase, phrase_nr ) {
 
         <!-- Notation Selection -->
         <section>
-          <div class="d-flex align-items-center text-nowrap">
+          <div class="text-nowrap">
             <b data-lang="notation">${ app.text.notation }</b>
+            <span>${ app.notation.title }</span>
           </div>
         </section>
 
@@ -50,18 +52,69 @@ export function main( app, data, events, phrase, phrase_nr ) {
         <!-- Phrase -->
         <section class="lead text-nowrap px-2 py-3">
           <b>
-            <span data-lang="phrase">${ app.text.phrase }</span>
-            ${ phrase_nr }/${ app.phrases.length }:
+            <span data-lang="phrase">${ app.text.phrase }</span><span ?data-hidden=${ app.phrases.length === 1 }> ${ phrase_nr }/${ app.phrases.length }</span>:
           </b>
           <span class="text-wrap">${ phrase.text }</span>
         </section>
         
         <!-- Diagram -->
-        <section class="px-2 py-3">
+        <section id="diagram" class="d-flex justify-content-center px-2 py-3 text-center text-nowrap lead">
+          <div>
+            <div class="border rounded p-3">${ phrase.entities[ 0 ] }</div>
+            <div>
+              <img src="${ app.notation.images[ app.values.indexOf( section.input[ 0 ] ) + 1 ] }">
+            </div>
+            <div id="relation">
+              <img src="${ app.notation.images[ 5 ] }">
+              <div>${ phrase.relation }</div>
+            </div>
+            <div>
+              <img src="${ app.notation.images[ app.values.indexOf( section.input[ 2 ] ) + 1 ] }">
+            </div>
+            <div class="border rounded p-3">${ phrase.entities[ 2 ] || phrase.entities[ 1 ] }</div>
+
+            <div></div>
+            <div></div>
+            <div ?data-invisible=${ binary }>
+              <img class="v" src="${ app.notation.images[ app.values.indexOf( section.input[ 1 ] ) + 1 ] }">
+            </div>
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+            <div class="border rounded p-3" ?data-invisible=${ binary }>${ phrase.entities[ 1 ] }</div>
+            <div></div>
+            <div></div>
+            
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+
+            <div>
+              <select>
+                <option>LEFT INPUT</option>
+              </select>
+            </div>
+            <div></div>
+            <div>
+              <select>
+                <option>MIDDLE INPUT</option>
+              </select>
+            </div>
+            <div></div>
+            <div>
+              <select>
+                <option>RIGHT INPUT</option>
+              </select>
+            </div>
+          <div>
         </section>
 
         <!-- Selector Boxes -->
-        <section class="d-flex justify-content-between align-items-center px-2 py-3" ?data-hidden=${ section.correct !== undefined }>
+        <section ?data-hidden=${ section.correct !== undefined }>
         </section>
 
         <!-- Notation Comment -->
@@ -106,6 +159,7 @@ export function main( app, data, events, phrase, phrase_nr ) {
  * @returns {TemplateResult} HTML template for legend table
  */
 export function legend( app ) {
+  const { title, images } = app.notation;
   return html`
     <table class="table table-bordered">
       <thead>
@@ -115,12 +169,10 @@ export function legend( app ) {
         </tr>
       </thead>
       <tbody>
-        ${ Object.values( app.notations ).map( notation => html`
-          <tr>
-            <th scope="row" style="vertical-align: middle">${ notation.title }</th>
-            ${ app.text.selection.map( ( selection, i) => !i ? '' : html`<td><img src="${ notation.images[ i ] }"></td>` ) }
-          </tr>
-        `) }
+        <tr>
+          <th scope="row" style="vertical-align: middle">${ title }</th>
+          ${ app.text.selection.map( ( selection, i) => !i ? '' : html`<td><img src="${ images[ i ] }"></td>` ) }
+        </tr>
       </tbody>
     </table>
   `;

@@ -13,6 +13,26 @@
   overflow: auto;
 }
 
+#diagram > div {
+  display: grid;
+  grid-template-columns: repeat( 5, auto );
+  grid-template-rows: repeat( 5, minmax( 1em, auto ) );
+  justify-items: center;
+  align-items: center;
+}
+
+#diagram img {
+  display: block;
+}
+
+#diagram .border {
+  width: 100%;
+}
+
+.v {
+  transform: rotate( 90deg );
+}
+
 #left, #right {
   width: 60px;
 }
@@ -25,31 +45,19 @@
   transform: scaleX(-1);
 }
 
-.filler {
-  flex: 1;
-  height: 2px;
-  background-color: black;
-}
-
-#diagram img {
-  display: block;
-  max-height: 100px;
-}
-
-#name {
+#relation {
   position: relative;
 }
 
-#name > div {
+#relation > div {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate( -50%, -50% );
   font-size: smaller;
-  padding-bottom: 20px;
 }
 
-#name > div[data-centered] {
+#relation > div[data-centered] {
   padding-bottom: 0;
 }
 
