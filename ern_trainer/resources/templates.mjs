@@ -13,9 +13,10 @@ export { render };
  * @param {Object.<string,Function>} events - contains all event handlers
  * @param {Object} phrase - phrase data
  * @param {number} phrase_nr - number of current phrase
+ * @param {boolean} [show_solution] - reveal correct solution
  * @returns {TemplateResult} main HTML template
  */
-export function main( app, data, events, phrase, phrase_nr ) {
+export function main( app, data, events, phrase, phrase_nr, show_solution ) {
   const section = data.sections[ phrase_nr - 1 ];
   const heading = section.correct === undefined ? 'heading' : ( section.correct ? 'correct' : 'failed' );
   return html`
@@ -40,7 +41,7 @@ export function main( app, data, events, phrase, phrase_nr ) {
 
         <!-- Legend -->
         <section class="ms-2" ?data-hidden=${ !app.legend }>
-          <button class="btn btn-link" @click=${ events.onLegendClick } data-lang="legend">${ app.text.legend }</button>
+          <button class="btn btn-link" @click=${ events.onLegend } data-lang="legend">${ app.text.legend }</button>
         </section>
 
       </div>
@@ -57,62 +58,8 @@ export function main( app, data, events, phrase, phrase_nr ) {
         </section>
         
         <!-- Diagram -->
-        <section id="diagram" class="px-2 py-3 text-center text-nowrap lead">
-          <div>
-            
-            <div></div>
-            <div></div>
-            <div ?data-hidden=${ phrase.entities[ 2 ] }></div>
-            <div class="border rounded p-3" ?data-hidden=${ !phrase.entities[ 2 ] }>
-              ${ phrase.entities[ 2 ] }
-            </div>
-            <div></div>
-            <div></div>
-
-            <div></div>
-            <div></div>
-            <div>
-              <img class="vertical" src="${ app.notation.images[ app.values.indexOf( section.input[ 2 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ 2 ] }>
-            </div>
-            <div></div>
-            <div></div>
-            
-            <div class="border rounded p-3">
-              ${ phrase.entities[ 0 ] }
-            </div>
-            <div>
-              <img src="${ app.notation.images[ app.values.indexOf( section.input[ 0 ] ) + 1 ] }">
-            </div>
-            <div id="relation">
-              <img src="${ app.notation.images[ 5 ] }">
-              <div>${ phrase.relation }</div>
-            </div>
-            <div>
-              <img src="${ app.notation.images[ app.values.indexOf( section.input[ 1 ] ) + 1 ] }">
-            </div>
-            <div class="border rounded p-3">
-              ${ phrase.entities[ 1 ] }
-            </div>
-
-            <div></div>
-            <div></div>
-            <div>
-              <img class="vertical" src="${ app.notation.images[ app.values.indexOf( section.input[ 3 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ 3 ] }>
-            </div>
-            <div></div>
-            <div></div>
-
-            <div></div>
-            <div></div>
-            <div ?data-hidden=${ phrase.entities[ 3 ] }></div>
-            <div class="border rounded p-3" ?data-hidden=${ !phrase.entities[ 3 ] }>
-              ${ phrase.entities[ 3 ] }
-            </div>
-            <div></div>
-            <div></div>
-          <div>
-        </section>
-
+        ${ diagram() }
+        
         <!-- Selector Boxes -->
         <section class="px-2 py-3 text-nowrap lead" ?data-hidden=${ section.correct !== undefined }>
           <div class="row">
@@ -122,31 +69,35 @@ export function main( app, data, events, phrase, phrase_nr ) {
           </div>
         </section>
 
-        <!-- Notation Comment -->
-        <section ?data-hidden=${ !app.text.comment || app.feedback && section.correct !== undefined }>
-          <div class="alert alert-info mt-3 mb-0" role="alert" data-lang="comment">${ app.text.comment }</div>
-        </section>
-
         <!-- Phrase Comments -->
-        <section class="d-flex justify-content-between" ?data-hidden=${ !app.feedback || section.correct === undefined || section.correct || !phrase.comment || !phrase.comment[ 0 ] && !phrase.comment[ 1 ] }>
-        </section>
-        
-        <!-- Correct Solution -->
-        <section class="d-flex flex-column align-items-center px-2" ?data-hidden=${ !app.feedback || !app.show_solution || section.correct === undefined || section.correct }>
+        <section ?data-hidden=${ !phrase.comments || !app.feedback || section.correct !== false }>
+          ${ phrase.entities.map( ( entity, i ) => html`
+            <div class="alert alert-info my-2" role="alert" ?data-hidden=${ !phrase.comments[ i ] || section.input[ i ] === section.solution[ i ] }>
+              ${ phrase.comments[ i ] }
+            </div>
+          ` ) }
         </section>
 
         <!-- Buttons -->
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
-          <button class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancelClick } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onSubmitClick } ?data-hidden=${ section.correct !== undefined || !section.input[ 0 ] || !section.input[ 1 ] || !section.input[ 2 ] } data-lang="submit">${ app.text.submit }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onNextClick } ?data-hidden=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
-          <button class="btn btn-success m-1" @click=${ events.onFinishClick } ?data-hidden=${ section.correct === undefined || phrase_nr < app.number || !app.onfinish } data-lang="finish">${ app.text.finish }</button>
+          <button class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancel } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
+          <button class="btn btn-primary m-1" @click=${ events.onSubmit } ?disabled=${ section.correct !== undefined || section.input.includes( '' ) } data-lang="submit">${ app.text.submit }</button>
+          <button class="btn btn-primary m-1" @click=${ events.onRetry } ?data-hidden=${ !app.retry } ?disabled=${ show_solution || section.correct !== false } data-lang="retry">${ app.text.retry }</button>
+          <button class="btn btn-primary m-1" @click=${ events.onSolution } ?data-hidden=${ !app.show_solution } ?disabled=${ show_solution || section.correct !== false } data-lang="solution">${ app.text.solution }</button>
+          <button class="btn btn-primary m-1" @click=${ events.onNext } ?disabled=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
+          <button class="btn btn-primary m-1" @click=${ events.onFinish } ?disabled=${ !app.onfinish || section.correct === undefined || phrase_nr < app.number } data-lang="finish">${ app.text.finish }</button>
         </section>
 
-        <!-- Current State -->
-        <section class="text-center px-2 pb-2" ?data-hidden=${ !app.feedback }>
-          <small id="current_state" data-lang="current_state--${ data.correct.toString() }-${ data.total.toString() }">${ app.ccm.helper.html( app.text.current_state, data.correct.toString(), data.total.toString() ) }</small>
+        <!-- Notation Comment -->
+        <section ?data-hidden=${ !app.text.comment || app.feedback && section.correct !== undefined || section.input.find( value => value ) }>
+          <div class="alert alert-info mt-3 mb-0" role="alert" data-lang="comment">${ app.text.comment }</div>
         </section>
+        
+        <!-- Correct Solution -->
+        <div ?data-hidden=${ !show_solution || !app.feedback || !app.show_solution || section.correct !== false }>
+          <div class="lead text-center mt-2" data-lang="correct_solution">${ app.text.correct_solution }</div>
+          ${ diagram( true ) }
+        </div>
 
         <!-- Logos -->
         <section class="mx-3 mt-3 text-center">
@@ -158,24 +109,99 @@ export function main( app, data, events, phrase, phrase_nr ) {
   `;
 
   /**
+   * returns the HTML template for a diagram
+   * @param {boolean} [is_solution] - diagram shows correct solution
+   * @returns {TemplateResult}
+   */
+  function diagram( is_solution ) {
+    return html`
+      <section class="diagram px-2 py-3">
+        <div class="text-center text-nowrap lead">
+          
+          <div></div>
+          <div></div>
+          ${ entity( 3 ) }
+          <div></div>
+          <div></div>
+  
+          <div></div>
+          <div></div>
+          ${ connection( 3 ) }
+          <div></div>
+          <div></div>
+  
+          ${ entity( 1 ) }
+          ${ connection( 1 ) }
+          <div id="relation">
+            <img src="${ app.notation.images[ 5 ] }">
+            <div>${ phrase.relation }</div>
+          </div>
+          ${ connection( 2 ) }
+          ${ entity( 2 ) }
+  
+          <div></div>
+          <div></div>
+          ${ connection( 4 ) }
+          <div></div>
+          <div></div>
+  
+          <div></div>
+          <div></div>
+          <div ?data-hidden=${ phrase.entities[ 3 ] }></div>
+          ${ entity( 4 ) }
+          <div></div>
+          <div></div>
+        </div>
+      </section>
+    `;
+
+    /**
+     * returns the HTML template for an entity
+     * @param {number} nr - number of the entity
+     * @returns {TemplateResult}
+     */
+    function entity( nr ) {
+      return phrase.entities[ nr - 1 ] ? html`
+      <div class="entity border rounded p-3${ !is_solution && app.feedback && section.correct !== undefined && ( section.input[ nr - 1 ] === section.solution[ nr - 1 ] ? ' correct' : ' failed' ) || '' }">
+        ${ phrase.entities[ nr - 1 ] }
+      </div>
+    ` : html`<div></div>`;
+    }
+
+    /**
+     * returns the HTML template for an entity connection
+     * @param {number} nr - number of the entity
+     * @returns {TemplateResult}
+     */
+    function connection( nr ) {
+      return html`
+      <div>
+        <img class="${ nr > 2 ? 'vertical' : '' }" src="${ app.notation.images[ app.values.indexOf( section[ is_solution ? 'solution' : 'input' ][ nr - 1 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ nr - 1 ] }>
+      </div>
+    `;
+    }
+
+  }
+
+  /**
    * returns the HTML template for a selector box
    * @param {number} nr - number of the selector box
    * @returns {TemplateResult}
    */
   function select( nr ) {
     return html`
-    <div class="col m-2">
-      <label for="input${ nr }" class="m-0">
-        <b>${ phrase.entities[ nr - 1 ] }:</b>
-      </label>
-      <select id="input${ nr }" class="form-select" @change=${ event => events.onInputChange( nr, event.target.value ) }>
-        ${ app.text.selection.map( ( caption, i ) => html`
-          <option value="${ app.values[ i - 1 ] || '' }" ?selected=${ i && ( app.values.indexOf( section.input[ nr - 1 ] ) === i - 1 ) } data-lang="selection.${ i }">
-            ${ caption }
-          </option>`) }
-      </select>
-    </div>
-  `;
+      <div class="col m-2">
+        <label for="input${ nr }" class="m-0">
+          <b>${ phrase.entities[ nr - 1 ] }:</b>
+        </label>
+        <select id="input${ nr }" class="form-select" @change=${ event => events.onSelect( nr, event.target.value ) }>
+          ${ app.text.selection.map( ( caption, i ) => html`
+            <option value="${ app.values[ i - 1 ] || '' }" ?selected=${ i && ( app.values.indexOf( section.input[ nr - 1 ] ) === i - 1 ) } data-lang="selection.${ i }">
+              ${ caption }
+            </option>`) }
+        </select>
+      </div>
+    `;
   }
 }
 

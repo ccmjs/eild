@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for training of ternary relations in an ER diagram
  * @author André Kless <andre.kless@web.de> 2022
  * @license The MIT License (MIT)
- * @version latest (1.0.0)
+ * @version 1.0.0
  * @changes
  * version 1.0.0 (08.04.2022)
  */
@@ -10,6 +10,7 @@
 ( () => {
   const component = {
     name: 'ern_trainer',
+    version: [ 1, 0, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "css": [ "ccm.load",

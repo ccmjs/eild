@@ -11,9 +11,20 @@
 export const phrases = [
   {
     "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
+    "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
+    "relation": "eingesetzt",
+    "solution": [ "cn", "cn", "n" ],
+    "comments": [
+      "Ein Pilot kann nie (reiner Charterpilot) oder auch mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden.",
+      "Ein Flugzeug kann nie (macht nur Charterflüge) oder auch mehrfach von einem Piloten auf einer Flugroute eingesetzt werden.",
+      "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden)."
+    ]
+  },
+  {
+    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
     "entities": [ "Pilot", "Flugzeug", "Flugroute", "Passagier" ],
     "relation": "eingesetzt",
-    "solution": [ "cn", "cn", "n", "n" ],
+    "solution": [ "cn", "cn", "n", "cn" ],
     "comments": [
       "Ein Pilot kann nie (reiner Charterpilot) oder auch mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden.",
       "Ein Flugzeug kann nie (macht nur Charterflüge) oder auch mehrfach von einem Piloten auf einer Flugroute eingesetzt werden.",
@@ -29,18 +40,20 @@ export const phrases = [
  */
 export const de = {
   "cancel": "Abbrechen",
-  "comment": "Die Abrial bzw. (min,max)-Notation gibt für jeden an einer Beziehung beteiligten Entitätstyp an, mit wie vielen Entitäten auf der anderen Seite eine Entität dieses Typs mindestens und höchstens in Beziehung steht.",
+  "comment": "<b>Hinweis zur verwendeten Notation:</b> Die Abrial bzw. (min,max)-Notation gibt für jeden an einer Beziehung beteiligten Entitätstyp an, mit wie vielen Entitäten auf der anderen Seite eine Entität dieses Typs mindestens und höchstens in Beziehung steht.",
   "correct": "Ihre letzte Antwort war richtig!",
   "correct_solution": "Richtige Lösung:",
   "current_state": "Sie haben %% von %% Phrasen richtig beantwortet!",
   "failed": "Ihre letzte Antwort war falsch!",
   "finish": "Neustart",
-  "heading": "Bitte wählen Sie in den Auswahlboxen den passenden Beziehungstyp entsprechend der Phrase aus!",
+  "heading": "Bitte wählen Sie in den Auswahlboxen den passenden Beziehungstyp für jede Entität entsprechend der Phrase aus!",
   "notation": "Notation:",
   "legend": "Legende",
   "next": "Weiter",
   "phrase": "Phrase",
+  "retry": "Korrigieren",
   "selection": [ "Bitte auswählen", "einfach", "bedingt", "mehrfach", "bedingt mehrfach" ],
+  "solution": "Zeige Lösung",
   "submit": "Abschicken",
   "title": "ERN-Trainer"
 };
@@ -51,18 +64,20 @@ export const de = {
  */
 export const en = {
   "cancel": "Cancel",
-  "comment": "For each entity type involved in a relationship, the abrial respectively (min, max) notation indicates the minimum and maximum number of entities on the other side that an entity of this type is related to.",
+  "comment": "<b>Hint to the used Notation:</b> For each entity type involved in a relationship, the abrial respectively (min, max) notation indicates the minimum and maximum number of entities on the other side that an entity of this type is related to.",
   "correct": "Your last answer was correct!",
   "correct_solution": "Correct solution:",
   "current_state": "You answered %% of %% phrases correctly!",
   "failed": "Your last answer was wrong!",
   "finish": "Restart",
-  "heading": "Please select the appropriate relationship type in the selection boxes according to the phrase!",
+  "heading": "Please select the appropriate relationship type in the selection boxes for each entity according to the phrase!",
   "notation": "Notation:",
   "legend": "Legend",
   "next": "Next",
   "phrase": "Phrase",
+  "retry": "Retry",
   "selection": [ "Please Choose", "simple", "conditional", "many", "conditional many" ],
+  "solution": "Show Solution",
   "submit": "Submit",
   "title": "ERN-Trainer"
 };

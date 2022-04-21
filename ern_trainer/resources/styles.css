@@ -5,15 +5,20 @@
  */
 
 #element {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0.9em;
+  padding: 1rem;
 }
 
-#diagram {
-  overflow: auto;
+*[data-hidden] {
+  display: none !important;
 }
 
-#diagram > div {
+/* Diagram */
+
+.diagram {
+  overflow-x: auto;
+}
+
+.diagram > div {
   margin: auto;
   width: fit-content;
   display: grid;
@@ -23,24 +28,12 @@
   align-items: center;
 }
 
-#diagram img {
-  display: block;
+.entity {
+  min-width: 10rem;
 }
 
 .vertical {
   transform: rotate( 90deg );
-}
-
-#left, #right {
-  width: 60px;
-}
-
-#middle {
-  width: 240px;
-}
-
-#left.mirrored {
-  transform: scaleX(-1);
 }
 
 #relation {
@@ -55,9 +48,7 @@
   font-size: smaller;
 }
 
-#relation > div[data-centered] {
-  padding-bottom: 0;
-}
+/* Feedback */
 
 #element.correct header {
   background-color: #dff0d8 !important;
@@ -87,37 +78,17 @@
   border-color: #ebccd1;
 }
 
-.entity.correct {
+#element .correct {
   background-color: #dff0d8;
   border-color: #d6e9c6 !important;
 }
 
-.entity.failed {
+#element .failed {
   background-color: #f2dede;
   border-color: #ebccd1 !important;
 }
 
-*[data-invisible] {
-  visibility: hidden !important;
-}
-
-*[data-hidden] {
-  display: none !important;
-}
-
-.phrase-comment {
-  max-width: 50%;
-}
-
-.btn:not(.btn-link) {
-  background-color: #B43092 !important;
-  border-color: #B43092 !important;
-  color: #ffffff !important;
-}
-
-.btn-link {
-  color: #A43992 !important;
-}
+/* Logos */
 
 section > img {
   max-width: 100%;
