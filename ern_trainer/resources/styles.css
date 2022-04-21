@@ -14,9 +14,11 @@
 }
 
 #diagram > div {
+  margin: auto;
+  width: fit-content;
   display: grid;
   grid-template-columns: repeat( 5, auto );
-  grid-template-rows: repeat( 5, minmax( 1em, auto ) );
+  grid-template-rows: repeat( 5, auto );
   justify-items: center;
   align-items: center;
 }
@@ -25,11 +27,7 @@
   display: block;
 }
 
-#diagram .border {
-  width: 100%;
-}
-
-.v {
+.vertical {
   transform: rotate( 90deg );
 }
 
@@ -97,6 +95,10 @@
 .entity.failed {
   background-color: #f2dede;
   border-color: #ebccd1 !important;
+}
+
+*[data-invisible] {
+  visibility: hidden !important;
 }
 
 *[data-hidden] {

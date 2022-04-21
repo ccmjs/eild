@@ -18,7 +18,6 @@ export { render };
 export function main( app, data, events, phrase, phrase_nr ) {
   const section = data.sections[ phrase_nr - 1 ];
   const heading = section.correct === undefined ? 'heading' : ( section.correct ? 'correct' : 'failed' );
-  const binary = phrase.entities.length === 2;
   return html`
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="mx-3" data-lang="title">${ app.text.title }</h1>
@@ -58,9 +57,29 @@ export function main( app, data, events, phrase, phrase_nr ) {
         </section>
         
         <!-- Diagram -->
-        <section id="diagram" class="d-flex justify-content-center px-2 py-3 text-center text-nowrap lead">
+        <section id="diagram" class="px-2 py-3 text-center text-nowrap lead">
           <div>
-            <div class="border rounded p-3">${ phrase.entities[ 0 ] }</div>
+            
+            <div></div>
+            <div></div>
+            <div ?data-hidden=${ phrase.entities[ 2 ] }></div>
+            <div class="border rounded p-3" ?data-hidden=${ !phrase.entities[ 2 ] }>
+              ${ phrase.entities[ 2 ] }
+            </div>
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+            <div>
+              <img class="vertical" src="${ app.notation.images[ app.values.indexOf( section.input[ 2 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ 2 ] }>
+            </div>
+            <div></div>
+            <div></div>
+            
+            <div class="border rounded p-3">
+              ${ phrase.entities[ 0 ] }
+            </div>
             <div>
               <img src="${ app.notation.images[ app.values.indexOf( section.input[ 0 ] ) + 1 ] }">
             </div>
@@ -69,52 +88,38 @@ export function main( app, data, events, phrase, phrase_nr ) {
               <div>${ phrase.relation }</div>
             </div>
             <div>
-              <img src="${ app.notation.images[ app.values.indexOf( section.input[ 2 ] ) + 1 ] }">
+              <img src="${ app.notation.images[ app.values.indexOf( section.input[ 1 ] ) + 1 ] }">
             </div>
-            <div class="border rounded p-3">${ phrase.entities[ 2 ] || phrase.entities[ 1 ] }</div>
+            <div class="border rounded p-3">
+              ${ phrase.entities[ 1 ] }
+            </div>
 
             <div></div>
             <div></div>
-            <div ?data-invisible=${ binary }>
-              <img class="v" src="${ app.notation.images[ app.values.indexOf( section.input[ 1 ] ) + 1 ] }">
+            <div>
+              <img class="vertical" src="${ app.notation.images[ app.values.indexOf( section.input[ 3 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ 3 ] }>
             </div>
             <div></div>
             <div></div>
 
             <div></div>
             <div></div>
-            <div class="border rounded p-3" ?data-invisible=${ binary }>${ phrase.entities[ 1 ] }</div>
-            <div></div>
-            <div></div>
-            
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-
-            <div>
-              <select>
-                <option>LEFT INPUT</option>
-              </select>
+            <div ?data-hidden=${ phrase.entities[ 3 ] }></div>
+            <div class="border rounded p-3" ?data-hidden=${ !phrase.entities[ 3 ] }>
+              ${ phrase.entities[ 3 ] }
             </div>
             <div></div>
-            <div>
-              <select>
-                <option>MIDDLE INPUT</option>
-              </select>
-            </div>
             <div></div>
-            <div>
-              <select>
-                <option>RIGHT INPUT</option>
-              </select>
-            </div>
           <div>
         </section>
 
         <!-- Selector Boxes -->
-        <section ?data-hidden=${ section.correct !== undefined }>
+        <section class="px-2 py-3 text-nowrap lead" ?data-hidden=${ section.correct !== undefined }>
+          <div class="row">
+            ${ select( 1 ) }
+            ${ phrase.entities.slice( 2 ).map( ( entity, i ) => select( i + 3 ) ) }
+            ${ select( 2 ) }
+          </div>
         </section>
 
         <!-- Notation Comment -->
@@ -151,6 +156,27 @@ export function main( app, data, events, phrase, phrase_nr ) {
       </div>
     </main>
   `;
+
+  /**
+   * returns the HTML template for a selector box
+   * @param {number} nr - number of the selector box
+   * @returns {TemplateResult}
+   */
+  function select( nr ) {
+    return html`
+    <div class="col m-2">
+      <label for="input${ nr }" class="m-0">
+        <b>${ phrase.entities[ nr - 1 ] }:</b>
+      </label>
+      <select id="input${ nr }" class="form-select" @change=${ event => events.onInputChange( nr, event.target.value ) }>
+        ${ app.text.selection.map( ( caption, i ) => html`
+          <option value="${ app.values[ i - 1 ] || '' }" ?selected=${ i && ( app.values.indexOf( section.input[ nr - 1 ] ) === i - 1 ) } data-lang="selection.${ i }">
+            ${ caption }
+          </option>`) }
+      </select>
+    </div>
+  `;
+  }
 }
 
 /**

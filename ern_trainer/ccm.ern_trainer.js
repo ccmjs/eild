@@ -86,6 +86,10 @@
         // set shortcut to help functions
         $ = Object.assign( {}, this.ccm.helper, this.helper ); $.use( this.ccm );
 
+        // pass setting for dark mode to child instances
+        if ( this.lang ) this.lang.dark = this.dark;
+        if ( this.user ) this.user.dark = this.dark;
+
         // set title of modal dialog
         this.modal.title = this.text.legend;
 
@@ -226,7 +230,7 @@
           entities: phrases[ 0 ].entities,
           relation: phrases[ 0 ].relation,
           solution: phrases[ 0 ].solution,
-          input: [ '', '', '' ]
+          input: phrases[ 0 ].entities.map( () => '' )
         } );
         render();
       };
