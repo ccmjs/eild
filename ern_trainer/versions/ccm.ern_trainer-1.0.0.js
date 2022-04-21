@@ -39,7 +39,7 @@
         "path": "http://localhost:63342/eild/ern_trainer/resources/img/",
         "title": "Abrial"
       },
-      "number": 2,
+      "number": 1,
 //    "oncancel": event => console.log( event ),
 //    "onchange": event => console.log( event ),
       "onfinish": { "restart": true },

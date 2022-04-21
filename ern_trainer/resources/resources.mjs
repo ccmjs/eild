@@ -19,18 +19,6 @@ export const phrases = [
       "Ein Flugzeug kann nie (macht nur Charterflüge) oder auch mehrfach von einem Piloten auf einer Flugroute eingesetzt werden.",
       "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden)."
     ]
-  },
-  {
-    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
-    "entities": [ "Pilot", "Flugzeug", "Flugroute", "Passagier" ],
-    "relation": "eingesetzt",
-    "solution": [ "cn", "cn", "n", "cn" ],
-    "comments": [
-      "Ein Pilot kann nie (reiner Charterpilot) oder auch mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden.",
-      "Ein Flugzeug kann nie (macht nur Charterflüge) oder auch mehrfach von einem Piloten auf einer Flugroute eingesetzt werden.",
-      "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden).",
-      ""
-    ]
   }
 ];
 
