@@ -59,14 +59,16 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
         
         <!-- Diagram -->
         ${ diagram() }
-        
+
         <!-- Selector Boxes -->
         <section class="px-2 py-3 text-nowrap lead" ?data-hidden=${ section.correct !== undefined }>
-          <div class="row">
-            ${ select( 1 ) }
-            ${ phrase.entities.slice( 2 ).map( ( entity, i ) => select( i + 3 ) ) }
-            ${ select( 2 ) }
-          </div>
+          <form id="inputs" @submit=${ event => { event.preventDefault(); events.onSubmit(); } }>
+            <div class="row">
+              ${ select( 1 ) }
+              ${ phrase.entities.slice( 2 ).map( ( entity, i ) => select( i + 3 ) ) }
+              ${ select( 2 ) }
+            </div>
+          </form>
         </section>
 
         <!-- Phrase Comments -->
@@ -81,7 +83,7 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
         <!-- Buttons -->
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
           <button class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancel } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onSubmit } ?disabled=${ section.correct !== undefined || section.input.includes( '' ) } data-lang="submit">${ app.text.submit }</button>
+          <button type="submit" form="inputs" class="btn btn-primary m-1" ?disabled=${ section.correct !== undefined } data-lang="submit">${ app.text.submit }</input>
           <button class="btn btn-primary m-1" @click=${ events.onRetry } ?data-hidden=${ !app.retry } ?disabled=${ show_solution || section.correct !== false } data-lang="retry">${ app.text.retry }</button>
           <button class="btn btn-primary m-1" @click=${ events.onSolution } ?data-hidden=${ !app.show_solution } ?disabled=${ show_solution || section.correct !== false } data-lang="solution">${ app.text.solution }</button>
           <button class="btn btn-primary m-1" @click=${ events.onNext } ?disabled=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
@@ -194,7 +196,7 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
         <label for="input${ nr }" class="m-0">
           <b>${ phrase.entities[ nr - 1 ] }:</b>
         </label>
-        <select id="input${ nr }" class="form-select" @change=${ event => events.onSelect( nr, event.target.value ) }>
+        <select id="input${ nr }" class="form-select" required @change=${ event => events.onSelect( nr, event.target.value ) }>
           ${ app.text.selection.map( ( caption, i ) => html`
             <option value="${ app.values[ i - 1 ] || '' }" ?selected=${ i && ( app.values.indexOf( section.input[ nr - 1 ] ) === i - 1 ) } data-lang="selection.${ i }">
               ${ caption }
