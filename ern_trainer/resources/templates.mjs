@@ -74,8 +74,8 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
         <!-- Phrase Comments -->
         <section ?data-hidden=${ !phrase.comments || !app.feedback || section.correct !== false }>
           ${ phrase.entities.map( ( entity, i ) => html`
-            <div class="alert alert-info my-2" role="alert" ?data-hidden=${ !phrase.comments[ i ] || section.input[ i ] === section.solution[ i ] }>
-              ${ phrase.comments[ i ] }
+            <div class="alert alert-info my-2" role="alert" ?data-hidden=${ !phrase.comments || !phrase.comments[ i ] || section.input[ i ] === section.solution[ i ] }>
+              ${ phrase.comments && phrase.comments[ i ] }
             </div>
           ` ) }
         </section>

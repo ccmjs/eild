@@ -15,20 +15,43 @@ export const phrases = [
     "relation": "eingesetzt",
     "solution": [ "cn", "cn", "n" ],
     "comments": [
-      "Ein Pilot kann nie (reiner Charterpilot) oder auch mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden.",
-      "Ein Flugzeug kann nie (macht nur Charterflüge) oder auch mehrfach von einem Piloten auf einer Flugroute eingesetzt werden.",
+      "Ein Pilot kann mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden oder auf gar keiner (reiner Charterpilot).",
+      "Ein Flugzeug kann mehrfach von einem Piloten auf einer Flugroute eingesetzt werden oder auf gar keiner (reine Charterflüge).",
       "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden)."
     ]
   },
   {
-    "text": "",
-    "entities": [ "Student", "Professor", "Vorlesung" ],
+    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
+    "entities": [ "Veranstaltung", "Teilnehmer", "Location", "Sponsor" ],
+    "relation": "findet statt",
+    "solution": [ "cn", "cn", "cn", "cn" ]
+  },
+  {
+    "text": "Ein Haus hat Eigentümer und Eigentümer haben Häuser.",
+    "entities": [ "Haus", "Eigentümer" ],
+    "relation": "hat",
+    "solution": [ "n", "n" ]
+  },
+  {
+    "text": "Studenten besuchen Lehrveranstaltungen, in denen sie vom Professor am Ende geprüft werden. Manche Studenten brechen das Studium vorzeitig ab und manche Professoren sind nur forschend tätig.",
+    "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
     "relation": "prüft",
-    "solution": [ "cn", "1", "n" ],
+    "solution": [ "cn", "cn", "cn" ],
     "comments": [
-      "",
-      "",
-      ""
+      "Ein Student wird in mehreren Lehrveranstaltungen vom jeweiligen Professoren geprüft oder in gar keiner (hat sich nie für eine Prüfung angemeldet).",
+      "Ein Professor prüft Studenten in mehreren Lehrveranstaltungen oder in gar keiner (nur forschend tätig).",
+      "In einer Lehrveranstaltung wird mindestens ein Student vom Professor geprüft, allerdings erst am Ende des Semesters. Das bedeutet, dass eine Lehrveranstaltung schon vor der ersten Prüfung angelegt werden muss."
+    ]
+  },
+  {
+    "text": "Ein Kind hat eine (biologische) Mutter und einen (biologischen) Vater.",
+    "entities": [ "Vater", "Mutter", "Kind" ],
+    "relation": "hat",
+    "solution": [ "n", "n", "1" ],
+    "comments": [
+      "Zu einem Vater gibt es genau eine Mutter und mindestens ein Kind.",
+      "Zu einer Mutter gibt es genau einen Vater und mindestens ein Kind.",
+      "Ein Kind hat genau eine Mutter und einen Vater."
     ]
   }
 ];
@@ -95,6 +118,7 @@ export const test = {
   "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/ccm.log.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
   "onfinish": { "log": true, "restart": true },
   "phrases": phrases,
+  "shuffle": false,
   "text": en
 };
 

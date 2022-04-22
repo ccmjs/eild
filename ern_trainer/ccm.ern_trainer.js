@@ -4,7 +4,7 @@
  * @license The MIT License (MIT)
  * @version latest (1.0.0)
  * @changes
- * version 1.0.0 (08.04.2022)
+ * version 1.0.0 (21.04.2022)
  */
 
 ( () => {
@@ -38,7 +38,7 @@
         "path": "http://localhost:63342/eild/ern_trainer/resources/img/",
         "title": "Abrial"
       },
-      "number": 1,
+//    "number": 1,
 //    "oncancel": event => console.log( event ),
 //    "onchange": event => console.log( event ),
       "onfinish": { "restart": true },
@@ -110,6 +110,9 @@
         // clone and shuffle original phrases
         phrases = $.clone( this.phrases );
         this.shuffle && $.shuffleArray( phrases );
+
+        // use all phrases as default
+        if ( !this.number ) this.number = this.phrases.length;
 
         // log 'ready' event
         this.logger && this.logger.log( 'ready', $.privatize( this, true ) );
@@ -213,6 +216,7 @@
           const section = data.sections[ phrase_nr - 1 ];
           if ( !this.retry || section.correct !== false ) return;
           delete section.correct;
+          this.element.classList.remove( 'failed' );
           render();
         },
 
@@ -265,7 +269,6 @@
       const reset = () => {
         this.element.classList.remove( 'correct', 'failed' );
         this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = false );
-
       };
 
       /**
