@@ -35,7 +35,7 @@
       "notation": {
         "format": "svg",
         "images": [ "e", "1", "c", "n", "cn", "r" ],
-        "path": "http://localhost:63342/eild/ern_trainer/resources/img/",
+        "path": "https://ccmjs.github.io/eild/ern_trainer/resources/img/",
         "title": "Abrial"
       },
 //    "number": 1,
