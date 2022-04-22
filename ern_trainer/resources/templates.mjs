@@ -50,7 +50,7 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
       <div>
         
         <!-- Phrase -->
-        <section class="lead text-nowrap px-2 py-3">
+        <section class="lead text-nowrap px-2 py-3" ?data-hidden=${ !phrase.text }>
           <b>
             <span data-lang="phrase">${ app.text.phrase }</span><span ?data-hidden=${ app.phrases.length === 1 }> ${ phrase_nr }/${ app.phrases.length }</span>:
           </b>

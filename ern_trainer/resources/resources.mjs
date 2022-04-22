@@ -19,6 +19,17 @@ export const phrases = [
       "Ein Flugzeug kann nie (macht nur Charterflüge) oder auch mehrfach von einem Piloten auf einer Flugroute eingesetzt werden.",
       "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden)."
     ]
+  },
+  {
+    "text": "",
+    "entities": [ "Student", "Professor", "Vorlesung" ],
+    "relation": "prüft",
+    "solution": [ "cn", "1", "n" ],
+    "comments": [
+      "",
+      "",
+      ""
+    ]
   }
 ];
 
