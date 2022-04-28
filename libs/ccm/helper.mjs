@@ -3,8 +3,10 @@
  * ES6 module that exports useful help functions for <i>ccmjs</i> component developers.
  * @author André Kless <andre.kless@web.de> 2019-2022
  * @license The MIT License (MIT)
- * @version latest (8.1.1)
+ * @version latest (8.2.0)
  * @changes
+ * version 8.2.0 (28.04.2022):
+ * - updated onFinish(obj,obj,obj):void - set 'unique' flag without 'user' flag for anonym result data
  * version 8.1.1 (30.03.2022):
  * - bugfix for fillForm(elem,obj):void - set no value on undefined instead of falsy
  * version 8.1.0 (23.02.2022):
@@ -756,12 +758,12 @@ export const onFinish = async ( settings, results, user ) => {
     }
 
     // prepare dataset key
-    dataset.key = [ settings.store.key || ccm.helper.generateKey() ];
-    if ( settings.store.user && user && user.isLoggedIn() ) {
-      dataset.key.push( user.data().key );
-      if ( !dataset.user ) dataset.user = user.data().key;
+    dataset.key = [ settings.store.key || ccm.helper.generateKey() ];  // use existing key or generate new unique key
+    if ( settings.store.user && user && user.isLoggedIn() ) {          // is user specific result data and user is logged in?
+      dataset.key.push( user.data().key );                             // expand key with user key
+      if ( !dataset.user ) dataset.user = user.data().key;             // add user key to result data
     }
-    settings.store.unique && dataset.key.push( ccm.helper.generateKey() );
+    settings.store.unique && dataset.key.push( ccm.helper.generateKey() );  // expand key with generated unique key
     if ( dataset.key.length === 1 )
       dataset.key = dataset.key[ 0 ];
     else if ( !dataset.app )
