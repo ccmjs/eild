@@ -122,21 +122,19 @@ export const test = {
   "editor.1": "https://ccmjs.github.io/akless-components/quill/ccm.quill.js",
   "helper.1": "./../libs/ccm/helper.mjs",
   "html.1": "./../mc_builder/resources/templates-v2.mjs",
-  "ignore": {
-    "defaults": {
-      "dark": "auto",
-      "feedback": true,
-      "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
-        "translations": {
-          "de": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ],
-          "en": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#en" ]
-        }
-      } ],
-      "random": true,
-      "retry": true,
-      "shuffle": true,
-      "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
-    }
+  "ignore.defaults": {
+    "dark": "auto",
+    "feedback": true,
+    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
+      "translations": {
+        "de": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ],
+        "en": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#en" ]
+      }
+    } ],
+    "random": true,
+    "retry": true,
+    "shuffle": true,
+    "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
   },
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
@@ -155,21 +153,19 @@ export const test = {
  */
 export const demo = {
   "dark": "auto",
-  "ignore": {
-    "defaults": {
-      "dark": "auto",
-      "feedback": true,
-      "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
-        "translations": {
-          "de": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ],
-          "en": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#en" ]
-        }
-      } ],
-      "random": true,
-      "retry": true,
-      "shuffle": true,
-      "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
-    }
+  "ignore.defaults": {
+    "dark": "auto",
+    "feedback": true,
+    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
+      "translations": {
+        "de": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ],
+        "en": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#en" ]
+      }
+    } ],
+    "random": true,
+    "retry": true,
+    "shuffle": true,
+    "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
   },
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
     "translations": { "de": de, "en": en }
@@ -186,15 +182,13 @@ export const demo = {
 export const dms = {
   "css": [ "ccm.load", "https://ccmjs.github.io/eild/mc_builder/resources/default.css" ],
   "dark": false,
-  "ignore": {
-    "defaults": {
-      "feedback": true,
-      "retry": true,
-      "shuffle": true,
-      "random": true,
-      "dark": false,
-      "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
-    }
+  "ignore.defaults": {
+    "feedback": true,
+    "retry": true,
+    "shuffle": true,
+    "random": true,
+    "dark": false,
+    "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
   },
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
     "translations": { "de": de, "en": en }
