@@ -1,3 +1,5 @@
+/*----------------------------------------------------- DEPRECATED ---------------------------------------------------*/
+
 /**
  * @overview data-based resources of ccmjs-based web component for building a multiple choice
  * @author André Kless <andre.kless@web.de> 2021
@@ -6,7 +8,7 @@
 
 ccm.files[ 'resources.js' ] = {
 
-  "local": {
+  "test": {
     "css.1.1": "./resources/default.css",
     "data": {
       "store": [ "ccm.store", { "local": [ "ccm.load", "./../mc/resources/resources.js" ] } ],

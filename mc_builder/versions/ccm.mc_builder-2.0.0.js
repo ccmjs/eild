@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for building a multiple choice
  * @author André Kless <andre.kless@web.de> 2021-2022
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (28.04.2022):
  * - uses ccmjs v27.3.1 as default
@@ -24,6 +24,7 @@
 ( () => {
   const component = {
     name: 'mc_builder',
+    version: [ 2, 0, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.js',
     config: {
       "css": [ "ccm.load",

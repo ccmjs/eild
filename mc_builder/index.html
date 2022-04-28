@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="André Kless <andre.kless@web.de> 2021">
+<meta name="author" content="André Kless <andre.kless@web.de> 2021-2022">
 <meta name="license" content="The MIT License (MIT)">
-
-<style>html, body, body > *:first-child { height: 100%; } body { margin: 0; }</style>
-<script src="https://ccmjs.github.io/eild/mc_builder/versions/ccm.mc_builder-1.0.0.js"></script>
-<ccm-mc_builder-1-0-0 key='["ccm.get","https://ccmjs.github.io/eild/mc_builder/resources/resources.js","demo"]'></ccm-mc_builder-1-0-0>
+<title>Demo | Multiple Choice | App-Editor</title>
+<style>
+  body {
+    margin: 0;
+    background-color: white;
+  }
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: black;
+    }
+  }
+</style>
+<script src="https://ccmjs.github.io/eild/mc_builder/versions/ccm.mc_builder-2.0.0.min.js"></script>
+<ccm-mc_builder-2-0-0 src='["ccm.load","https://ccmjs.github.io/eild/mc_builder/resources/resources.mjs#demo"]'></ccm-mc_builder-2-0-0>

@@ -1,0 +1,110 @@
+/**
+ * @overview default layout of ccmjs-based web component for building a multiple choice
+ * @author André Kless <andre.kless@web.de.de> 2022
+ * @license The MIT License (MIT)
+ */
+
+.mc_builder {
+  background-color: white;
+  color: black;
+}
+
+.mc_builder.dark_mode {
+  background-color: black;
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  .mc_builder.dark_auto {
+    background-color: black;
+    color: white;
+  }
+}
+
+.mc_builder header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.mc_builder header > * {
+  padding: 0.5em 0 0 0.5em;
+}
+
+.mc_builder header > *:last-child {
+  padding-right: 0.5em;
+}
+
+.mc_builder .bi-question-square {
+  font-size: 1.5rem;
+}
+
+.mc_builder .bi-check2-square {
+  font-size: 1.2rem;
+}
+
+.mc_builder .bi-circle-fill {
+  font-size: 1.5rem;
+}
+
+.mc_builder .btn-group-vertical .bi,
+.mc_builder .bi-circle-fill {
+  cursor: pointer;
+}
+
+.mc_builder tr .p-0 .btn-group-vertical {
+  visibility: hidden;
+}
+
+.mc_builder tr:hover .p-0 .btn-group-vertical {
+  visibility: visible;
+}
+
+.mc_builder *[data-invisible] {
+  visibility: hidden;
+}
+
+.mc_builder *[data-hidden] {
+  display: none;
+}
+
+.mc_builder *[colspan] {
+  padding: 0 !important;
+}
+
+.mc_builder .heading {
+  display: flex !important;
+  align-items: center;
+}
+
+.mc_builder .heading label {
+  margin-bottom: 0;
+}
+
+.mc_builder #mc_builder-acc_settings .btn-sm {
+  padding: .25rem .25rem !important;
+}
+
+.mc_builder .info {
+  margin-bottom: 0.5rem;
+}
+
+.mc_builder input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.mc_builder .form-check {
+  margin-bottom: 0 !important;
+}
+
+.mc_builder .form-check-input {
+  margin-bottom: 3px;
+}
+
+.accordion-button::after {
+  margin-left: 0.3rem;
+}
+
+[data-hidden] {
+  display: none !important;
+}
