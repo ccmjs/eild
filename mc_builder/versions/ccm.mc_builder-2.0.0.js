@@ -38,7 +38,6 @@
       ],
 //    "dark": "auto",
 //    "data": { "store": [ "ccm.store" ] },
-      "defaults": {},
       "editor": [ "ccm.component", "https://ccmjs.github.io/akless-components/quill/versions/ccm.quill-2.0.0.min.js", {
         "options": {
           "modules": {
@@ -55,6 +54,7 @@
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-8.2.0.min.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/mc_builder/resources/templates-v2.mjs" ],
       "ignore": {
+        "defaults": {},
         "de": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ],
         "en": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#en" ],
         "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
@@ -130,7 +130,7 @@
       this.start = async () => {
 
         // get initial multiple choice configuration (priority order: [high] this.data -> this.defaults -> this.tool.config [low])
-        mc_config = await adjustDataset( await $.integrate( await $.dataset( this.data ), await $.integrate( this.defaults, this.tool.config ) ) );
+        mc_config = await adjustDataset( await $.integrate( await $.dataset( this.data ), await $.integrate( this.ignore.defaults, this.tool.config ) ) );
 
         this.logger && this.logger.log( 'start', $.clone( mc_config ) );                      // logging of 'start' event
         this.render( mc_config );                                                             // render webpage area
