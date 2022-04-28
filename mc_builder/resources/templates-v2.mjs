@@ -21,7 +21,7 @@ export function main( config, builder, events ) {
 
   // adapt initial multiple choice configuration
   config.escape = !config.escape;
-  if ( config.lang.toString() === builder.ignore.lang.toString() ) config.lang = 'lang';
+  if ( config.lang && config.lang.toString() === builder.ignore.lang.toString() ) config.lang = 'lang';
   else if ( config.text.toString() === builder.ignore.de.toString() ) config.lang = 'de';
   else if ( config.text.toString() === builder.ignore.en.toString() ) config.lang = 'en';
 
