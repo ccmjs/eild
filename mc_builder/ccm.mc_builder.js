@@ -24,7 +24,7 @@
 ( () => {
   const component = {
     name: 'mc_builder',
-    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.js',
+    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "css": [ "ccm.load",
         [  // serial
