@@ -29,15 +29,43 @@
 }
 
 .entity {
-  min-width: 10rem;
+  width: 240px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .vertical {
   transform: rotate( 90deg );
 }
 
+.line1 {
+  border: 1px solid black;
+  width: 50%;
+  justify-self: end;
+}
+
+.line2 {
+  border: 1px solid black;
+  width: 100%;
+}
+
+.line3 {
+  border: 1px solid black;
+  width: 50%;
+  justify-self: start;
+}
+
+.line4 {
+  border: 1px solid black;
+  height: 100%;
+}
+
 #relation {
   position: relative;
+  width: 240px;
+  height: 100px;
 }
 
 #relation > div {

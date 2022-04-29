@@ -10,6 +10,12 @@
  */
 export const phrases = [
   {
+    "text": "Rekursive Beziehung",
+    "entities": [ "Mitarbeiter", "Mitarbeiter" ],
+    "relation": "ist Chef von",
+    "solution": [ "cn", "1" ]
+  },
+  {
     "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
     "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
     "relation": "eingesetzt",

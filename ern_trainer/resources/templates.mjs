@@ -116,19 +116,20 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
    * @returns {TemplateResult}
    */
   function diagram( is_solution ) {
+    const is_recursive = phrase.entities.length === 2 && phrase.entities[ 0 ] === phrase.entities[ 1 ];
     return html`
       <section class="diagram px-2 py-3">
-        <div class="text-center text-nowrap lead">
-          
+        <div class="text-center lead">
+
+          ${ line( 1 ) }
+          ${ line( 2 ) }
+          ${ is_recursive ? line( 3 ) : entity( 3 ) }
           <div></div>
           <div></div>
-          ${ entity( 3 ) }
+
+          ${ line( 4 ) }
           <div></div>
-          <div></div>
-  
-          <div></div>
-          <div></div>
-          ${ connection( 3 ) }
+          ${ connection( is_recursive ? 2 : 3 ) }
           <div></div>
           <div></div>
   
@@ -138,8 +139,8 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
             <img src="${ app.notation.images[ 5 ] }">
             <div>${ phrase.relation }</div>
           </div>
-          ${ connection( 2 ) }
-          ${ entity( 2 ) }
+          ${ connection( is_recursive ? 0 : 2 ) }
+          ${ entity( is_recursive ? 0 : 2 ) }
   
           <div></div>
           <div></div>
@@ -158,29 +159,40 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
     `;
 
     /**
-     * returns the HTML template for an entity
-     * @param {number} nr - number of the entity
-     * @returns {TemplateResult}
-     */
-    function entity( nr ) {
-      return phrase.entities[ nr - 1 ] ? html`
-      <div class="entity border rounded p-3${ !is_solution && app.feedback && section.correct !== undefined && ( section.input[ nr - 1 ] === section.solution[ nr - 1 ] ? ' correct' : ' failed' ) || '' }">
-        ${ phrase.entities[ nr - 1 ] }
-      </div>
-    ` : html`<div></div>`;
-    }
-
-    /**
      * returns the HTML template for an entity connection
      * @param {number} nr - number of the entity
      * @returns {TemplateResult}
      */
     function connection( nr ) {
       return html`
-      <div>
-        <img class="${ nr > 2 ? 'vertical' : '' }" src="${ app.notation.images[ app.values.indexOf( section[ is_solution ? 'solution' : 'input' ][ nr - 1 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ nr - 1 ] }>
-      </div>
-    `;
+        <div>
+          <img class="${ nr > 2 || is_recursive && nr === 2 ? 'vertical' : '' }" src="${ app.notation.images[ app.values.indexOf( section[ is_solution ? 'solution' : 'input' ][ nr - 1 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ nr - 1 ] }>
+        </div>
+      `;
+    }
+
+    /**
+     * returns the HTML template for an entity
+     * @param {number} nr - number of the entity
+     * @returns {TemplateResult}
+     */
+    function entity( nr ) {
+      return phrase.entities[ nr - 1 ] ? html`
+        <div class="entity border rounded p-3${ !is_solution && app.feedback && section.correct !== undefined && ( section.input[ nr - 1 ] === section.solution[ nr - 1 ] ? ' correct' : ' failed' ) || '' }">
+          ${ phrase.entities[ nr - 1 ] }
+        </div>
+      ` : html`<div></div>`;
+    }
+
+    /**
+     * returns the HTML template for a connection line
+     * @param {number} nr - line number
+     * @returns {TemplateResult}
+     */
+    function line( nr ) {
+      return is_recursive ? html`
+        <div class="line${ nr }"></div>
+      ` : html`<div></div>`;
     }
 
   }
