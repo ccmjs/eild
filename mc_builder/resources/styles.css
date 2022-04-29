@@ -81,6 +81,14 @@
   margin-bottom: 0;
 }
 
+.mc_builder #mc_builder-acc_questions table button {
+  margin: 0;
+}
+
+.mc_builder #mc_builder-acc_questions .btn-sm {
+  padding: 0.25rem 0.5rem !important;
+}
+
 .mc_builder #mc_builder-acc_settings .btn-sm {
   padding: .25rem .25rem !important;
 }
