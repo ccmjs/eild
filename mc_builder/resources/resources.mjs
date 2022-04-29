@@ -183,11 +183,20 @@ export const dms = {
   "css": [ "ccm.load", "https://ccmjs.github.io/eild/mc_builder/resources/styles.css" ],
   "dark": false,
   "ignore.defaults": {
+    "dark": false,
     "feedback": true,
+    "questions": [
+      {
+        "text": "Frage 1",
+        "answers": [
+          { "text": "Antwort A", "solution": true },
+          { "text": "Antwort B", "solution": false }
+        ]
+      }
+    ],
+    "random": true,
     "retry": true,
     "shuffle": true,
-    "random": true,
-    "dark": false,
     "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
   },
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
