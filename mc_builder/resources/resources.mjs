@@ -180,7 +180,7 @@ export const demo = {
  * @type {Object}
  */
 export const dms = {
-  "css": [ "ccm.load", "https://ccmjs.github.io/eild/mc_builder/resources/default.css" ],
+  "css": [ "ccm.load", "https://ccmjs.github.io/eild/mc_builder/resources/styles.css" ],
   "dark": false,
   "ignore.defaults": {
     "feedback": true,
