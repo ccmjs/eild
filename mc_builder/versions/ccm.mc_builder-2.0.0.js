@@ -393,9 +393,9 @@
             feedback: true,
             logger: '',
             number: '',
-            onfinish: '',
+            onfinish: { restart: true },
             questions: [ config.questions[ question_key ] ],
-            retry: true,
+            retry: '',
             shuffle: '',
             user: ''
           } );
