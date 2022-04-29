@@ -40,7 +40,6 @@
       },
 //    "number": 1,
 //    "oncancel": event => console.log( event ),
-//    "onchange": event => console.log( event ),
       "onfinish": { "restart": true },
 //    "onstart": event => console.log( event ),
       "phrases": [ "ccm.load", "https://ccmjs.github.io/eild/ern_trainer/resources/resources.mjs#phrases" ],
@@ -188,7 +187,6 @@
         /** when 'cancel' button is clicked */
         onCancel: () => {
           if ( !this.oncancel ) return;
-          this.oncancel( { instance: this, phrase_nr: phrase_nr } );
           this.onchange( { event: 'cancel', instance: this, phrase: phrase_nr } );
         },
 
@@ -218,10 +216,15 @@
           delete section.correct;
           this.element.classList.remove( 'failed' );
           render();
+          this.onchange && this.onchange( { event: 'retry', instance: this, phrase: phrase_nr } );
         },
 
         /** when 'solution' button is clicked */
-        onSolution: () => this.show_solution && data.sections[ phrase_nr - 1 ].correct === false && render( true ),
+        onSolution: () => {
+          if ( !this.show_solution || data.sections[ phrase_nr - 1 ].correct !== false ) return;
+          render( true );
+          this.onchange && this.onchange( { event: 'solution', instance: this, phrase: phrase_nr } );
+        },
 
         /** when 'next' button is clicked */
         onNext: () => {
