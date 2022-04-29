@@ -41,24 +41,24 @@
 }
 
 .line1 {
-  border: 1px solid black;
+  border-bottom: 2px solid black;
   width: 50%;
   justify-self: end;
 }
 
 .line2 {
-  border: 1px solid black;
+  border-bottom: 2px solid black;
   width: 100%;
 }
 
 .line3 {
-  border: 1px solid black;
+  border-bottom: 2px solid black;
   width: 50%;
   justify-self: start;
 }
 
 .line4 {
-  border: 1px solid black;
+  border-right: 2px solid black;
   height: 100%;
 }
 

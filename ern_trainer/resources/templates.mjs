@@ -177,8 +177,9 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
      * @returns {TemplateResult}
      */
     function entity( nr ) {
+      const check = nr => section.input[ nr - 1 ] === section.solution[ nr - 1 ];
       return phrase.entities[ nr - 1 ] ? html`
-        <div class="entity border rounded p-3${ !is_solution && app.feedback && section.correct !== undefined && ( section.input[ nr - 1 ] === section.solution[ nr - 1 ] ? ' correct' : ' failed' ) || '' }">
+        <div class="entity border rounded p-3${ !is_solution && app.feedback && section.correct !== undefined && ( check( nr ) && ( !is_recursive || check( 2 ) )  ? ' correct' : ' failed' ) || '' }">
           ${ phrase.entities[ nr - 1 ] }
         </div>
       ` : html`<div></div>`;

@@ -10,10 +10,14 @@
  */
 export const phrases = [
   {
-    "text": "Rekursive Beziehung",
+    "text": "Jeder Mitarbeiter hat einen Chef.",
     "entities": [ "Mitarbeiter", "Mitarbeiter" ],
     "relation": "ist Chef von",
-    "solution": [ "cn", "1" ]
+    "solution": [ "n", "1" ],
+    "comments": [
+      "Ein Chef hat mindestens einen Mitarbeiter, sonst wäre er kein Chef. Allerdings ist es dann nicht ohne weiteres möglich einen Chef in der Datenbank anzulegen, wenn noch kein Mitarbeiter angegeben werden kann.",
+      "Ein Mitarbeiter hat immer genau einen Chef. Dann muss allerdings auch der oberste Chef einen Chef haben. Für diesen einen Ausnahmefall kann der oberste Chef sich selbst als Chef angeben. Dies ist dann allerdings schwierig in die Datenbank einzutragen, da der oberste Chef noch nicht in der Datebank existiert, deshalb noch nicht auf sich selbst verweisen kann und deshalb nicht angelegt werden kann."
+    ]
   },
   {
     "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
