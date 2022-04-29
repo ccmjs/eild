@@ -195,7 +195,6 @@ export const dms = {
       }
     ],
     "random": true,
-    "retry": true,
     "shuffle": true,
     "text": [ "ccm.load", "https://ccmjs.github.io/eild/mc/resources/resources.mjs#de" ]
   },

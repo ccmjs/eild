@@ -134,7 +134,6 @@ export function main( config, builder, events ) {
           <div id="${ id }-acc_settings" class="accordion-collapse collapse" aria-labelledby="heading_settings" data-bs-parent="#${ id }-acc">
             <div class="accordion-body">
               ${ checkbox( { prop: 'feedback', switcher: true } ) }
-              ${ checkbox( { prop: 'retry', switcher: true, disabled: !config.feedback } ) }
               ${ checkbox( { prop: 'shuffle', switcher: true } ) }
               ${ checkbox( { prop: 'random', switcher: true } ) }
               ${ checkbox( { prop: 'escape', switcher: true } ) }
