@@ -208,14 +208,14 @@
         onLeftInputChange: event => {
           setInput( false, event.target.value );
           render();
-          this.onchange && this.onchange( { event: 'left', instance: this, phrase: phrase_nr } );
+          this.onchange && this.onchange( { event: 'left', instance: this, phrase: phrase_nr, value: event.target.value } );
         },
 
         /** when selected entry of right selector box changes */
         onRightInputChange: event => {
           setInput( true, event.target.value );
           render();
-          this.onchange && this.onchange( { event: 'right', instance: this, phrase: phrase_nr } );
+          this.onchange && this.onchange( { event: 'right', instance: this, phrase: phrase_nr, value: event.target.value } );
         },
 
         /** when 'cancel' button is clicked */

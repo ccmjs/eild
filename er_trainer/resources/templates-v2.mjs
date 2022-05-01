@@ -139,10 +139,10 @@ export function main( app, data, events, phrase, phrase_nr ) {
 
         <!-- Buttons -->
         <section class="d-flex justify-content-center flex-wrap px-2 py-3">
-          <button class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancelClick } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onSubmitClick } ?data-hidden=${ section.correct !== undefined || !section.input[ 0 ] || !section.input[ 1 ] } data-lang="submit">${ app.text.submit }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onNextClick } ?data-hidden=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
-          <button class="btn btn-success m-1" @click=${ events.onFinishClick } ?data-hidden=${ section.correct === undefined || phrase_nr < app.number || !app.onfinish } data-lang="finish">${ app.text.finish }</button>
+          <button id="cancel" class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancelClick } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
+          <button id="submit" class="btn btn-primary m-1" @click=${ events.onSubmitClick } ?data-hidden=${ section.correct !== undefined || !section.input[ 0 ] || !section.input[ 1 ] } data-lang="submit">${ app.text.submit }</button>
+          <button id="next" class="btn btn-primary m-1" @click=${ events.onNextClick } ?data-hidden=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
+          <button id="finish" class="btn btn-success m-1" @click=${ events.onFinishClick } ?data-hidden=${ section.correct === undefined || phrase_nr < app.number || !app.onfinish } data-lang="finish">${ app.text.finish }</button>
         </section>
 
         <!-- Current State -->

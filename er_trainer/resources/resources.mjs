@@ -99,7 +99,7 @@ export const phrases = [
  * @type {Object}
  */
 export const de = {
-  "cancel": "ER-REL-Trainer",
+  "cancel": "ER-Trainer",
   "correct": "Ihre letzte Antwort war richtig!",
   "correct_solution": "Richtige Lösung:",
   "current_state": "Sie haben %% von %% Phrasen richtig beantwortet!",
@@ -124,7 +124,7 @@ export const de = {
  * @type {Object}
  */
 export const en = {
-  "cancel": "ER-REL-Trainer",
+  "cancel": "ER-Trainer",
   "correct": "Your last answer was correct!",
   "correct_solution": "Correct solution:",
   "current_state": "You answered %% of %% phrases correctly!",
