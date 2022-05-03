@@ -81,13 +81,13 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
         </section>
 
         <!-- Buttons -->
-        <section class="d-flex justify-content-center flex-wrap px-2 py-3">
-          <button class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancel } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
-          <button type="submit" form="inputs" class="btn btn-primary m-1" ?disabled=${ section.correct !== undefined } data-lang="submit">${ app.text.submit }</input>
-          <button class="btn btn-primary m-1" @click=${ events.onRetry } ?data-hidden=${ !app.retry } ?disabled=${ show_solution || section.correct !== false } data-lang="retry">${ app.text.retry }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onSolution } ?data-hidden=${ !app.show_solution } ?disabled=${ show_solution || section.correct !== false } data-lang="solution">${ app.text.solution }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onNext } ?disabled=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
-          <button class="btn btn-primary m-1" @click=${ events.onFinish } ?disabled=${ !app.onfinish || section.correct === undefined || phrase_nr < app.number } data-lang="finish">${ app.text.finish }</button>
+        <section id="buttons" class="d-flex justify-content-center flex-wrap px-2 py-3">
+          <button id="cancel" class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancel } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
+          <button id="submit" type="submit" form="inputs" class="btn btn-primary m-1" ?disabled=${ section.correct !== undefined } data-lang="submit">${ app.text.submit }</input>
+          <button id="retry" class="btn btn-primary m-1" @click=${ events.onRetry } ?data-hidden=${ !app.retry } ?disabled=${ show_solution || section.correct !== false } data-lang="retry">${ app.text.retry }</button>
+          <button id="solution" class="btn btn-primary m-1" @click=${ events.onSolution } ?data-hidden=${ !app.show_solution } ?disabled=${ show_solution || section.correct !== false } data-lang="solution">${ app.text.solution }</button>
+          <button id="next" class="btn btn-primary m-1" @click=${ events.onNext } ?disabled=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
+          <button id="finish" class="btn btn-primary m-1" @click=${ events.onFinish } ?disabled=${ !app.onfinish || section.correct === undefined || phrase_nr < app.number } data-lang="finish">${ app.text.finish }</button>
         </section>
 
         <!-- Notation Comment -->
@@ -121,15 +121,15 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
       <section class="diagram px-2 py-3">
         <div class="text-center lead">
 
-          ${ line( 1 ) }
-          ${ line( 2 ) }
-          ${ is_recursive ? line( 3 ) : entity( 3 ) }
+          <div></div>
+          <div></div>
+          ${ entity( 3 ) }
           <div></div>
           <div></div>
 
-          ${ line( 4 ) }
           <div></div>
-          ${ connection( is_recursive ? 2 : 3 ) }
+          <div></div>
+          ${ connection( 3 ) }
           <div></div>
           <div></div>
   
@@ -139,14 +139,14 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
             <img src="${ app.notation.images[ 5 ] }">
             <div>${ phrase.relation }</div>
           </div>
-          ${ connection( is_recursive ? 0 : 2 ) }
-          ${ entity( is_recursive ? 0 : 2 ) }
-  
-          <div></div>
-          <div></div>
-          ${ connection( 4 ) }
-          <div></div>
-          <div></div>
+          ${ connection( 2 ) }
+          ${ is_recursive ? line( 1 ) : entity( 2 ) }
+
+          ${ line( 4 ) }
+          ${ line( 3 ) }
+          ${ is_recursive ? line( 3 ) : connection( 4 ) }
+          ${ line( 3 ) }
+          ${ line( 2 ) }
   
           <div></div>
           <div></div>
@@ -166,7 +166,7 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
     function connection( nr ) {
       return html`
         <div>
-          <img class="${ nr > 2 || is_recursive && nr === 2 ? 'vertical' : '' }" src="${ app.notation.images[ app.values.indexOf( section[ is_solution ? 'solution' : 'input' ][ nr - 1 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ nr - 1 ] }>
+          <img class="${ nr > 2 ? 'vertical' : '' }" src="${ app.notation.images[ app.values.indexOf( section[ is_solution ? 'solution' : 'input' ][ nr - 1 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ nr - 1 ] }>
         </div>
       `;
     }
@@ -207,7 +207,7 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
     return html`
       <div class="col m-2">
         <label for="input${ nr }" class="m-0">
-          <b>${ phrase.entities[ nr - 1 ] }:</b>
+          <b>${ phrase.entities[ nr - 1 ] + ( phrase.roles && phrase.roles[ nr - 1 ] ? ' (' + phrase.roles[ nr - 1 ] + ')' : '' ) }:</b>
         </label>
         <select id="input${ nr }" class="form-select" required @change=${ event => events.onSelect( nr, event.target.value ) }>
           ${ app.text.selection.map( ( caption, i ) => html`
@@ -218,6 +218,7 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
       </div>
     `;
   }
+
 }
 
 /**

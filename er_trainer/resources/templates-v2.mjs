@@ -35,7 +35,7 @@ export function main( app, data, events, phrase, phrase_nr ) {
         <section ?data-hidden=${ Object.keys( app.notations ).length === 1 }>
           <div class="d-flex align-items-center">
             <label for="notation-input" class="m-0 text-nowrap"><b data-lang="notation">${ app.text.notation }</b></label>
-            <select id="notation-input" class="form-control ms-2" @change=${ events.onNotationChange }>
+            <select id="notation-input" class="form-select ms-2" @change=${ events.onNotationChange }>
               ${ Object.values( app.notations ).sort( ( a, b ) =>
                 a.title.localeCompare( b.title ) ).map( ( { key, title } ) =>
                   html`<option value="${ key }" ?selected=${ data.notation === key }>${ title }</option>`
@@ -93,13 +93,13 @@ export function main( app, data, events, phrase, phrase_nr ) {
         <section class="d-flex justify-content-between align-items-center px-2 py-3" ?data-hidden=${ section.correct !== undefined }>
           <div class="d-flex align-items-center pe-2">
             <label for="input1" class="m-0 text-nowrap"><b data-lang="input1">${ app.text.input1 }</b></label>
-            <select id="input1" class="form-control ms-2" @change=${ swap ? events.onRightInputChange : events.onLeftInputChange }>
+            <select id="input1" class="form-select ms-2" @change=${ swap ? events.onRightInputChange : events.onLeftInputChange }>
               ${ app.text.selection.map( ( caption, i ) => html`<option value="${ app.values[ i - 1 ] || '' }" ?selected=${ app.values.indexOf( section.input[ swap ? 1 : 0 ] ) + 1 === i } data-lang="selection.${ i }">${ caption }</option>`) }
             </select>
           </div>
           <div class="d-flex align-items-center ps-2">
             <label for="input2" class="m-0 text-nowrap"><b data-lang="input2">${ app.text.input2 }</b></label>
-            <select id="input2" class="form-control ms-2" @change=${ swap ? events.onLeftInputChange : events.onRightInputChange }>
+            <select id="input2" class="form-select ms-2" @change=${ swap ? events.onLeftInputChange : events.onRightInputChange }>
               ${ app.text.selection.map( ( caption, i ) => html`<option value="${ app.values[ i - 1 ] || '' }" ?selected=${ app.values.indexOf( section.input[ swap ? 0 : 1 ] ) + 1 === i } data-lang="selection.${ i }">${ caption }</option>`) }
             </select>
           </div>

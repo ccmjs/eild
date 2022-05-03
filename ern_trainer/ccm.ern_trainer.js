@@ -23,7 +23,6 @@
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-8.1.0.min.mjs" ],
       "html": [ "ccm.load", "https://ccmjs.github.io/eild/ern_trainer/resources/templates.mjs" ],
 //    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
-//    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.min.js", "greedy" ] ],
       "feedback": true,
       "legend": true,
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.1.0.min.js", {
@@ -39,8 +38,8 @@
         "title": "Abrial"
       },
 //    "number": 1,
-//    "oncancel": event => console.log( event ),
       "onfinish": { "restart": true },
+//    "onready": event => console.log( event ),
 //    "onstart": event => console.log( event ),
       "phrases": [ "ccm.load", "https://ccmjs.github.io/eild/ern_trainer/resources/resources.mjs#phrases" ],
       "retry": true,
@@ -113,8 +112,8 @@
         // use all phrases as default
         if ( !this.number ) this.number = this.phrases.length;
 
-        // log 'ready' event
-        this.logger && this.logger.log( 'ready', $.privatize( this, true ) );
+        // trigger 'ready' event
+        this.onready && await this.onready( { instance: this } );
 
       };
 
@@ -151,9 +150,8 @@
         // set content of modal dialog for legend table
         this.html.render( this.html.legend( this ), this.modal.element.querySelector( 'main' ) );
 
-        // trigger and log 'start' event
+        // trigger 'start' event
         this.onstart && await this.onstart( { instance: this } );
-        this.logger && this.logger.log( 'start', { dataset: $.clone( data ), phrases: $.clone( phrases ) } );
 
       };
 
@@ -181,7 +179,6 @@
           setInput( nr, value );
           render();
           this.onchange && this.onchange( { event: 'input', instance: this, phrase: phrase_nr, nr: nr, value: value } );
-          this.logger && this.logger.log( 'input', { phrase: phrase_nr, nr: nr, value: value } );
         },
 
         /** when 'cancel' button is clicked */
@@ -232,7 +229,6 @@
           reset();
           phrases.shift(); nextPhrase();
           this.onchange && this.onchange( { event: 'next', instance: this, phrase: phrase_nr } );
-          this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );
         },
 
         /** when 'finish' button is clicked */
@@ -240,7 +236,6 @@
           if ( !this.onfinish || data.sections[ phrase_nr - 1 ].correct === undefined || phrase_nr < this.number ) return;
           reset();
           phrases.shift(); this.onfinish && $.onFinish( this );
-          this.logger && this.logger.log( 'finish', this.getValue() );
         }
 
       };

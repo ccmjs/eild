@@ -41,25 +41,29 @@
 }
 
 .line1 {
-  border-bottom: 2px solid black;
-  width: 50%;
-  justify-self: end;
+  border-left: 2px solid black;
+  height: 51px;
+  align-self: end;
 }
 
 .line2 {
-  border-bottom: 2px solid black;
-  width: 100%;
+  border-left: 2px solid black;
+  height: 50px;
 }
 
 .line3 {
-  border-bottom: 2px solid black;
-  width: 50%;
-  justify-self: start;
+  border-top: 2px solid black;
+  width: 100%;
+  align-self: end;
 }
 
 .line4 {
-  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  width: 50%;
   height: 100%;
+  justify-self: end;
+  align-self: end;
 }
 
 #relation {
