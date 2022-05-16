@@ -156,7 +156,8 @@ export const demo = {
     "translations": { "de": de, "en": en }
   } ],
   "phrases": phrases,
-  "text": de
+  "text": de,
+  "shuffle": false
 };
 
 /**
