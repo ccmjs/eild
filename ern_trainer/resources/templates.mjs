@@ -80,16 +80,6 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
           ` ) }
         </section>
 
-        <!-- Buttons -->
-        <section id="buttons" class="d-flex justify-content-center flex-wrap px-2 py-3">
-          <button id="cancel" class="btn btn-outline-danger m-1" id="cancel" @click=${ events.onCancel } ?data-hidden=${ !app.oncancel } data-lang="cancel">${ app.text.cancel }</button>
-          <button id="submit" type="submit" form="inputs" class="btn btn-primary m-1" ?disabled=${ section.correct !== undefined } data-lang="submit">${ app.text.submit }</input>
-          <button id="retry" class="btn btn-primary m-1" @click=${ events.onRetry } ?data-hidden=${ !app.retry } ?disabled=${ show_solution || section.correct !== false } data-lang="retry">${ app.text.retry }</button>
-          <button id="solution" class="btn btn-primary m-1" @click=${ events.onSolution } ?data-hidden=${ !app.show_solution } ?disabled=${ show_solution || section.correct !== false } data-lang="solution">${ app.text.solution }</button>
-          <button id="next" class="btn btn-primary m-1" @click=${ events.onNext } ?disabled=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
-          <button id="finish" class="btn btn-primary m-1" @click=${ events.onFinish } ?disabled=${ !app.onfinish || section.correct === undefined || phrase_nr < app.number } data-lang="finish">${ app.text.finish }</button>
-        </section>
-
         <!-- Notation Comment -->
         <section ?data-hidden=${ !app.text.comment || app.feedback && section.correct !== undefined || section.input.find( value => value ) }>
           <div class="alert alert-info mt-3 mb-0" role="alert" data-lang="comment">${ app.text.comment }</div>
@@ -97,9 +87,18 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
         
         <!-- Correct Solution -->
         <div ?data-hidden=${ !show_solution || !app.feedback || !app.show_solution || section.correct !== false }>
-          <div class="lead text-center mt-2" data-lang="correct_solution">${ app.text.correct_solution }</div>
+          <div class="lead text-center mt-3" data-lang="correct_solution">${ app.text.correct_solution }</div>
           ${ diagram( true ) }
         </div>
+
+        <!-- Buttons -->
+        <section id="buttons" class="d-flex justify-content-center flex-wrap px-2 py-3">
+          <button id="submit" type="submit" form="inputs" class="btn btn-primary m-1" ?disabled=${ section.correct !== undefined } data-lang="submit">${ app.text.submit }</input>
+          <button id="retry" class="btn btn-primary m-1" @click=${ events.onRetry } ?data-hidden=${ !app.retry } ?disabled=${ show_solution || section.correct !== false } data-lang="retry">${ app.text.retry }</button>
+          <button id="solution" class="btn btn-primary m-1" @click=${ events.onSolution } ?data-hidden=${ !app.show_solution } ?disabled=${ show_solution || section.correct !== false } data-lang="solution">${ app.text.solution }</button>
+          <button id="next" class="btn btn-primary m-1" @click=${ events.onNext } ?disabled=${ section.correct === undefined || phrase_nr === app.number } data-lang="next">${ app.text.next }</button>
+          <button id="finish" class="btn btn-primary m-1" @click=${ events.onFinish } ?disabled=${ !app.onfinish || section.correct === undefined || phrase_nr < app.number } data-lang="finish">${ app.text.finish }</button>
+        </section>
 
         <!-- Logos -->
         <section class="mx-3 mt-3 text-center">

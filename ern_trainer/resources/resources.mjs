@@ -10,29 +10,6 @@
  */
 export const phrases = [
   {
-    "text": "Jeder Mitarbeiter hat einen Chef.",
-    "entities": [ "Mitarbeiter", "Mitarbeiter" ],
-    "roles": [ "Chef", "" ],
-    "relation": "ist Chef von",
-    "solution": [ "n", "1" ],
-    "comments": [
-      "Ein Chef hat mindestens einen Mitarbeiter, sonst wäre er kein Chef. Allerdings ist es dann nicht ohne weiteres möglich einen Chef in der Datenbank anzulegen, wenn noch kein Mitarbeiter angegeben werden kann.",
-      "Ein Mitarbeiter hat immer genau einen Chef. Dann muss allerdings auch der oberste Chef einen Chef haben. Für diesen einen Ausnahmefall kann der oberste Chef sich selbst als Chef angeben. Dies ist dann allerdings schwierig in die Datenbank einzutragen, da der oberste Chef noch nicht in der Datebank existiert, deshalb noch nicht auf sich selbst verweisen kann und deshalb nicht angelegt werden kann."
-    ]
-  },
-  {
-    "text": "Ein Haus hat Eigentümer und Eigentümer haben Häuser.",
-    "entities": [ "Haus", "Eigentümer" ],
-    "relation": "hat",
-    "solution": [ "n", "n" ]
-  },
-  {
-    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
-    "entities": [ "Veranstaltung", "Teilnehmer", "Location", "Sponsor" ],
-    "relation": "findet statt",
-    "solution": [ "cn", "cn", "cn", "cn" ]
-  },
-  {
     "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
     "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
     "relation": "eingesetzt",
@@ -44,14 +21,26 @@ export const phrases = [
     ]
   },
   {
-    "text": "Studenten besuchen Lehrveranstaltungen, in denen sie vom Professor am Ende geprüft werden. Manche Studenten brechen das Studium vorzeitig ab und manche Professoren sind nur forschend tätig.",
-    "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
-    "relation": "prüft",
-    "solution": [ "cn", "cn", "cn" ],
+    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
+    "entities": [ "Veranstaltung", "Teilnehmer", "Location", "Sponsor" ],
+    "relation": "findet statt",
+    "solution": [ "cn", "cn", "cn", "cn" ]
+  },
+  {
+    "text": "Ein Haus hat Eigentümer und Eigentümer haben Häuser.",
+    "entities": [ "Haus", "Eigentümer" ],
+    "relation": "hat",
+    "solution": [ "n", "n" ]
+  },
+  {
+    "text": "Jeder Mitarbeiter hat einen Chef.",
+    "entities": [ "Mitarbeiter", "Mitarbeiter" ],
+    "roles": [ "Chef", "" ],
+    "relation": "ist Chef von",
+    "solution": [ "n", "1" ],
     "comments": [
-      "Ein Student wird in mehreren Lehrveranstaltungen vom jeweiligen Professoren geprüft oder in gar keiner (hat sich nie für eine Prüfung angemeldet).",
-      "Ein Professor prüft Studenten in mehreren Lehrveranstaltungen oder in gar keiner (nur forschend tätig).",
-      "In einer Lehrveranstaltung wird mindestens ein Student vom Professor geprüft, allerdings erst am Ende des Semesters. Das bedeutet, dass eine Lehrveranstaltung schon vor der ersten Prüfung angelegt werden muss."
+      "Ein Chef hat mindestens einen Mitarbeiter, sonst wäre er kein Chef. Allerdings ist es dann nicht ohne weiteres möglich einen Chef in der Datenbank anzulegen, wenn noch kein Mitarbeiter angegeben werden kann.",
+      "Ein Mitarbeiter hat immer genau einen Chef. Dann muss allerdings auch der oberste Chef einen Chef haben. Für diesen einen Ausnahmefall kann der oberste Chef sich selbst als Chef angeben. Dies ist dann allerdings schwierig in die Datenbank einzutragen, da der oberste Chef noch nicht in der Datebank existiert, deshalb noch nicht auf sich selbst verweisen kann und deshalb nicht angelegt werden kann."
     ]
   },
   {
@@ -63,6 +52,17 @@ export const phrases = [
       "Zu einem Vater gibt es genau eine Mutter und mindestens ein Kind.",
       "Zu einer Mutter gibt es genau einen Vater und mindestens ein Kind.",
       "Ein Kind hat genau eine Mutter und einen Vater."
+    ]
+  },
+  {
+    "text": "Studenten besuchen Lehrveranstaltungen, in denen sie vom Professor am Ende geprüft werden. Manche Studenten brechen das Studium vorzeitig ab und manche Professoren sind nur forschend tätig.",
+    "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
+    "relation": "prüft",
+    "solution": [ "cn", "cn", "cn" ],
+    "comments": [
+      "Ein Student wird in mehreren Lehrveranstaltungen vom jeweiligen Professoren geprüft oder in gar keiner (hat sich nie für eine Prüfung angemeldet).",
+      "Ein Professor prüft Studenten in mehreren Lehrveranstaltungen oder in gar keiner (nur forschend tätig).",
+      "In einer Lehrveranstaltung wird mindestens ein Student vom Professor geprüft, allerdings erst am Ende des Semesters. Das bedeutet, dass eine Lehrveranstaltung schon vor der ersten Prüfung angelegt werden muss."
     ]
   }
 ];
@@ -116,35 +116,39 @@ export const en = {
 };
 
 /**
- * test configuration (relative paths)
+ * local configuration (relative paths)
  * @type {Object}
  */
-export const test = {
+export const local = {
   "css.1.1": "./../ern_trainer/resources/styles.css",
   "helper": [ "ccm.load", "./../libs/ccm/helper.mjs" ],
   "html.1": "./../ern_trainer/resources/templates.mjs",
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
   } ],
+  /*
   "onchange": event => {
     if ( event.event !== 'next' ) return;                                                         // when a new phrase starts
     const phrase = event.instance.getValue().sections[ event.phrase - 1 ];                        // and when the new phrase
     if ( phrase.entities.length !== 2 || phrase.entities[ 0 ] === phrase.entities[ 1 ] ) return;  // is a non-recursive binary relation
     switch_to_er( event.instance, phrase );                                                       // then use ER Trainer for this phrase
   },
+   */
   "onfinish": { "log": false, "restart": true },
+  /*
   "onstart": event => {
     const phrase = event.instance.getValue().sections[ 0 ];                                       // when the first phrase
     if ( phrase.entities.length !== 2 || phrase.entities[ 0 ] === phrase.entities[ 1 ] ) return;  // is a non-recursive binary relation
     switch_to_er( event.instance, phrase );                                                       // then use ER Trainer for this phrase
   },
+   */
   "phrases": phrases,
   "shuffle": false,
   "text": en
 };
 
 /**
- * demo configuration (absolute paths)
+ * demo configuration
  * @type {Object}
  */
 export const demo = {

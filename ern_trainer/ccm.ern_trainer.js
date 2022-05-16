@@ -38,6 +38,7 @@
         "title": "Abrial"
       },
 //    "number": 1,
+//    "onchange": event => console.log( event ),
       "onfinish": { "restart": true },
 //    "onready": event => console.log( event ),
 //    "onstart": event => console.log( event ),
@@ -83,10 +84,6 @@
 
         // set shortcut to help functions
         $ = Object.assign( {}, this.ccm.helper, this.helper ); $.use( this.ccm );
-
-        // pass setting for dark mode to child instances
-        if ( this.lang ) this.lang.dark = this.dark;
-        if ( this.user ) this.user.dark = this.dark;
 
         // set title of modal dialog
         this.modal.title = this.text.legend;
@@ -174,17 +171,11 @@
           this.onchange && this.onchange( { event: 'legend', instance: this } );
         },
 
-        /** when selected entry of left selector box changes */
+        /** when selected entry of a selector box changes */
         onSelect: ( nr, value ) => {
           setInput( nr, value );
           render();
           this.onchange && this.onchange( { event: 'input', instance: this, phrase: phrase_nr, nr: nr, value: value } );
-        },
-
-        /** when 'cancel' button is clicked */
-        onCancel: () => {
-          if ( !this.oncancel ) return;
-          this.onchange( { event: 'cancel', instance: this, phrase: phrase_nr } );
         },
 
         /** when 'submit' button is clicked */
@@ -203,7 +194,7 @@
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
           render();
           this.onchange && this.onchange( { event: 'submit', instance: this, phrase: phrase_nr } );
-          !this.feedback && events.onNextClick();
+          !this.feedback && events.onNext();
         },
 
         /** when 'retry' button is clicked */
