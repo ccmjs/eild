@@ -1,5 +1,5 @@
 /**
- * @overview HTML templates of ccmjs-based web component for training of a binary relationship in an ER diagram
+ * @overview HTML templates of ccmjs-based web component for training of binary relations in an ER diagram
  * @author André Kless <andre.kless@web.de> 2022
  */
 

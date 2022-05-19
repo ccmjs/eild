@@ -12,32 +12,36 @@ export const notations = {
   "abrial": {
     "key": "abrial",
     "title": "Abrial",
-    "swap": true,
     "centered": true,
     "comment": "Die Abrial bzw. (min,max)-Notation gibt für jeden an einer Beziehung beteiligten Entitätstyp an, mit wie vielen Entitäten auf der anderen Seite eine Entität dieses Typs mindestens und höchstens in Beziehung steht."
   },
   "arrow": {
     "key": "arrow",
     "title": "Pfeilnotation",
+    "swap": true,
     "left": "mirrored"
   },
   "chen": {
     "key": "chen",
     "title": "Chen",
+    "swap": true,
     "centered": true,
     "comment": "In der Chen-Notation sind nur einfache und mehrfache Beziehungstypen (1 und N) darstellbar, da die Beziehungsmengen bei Chen nur in ihrer Maximalaussage genannt werden. Bei Phrasen die auf einen bedingten oder mehrfach bedingten Beziehungstyp hindeuten, sollte besser zu einer anderen Notation gewechselt werden."
   },
   "crow": {
     "key": "crow",
     "title": "Krähenfuß",
+    "swap": true,
     "left": "mirrored"
   },
   "mc": {
     "key": "mc",
+    "swap": true,
     "title": "MC"
   },
   "uml": {
     "key": "uml",
+    "swap": true,
     "title": "UML"
   }
 };
@@ -49,47 +53,56 @@ export const notations = {
 export const phrases = [
   {
     "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
-    "relationship": [ "Topf", "hat", "Deckel" ],
-    "solution": [ "1", "c" ]
+    "entities": [ "Topf", "Deckel" ],
+    "relation": "hat",
+    "solution": [ "c", "1" ]
   },
   {
     "text": "Zu jedem Patienten gibt es eine Patientenakte.",
-    "relationship": [ "Patient", "hat", "Patientenakte" ],
+    "entities": [ "Patient", "Patientenakte" ],
+    "relation": "hat",
     "solution": [ "1", "1" ]
   },
   {
     "text": "Ein Rucksack kann mehrere Gegenstände enthalten.",
-    "relationship": [ "Rucksack", "enthält", "Gegenstand" ],
-    "solution": [ "c", "cn" ]
+    "entities": [ "Rucksack", "Gegenstand" ],
+    "relation": "enthält",
+    "solution": [ "cn", "c" ]
   },
   {
     "text": "Ein Wald hat Bäume.",
-    "relationship": [ "Wald", "hat", "Baum" ],
-    "solution": [ "c", "n" ]
+    "entities": [ "Wald", "Baum" ],
+    "relation": "hat",
+    "solution": [ "n", "c" ]
   },
   {
     "text": "Ein Planet kann Monde haben, die ihn umkreisen.",
-    "relationship": [ "Planet", "hat", "Mond" ],
-    "solution": [ "1", "cn" ]
+    "entities": [ "Planet", "Mond" ],
+    "relation": "hat",
+    "solution": [ "cn", "1" ]
   },
   {
     "text": "Ein Buch hat mehrere Seiten.",
-    "relationship": [ "Buch", "hat", "Seite" ],
-    "solution": [ "1", "n" ]
+    "entities": [ "Buch", "Seite" ],
+    "relation": "hat",
+    "solution": [ "n", "1" ]
   },
   {
     "text": "Kunden kaufen Produkte.",
-    "relationship": [ "Kunde", "hat gekauft", "Produkt" ],
+    "entities": [ "Kunde", "Produkt" ],
+    "relation": "hat gekauft",
     "solution": [ "cn", "cn" ]
   },
   {
     "text": "Auf einem Rezept stehen Zutaten.",
-    "relationship": [ "Rezept", "hat", "Zutat" ],
-    "solution": [ "cn", "n" ]
+    "entities": [ "Rezept", "Zutat" ],
+    "relation": "hat",
+    "solution": [ "n", "cn" ]
   },
   {
     "text": "Ein Haus hat Eigentümer und Eigentümer haben Häuser.",
-    "relationship": [ "Haus", "hat", "Eigentümer" ],
+    "entities": [ "Haus", "Eigentümer" ],
+    "relation": "hat",
     "solution": [ "n", "n" ]
   }
 ];
@@ -113,8 +126,10 @@ export const de = {
   "notation": "Notation:",
   "legend": "Legende",
   "next": "Weiter",
-  "phrase": "Phrase [%%]:",
+  "phrase": "Phrase",
+  "retry": "Korrigieren",
   "selection": [ "Bitte auswählen", "einfach", "bedingt", "mehrfach", "bedingt mehrfach" ],
+  "solution": "Zeige Lösung",
   "submit": "Abschicken",
   "title": "ER-Trainer"
 };
@@ -138,28 +153,30 @@ export const en = {
   "notation": "Notation:",
   "legend": "Legend",
   "next": "Next",
-  "phrase": "Phrase [%%]:",
+  "phrase": "Phrase",
+  "retry": "Retry",
   "selection": [ "Please Choose", "simple", "conditional", "many", "conditional many" ],
+  "solution": "Show Solution",
   "submit": "Submit",
   "title": "ER-Trainer"
 };
 
 /**
- * test configuration (relative paths)
+ * local configuration (relative paths)
  * @type {Object}
  */
-export const test = {
-  "css.1.1": "./../er_trainer/resources/styles.css",
+export const local = {
+  "css.1.1": "./../er_trainer/resources/styles-v2.css",
   "helper": [ "ccm.load", "./../libs/ccm/helper.mjs" ],
-  "html.1": "./../er_trainer/resources/templates-v2.mjs",
+  "html.1": "./../er_trainer/resources/templates-v3.mjs",
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
   } ],
   "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/ccm.log.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
   "notations": notations,
-  "oncancel": [ "ccm.load", "./../er_trainer/helper/helper.mjs#oncancel" ],
-  "onchange": [ "ccm.load", "./../er_trainer/helper/helper.mjs#onchange" ],
-  "onstart": [ "ccm.load", "./../er_trainer/helper/helper.mjs#onstart" ],
+//"oncancel": [ "ccm.load", "./../er_trainer/helper/helper.mjs#oncancel" ],
+//"onchange": [ "ccm.load", "./../er_trainer/helper/helper.mjs#onchange" ],
+//"onstart": [ "ccm.load", "./../er_trainer/helper/helper.mjs#onstart" ],
   "onfinish": { "log": true, "restart": true },
   "phrases": phrases,
   "text": en,
@@ -167,7 +184,7 @@ export const test = {
 };
 
 /**
- * demo configuration (absolute paths)
+ * demo configuration
  * @type {Object}
  */
 export const demo = {

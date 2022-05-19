@@ -1,17 +1,19 @@
 /**
- * @overview ccmjs-based web component for training of a binary relationship in an ER diagram
+ * @overview ccmjs-based web component for training of binary relations in an ER diagram
  * @author André Kless <andre.kless@web.de> 2021-2022
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version latest (3.0.0)
  * @changes
- * version 2.0.0 (08.04.2022)
- * - uses ccmjs v27.3.1 as default
- * - uses helper.mjs v8.1.0 as default
- * - uses Bootstrap 5 as default
- * - uses templates-v2.mjs as default
- * - added optional multilingualism
- * - changed parameter for 'onstart' callback
- * version 1.0.0 (19.04.2021)
+ * version 3.0.0 (19.05.2022)
+ * - removed optional logger
+ * - default layout uses CSS Grid instead of CSS Flexbox
+ * - default notation is 'abrial'
+ * - all phrases are used as default
+ * - added optional onready callback
+ * - added 'retry' button
+ * - added 'show solution' button
+ * - changed properties for a phrase ('entities' and 'relation' instead of 'relationship')
+ * (for older version changes see ccm.er_trainer-2.0.0.js)
  */
 
 ( () => {
@@ -22,7 +24,7 @@
       "css": [ "ccm.load",
         [  // serial
           "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap.min.css",
-          "https://ccmjs.github.io/eild/er_trainer/resources/styles.min.css"
+          "https://ccmjs.github.io/eild/er_trainer/resources/styles-v2.min.css"
         ],
         { "url": "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
       ],
@@ -30,14 +32,12 @@
       "default": {
         "format": "svg",
         "images": [ "e", "1", "c", "n", "cn", "r" ],
-        "left": "copied",
-        "notation": "crow",
+        "notation": "abrial",
         "path": "https://ccmjs.github.io/eild/er_trainer/resources/img/"
       },
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-8.1.0.min.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates-v2.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates-v3.mjs" ],
 //    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
-//    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.min.js", "greedy" ] ],
       "feedback": true,
       "legend": true,
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.1.0.min.js", {
@@ -47,12 +47,13 @@
         "buttons": ""
       } ],
       "notations": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources.mjs#notations" ],
-      "number": 5,
-//    "oncancel": event => console.log( event ),
+//    "number": 1,
 //    "onchange": event => console.log( event ),
       "onfinish": { "restart": true },
+//    "onready": event => console.log( event ),
 //    "onstart": event => console.log( event ),
       "phrases": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources.mjs#phrases" ],
+      "retry": true,
       "show_solution": true,
       "shuffle": true,
       "text": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources.mjs#en" ],
@@ -132,8 +133,11 @@
         phrases = $.clone( this.phrases );
         this.shuffle && $.shuffleArray( phrases );
 
-        // log 'ready' event
-        this.logger && this.logger.log( 'ready', $.privatize( this, true ) );
+        // use all phrases as default
+        if ( !this.number ) this.number = this.phrases.length;
+
+        // trigger 'ready' event
+        this.onready && await this.onready( { instance: this } );
 
       };
 
@@ -171,9 +175,8 @@
         // set content of modal dialog for legend table
         this.html.render( this.html.legend( this ), this.modal.element.querySelector( 'main' ) );
 
-        // trigger and log 'start' event
+        // trigger 'start' event
         this.onstart && await this.onstart( { instance: this } );
-        this.logger && this.logger.log( 'start', { dataset: $.clone( data ), phrases: $.clone( phrases ) } );
 
       };
 
@@ -190,68 +193,71 @@
       const events = {
 
         /** when selected entry for displayed notation changes */
-        onNotationChange: event => {
-          data.notation = notation = event.target.value;
-          render();
+        onNotation: ( value, show_solution ) => {
+          data.notation = value;
+          render( show_solution );
           this.onchange && this.onchange( { event: 'notation', instance: this } );
         },
 
         /** when 'legend' button is clicked */
-        onLegendClick: () => {
+        onLegend: () => {
           this.modal.open();
           this.lang.translate( this.modal.element );
           this.onchange && this.onchange( { event: 'legend', instance: this } );
         },
 
-        /** when selected entry of left selector box changes */
-        onLeftInputChange: event => {
-          setInput( false, event.target.value );
+        /** when selected entry of a selector box changes */
+        onSelect: ( nr, value ) => {
+          setInput( nr, value );
           render();
-          this.onchange && this.onchange( { event: 'left', instance: this, phrase: phrase_nr, value: event.target.value } );
-        },
-
-        /** when selected entry of right selector box changes */
-        onRightInputChange: event => {
-          setInput( true, event.target.value );
-          render();
-          this.onchange && this.onchange( { event: 'right', instance: this, phrase: phrase_nr, value: event.target.value } );
-        },
-
-        /** when 'cancel' button is clicked */
-        onCancelClick: () => {
-          if ( !this.oncancel ) return;
-          this.oncancel( { instance: this, phrase_nr: phrase_nr } );
-          this.onchange( { event: 'cancel', instance: this, phrase: phrase_nr } );
+          this.onchange && this.onchange( { event: 'input', instance: this, phrase: phrase_nr, nr: nr, value: value } );
         },
 
         /** when 'submit' button is clicked */
-        onSubmitClick: () => {
+        onSubmit: () => {
           const section = data.sections[ phrase_nr - 1 ];
           section.input = [
-            this.element.querySelector( '#input' + ( this.notations[ data.notation ].swap ? 2 : 1 ) ).value,
-            this.element.querySelector( '#input' + ( this.notations[ data.notation ].swap ? 1 : 2 ) ).value
+            this.element.querySelector( '#input1' ).value,
+            this.element.querySelector( '#input2' ).value
           ];
           section.correct = section.input.toString() === section.solution.toString();
           if ( section.correct ) data.correct++;
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
           render();
           this.onchange && this.onchange( { event: 'submit', instance: this, phrase: phrase_nr } );
-          !this.feedback && events.onNextClick();
+          !this.feedback && events.onNext();
+        },
+
+        /** when 'retry' button is clicked */
+        onRetry: () => {
+          const section = data.sections[ phrase_nr - 1 ];
+          if ( !this.retry || section.correct !== false ) return;
+          delete section.correct;
+          this.element.classList.remove( 'failed' );
+          render();
+          this.onchange && this.onchange( { event: 'retry', instance: this, phrase: phrase_nr } );
+        },
+
+        /** when 'solution' button is clicked */
+        onSolution: () => {
+          if ( !this.show_solution || data.sections[ phrase_nr - 1 ].correct !== false ) return;
+          render( true );
+          this.onchange && this.onchange( { event: 'solution', instance: this, phrase: phrase_nr } );
         },
 
         /** when 'next' button is clicked */
-        onNextClick: () => {
-          this.element.classList.remove( 'correct', 'failed' );
+        onNext: () => {
+          if ( data.sections[ phrase_nr - 1 ].correct === undefined || phrase_nr === this.number ) return;
+          reset();
           phrases.shift(); nextPhrase();
           this.onchange && this.onchange( { event: 'next', instance: this, phrase: phrase_nr } );
-          this.logger && this.logger.log( 'next', { nr: phrase_nr, phrase: $.clone( phrases[ 0 ] ) } );
         },
 
         /** when 'finish' button is clicked */
-        onFinishClick: () => {
-          this.element.classList.remove( 'correct', 'failed' );
+        onFinish: () => {
+          if ( !this.onfinish || data.sections[ phrase_nr - 1 ].correct === undefined || phrase_nr < this.number ) return;
+          reset();
           phrases.shift(); this.onfinish && $.onFinish( this );
-          this.logger && this.logger.log( 'finish', this.getValue() );
         }
 
       };
@@ -268,22 +274,31 @@
         render();
       };
 
-      /** renders current phrase */
-      const render = () => {
-        this.html.render( this.html.main( this, data, events, phrases[ 0 ], phrase_nr ), this.element );
+      /**
+       * renders current phrase
+       * @param {boolean} [show_solution] - reveal correct solution
+       */
+      const render = show_solution => {
+        this.html.render( this.html.main( this, data, events, phrases[ 0 ], phrase_nr, show_solution ), this.element );
         this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = true );  // workaround for lit-html bug
         this.lang && this.lang.translate();
       };
 
+      /** resets visual feedback and selected input values */
+      const reset = () => {
+        this.element.classList.remove( 'correct', 'failed' );
+        this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = false );
+      };
+
       /**
-       * updates selected value of left or right selector box in app state data
-       * @param {boolean} left_or_right - left: false, right: true
+       * updates selected value of a selector box in app state data
+       * @param {number} nr - selector box number (1: left, 2: middle, 3: right)
        * @param {string} value - selected value
        */
-      const setInput = ( left_or_right, value ) => {
+      const setInput = ( nr, value ) => {
         const section = data.sections[ phrase_nr - 1 ];
         if ( !section.input ) section.input = [];
-        section.input[ left_or_right ? 1 : 0 ] = value;
+        section.input[ nr - 1 ] = value;
       };
 
     }
