@@ -106,6 +106,12 @@ export const phrases = [
     "solution": [ "cn", "cn" ]
   },
   {
+    "text": "Ein Mensch kann keine, eine oder mehrere Staatsangehörigkeiten besitzen.",
+    "entities": [ "Mensch", "Staatsangehörigkeit" ],
+    "relation": "besitzt",
+    "solution": [ "cn", "n" ]
+  },
+  {
     "text": "Auf einem Rezept stehen Zutaten.",
     "entities": [ "Rezept", "Zutat" ],
     "relation": "hat",
