@@ -52,10 +52,22 @@ export const notations = {
  */
 export const phrases = [
   {
+    "text": "Zwischen zwei Haltestellen besteht eine oder keine Verbindung.",
+    "entities": [ "Haltestelle 1", "Haltestelle 2" ],
+    "relation": "verbindet",
+    "solution": [ "c", "c" ]
+  },
+  {
     "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
     "entities": [ "Topf", "Deckel" ],
     "relation": "hat",
     "solution": [ "c", "1" ]
+  },
+  {
+    "text": "Eine Stadt kann ein U-Bahnnetz haben.",
+    "entities": [ "Stadt", "U-Bahnnetz" ],
+    "relation": "hat",
+    "solution": [ "1", "c" ]
   },
   {
     "text": "Zu jedem Patienten gibt es eine Patientenakte.",
