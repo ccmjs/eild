@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for training relations in an ER diagram
  * @author André Kless <andre.kless@web.de> 2021-2022
  * @license The MIT License (MIT)
- * @version latest (4.0.0)
+ * @version 4.0.0
  * @changes
  * version 4.0.0 (20.05.2022)
  * - uses helper.mjs v8.2.0 as default
@@ -16,6 +16,7 @@
 ( () => {
   const component = {
     name: 'er_trainer',
+    version: [ 4, 0, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "css": [ "ccm.load",
