@@ -52,16 +52,10 @@ export const notations = {
  */
 export const phrases = [
   {
-    "text": "Zwischen zwei Haltestellen besteht eine oder keine Verbindung.",
-    "entities": [ "Haltestelle 1", "Haltestelle 2" ],
-    "relation": "verbindet",
-    "solution": [ "c", "c" ]
-  },
-  {
-    "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
-    "entities": [ "Topf", "Deckel" ],
+    "text": "Zu jedem Patienten gibt es eine Patientenakte.",
+    "entities": [ "Patient", "Patientenakte" ],
     "relation": "hat",
-    "solution": [ "c", "1" ]
+    "solution": [ "1", "1" ]
   },
   {
     "text": "Eine Stadt kann ein U-Bahnnetz haben.",
@@ -70,22 +64,16 @@ export const phrases = [
     "solution": [ "1", "c" ]
   },
   {
-    "text": "Zu jedem Patienten gibt es eine Patientenakte.",
-    "entities": [ "Patient", "Patientenakte" ],
+    "text": "Zu jedem Topf gibt es einen Deckel, es gibt allerdings auch Töpfe ohne Deckel (z.B. Wok).",
+    "entities": [ "Topf", "Deckel" ],
     "relation": "hat",
-    "solution": [ "1", "1" ]
+    "solution": [ "c", "1" ]
   },
   {
-    "text": "Ein Rucksack kann mehrere Gegenstände enthalten.",
-    "entities": [ "Rucksack", "Gegenstand" ],
-    "relation": "enthält",
-    "solution": [ "cn", "c" ]
-  },
-  {
-    "text": "Ein Wald hat Bäume.",
-    "entities": [ "Wald", "Baum" ],
-    "relation": "hat",
-    "solution": [ "n", "c" ]
+    "text": "Zwischen zwei Haltestellen besteht eine oder keine Verbindung.",
+    "entities": [ "Haltestelle 1", "Haltestelle 2" ],
+    "relation": "verbindet",
+    "solution": [ "c", "c" ]
   },
   {
     "text": "Ein Planet kann Monde haben, die ihn umkreisen.",
@@ -94,10 +82,10 @@ export const phrases = [
     "solution": [ "cn", "1" ]
   },
   {
-    "text": "Ein Buch hat mehrere Seiten.",
-    "entities": [ "Buch", "Seite" ],
-    "relation": "hat",
-    "solution": [ "n", "1" ]
+    "text": "Ein Rucksack kann mehrere Gegenstände enthalten.",
+    "entities": [ "Rucksack", "Gegenstand" ],
+    "relation": "enthält",
+    "solution": [ "cn", "c" ]
   },
   {
     "text": "Kunden kaufen Produkte.",
@@ -106,10 +94,61 @@ export const phrases = [
     "solution": [ "cn", "cn" ]
   },
   {
+    "text": "Studenten besuchen Lehrveranstaltungen, in denen sie vom Professor am Ende geprüft werden. Manche Studenten brechen das Studium vorzeitig ab und manche Professoren sind nur forschend tätig.",
+    "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
+    "relation": "prüft",
+    "solution": [ "cn", "cn", "cn" ],
+    "comments": [
+      "Ein Student wird in mehreren Lehrveranstaltungen vom jeweiligen Professoren geprüft oder in gar keiner (hat sich nie für eine Prüfung angemeldet).",
+      "Ein Professor prüft Studenten in mehreren Lehrveranstaltungen oder in gar keiner (nur forschend tätig).",
+      "In einer Lehrveranstaltung wird mindestens ein Student vom Professor geprüft, allerdings erst am Ende des Semesters. Das bedeutet, dass eine Lehrveranstaltung schon vor der ersten Prüfung angelegt werden muss."
+    ]
+  },
+  {
+    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
+    "entities": [ "Veranstaltung", "Teilnehmer", "Location", "Sponsor" ],
+    "relation": "findet statt",
+    "solution": [ "cn", "cn", "cn", "cn" ]
+  },
+  {
+    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
+    "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
+    "relation": "eingesetzt",
+    "solution": [ "cn", "cn", "n" ],
+    "comments": [
+      "Ein Pilot kann mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden oder auf gar keiner (reiner Charterpilot).",
+      "Ein Flugzeug kann mehrfach von einem Piloten auf einer Flugroute eingesetzt werden oder auf gar keiner (reine Charterflüge).",
+      "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden)."
+    ]
+  },
+  {
     "text": "Ein Mensch kann keine, eine oder mehrere Staatsangehörigkeiten besitzen.",
     "entities": [ "Mensch", "Staatsangehörigkeit" ],
     "relation": "besitzt",
     "solution": [ "cn", "n" ]
+  },
+  {
+    "text": "Ein Buch hat mehrere Seiten.",
+    "entities": [ "Buch", "Seite" ],
+    "relation": "hat",
+    "solution": [ "n", "1" ]
+  },
+  {
+    "text": "Jeder Mitarbeiter hat einen Chef.",
+    "entities": [ "Mitarbeiter", "Mitarbeiter" ],
+    "roles": [ "Chef", "" ],
+    "relation": "ist Chef von",
+    "solution": [ "n", "1" ],
+    "comments": [
+      "Ein Chef hat mindestens einen Mitarbeiter, sonst wäre er kein Chef. Allerdings ist es dann nicht ohne weiteres möglich einen Chef in der Datenbank anzulegen, wenn noch kein Mitarbeiter angegeben werden kann.",
+      "Ein Mitarbeiter hat immer genau einen Chef. Dann muss allerdings auch der oberste Chef einen Chef haben. Für diesen einen Ausnahmefall kann der oberste Chef sich selbst als Chef angeben. Dies ist dann allerdings schwierig in die Datenbank einzutragen, da der oberste Chef noch nicht in der Datebank existiert, deshalb noch nicht auf sich selbst verweisen kann und deshalb nicht angelegt werden kann."
+    ]
+  },
+  {
+    "text": "Ein Wald hat Bäume.",
+    "entities": [ "Wald", "Baum" ],
+    "relation": "hat",
+    "solution": [ "n", "c" ]
   },
   {
     "text": "Auf einem Rezept stehen Zutaten.",
@@ -133,46 +172,7 @@ export const phrases = [
       "Zu einer Mutter gibt es genau einen Vater und mindestens ein Kind.",
       "Ein Kind hat genau eine Mutter und einen Vater."
     ]
-  },
-  {
-    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
-    "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
-    "relation": "eingesetzt",
-    "solution": [ "cn", "cn", "n" ],
-    "comments": [
-      "Ein Pilot kann mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden oder auf gar keiner (reiner Charterpilot).",
-      "Ein Flugzeug kann mehrfach von einem Piloten auf einer Flugroute eingesetzt werden oder auf gar keiner (reine Charterflüge).",
-      "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden)."
-    ]
-  },
-  {
-    "text": "Studenten besuchen Lehrveranstaltungen, in denen sie vom Professor am Ende geprüft werden. Manche Studenten brechen das Studium vorzeitig ab und manche Professoren sind nur forschend tätig.",
-    "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
-    "relation": "prüft",
-    "solution": [ "cn", "cn", "cn" ],
-    "comments": [
-      "Ein Student wird in mehreren Lehrveranstaltungen vom jeweiligen Professoren geprüft oder in gar keiner (hat sich nie für eine Prüfung angemeldet).",
-      "Ein Professor prüft Studenten in mehreren Lehrveranstaltungen oder in gar keiner (nur forschend tätig).",
-      "In einer Lehrveranstaltung wird mindestens ein Student vom Professor geprüft, allerdings erst am Ende des Semesters. Das bedeutet, dass eine Lehrveranstaltung schon vor der ersten Prüfung angelegt werden muss."
-    ]
-  },
-  {
-    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
-    "entities": [ "Veranstaltung", "Teilnehmer", "Location", "Sponsor" ],
-    "relation": "findet statt",
-    "solution": [ "cn", "cn", "cn", "cn" ]
-  },
-  {
-    "text": "Jeder Mitarbeiter hat einen Chef.",
-    "entities": [ "Mitarbeiter", "Mitarbeiter" ],
-    "roles": [ "Chef", "" ],
-    "relation": "ist Chef von",
-    "solution": [ "n", "1" ],
-    "comments": [
-      "Ein Chef hat mindestens einen Mitarbeiter, sonst wäre er kein Chef. Allerdings ist es dann nicht ohne weiteres möglich einen Chef in der Datenbank anzulegen, wenn noch kein Mitarbeiter angegeben werden kann.",
-      "Ein Mitarbeiter hat immer genau einen Chef. Dann muss allerdings auch der oberste Chef einen Chef haben. Für diesen einen Ausnahmefall kann der oberste Chef sich selbst als Chef angeben. Dies ist dann allerdings schwierig in die Datenbank einzutragen, da der oberste Chef noch nicht in der Datebank existiert, deshalb noch nicht auf sich selbst verweisen kann und deshalb nicht angelegt werden kann."
-    ]
-  },
+  }
 ];
 
 /**
