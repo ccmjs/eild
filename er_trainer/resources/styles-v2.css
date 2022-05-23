@@ -70,6 +70,31 @@
   align-self: end;
 }
 
+.line5 {
+  border-bottom: 2px solid black;
+  width: 60px;
+  align-self: end;
+}
+
+.line6 {
+  border-bottom: 2px solid black;
+  width: 121px;
+  justify-self: end;
+  align-self: end;
+}
+
+.line7 {
+  border-bottom: 2px solid black;
+  width: 121px;
+  justify-self: start;
+  align-self: end;
+}
+
+.line8 {
+  border: 1px solid black;
+  height: 50px;
+}
+
 #relation {
   position: relative;
   width: 240px;
@@ -85,6 +110,10 @@
 
 #relation > div:not( *[data-centered] ) {
   padding-bottom: 20px;
+}
+
+#relation > *[data-down] {
+  margin-top: 10px;
 }
 
 /* Feedback */
@@ -117,12 +146,14 @@
   border-color: #ebccd1;
 }
 
-.entity.correct {
+.entity.correct,
+#relation.correct {
   background-color: #dff0d8;
   border-color: #d6e9c6 !important;
 }
 
-.entity.failed {
+.entity.failed,
+#relation.failed {
   background-color: #f2dede;
   border-color: #ebccd1 !important;
 }
