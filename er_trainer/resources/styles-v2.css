@@ -29,6 +29,8 @@
 }
 
 .entity {
+  border: 2px solid black;
+  border-radius: 5px;
   width: 240px;
   height: 100px;
   display: flex;

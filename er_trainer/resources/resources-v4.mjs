@@ -59,7 +59,11 @@ export const phrases = [
   {
     "text": "An einer Hochschule gibt es Mitarbeiter und Studenten.",
     "entities": [ "Hochschulangehöriger", "Mitarbeiter", "Student" ],
-    "solution": [ "t", "n" ]
+    "solution": [ "t", "n" ],
+    "comments": [
+      "Neben Mitarbeitern und Studenten gibt es keine anderen Personengruppen an der Hochschule.",
+      "Ein Student kann gleichzeitig auch ein Mitarbeiter (studentische Hilfskraft) und ein Mitarbeiter auch Student sein."
+    ]
   },
   {
     "text": "Ein Paketbote ist in der Regel ein Angestellter von DHL, Hermes oder DPD.",
