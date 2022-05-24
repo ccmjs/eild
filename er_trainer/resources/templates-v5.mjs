@@ -125,13 +125,13 @@ export function main( app, data, events, phrase, phrase_nr, show_solution ) {
           <button id="finish" class="btn btn-primary m-1" @click=${ events.onFinish } ?disabled=${ !app.onfinish || section.correct === undefined || phrase_nr < app.number } data-lang="finish">${ app.text.finish }</button>
         </section>
 
-        <!-- Logos -->
-        <section class="mx-3 mt-3 text-center">
-          <img src="https://ccmjs.github.io/eild/logos.jpg">
-        </section>
-
       </div>
     </main>
+
+    <!-- Logos -->
+    <aside class="mx-3 mt-3 text-center">
+      <img src="https://ccmjs.github.io/eild/logos.jpg">
+    </aside>
   `;
 
   /**
