@@ -44,7 +44,7 @@
         "buttons": ""
       } ],
       "notations": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources-v4.mjs#notations" ],
-//    "number": 1,
+//    "number": 5,
 //    "onchange": event => console.log( event ),
       "onfinish": { "restart": true },
 //    "onready": event => console.log( event ),
@@ -126,15 +126,10 @@
        */
       this.ready = async () => {
 
-        // clone and shuffle original phrases
-        phrases = $.clone( this.phrases );
-        this.shuffle && $.shuffleArray( phrases );
-
-        // use all phrases as default
-        if ( !this.number ) this.number = this.phrases.length;
-
-        // trigger 'ready' event
-        this.onready && await this.onready( { instance: this } );
+        phrases = $.clone( this.phrases );                          // clone original phrases
+        this.shuffle && $.shuffleArray( phrases );                  // shuffle phrases
+        if ( !this.number ) this.number = this.phrases.length;      // use all phrases as default
+        this.onready && await this.onready( { instance: this } );   // trigger 'ready' event
 
       };
 
@@ -216,7 +211,7 @@
           const section = data.sections[ phrase_nr - 1 ];
           if ( section.correct !== undefined || section.input.includes( '' ) ) return;
           section.correct = section.input.toString() === section.solution.toString();
-          if ( section.correct ) data.correct++;
+          section.correct && data.correct++;
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
           render();
           this.onchange && this.onchange( { event: 'submit', instance: this, phrase: phrase_nr } );
