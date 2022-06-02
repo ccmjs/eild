@@ -381,7 +381,7 @@ export const phrases = [
     ]
   },
   {
-    "text": "In einem App Store gibt es die Anforderung, dass für jede App mindestens eine Kategorie hinterlegt sein.",
+    "text": "In einem App Store gibt es die Anforderung, dass für jede App mindestens eine Kategorie angegeben werden muss.",
     "entities": [ "App", "Kategorie" ],
     "relation": "hat",
     "solution": [ "n", "cn" ],
