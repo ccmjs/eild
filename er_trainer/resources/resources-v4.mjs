@@ -422,29 +422,77 @@ export const phrases = [
     ]
   },
   {
-    "text": "Ein Paketbote ist in der Regel ein Angestellter von DHL, Hermes oder DPD.",
-    "entities": [ "Paketbote", "DHL", "Hermes", "DPD" ],
-    "solution": [ "p", "d" ]
+    "text": "Ein Tierheim verwaltet Haustiere, die ein neues Zuhause suchen. Es handelt sich dabei vor allem um Hunde und Katzen.",
+    "entities": [ "Haustier", "Hund", "Katze" ],
+    "solution": [ "p", "d" ],
+    "comments": [
+      "Im Tierheim gibt es auch Haustiere, die weder Hund noch Katze sind.",
+      "Es gibt keine Haustiere, die gleichzeitig Hund und Katze sind."
+    ]
   },
   {
-    "text": "Ein Hund kann ein Schäferhund, ein Mops oder ein Dackel sein.",
+    "text": "Ein Versandhaus möchte verschiedene Paketdienstleister für die Zustellung ihrer Waren beauftragen. Pakete sollen vor allem über DHL, Hermes oder DPD versendet werden.",
+    "entities": [ "Paketdienstleister", "DHL", "Hermes", "DPD" ],
+    "solution": [ "p", "d" ],
+    "comments": [
+      "Aufträge können auch an andere Paketdienstleister vergeben werden (z.B. UPS).",
+      "Ein Auftrag wird immer nur an einen Paketdienstleister vergeben."
+    ]
+  },
+  {
+    "text": "Verwaltet werden sollen die Besucher einer Gründermesse, auf der vor allem Unternehmensgründer und Sponsoren zusammenkommen.",
+    "entities": [ "Besucher", "Gründer", "Sponsor" ],
+    "solution": [ "p", "n" ],
+    "comments": [
+      "Neben Gründer und Sponsoren können auch andere Personengruppen (z.B. Ideengeber) die Messe besuchen.",
+      "Ein Gründer kann auch gleichzeitig ein Sponsor und ein Sponsor selbst auch ein Gründer sein."
+    ]
+  },
+  {
+    "text": "Für eine Hundeshow sollen die teilnehmenden Hunde verwaltet werden. Zur Zeit sind vor allem Schäferhund, Mops und Dackel im Trend.",
     "entities": [ "Hund", "Schäferhund", "Mops", "Dackel" ],
-    "solution": [ "p", "n" ]
+    "solution": [ "p", "n" ],
+    "comments": [
+      "An der Hundeshow nehmen auch andere Hunderassen teil.",
+      "Neben den reinrassigen Hunden nehmen auch Mischlinge teil (z.B. ein Mops-Dackel-Mix)."
+    ]
   },
   {
-    "text": "Ein (biologischer) Elternteil ist entweder Mutter oder Vater.",
+    "text": "Eine Adoptionsvermittlungsstelle möchte die Kontaktdaten der (biologischen) Eltern verwalten. Dabei sollen auch Vater- und Mutter-spezifische Merkmale erfasst und deshalb explizit zwischen beiden unterschieden werden.",
     "entities": [ "Elternteil", "Mutter", "Vater" ],
-    "solution": [ "t", "d" ]
+    "solution": [ "t", "d" ],
+    "comments": [
+      "Ein (biologischer) Elternteil ist entweder Mutter oder Vater.",
+      "Ein Elternteil kann nicht gleichzeitig Vater und Mutter sein."
+    ]
   },
   {
-    "text": "An einer Hochschule gibt es Mitarbeiter und Studenten.",
-    "entities": [ "Hochschulangehöriger", "Mitarbeiter", "Student" ],
+    "text": "Auf dem schnurlosen Haustelefon soll es im Adressbuch grundsätzlich drei Kategorien von Einträgen mit spezifischen Merkmalen geben: Privat, Arbeit und Mobil. Jeder Eintrag muss einer dieser Kategorien zugeordnet werden.",
+    "entities": [ "Adressbuch", "Privat", "Arbeit", "Mobil" ],
+    "solution": [ "t", "d" ],
+    "comments": [
+      "Jeder Adressbucheintrag muss einer der Kategorien zugeordnet werden.",
+      "Ein Eintrag kann nur einer der Kategorien zugeordnet werden."
+    ]
+  },
+  {
+    "text": "An einer Hochschule soll zwischen zwei Personengruppen unterschieden werden. Es gibt Studenten und alle anderen zählen als Mitarbeiter.",
+    "entities": [ "Hochschulangehöriger", "Student", "Mitarbeiter" ],
     "solution": [ "t", "n" ],
     "comments": [
-      "Neben Mitarbeitern und Studenten gibt es keine anderen Personengruppen an der Hochschule.",
+      "Neben Studenten und Mitarbeitern gibt es keine anderen Personengruppen an der Hochschule.",
       "Ein Student kann gleichzeitig auch ein Mitarbeiter (studentische Hilfskraft) und ein Mitarbeiter auch Student sein."
     ]
-  }
+  },
+  {
+    "text": "Für ein Krankenhaus sollen die verschiedenen Personengruppen verwaltet werden. Unterschieden wird dabei zwischen Besuchern, Patienten und Personal.",
+    "entities": [ "Person", "Besucher", "Patient", "Personal" ],
+    "solution": [ "t", "n" ],
+    "comments": [
+      "Im Krankenhaus gibt es nur Besucher, Patienten und Personal. Andere Personengruppen können nicht vorkommen.",
+      "Eine Person kann auch mehreren Personengruppen angehören. Jemand vom Personal kann z.B. auch Patient oder Besucher sein."
+    ]
+  },
 ];
 
 /**
