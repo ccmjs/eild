@@ -108,7 +108,7 @@ export const phrases = [
     "solution": [ "1", "cn" ],
     "comments": [
       "Ein Bewohner wohnt in genau einem Haus.",
-      "Ein Haus hat momentan keinen, einen oder mehrere Bewohner."
+      "Ein Haus hat keinen, einen oder mehrere Bewohner."
     ]
   },
   {
@@ -118,7 +118,7 @@ export const phrases = [
     "solution": [ "1", "n" ],
     "comments": [
       "Ein Verein hat genau eine Kontaktperson.",
-      "Eine Kontaktperson wird bei einem oder mehreren Vereine als Kontakt angegeben."
+      "Eine eingetragene Kontaktperson gehört zu mindestens einem Verein."
     ]
   },
   {
@@ -128,7 +128,7 @@ export const phrases = [
     "solution": [ "1", "n" ],
     "comments": [
       "Ein Musikstück hat genau einen Komponisten.",
-      "Ein Komponist hat ein oder mehrere Musikstücke aus der Datensammlung komponiert."
+      "Zu jedem Komponisten in der Datensammlung gibt es mindestens ein Musikstück."
     ]
   },
   {
@@ -152,23 +152,13 @@ export const phrases = [
     ]
   },
   {
-    "text": "In einem Verkehrsplan kann zwischen zwei Haltestellen eine Verbindung bestehen.",
-    "entities": [ "Haltestelle 1", "Haltestelle 2" ],
+    "text": "Bei der Genforschung werden Chromosome und deren spezifische Merkmale untersucht, wobei sich ein X-Chromosom mit einem X- oder Y-Chromosom verbinden kann und ein Y-Chromosom nur mit einem X-Chromosom.",
+    "entities": [ "X-Chromosom", "Y-Chromosom" ],
     "relation": "verbunden",
     "solution": [ "c", "c" ],
     "comments": [
-      "Zwischen Haltestelle 1 und Haltestelle 2 gibt es eine oder keine Verbindung.",
-      "Zwischen Haltestelle 2 und Haltestelle 1 gibt es eine oder keine Verbindung."
-    ]
-  },
-  {
-    "text": "Bei einer polizeilichen Ermittlung muss vermerkt werden können, ob zwei verdächtige Personen miteinander in Beziehung stehen.",
-    "entities": [ "Person A", "Person B" ],
-    "relation": "steht in Beziehung mit",
-    "solution": [ "c", "c" ],
-    "comments": [
-      "Person A steht mit Person B entweder in Beziehung oder nicht.",
-      "Person B steht mit Person A entweder in Beziehung oder nicht."
+      "Ein X-Chromosom ist mit einem oder keinem Y-Chromosom verbunden.",
+      "Ein Y-Chromosom ist mit einem oder keinem X-Chromosom verbunden."
     ]
   },
   {
@@ -177,8 +167,8 @@ export const phrases = [
     "relation": "gehört zu",
     "solution": [ "c", "cn" ],
     "comments": [
-      "Eine Weinflasche gehört zu einer oder keiner Weinsorte.",
-      "Von einer Weinsorte hat der Winzer keine, eine oder mehrere Weinflaschen."
+      "Eine Weinflasche gehört zu genau einer oder keiner Weinsorte.",
+      "Von einer Weinsorte hat ein Winzer entweder keine, eine oder mehrere Weinflaschen."
     ]
   },
   {
@@ -192,23 +182,23 @@ export const phrases = [
     ]
   },
   {
-    "text": "Der Staat möchte transparent machen, welcher Bürger welcher Partei angehört.",
+    "text": "Der deutsche Staat möchte transparent machen, welcher Bürger welcher Partei angehört.",
     "entities": [ "Bürger", "Partei" ],
     "relation": "ist Mitglied in",
     "solution": [ "c", "n" ],
     "comments": [
-      "Ein Bürger ist Mitglied in einer oder keiner Partei.",
+      "Ein Bürger kann nur Mitglied in maximal einer Partei gleichzeitig sein.",
       "Eine Partei hat eine Mindestzahl an Mitgliedern."
     ]
   },
   {
-    "text": "Die Deutsche Post möchte bei der teilautomatisierten Briefverarbeitung den Absender eines Briefs erfassen.",
-    "entities": [ "Brief", "Absender" ],
-    "relation": "enthält",
+    "text": "Bei einer Schiffssimulation soll protokolliert werden, ob und wie häufig ein Schiff unter einer bestimmten Flagge segelt. Zu diesem Zweck sollen nun auch Flaggen im System als eigene Entität verwaltet werden.",
+    "entities": [ "Schiff", "Flagge" ],
+    "relation": "segelt unter",
     "solution": [ "c", "n" ],
     "comments": [
-      "Ein Brief enthält entweder einen oder keinen Absender.",
-      "Ein Absender ist auf einem oder mehreren Briefen notiert."
+      "Ein Schiff kann immer nur unter maximal einer Flagge gleichzeitig segeln.",
+      "Eine protokollierte Flagge wurde von mindestens einem Schiff genutzt."
     ]
   },
   {
@@ -218,7 +208,7 @@ export const phrases = [
     "solution": [ "cn", "1" ],
     "comments": [
       "Ein Planet hat keinen, einen oder mehrere Monde.",
-      "Ein Mond gehört zu genau einem Planeten."
+      "Ein Mond gehört immer zu genau einem Planeten."
     ]
   },
   {
@@ -238,7 +228,7 @@ export const phrases = [
     "solution": [ "cn", "c" ],
     "comments": [
       "Im Inventar sind kein, ein oder mehrere Gegenstände enthalten.",
-      "Ein Gegenstand ist im Inventar enthalten oder nicht."
+      "Ein Gegenstand ist im Inventar entweder enthalten oder nicht."
     ]
   },
   {
@@ -248,7 +238,7 @@ export const phrases = [
     "solution": [ "cn", "c" ],
     "comments": [
       "Ein Mitarbeiter ist zuständig für keine, eine, oder mehrere Aufgaben.",
-      "Eine Aufgabe ist einem oder keinem Mitarbeiter zugewiesen."
+      "Eine Aufgabe kann maximal einem Mitarbeiter hauptverantwortlich zugewiesen sein."
     ]
   },
   {
@@ -262,51 +252,57 @@ export const phrases = [
     ]
   },
   {
-    "text": "Im neuen Gesundheitszentrum soll am Ende jedes Kurses jeder Teilnehmer eine Teilnahmebescheinigung erhalten.",
+    "text": "Im neuen Gesundheitszentrum soll am Ende jedes Kurses jeder Teilnehmer eine vorab vorbereitete Teilnahmebescheinigung erhalten.",
     "entities": [ "Teilnehmer", "Bescheinigung" ],
     "relation": "erhalten",
     "solution": [ "cn", "cn" ],
     "comments": [
-      "Ein Teilnehmer hat bisher keine, eine oder mehrere Teilnahmebescheinigungen erhalten.",
-      "Eine Bescheinigung wurde entweder noch gar nicht, einmal oder bereits mehrmals an Teilnehmer ausgestellt."
+      "Ein Teilnehmer hat keine, eine oder mehrere Teilnahmebescheinigungen erhalten.",
+      "Eine Bescheinigung wurde entweder noch gar nicht, einmal oder mehrmals an Teilnehmer ausgestellt."
     ]
   },
   {
-    "text": "Studenten besuchen Lehrveranstaltungen, in denen sie vom Professor am Ende geprüft werden. Manche Studenten brechen das Studium vorzeitig ab und manche Professoren sind nur forschend tätig.",
+    "text": "In einer neuen Hochschule sollen nun Studenten Lehrveranstaltungen besuchen und am Ende des Semesters von einem Professor geprüft werden.",
     "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
-    "relation": "prüft",
+    "relation": "wird geprüft",
     "solution": [ "cn", "cn", "cn" ],
     "comments": [
-      "Ein Student wird in mehreren Lehrveranstaltungen vom jeweiligen Professoren geprüft oder in gar keiner (hat sich nie für eine Prüfung angemeldet).",
-      "Ein Professor prüft Studenten in mehreren Lehrveranstaltungen oder in gar keiner (nur forschend tätig).",
-      "In einer Lehrveranstaltung wird mindestens ein Student vom Professor geprüft, allerdings erst am Ende des Semesters. Das bedeutet, dass eine Lehrveranstaltung schon vor der ersten Prüfung angelegt werden muss."
+      "Ein Student wurde entweder noch gar nicht, einmal oder bereits mehrmals geprüft.",
+      "Ein Professor hat entwerder noch gar nicht, einmal oder bereits mehrmals geprüft.",
+      "In einer Lehrveranstaltung wurde noch gar nicht, einmal oder bereits mehrmals geprüft."
     ]
   },
   {
-    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
-    "entities": [ "Veranstaltung", "Teilnehmer", "Location", "Sponsor" ],
-    "relation": "findet statt",
-    "solution": [ "cn", "cn", "cn", "cn" ]
-  },
-  {
-    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Die Fluggesellschaft bietet auch Charterflüge an.",
+    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Bisher wurden im System nur Piloten und Flugzeuge verwaltet.",
     "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
     "relation": "eingesetzt",
     "solution": [ "cn", "cn", "n" ],
     "comments": [
-      "Ein Pilot kann mehrfach mit einem Flugzeug auf einer Flugroute eingesetzt werden oder auf gar keiner (reiner Charterpilot).",
-      "Ein Flugzeug kann mehrfach von einem Piloten auf einer Flugroute eingesetzt werden oder auf gar keiner (reine Charterflüge).",
-      "Eine Flugroute wird mindestens einmal von einem Piloten mit einem Flugzeug bedient (sonst würde sie gar nicht erst in die Datenbank aufgenommen werden)."
+      "Ein Pilot wurde bisher gar nicht, einmal oder mehrmals mit einem Flugzeug auf einer Flugroute eingesetzt.",
+      "Ein Flugzeug wurde bisher gar nicht, einmal oder mehrmals von einem Piloten auf einer Flugroute eingesetzt.",
+      "Eine protokollierte Flugroute wurde mindestens einmal von einem Piloten mit einem Flugzeug bedient."
     ]
   },
   {
-    "text": "In einem Sprachenzentrum soll gespeichert werden, welche Dozenten welche der zu unterrichtenden Sprachen sprechen. Jeder Dozent beherrscht mindestens eine der Sprachen, zeitweise kann es aber passieren, dass es für eine Sprachen keinen Dozenten gibt.",
-    "entities": [ "Dozent", "Sprache" ],
-    "relation": "spricht",
+    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat. Bisher wurden im System nur die Veranstaltungen und ihre Locations verwaltet.",
+    "entities": [ "Veranstaltung", "Location", "Teilnehmer", "Sponsor" ],
+    "relation": "findet statt",
+    "solution": [ "cn", "cn", "n", "n" ],
+    "comments": [
+      "Eine Veranstaltung wurde bisher gar nicht, einmal oder bereits mehrmals protokolliert.",
+      "Eine Location wurde bisher gar nicht, einmal oder bereits mehrmals protokolliert.",
+      "Ein protokollierter Teilnehmer hat mindestens an einer Veranstaltung teilgenommen.",
+      "Ein protokollierter Sponsor hat sich an mindestens einer Veranstaltung beteiligt."
+    ]
+  },
+  {
+    "text": "In einem Sprachenzentrum soll gespeichert werden, welche der zu unterrichtenden Sprachen von welchen Dozenten gesprochen werden. Jeder Dozent beherrscht mindestens eine der Sprachen, zeitweise kann es aber passieren, dass es zu einer Sprachen keinen Dozenten gibt.",
+    "entities": [ "Sprache", "Dozent" ],
+    "relation": "gesprochen von",
     "solution": [ "cn", "n" ],
     "comments": [
-      "Ein Dozent spricht eine oder mehrere der zu unterrichtenden Sprachen.",
-      "Ein Sprache wird von keinem, einem oder mehreren Dozenten gesprochen."
+      "Eine Sprache wird von keinem, einem oder mehreren Dozenten gesprochen.",
+      "Ein Dozent beherrscht mindestens eine der zu unterrichtenden Sprachen."
     ]
   },
   {
@@ -316,7 +312,18 @@ export const phrases = [
     "solution": [ "cn", "n" ],
     "comments": [
       "Ein Bürger hat keinen, einen oder mehrere Wohnsitze.",
-      "Zu einem gemeldeten Wohnsitz gibt es einen oder mehrere Bürger, die dort wohnhaft sind."
+      "Zu einem gemeldeten Wohnsitz gibt es mindestens einen Bürger, der dort wohnhaft ist."
+    ]
+  },
+  {
+    "text": "Ein Team von Programmierern möchte den Quelltext ihrer Programme versionieren, so dass bei jedem Speichern von Änderungen automatisch eine neue Version vom Quelltext separat gespeichert wird.",
+    "entities": [ "Programmierer", "Quelltext", "Version" ],
+    "relation": "speichert",
+    "solution": [ "cn", "n", "1" ],
+    "comments": [
+      "Ein Programmierer hat noch keine, eine oder bereits mehrere Versionen des Quelltexts gespeichert.",
+      "Zu einem gespeicherten Quelltext gibt es mindestens eine Version und einen Programmierer.",
+      "Zu einer Version gibt es genau einen zugehörigen Quelltext und Programmierer."
     ]
   },
   {
@@ -335,19 +342,19 @@ export const phrases = [
     "relation": "hat",
     "solution": [ "n", "1" ],
     "comments": [
-      "Ein Gebäude hat einen oder mehrere Räume.",
+      "Ein Gebäude hat mindestens einen Raum.",
       "Ein Raum gehört zu genau einem Gebäude."
     ]
   },
   {
-    "text": "Jeder Mitarbeiter hat einen Chef, der selbst auch Mitarbeiter ist.",
+    "text": "Für ein Unternehmen sollen die Mitarbieter verwaltet werden, wobei jeder Mitarbeiter genau einen Vorgesetzten und jeder Vorgesetzte mindestens einen Mitarbeiter haben soll.",
     "entities": [ "Mitarbeiter", "Mitarbeiter" ],
-    "roles": [ "Chef", "" ],
+    "roles": [ "Vorgesetzter", "" ],
     "relation": "ist Chef von",
     "solution": [ "n", "1" ],
     "comments": [
-      "Ein Chef hat mindestens einen Mitarbeiter, sonst wäre er kein Chef. Allerdings ist es dann nicht ohne weiteres möglich einen Chef in der Datenbank anzulegen, wenn noch kein Mitarbeiter angegeben werden kann.",
-      "Ein Mitarbeiter hat immer genau einen Chef. Dann muss allerdings auch der oberste Chef einen Chef haben. Für diesen einen Ausnahmefall kann der oberste Chef sich selbst als Chef angeben. Dies ist dann allerdings schwierig in die Datenbank einzutragen, da der oberste Chef noch nicht in der Datebank existiert, deshalb noch nicht auf sich selbst verweisen kann und deshalb nicht angelegt werden kann."
+      "Ein Vorgesetzter hat mindestens einen Mitarbeiter.",
+      "Ein Mitarbeiter hat immer genau einen Vorgesetzten."
     ]
   },
   {
@@ -356,18 +363,18 @@ export const phrases = [
     "relation": "hat",
     "solution": [ "n", "c" ],
     "comments": [
-      "Ein Wald hat einen oder mehrere Bäume.",
-      "Ein Baum gehört entweder zu einem Wald oder nicht."
+      "Ein Wald besteht aus mehreren Bäumen.",
+      "Ein Baum muss nicht zwingend zu einem Wald gehören und gehört wenn dann immer nur zu genau einem Wald."
     ]
   },
   {
-    "text": "Bei einer Schiffssimulation soll protokolliert werden, ob und wie häufig ein Schiff unter einer bestimmten Flagge segelt.",
-    "entities": [ "Flagge", "Schiff" ],
-    "relation": "gehört zu",
+    "text": "Die Deutsche Post möchte bei der teilautomatisierten Briefverarbeitung den Absender eines Briefs erfassen.",
+    "entities": [ "Absender", "Brief" ],
+    "relation": "notiert auf",
     "solution": [ "n", "c" ],
     "comments": [
-      "Eine protokollierte Flagge wurde von mindestens einem Schiff genutzt.",
-      "Ein Schiff segelt zu einem festen Zeitpunkt immer nur unter genau einer oder keiner Flagge."
+      "Ein erfasster Absender ist auf mindestens einem Brief notiert gewesen.",
+      "Ein Brief enthält entweder einen oder keinen Absender."
     ]
   },
   {
@@ -376,18 +383,18 @@ export const phrases = [
     "relation": "hat",
     "solution": [ "n", "cn" ],
     "comments": [
-      "Ein Rezept hat eine oder mehrere Zutaten.",
+      "Ein Rezept hat immer mehrere Zutaten.",
       "Eine vorhandene Zutat wird in keinem, einem oder mehreren Rezepten verwendet."
     ]
   },
   {
-    "text": "In einem App Store gibt es die Anforderung, dass für jede App mindestens eine Kategorie angegeben werden muss.",
+    "text": "In einem App Store gibt es die Anforderung, dass für jede App mindestens eine von mehreren vordefinierten Kategorien angegeben werden muss.",
     "entities": [ "App", "Kategorie" ],
     "relation": "hat",
     "solution": [ "n", "cn" ],
     "comments": [
-      "Eine App hat eine oder mehrere Kategorien.",
-      "Eine Kategorie wurde bisher für keine, eine oder mehrere Apps hinterlegt."
+      "Für eine App muss mindestens eine Kategorie angegeben werden.",
+      "Eine vordefinierte Kategorie wurde für keine, eine oder bereits für mehrere Apps angegeben."
     ]
   },
   {
@@ -396,18 +403,28 @@ export const phrases = [
     "relation": "hat",
     "solution": [ "n", "n" ],
     "comments": [
-      "Ein Haus hat ein oder mehrere Eigentümer.",
-      "Ein Eigentümer hat ein oder mehrere Häuser."
+      "Ein Haus hat mindestens einen Eigentümer.",
+      "Ein Eigentümer hat mindestens ein Haus."
     ]
   },
   {
-    "text": "Ein Atom hat Elektronen.",
+    "text": "Im Rahmen eines chemischen Experiments sollen ausgewählte Atome, ihre Elektronen und deren Bindungsfähigkeit untersucht werden.",
     "entities": [ "Atom", "Elektron" ],
     "relation": "hat",
     "solution": [ "n", "n" ],
     "comments": [
-      "Ein Atom hat ein oder mehrere Elektronen.",
+      "Ein Atom hat mindestens ein Elektron.",
       "Ein Elektron gehört zu einem oder mehreren Atomen (Elektronenpaarbindung)."
+    ]
+  },
+  {
+    "text": "Für die Erstellung eines Verkehrsplans muss verwaltet werden, welche Haltestellen miteinander verbunden sind, wobei es keine nicht-verbundenen Haltestellen geben soll.",
+    "entities": [ "Haltestelle", "Haltestelle" ],
+    "relation": "verbunden",
+    "solution": [ "n", "n" ],
+    "comments": [
+      "Eine Haltestelle ist mit mindestens einer anderen Haltestelle verbunden.",
+      "Eine Haltestelle ist mit mindestens einer anderen Haltestelle verbunden."
     ]
   },
   {
