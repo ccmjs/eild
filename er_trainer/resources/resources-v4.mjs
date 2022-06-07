@@ -152,13 +152,23 @@ export const phrases = [
     ]
   },
   {
-    "text": "Bei der Genforschung werden Chromosome und deren spezifische Merkmale untersucht, wobei sich ein X-Chromosom mit einem X- oder Y-Chromosom verbinden kann und ein Y-Chromosom nur mit einem X-Chromosom.",
+    "text": "Bei der Genforschung werden Chromosome und deren spezifische Merkmale untersucht, wobei sich während der Studie ein X-Chromosom mit einem X- oder Y-Chromosom verbinden kann und ein Y-Chromosom nur mit einem X-Chromosom.",
     "entities": [ "X-Chromosom", "Y-Chromosom" ],
     "relation": "verbunden",
     "solution": [ "c", "c" ],
     "comments": [
       "Ein X-Chromosom ist mit einem oder keinem Y-Chromosom verbunden.",
       "Ein Y-Chromosom ist mit einem oder keinem X-Chromosom verbunden."
+    ]
+  },
+  {
+    "text": "Beim Standesamt wird verwaltet, welche Personen miteinander verheiratet sind ist.",
+    "entities": [ "Person", "Person" ],
+    "relation": "verheiratet",
+    "solution": [ "c", "c" ],
+    "comments": [
+      "Eine Person kann höchstens mit einer anderen Person verheiratet sein.",
+      "Eine Person kann höchstens mit einer anderen Person verheiratet sein.",
     ]
   },
   {
@@ -418,13 +428,13 @@ export const phrases = [
     ]
   },
   {
-    "text": "Für die Erstellung eines Verkehrsplans muss verwaltet werden, welche Haltestellen miteinander verbunden sind, wobei es keine nicht-verbundenen Haltestellen geben soll.",
+    "text": "Für die Erstellung eines Verkehrsplans muss verwaltet werden, welche Haltestellen miteinander verbunden sind.",
     "entities": [ "Haltestelle", "Haltestelle" ],
     "relation": "verbunden",
-    "solution": [ "n", "n" ],
+    "solution": [ "cn", "cn" ],
     "comments": [
-      "Eine Haltestelle ist mit mindestens einer anderen Haltestelle verbunden.",
-      "Eine Haltestelle ist mit mindestens einer anderen Haltestelle verbunden."
+      "Eine Haltestelle ist mit keiner, einer oder mehreren anderen Haltestelle verbunden.",
+      "Eine Haltestelle ist mit keiner, einer oder mehreren anderen Haltestelle verbunden."
     ]
   },
   {
