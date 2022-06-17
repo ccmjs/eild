@@ -156,21 +156,27 @@ export function main( app, data, events, phrase_nr, show_solution ) {
           ${ phrase.relation ? connection( 3 ) : line( 2 ) }
           <div></div>
           <div></div>
-          
-          ${ phrase.relation ? entity( 1 ) : line( 6 ) }
-          ${ phrase.relation ? connection( 1 ) : line( 5 ) }
+
+          ${ phrase.relation ? entity( 1 ) : line( 0 ) }
+          ${ phrase.relation ? connection( 1 ) : line( 0 ) }
           <div id="relation" class="${ !is_solution && app.feedback && !phrase.relation && section.correct !== undefined && ( section.input.toString() === phrase.solution.toString() ? 'correct' : 'failed' ) || '' }">
             <img src="${ notation.images[ phrase.relation ? 5 : 6 ] }">
             <div ?data-centered=${ notation.centered } ?data-down=${ !phrase.relation }>${ phrase.relation || ( is_solution ? phrase.solution : section.input ).filter( value => value ).toString() || '' }</div>
           </div>
-          ${ phrase.relation ? connection( 2 ) : line( 5 ) }
-          ${ phrase.relation ? ( is_recursive ? line( 1 ) : entity( 2 ) ) : line( 7 ) }
+          ${ phrase.relation ? connection( 2 ) : line( 0 ) }
+          ${ phrase.relation ? ( is_recursive ? line( 1 ) : entity( 2 ) ) : line( 0 ) }
 
-          ${ line( is_recursive ? 4 : ( phrase.relation ? 0 : 8 ) ) }
-          ${ line( is_recursive ? 3 : 0 ) }
-          ${ is_recursive ? line( 3 ) : ( phrase.relation ? connection( 4 ) : line( phrase.entities.length > 3 ? 8 : 0 ) ) }
-          ${ line( is_recursive ? 3 : 0 ) }
-          ${ line( is_recursive ? 2 : ( phrase.relation ? 0 : 8 ) ) }
+          ${ line( is_recursive ? 4 : ( phrase.relation ? 0 : 6 ) ) }
+          ${ line( is_recursive ? 3 : ( phrase.relation ? 0 : 5 ) ) }
+          ${ is_recursive ? line( 3 ) : ( phrase.relation ? connection( 4 ) : line( 8 ) ) }
+          ${ line( is_recursive ? 3 : ( phrase.relation ? 0 : 5 ) ) }
+          ${ line( is_recursive ? 2 : ( phrase.relation ? 0 : 7 ) ) }
+
+          ${ line( phrase.relation ? 0 : 1 ) }
+          <div></div>
+          ${ line( phrase.relation || phrase.entities.length < 4 ? 0 : 1 ) }
+          <div></div>
+          ${ line( phrase.relation ? 0 : 1 ) }
 
           ${ entity( phrase.relation ? 0 : 2 ) }
           <div></div>
@@ -214,9 +220,19 @@ export function main( app, data, events, phrase_nr, show_solution ) {
      * @returns {TemplateResult}
      */
     function line( nr ) {
-      return nr ? html`
-        <div class="line${ nr }"></div>
-      ` : html`<div></div>`;
+      if ( !nr ) return html`<div></div>`;
+      if ( nr === 8 ) return html`
+        <div class="line8">
+          <svg viewBox="0 0 240 60">
+            <line x1="0" y1="59" x2="90" y2="59" stroke="black" stroke-width="2"/>
+            <line x1="90" y1="0" x2="90" y2="60" stroke="black" stroke-width="2"/>
+            <line x1="120" y1="0" x2="120" y2="60" stroke="${ phrase.entities.length < 4 ? 'transparent' : 'black' }" stroke-width="2"/>
+            <line x1="150" y1="0" x2="150" y2="60" stroke="black" stroke-width="2"/>
+            <line x1="150" y1="59" x2="240" y2="59" stroke="black" stroke-width="2"/>
+          </svg>
+        </div>
+      `;
+      return html`<div class="line${ nr }"></div>`;
     }
 
   }
