@@ -162,7 +162,7 @@ export const phrases = [
     ]
   },
   {
-    "text": "Beim Standesamt wird verwaltet, welche Personen miteinander verheiratet sind ist.",
+    "text": "Beim Standesamt wird verwaltet, welche Personen gerade miteinander verheiratet sind.",
     "entities": [ "Person", "Person" ],
     "relation": "verheiratet",
     "solution": [ "c", "c" ],
@@ -541,6 +541,7 @@ export const de = {
   "phrase": "Phrase",
   "retry": "Korrigieren",
   "selection": [ "Bitte auswählen", "einfach", "bedingt", "mehrfach", "bedingt mehrfach" ],
+  "skip": "Überspringen",
   "solution": "Zeige Lösung",
   "submit": "Abschicken",
   "title": "ER-Trainer",
@@ -567,6 +568,7 @@ export const en = {
   "phrase": "Phrase",
   "retry": "Retry",
   "selection": [ "Please Choose", "simple", "conditional", "many", "conditional many" ],
+  "skip": "Skip",
   "solution": "Show Solution",
   "submit": "Submit",
   "title": "ER-Trainer",
@@ -581,7 +583,7 @@ export const local = {
   "css.1.1": "./../er_trainer/resources/styles-v2.css",
   "default.path": "./../er_trainer/resources/img/",
   "helper": [ "ccm.load", "./../libs/ccm/helper.mjs" ],
-  "html.1": "./../er_trainer/resources/templates-v5.mjs",
+  "html.1": "./../er_trainer/resources/templates-v6.mjs",
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
   } ],

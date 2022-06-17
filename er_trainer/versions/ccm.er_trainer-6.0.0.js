@@ -2,22 +2,23 @@
  * @overview ccmjs-based web component for training relations in an ER diagram
  * @author André Kless <andre.kless@web.de> 2021-2022
  * @license The MIT License (MIT)
- * @version 5.0.0
+ * @version 6.0.0
  * @changes
- * version 5.0.0 (23.05.2022)
- * - uses resources.mjs v4 as default
- * - uses templates.mjs v5 as default
- * - support of generalization/specialization relations (2-3 sub-entities)
- * - generalization/specialization are only displayed in 'abrial' notation
- * (for older version changes see ccm.er_trainer-4.0.0.js)
+ * version 6.0.0 (17.06.2022)
+ * - uses templates.mjs v6 as default
+ * - changed structure of result data (includes all phrases data and number of retries)
+ * - added optional skippable phrases
+ * - added optional anytime finish
+ * (for older version changes see ccm.er_trainer-5.0.0.js)
  */
 
 ( () => {
   const component = {
     name: 'er_trainer',
-    version: [ 5, 0, 0 ],
+    version: [ 6, 0, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
+//    "anytime_finish": true,
       "css": [ "ccm.load",
         [  // serial
           "https://ccmjs.github.io/eild/libs/bootstrap-5/css/bootstrap.min.css",
@@ -34,7 +35,7 @@
       },
       "feedback": true,
       "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-8.2.0.min.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates-v5.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/templates-v6.mjs" ],
 //    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
       "legend": true,
       "modal": [ "ccm.start", "https://ccmjs.github.io/tkless-components/modal/versions/ccm.modal-3.1.0.min.js", {
@@ -53,6 +54,7 @@
       "retry": true,
       "show_solution": true,
       "shuffle": true,
+      "skip": true,
       "text": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources-v4.mjs#en" ],
 //    "user": [ "ccm.start", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js" ],
       "values": [ [ "1", "c", "n", "cn" ], [ "t", "p", "d", "n" ] ]
@@ -82,12 +84,6 @@
        * @type {number}
        */
       let phrase_nr;
-
-      /**
-       * phrases data
-       * @type {Object}
-       */
-      let phrases;
 
       /**
        * when the instance is created, when all dependencies have been resolved and before the dependent sub-instances are initialized and ready
@@ -125,12 +121,8 @@
        * @returns {Promise<void>}
        */
       this.ready = async () => {
-
-        phrases = $.clone( this.phrases );                          // clone original phrases
-        this.shuffle && $.shuffleArray( phrases );                  // shuffle phrases
         if ( !this.number ) this.number = this.phrases.length;      // use all phrases as default
         this.onready && await this.onready( { instance: this } );   // trigger 'ready' event
-
       };
 
       /**
@@ -139,23 +131,25 @@
        */
       this.start = async () => {
 
-        // not enough phrases left? => clone and shuffle original phrases
-        if ( phrases.length < this.number ) {
-          phrases = $.clone( this.phrases );
-          this.shuffle && $.shuffleArray( phrases );
-        }
-
-        // load initial app state data
+        // load app state data
         data = await $.dataset( this.data );
-        data = Object.assign( data, {
+        const initial = {
           correct: 0,
           notation: notation || data.notation || this.default.notation,
           sections: [],
           total: this.number
-        } );
+        };
+        data = data.sections && data.sections.length < data.phrases.length ? data: initial;
+
+        // no loaded phrases? => take required number of original phrases and shuffle them
+        if ( !data.phrases ) {
+          data.phrases = $.clone( this.phrases );
+          this.shuffle && $.shuffleArray( data.phrases );
+          data.phrases = data.phrases.slice( 0, this.number );
+        }
 
         // render first phrase
-        phrase_nr = 0; nextPhrase();
+        phrase_nr = data.sections.length ? data.sections.length : 0; nextPhrase();
 
         // render language selection and user login/logout
         const aside = this.element.querySelector( 'aside' );
@@ -186,7 +180,7 @@
 
         /** when selected entry for displayed notation changes */
         onNotation: ( value, show_solution ) => {
-          if ( data.sections[ phrase_nr - 1 ].entities.length > 2 && this.notations[ value ].swap ) return;
+          if ( data.phrases[ phrase_nr - 1 ].entities.length > 2 && this.notations[ value ].swap ) return;
           data.notation = value;
           render( show_solution );
           this.onchange && this.onchange( { event: 'notation', instance: this } );
@@ -210,7 +204,7 @@
         onSubmit: () => {
           const section = data.sections[ phrase_nr - 1 ];
           if ( section.correct !== undefined || section.input.includes( '' ) ) return;
-          section.correct = section.input.toString() === section.solution.toString();
+          section.correct = section.input.toString() === data.phrases[ phrase_nr - 1 ].solution.toString();
           section.correct && data.correct++;
           this.feedback && this.element.classList.add( section.correct ? 'correct' : 'failed' );
           render();
@@ -222,6 +216,7 @@
         onRetry: () => {
           const section = data.sections[ phrase_nr - 1 ];
           if ( !this.retry || section.correct !== false ) return;
+          section.retry = section.retry ? section.retry + 1 : 1;
           delete section.correct;
           this.element.classList.remove( 'failed' );
           render();
@@ -237,17 +232,17 @@
 
         /** when 'next' button is clicked */
         onNext: () => {
-          if ( data.sections[ phrase_nr - 1 ].correct === undefined || phrase_nr === this.number ) return;
+          if ( !this.skip && data.sections[ phrase_nr - 1 ].correct === undefined || phrase_nr === this.number ) return;
           reset();
-          phrases.shift(); nextPhrase();
+          nextPhrase();
           this.onchange && this.onchange( { event: 'next', instance: this, phrase: phrase_nr } );
         },
 
         /** when 'finish' button is clicked */
         onFinish: () => {
-          if ( !this.onfinish || data.sections[ phrase_nr - 1 ].correct === undefined || phrase_nr < this.number ) return;
+          if ( !this.onfinish || !this.skip && data.sections[ phrase_nr - 1 ].correct === undefined || !this.anytime_finish && phrase_nr < this.number ) return;
           reset();
-          phrases.shift(); this.onfinish && $.onFinish( this );
+          this.onfinish && $.onFinish( this );
         }
 
       };
@@ -255,16 +250,10 @@
       /** starts the next phrase */
       const nextPhrase = () => {
         phrase_nr++;
-        data.sections.push( {
-          text: phrases[ 0 ].text,
-          entities: phrases[ 0 ].entities,
-          relation: phrases[ 0 ].relation,
-          solution: phrases[ 0 ].solution,
-          input: phrases[ 0 ].solution.map( () => '' )
-        } );
+        data.sections.push( { input: data.phrases[ phrase_nr - 1 ].solution.map( () => '' ) } );
 
         // ternary relation in a swapped notation? => switch to not swapped notation (= Abrial)
-        if ( data.sections[ phrase_nr - 1 ].entities.length > 2 && this.notations[ data.notation ].swap )
+        if ( data.phrases[ phrase_nr - 1 ].entities.length > 2 && this.notations[ data.notation ].swap )
           data.notation = Object.values( this.notations ).find( notation => !notation.swap ).key;
 
         render();
@@ -275,7 +264,7 @@
        * @param {boolean} [show_solution] - reveal correct solution
        */
       const render = show_solution => {
-        this.html.render( this.html.main( this, data, events, phrases[ 0 ], phrase_nr, show_solution ), this.element );
+        this.html.render( this.html.main( this, data, events, phrase_nr, show_solution ), this.element );
         this.element.querySelectorAll( '[selected]' ).forEach( option => option.selected = true );  // workaround for lit-html bug
         this.lang && this.lang.translate();
       };
