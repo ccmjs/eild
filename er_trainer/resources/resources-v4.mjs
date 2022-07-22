@@ -278,31 +278,31 @@ export const phrases = [
     "solution": [ "cn", "cn", "cn" ],
     "comments": [
       "Ein Student wurde entweder noch gar nicht, einmal oder bereits mehrmals geprüft.",
-      "Ein Professor hat entwerder noch gar nicht, einmal oder bereits mehrmals geprüft.",
+      "Ein Professor hat entweder noch gar nicht, einmal oder bereits mehrmals geprüft.",
       "In einer Lehrveranstaltung wurde noch gar nicht, einmal oder bereits mehrmals geprüft."
     ]
   },
   {
-    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Bisher wurden im System nur Piloten und Flugzeuge verwaltet.",
+    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Bisher wurden im System nur Piloten und Flugzeuge verwaltet, für das Protokoll nun auch Flugrouten.",
     "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
     "relation": "eingesetzt",
     "solution": [ "cn", "cn", "n" ],
     "comments": [
       "Ein Pilot wurde bisher gar nicht, einmal oder mehrmals mit einem Flugzeug auf einer Flugroute eingesetzt.",
       "Ein Flugzeug wurde bisher gar nicht, einmal oder mehrmals von einem Piloten auf einer Flugroute eingesetzt.",
-      "Eine protokollierte Flugroute wurde mindestens einmal von einem Piloten mit einem Flugzeug bedient."
+      "Eine in der Datenbank vorhandene Flugroute wurde mindestens einmal von einem Piloten mit einem Flugzeug bedient."
     ]
   },
   {
-    "text": "Es soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat. Bisher wurden im System nur die Veranstaltungen und ihre Locations verwaltet.",
+    "text": "Über eine eigens dafür aufgesetzte Datenbank soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
     "entities": [ "Veranstaltung", "Location", "Teilnehmer", "Sponsor" ],
     "relation": "findet statt",
-    "solution": [ "cn", "cn", "n", "n" ],
+    "solution": [ "n", "n", "n", "n" ],
     "comments": [
-      "Eine Veranstaltung wurde bisher gar nicht, einmal oder bereits mehrmals protokolliert.",
-      "Eine Location wurde bisher gar nicht, einmal oder bereits mehrmals protokolliert.",
-      "Ein protokollierter Teilnehmer hat mindestens an einer Veranstaltung teilgenommen.",
-      "Ein protokollierter Sponsor hat sich an mindestens einer Veranstaltung beteiligt."
+      "Eine in der Datenbank vorhandene Veranstaltung wurde mindestens einmal protokolliert.",
+      "Eine in der Datenbank vorhandene Location wurde bisher gar nicht, einmal oder bereits mehrmals protokolliert.",
+      "Ein in der Datenbank vorhandener Teilnehmer hat mindestens an einer Veranstaltung teilgenommen.",
+      "Ein in der Datenbank vorhandener Sponsor hat sich an mindestens einer Veranstaltung beteiligt."
     ]
   },
   {
@@ -357,14 +357,14 @@ export const phrases = [
     ]
   },
   {
-    "text": "Für ein Unternehmen sollen die Mitarbieter verwaltet werden, wobei jeder Mitarbeiter genau einen Vorgesetzten und jeder Vorgesetzte mindestens einen Mitarbeiter haben soll.",
+    "text": "Für ein Unternehmen sollen die Mitarbeiter verwaltet werden, wobei jeder Mitarbeiter genau einen Vorgesetzten und jeder Vorgesetzte mindestens einen Mitarbeiter haben soll.",
     "entities": [ "Mitarbeiter", "Mitarbeiter" ],
-    "roles": [ "Vorgesetzter", "" ],
-    "relation": "ist Chef von",
-    "solution": [ "n", "1" ],
+    "roles": [ "", "Vorgesetzter" ],
+    "relation": "hat Vorgesetzten",
+    "solution": [ "1", "n" ],
     "comments": [
-      "Ein Vorgesetzter hat mindestens einen Mitarbeiter.",
-      "Ein Mitarbeiter hat immer genau einen Vorgesetzten."
+      "Ein Mitarbeiter hat immer genau einen Vorgesetzten.",
+      "Ein Vorgesetzter hat mindestens einen Mitarbeiter."
     ]
   },
   {
@@ -428,7 +428,7 @@ export const phrases = [
     ]
   },
   {
-    "text": "Für die Erstellung eines Verkehrsplans muss verwaltet werden, welche Haltestellen miteinander verbunden sind.",
+    "text": "Für die Erstellung eines Verkehrsplans muss verwaltet werden, welche Haltestellen miteinander verbunden sind. Durch Bauarbeiten und Umleitungen kann es zeitweise vorkommen, dass eine Haltestelle nicht angefahren wird.",
     "entities": [ "Haltestelle", "Haltestelle" ],
     "relation": "verbunden",
     "solution": [ "cn", "cn" ],
@@ -476,12 +476,12 @@ export const phrases = [
     ]
   },
   {
-    "text": "Für eine Hundeshow sollen die teilnehmenden Hunde verwaltet werden. Zur Zeit sind vor allem Schäferhund, Mops und Dackel im Trend.",
+    "text": "Für eine Hundeshow sollen die teilnehmenden Hunde verwaltet werden. Zur Zeit sind vor allem Schäferhund, Mops und Dackel im Trend. Mischlinge aus diesen Rassen werden nicht als separate Hunderasse im System verwaltet.",
     "entities": [ "Hund", "Schäferhund", "Mops", "Dackel" ],
     "solution": [ "p", "n" ],
     "comments": [
-      "An der Hundeshow nehmen auch andere Hunderassen teil.",
-      "Neben den reinrassigen Hunden nehmen auch Mischlinge teil (z.B. ein Mops-Dackel-Mix)."
+      "An der Hundeshow nehmen auch vereinzelt andere Hunderassen teil, die weder Schäferhund, noch Mops oder Dackel sind.",
+      "Neben den reinrassigen Hunden nehmen auch Mischlinge teil (z.B. ein Mops-Dackel-Mix). Ein Hund kann daher auch mehreren Hunderassen angehören."
     ]
   },
   {
@@ -503,11 +503,11 @@ export const phrases = [
     ]
   },
   {
-    "text": "An einer Hochschule soll zwischen zwei Personengruppen unterschieden werden. Es gibt Studenten und alle anderen zählen als Mitarbeiter.",
+    "text": "An einer Hochschule soll zwischen zwei Personengruppen unterschieden werden: Es gibt nur Studenten und Mitarbeiter.",
     "entities": [ "Hochschulangehöriger", "Student", "Mitarbeiter" ],
     "solution": [ "t", "n" ],
     "comments": [
-      "Neben Studenten und Mitarbeitern gibt es keine anderen Personengruppen an der Hochschule.",
+      "Neben Studenten und Mitarbeitern werden keine anderen Personengruppen an der Hochschule verwaltet.",
       "Ein Student kann gleichzeitig auch ein Mitarbeiter (studentische Hilfskraft) und ein Mitarbeiter auch Student sein."
     ]
   },
@@ -519,7 +519,7 @@ export const phrases = [
       "Im Krankenhaus gibt es nur Besucher, Patienten und Personal. Andere Personengruppen können nicht vorkommen.",
       "Eine Person kann auch mehreren Personengruppen angehören. Jemand vom Personal kann z.B. auch Patient oder Besucher sein."
     ]
-  },
+  }
 ];
 
 /**
@@ -590,7 +590,8 @@ export const local = {
   "notations": notations,
   "onfinish": { "log": true, "restart": true },
   "phrases": phrases,
-  "text": en
+  "text": de,
+  "shuffle": true
 };
 
 /**
