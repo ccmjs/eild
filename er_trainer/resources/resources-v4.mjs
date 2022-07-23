@@ -162,6 +162,16 @@ export const phrases = [
     ]
   },
   {
+    "text": "Für eine Fortpflanzungsstudie soll verwaltet werden, ob und wenn ja mit welchem Männchen ein Weibchen aktuell zusammen ist. Männchen und Weibchen der untersuchten Tierart haben nie mehrere Partner gleichzeitig.",
+    "entities": [ "Männchen", "Weibchen" ],
+    "relation": "sind zusammen",
+    "solution": [ "c", "c" ],
+    "comments": [
+      "Ein Männchen ist entweder mit einem oder keinem Weibchen zusammen sein.",
+      "Ein Weibchen ist entweder mit einem oder keinem Männchen zusammen sein."
+    ]
+  },
+  {
     "text": "Beim Standesamt wird verwaltet, welche Personen gerade miteinander verheiratet sind.",
     "entities": [ "Person", "Person" ],
     "relation": "verheiratet",
