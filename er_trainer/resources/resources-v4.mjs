@@ -222,6 +222,16 @@ export const phrases = [
     ]
   },
   {
+    "text": "Bei einer Tierbeobachtung soll erfasst werden, welche der Tiere sich zu einer Herde zusammenschließen.",
+    "entities": [ "Tier", "Herde" ],
+    "relation": "gehört zu",
+    "solution": [ "c", "n" ],
+    "comments": [
+      "Ein Tier gehört entweder zu einer oder keiner Herde.",
+      "Eine Herde besteht aus mindestens einem Tier."
+    ]
+  },
+  {
     "text": "Bei einer Weltraumsimulation kann ein Planet Monde haben, die ihn umkreisen.",
     "entities": [ "Planet", "Mond" ],
     "relation": "hat",
