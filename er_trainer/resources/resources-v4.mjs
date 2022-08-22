@@ -386,7 +386,7 @@ export const phrases = [
     "entities": [ "Ordner", "Ordner" ],
     "roles": [ "Ordner", "Oberordner" ],
     "relation": "enthält",
-    "solution": [ "c", "n" ],
+    "solution": [ "c", "cn" ],
     "comments": [
       "Ein Ordner hat entweder keinen oder genau einen Oberordner.",
       "Ein Oberordner enthält keinen, einen oder mehrere Unterordner."
