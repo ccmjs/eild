@@ -382,6 +382,17 @@ export const phrases = [
     ]
   },
   {
+    "text": "Für die Darstellung von Dateiordnern soll verwaltet werden, welcher Ordner welche anderen Ordner enthält.",
+    "entities": [ "Ordner", "Ordner" ],
+    "roles": [ "Ordner", "Oberordner" ],
+    "relation": "enthält",
+    "solution": [ "c", "n" ],
+    "comments": [
+      "Ein Ordner hat entweder keinen oder genau einen Oberordner.",
+      "Ein Oberordner enthält keinen, einen oder mehrere Unterordner."
+    ]
+  },
+  {
     "text": "Für ein Unternehmen sollen die Mitarbeiter verwaltet werden, wobei jeder Mitarbeiter genau einen Vorgesetzten und jeder Vorgesetzte mindestens einen Mitarbeiter haben soll.",
     "entities": [ "Mitarbeiter", "Mitarbeiter" ],
     "roles": [ "", "Vorgesetzter" ],
