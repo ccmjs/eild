@@ -4,7 +4,7 @@
  * @overview <i>ccmjs</i>-based web component for ER model to relational scheme training.
  * @author André Kless <andre.kless@web.de> 2021-2022
  * @license The MIT License (MIT)
- * @version latest (2.0.0)
+ * @version 2.0.0
  * @changes
  * version 2.0.0 (22.08.2022)
  * - uses ccmjs v27.4.0 as default
@@ -44,6 +44,7 @@
    */
   const component = {
     name: 'er_rel_trainer',
+    version: [ 2, 0, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.4.0.min.js',
     config: {
 //    "anytime_finish": true,
