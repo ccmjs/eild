@@ -172,16 +172,6 @@ export const phrases = [
     ]
   },
   {
-    "text": "Beim Standesamt wird verwaltet, welche Personen gerade miteinander verheiratet sind.",
-    "entities": [ "Person", "Person" ],
-    "relation": "verheiratet",
-    "solution": [ "c", "c" ],
-    "comments": [
-      "Eine Person kann höchstens mit einer anderen Person verheiratet sein.",
-      "Eine Person kann höchstens mit einer anderen Person verheiratet sein.",
-    ]
-  },
-  {
     "text": "Bei einem Winzer gehört eine Weinflasche zu einer Weinsorte oder ist selbstgebraut.",
     "entities": [ "Weinflasche", "Weinsorte" ],
     "relation": "gehört zu",
@@ -209,16 +199,6 @@ export const phrases = [
     "comments": [
       "Ein Bürger kann nur Mitglied in maximal einer Partei gleichzeitig sein.",
       "Eine Partei hat eine Mindestzahl an Mitgliedern."
-    ]
-  },
-  {
-    "text": "Bei einer Schiffssimulation soll protokolliert werden, ob und wie häufig ein Schiff unter einer bestimmten Flagge segelt. Zu diesem Zweck sollen nun auch Flaggen im System als eigene Entität verwaltet werden.",
-    "entities": [ "Schiff", "Flagge" ],
-    "relation": "segelt unter",
-    "solution": [ "c", "n" ],
-    "comments": [
-      "Ein Schiff kann immer nur unter maximal einer Flagge gleichzeitig segeln.",
-      "Eine protokollierte Flagge wurde von mindestens einem Schiff genutzt."
     ]
   },
   {
@@ -292,40 +272,6 @@ export const phrases = [
     ]
   },
   {
-    "text": "In einer neuen Hochschule sollen nun Studenten Lehrveranstaltungen besuchen und am Ende des Semesters von einem Professor geprüft werden.",
-    "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
-    "relation": "wird geprüft",
-    "solution": [ "cn", "cn", "cn" ],
-    "comments": [
-      "Ein Student wurde entweder noch gar nicht, einmal oder bereits mehrmals geprüft.",
-      "Ein Professor hat entweder noch gar nicht, einmal oder bereits mehrmals geprüft.",
-      "In einer Lehrveranstaltung wurde noch gar nicht, einmal oder bereits mehrmals geprüft."
-    ]
-  },
-  {
-    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Bisher wurden im System nur Piloten und Flugzeuge verwaltet, für das Protokoll nun auch Flugrouten.",
-    "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
-    "relation": "eingesetzt",
-    "solution": [ "cn", "cn", "n" ],
-    "comments": [
-      "Ein Pilot wurde bisher gar nicht, einmal oder mehrmals mit einem Flugzeug auf einer Flugroute eingesetzt.",
-      "Ein Flugzeug wurde bisher gar nicht, einmal oder mehrmals von einem Piloten auf einer Flugroute eingesetzt.",
-      "Eine in der Datenbank vorhandene Flugroute wurde mindestens einmal von einem Piloten mit einem Flugzeug bedient."
-    ]
-  },
-  {
-    "text": "Über eine eigens dafür aufgesetzte Datenbank soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
-    "entities": [ "Veranstaltung", "Location", "Teilnehmer", "Sponsor" ],
-    "relation": "findet statt",
-    "solution": [ "n", "n", "n", "n" ],
-    "comments": [
-      "Eine in der Datenbank vorhandene Veranstaltung wurde mindestens einmal protokolliert.",
-      "Eine in der Datenbank vorhandene Location wurde bisher gar nicht, einmal oder bereits mehrmals protokolliert.",
-      "Ein in der Datenbank vorhandener Teilnehmer hat mindestens an einer Veranstaltung teilgenommen.",
-      "Ein in der Datenbank vorhandener Sponsor hat sich an mindestens einer Veranstaltung beteiligt."
-    ]
-  },
-  {
     "text": "In einem Sprachenzentrum soll gespeichert werden, welche der zu unterrichtenden Sprachen von welchen Dozenten gesprochen werden. Jeder Dozent beherrscht mindestens eine der Sprachen, zeitweise kann es aber passieren, dass es zu einer Sprachen keinen Dozenten gibt.",
     "entities": [ "Sprache", "Dozent" ],
     "relation": "gesprochen von",
@@ -346,17 +292,6 @@ export const phrases = [
     ]
   },
   {
-    "text": "Ein Team von Programmierern möchte den Quelltext ihrer Programme versionieren, so dass bei jedem Speichern von Änderungen automatisch eine neue Version vom Quelltext separat gespeichert wird.",
-    "entities": [ "Programmierer", "Quelltext", "Version" ],
-    "relation": "speichert",
-    "solution": [ "cn", "n", "1" ],
-    "comments": [
-      "Ein Programmierer hat noch keine, eine oder bereits mehrere Versionen des Quelltexts gespeichert.",
-      "Zu einem gespeicherten Quelltext gibt es mindestens eine Version und einen Programmierer.",
-      "Zu einer Version gibt es genau einen zugehörigen Quelltext und Programmierer."
-    ]
-  },
-  {
     "text": "Eine Bibliothek möchte die einzelnen Seiten ausgewählter Bücher digitalisieren.",
     "entities": [ "Buch", "Seite" ],
     "relation": "hat",
@@ -374,17 +309,6 @@ export const phrases = [
     "comments": [
       "Ein Gebäude hat mindestens einen Raum.",
       "Ein Raum gehört zu genau einem Gebäude."
-    ]
-  },
-  {
-    "text": "Für ein Unternehmen sollen die Mitarbeiter verwaltet werden, wobei jeder Mitarbeiter genau einen Vorgesetzten und jeder Vorgesetzte mindestens einen Mitarbeiter haben soll.",
-    "entities": [ "Mitarbeiter", "Mitarbeiter" ],
-    "roles": [ "", "Vorgesetzter" ],
-    "relation": "hat Vorgesetzten",
-    "solution": [ "1", "n" ],
-    "comments": [
-      "Ein Mitarbeiter hat immer genau einen Vorgesetzten.",
-      "Ein Vorgesetzter hat mindestens einen Mitarbeiter."
     ]
   },
   {
@@ -448,6 +372,27 @@ export const phrases = [
     ]
   },
   {
+    "text": "Beim Standesamt wird verwaltet, welche Personen gerade miteinander verheiratet sind.",
+    "entities": [ "Person", "Person" ],
+    "relation": "verheiratet",
+    "solution": [ "c", "c" ],
+    "comments": [
+      "Eine Person kann höchstens mit einer anderen Person verheiratet sein.",
+      "Eine Person kann höchstens mit einer anderen Person verheiratet sein.",
+    ]
+  },
+  {
+    "text": "Für ein Unternehmen sollen die Mitarbeiter verwaltet werden, wobei jeder Mitarbeiter genau einen Vorgesetzten und jeder Vorgesetzte mindestens einen Mitarbeiter haben soll.",
+    "entities": [ "Mitarbeiter", "Mitarbeiter" ],
+    "roles": [ "", "Vorgesetzter" ],
+    "relation": "hat Vorgesetzten",
+    "solution": [ "1", "n" ],
+    "comments": [
+      "Ein Mitarbeiter hat immer genau einen Vorgesetzten.",
+      "Ein Vorgesetzter hat mindestens einen Mitarbeiter."
+    ]
+  },
+  {
     "text": "Für die Erstellung eines Verkehrsplans muss verwaltet werden, welche Haltestellen miteinander verbunden sind. Durch Bauarbeiten und Umleitungen kann es zeitweise vorkommen, dass eine Haltestelle nicht angefahren wird.",
     "entities": [ "Haltestelle", "Haltestelle" ],
     "relation": "verbunden",
@@ -455,6 +400,39 @@ export const phrases = [
     "comments": [
       "Eine Haltestelle ist mit keiner, einer oder mehreren anderen Haltestelle verbunden.",
       "Eine Haltestelle ist mit keiner, einer oder mehreren anderen Haltestelle verbunden."
+    ]
+  },
+  {
+    "text": "In einer neuen Hochschule sollen nun Studenten Lehrveranstaltungen besuchen und am Ende des Semesters von einem Professor geprüft werden.",
+    "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
+    "relation": "wird geprüft",
+    "solution": [ "cn", "cn", "cn" ],
+    "comments": [
+      "Ein Student wurde entweder noch gar nicht, einmal oder bereits mehrmals geprüft.",
+      "Ein Professor hat entweder noch gar nicht, einmal oder bereits mehrmals geprüft.",
+      "In einer Lehrveranstaltung wurde noch gar nicht, einmal oder bereits mehrmals geprüft."
+    ]
+  },
+  {
+    "text": "Eine Fluggesellschaft möchte protokollieren, welche Piloten mit welchen Flugzeugen auf welchen Flugrouten eingesetzt werden. Bisher wurden im System nur Piloten und Flugzeuge verwaltet, für das Protokoll nun auch Flugrouten.",
+    "entities": [ "Pilot", "Flugzeug", "Flugroute" ],
+    "relation": "eingesetzt",
+    "solution": [ "cn", "cn", "n" ],
+    "comments": [
+      "Ein Pilot wurde bisher gar nicht, einmal oder mehrmals mit einem Flugzeug auf einer Flugroute eingesetzt.",
+      "Ein Flugzeug wurde bisher gar nicht, einmal oder mehrmals von einem Piloten auf einer Flugroute eingesetzt.",
+      "Eine in der Datenbank vorhandene Flugroute wurde mindestens einmal von einem Piloten mit einem Flugzeug bedient."
+    ]
+  },
+  {
+    "text": "Ein Team von Programmierern möchte den Quelltext ihrer Programme versionieren, so dass bei jedem Speichern von Änderungen automatisch eine neue Version vom Quelltext separat gespeichert wird.",
+    "entities": [ "Programmierer", "Quelltext", "Version" ],
+    "relation": "speichert",
+    "solution": [ "cn", "n", "1" ],
+    "comments": [
+      "Ein Programmierer hat noch keine, eine oder bereits mehrere Versionen des Quelltexts gespeichert.",
+      "Zu einem gespeicherten Quelltext gibt es mindestens eine Version und einen Programmierer.",
+      "Zu einer Version gibt es genau einen zugehörigen Quelltext und Programmierer."
     ]
   },
   {
@@ -466,6 +444,18 @@ export const phrases = [
       "Zu einem Vater gibt es genau eine Mutter und mindestens ein Kind.",
       "Zu einer Mutter gibt es genau einen Vater und mindestens ein Kind.",
       "Ein Kind hat genau eine Mutter und einen Vater."
+    ]
+  },
+  {
+    "text": "Über eine eigens dafür aufgesetzte Datenbank soll protokolliert werden, welche Veranstaltung an welcher Location mit welchen Teilnehmern mit welchen Sponsoren stattgefunden hat.",
+    "entities": [ "Veranstaltung", "Location", "Teilnehmer", "Sponsor" ],
+    "relation": "findet statt",
+    "solution": [ "n", "n", "n", "n" ],
+    "comments": [
+      "Eine in der Datenbank vorhandene Veranstaltung wurde mindestens einmal protokolliert.",
+      "Eine in der Datenbank vorhandene Location wurde bisher gar nicht, einmal oder bereits mehrmals protokolliert.",
+      "Ein in der Datenbank vorhandener Teilnehmer hat mindestens an einer Veranstaltung teilgenommen.",
+      "Ein in der Datenbank vorhandener Sponsor hat sich an mindestens einer Veranstaltung beteiligt."
     ]
   },
   {
