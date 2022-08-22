@@ -414,7 +414,7 @@ export const phrases = [
     ]
   },
   {
-    "text": "In einer neuen Hochschule sollen nun Studenten Lehrveranstaltungen besuchen und am Ende des Semesters von einem Professor geprüft werden.",
+    "text": "In einer neuen Hochschule sollen Studenten Lehrveranstaltungen besuchen und am Ende des Semesters von einem Professor geprüft werden.",
     "entities": [ "Student", "Professor", "Lehrveranstaltung" ],
     "relation": "wird geprüft",
     "solution": [ "cn", "cn", "cn" ],
@@ -441,20 +441,32 @@ export const phrases = [
     "relation": "speichert",
     "solution": [ "cn", "n", "1" ],
     "comments": [
-      "Ein Programmierer hat noch keine, eine oder bereits mehrere Versionen des Quelltexts gespeichert.",
-      "Zu einem gespeicherten Quelltext gibt es mindestens eine Version und einen Programmierer.",
-      "Zu einer Version gibt es genau einen zugehörigen Quelltext und Programmierer."
+      "Ein Programmierer hat noch keine, eine oder bereits mehrere Versionen eines Quelltexts gespeichert.",
+      "Zu einem gespeicherten Quelltext gibt es mindestens eine Version und mindestens einen Programmierer.",
+      "Zu einer Version gibt es genau einen zugehörigen Quelltext und genau einen zugehörigen Programmierer."
     ]
   },
   {
-    "text": "Ein Kind hat eine (biologische) Mutter und einen (biologischen) Vater.",
+    "text": "Eine Adoptionsstelle möchte für jedes Kind nachhalten, wer die biologische Mutter und werd der biologische Vater ist.",
     "entities": [ "Vater", "Mutter", "Kind" ],
     "relation": "hat",
     "solution": [ "n", "n", "1" ],
     "comments": [
-      "Zu einem Vater gibt es genau eine Mutter und mindestens ein Kind.",
-      "Zu einer Mutter gibt es genau einen Vater und mindestens ein Kind.",
-      "Ein Kind hat genau eine Mutter und einen Vater."
+      "Zu einem Vater gibt es eine oder mehrere Mütter und mindestens ein Kind.",
+      "Zu einer Mutter gibt es einen oder mehrere Väter und mindestens ein Kind.",
+      "Ein Kind hat genau eine Mutter und genau einen Vater."
+    ]
+  },
+  {
+    "text": "Ein Gericht möchte die Gerichtsverhandlungen protokollieren, insbesondere wer bei einer Gerichtsverhandlung Angeklagter, Richter, Staatsanwalt und Verteidiger ist. Im System werden auch Richter und Staatsanwälte und Verteidiger verwaltet, die noch an keiner Gerichtsverhandlung teilgenommen haben.",
+    "entities": [ "Angeklagter", "Richter", "Staatsanwalt", "Verteidiger" ],
+    "relation": "beteiligt",
+    "solution": [ "n", "cn", "cn", "cn" ],
+    "comments": [
+      "Ein Angeklagter hat an mindestens einer Gerichtsverhandlungen teilgenommen.",
+      "Ein Richter hat an keine, eine oder mehrere Gerichtsverhandlungen geleitet.",
+      "Ein Staatsanwalt war bisher an keiner, einer oder mehreren Gerichtsverhandlungen beteiligt.",
+      "Ein Verteidiger war bisher an keiner, einer oder mehreren Gerichtsverhandlungen beteiligt."
     ]
   },
   {
