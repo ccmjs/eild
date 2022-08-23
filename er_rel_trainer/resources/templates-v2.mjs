@@ -22,7 +22,7 @@ export function main( app, show_solution ) {
 
   /**
    * Data of the notation in the ER diagram
-   * @type {string}
+   * @type {notation_data}
    */
   const notation = app.notations[ data.notation ];
 
@@ -54,7 +54,7 @@ export function main( app, show_solution ) {
    * ER diagram shows a recursive binary relation
    * @type {boolean}
    */
-  const is_recursive = is_binary && phrase.entities[ 0 ] === phrase.entities[ 1 ] && !notation.left;
+  const is_recursive = is_binary && phrase.entities[ 0 ] === phrase.entities[ 1 ] && !notation.mirrored;
 
   /**
    * ER diagram shows an one-to-one (1:1, 1:c, c:1 or c:c) relation
@@ -125,7 +125,7 @@ export function main( app, show_solution ) {
 
         <!-- Legend -->
         <section class="ms-2" ?data-hidden=${ !app.legend }>
-          <button class="btn btn-link" @click=${ app.events.onLegend } data-lang="main_legend">${ app.text.main_legend }</button>
+          <button class="btn btn-link" @click=${ app.events.onLegend } data-lang="legend">${ app.text.legend }</button>
         </section>
 
       </div>
@@ -295,21 +295,21 @@ export function main( app, show_solution ) {
     `;
 
     /**
-     * returns the HTML template for an entity connection
-     * @param {number} [nr] - number of the entity
+     * Returns the HTML template for an entity connection.
+     * @param {entity_nr} [entity] - Entity number
      * @returns {*}
      */
-    function connection( nr ) {
-      return nr ? html`
-        <div class="${ nr > 2 ? 'vertical' : '' }">
-          <img class="${ nr === 1 && notation.left || '' }" src="${ notation.images[ [ '1', 'c', 'n', 'cn' ].indexOf( phrase.solution[ notation.swap ? ( nr > 1 ? 0 : 1 ) : nr - 1 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ nr - 1 ] }>
+    function connection( entity ) {
+      return entity ? html`
+        <div class="${ entity > 2 ? 'vertical' : '' }">
+          <img class="${ entity === 1 && notation.mirrored ? 'mirrored' : '' }" src="${ notation.images[ [ '1', 'c', 'n', 'cn' ].indexOf( phrase.solution[ notation.swap ? ( entity > 1 ? 0 : 1 ) : entity - 1 ] ) + 1 ] }" ?data-hidden=${ !phrase.entities[ entity - 1 ] }>
         </div>
       ` : html`<div></div>`;
     }
 
     /**
-     * returns the HTML template for an entity
-     * @param {number} [nr] - number of the entity
+     * Returns the HTML template for an entity.
+     * @param {entity_nr} [nr] - Entity number
      * @returns {*}
      */
     function entity( nr ) {
@@ -321,8 +321,8 @@ export function main( app, show_solution ) {
     }
 
     /**
-     * returns the HTML template for a connection line
-     * @param {number} [nr] - line number
+     * Returns the HTML template for a connection line.
+     * @param {number} [nr] - Line number
      * @returns {*}
      */
     function line( nr ) {

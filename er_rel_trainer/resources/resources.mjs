@@ -24,7 +24,6 @@ export const de = {
   "main_title": "ER-REL-Trainer",
   "main_heading": "Gegeben ist ein ER-Diagramm, das eine Beziehung zwischen Entitäten zeigt. Ihre Aufgabe ist es das ER-Diagramm in ein logisches relationales Schema zu überführen und dafür die nötigen Tabellen anzulegen, darin die erforderlichen Schlüsselattribute zu ergänzen und die Richtung festzulegen, in der die Tabellen miteinander in Beziehung stehen.",
   "main_notation": "ER-Notation:",
-  "main_legend": "Legende",
   "main_phrase": "Phrase",
   "main_table": "Tabelle",
 
@@ -83,6 +82,7 @@ export const de = {
   "hierarchy_t": "total",
 
   /* Legend of Notations */
+  "legend": "Legende",
   "legend_1": "einfach",
   "legend_c": "bedingt",
   "legend_n": "mehrfach",
@@ -113,7 +113,6 @@ export const en = {
   "main_title": "ER-REL Trainer",
   "main_heading": "Given an ER diagram showing a relationship between entities. Your task is to convert the ER diagram into a logical relational schema and to create the necessary tables, add the necessary key attributes and determine the direction in which the tables are related to each other.",
   "main_notation": "ER Notation:",
-  "main_legend": "Legend",
   "main_phrase": "Phrase",
   "main_table": "Table",
 
@@ -172,10 +171,11 @@ export const en = {
   "hierarchy_t": "total",
 
   /* Legend of Notations */
-  "legend_1": "simple",
-  "legend_c": "conditional",
-  "legend_n": "multiple",
-  "legend_cn": "conditional multiple",
+  "legend": "Legend",
+  "legend_1": "Simple",
+  "legend_c": "Conditional",
+  "legend_n": "Multiple",
+  "legend_cn": "Conditional Multiple",
 
   /* Table Dialog */
   "table_dialog_info": "Specify which attributes are part of which keys. Also decide for each attribute whether it is optional (NULL) or mandatory (NOT NULL)."
@@ -196,10 +196,10 @@ export const local = {
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
   } ],
-  "notations.1": "./../er_trainer/resources/resources-v4.mjs#notations",
+  "notations.1": "./../er_trainer/resources/resources-v5.mjs#notations",
   "modal.attr.2.css.1.1": "./../er_rel_trainer/resources/modal.css",
   "onfinish": { "log": true, "restart": true },
-  "phrases": [ "ccm.load", "./../er_trainer/resources/resources-v4.mjs#phrases" ],
+  "phrases": [ "ccm.load", "./../er_trainer/resources/resources-v5.mjs#phrases" ],
   "show_solution": true,
   "shuffle": false,
   "text": de

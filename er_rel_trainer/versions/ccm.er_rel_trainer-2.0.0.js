@@ -6,7 +6,7 @@
  * @license The MIT License (MIT)
  * @version 2.0.0
  * @changes
- * version 2.0.0 (22.08.2022)
+ * version 2.0.0 (23.08.2022)
  * - uses ccmjs v27.4.0 as default
  * - uses helper.mjs v8.4.0 as default
  * - uses ccm.modal.js v3.2.0 as default
@@ -99,13 +99,13 @@
           "content": ""
         } ]
       },
-      "notations": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources-v4.mjs#notations" ],
+      "notations": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources-v5.mjs#notations" ],
 //    "number": 5,
 //    "onchange": event => console.log( event ),
       "onfinish": { "restart": true },
 //    "onready": event => console.log( event ),
 //    "onstart": event => console.log( event ),
-      "phrases": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources-v4.mjs#phrases" ],
+      "phrases": [ "ccm.load", "https://ccmjs.github.io/eild/er_trainer/resources/resources-v5.mjs#phrases" ],
       "show_solution": true,
       "shuffle": true,
       "skip": true,
@@ -153,7 +153,7 @@
             title: notation.title,
             swap: !!notation.swap,
             centered: !!notation.centered,
-            left: notation.left || this.default.left,
+            mirrored: notation.mirrored || this.default.mirrored,
             images: ( notation.images || this.default.images ).map( image => image.includes( '.' ) ? image : ( notation.path || this.default.path ) + notation.key + '/' + image + '.' + ( notation.format || this.default.format ) ),
             comment: notation.comment
           };
@@ -679,7 +679,7 @@
  * @prop {object} modal - Dependencies on component instances for modal dialogs
  * @prop {array} modal.attr - Modal dialog for editing attributes of a table
  * @prop {array} [modal.legend] - Modal dialog to display a legend for the different notations in the ER diagram
- * @prop {object} notations - Data of the different notations in the ER diagram
+ * @prop {Object.<string,notation_data>} notations - Data of the different notations in the ER diagram
  * @prop {number} [number] - Number of phrases to be asked. By default, all phrases are asked.
  * @prop {function} [onchange] - When something changes in the app (notation change, show legend, submit, correction, show solution, next phrase).
  * @prop {function|object} [onfinish] - When the finish button is clicked. Sets the finish actions.
@@ -721,6 +721,44 @@
  *     },
  *     ...
  *   ]
+ * }
+ */
+
+/**
+ * Notation data
+ * @typedef {object} notation_data
+ * @prop {string} key - Unique key of the notation (e.g. 'abrial', 'arrow', 'chen', 'crow', 'mc', 'uml')
+ * @prop {string} title - Title of the notation (used for the selection of the notation)
+ * @prop {boolean} [swap] - Notation has a reverse reading order than Abrial notation.
+ * @prop {boolean} [centered] - The relational verb is centered vertically in the diagram and not slightly higher above a connecting line.
+ * @prop {boolean} [mirrored] - The notation is mirrored on the left side.
+ * @prop {string} [comment] - Note that informs about special aspects of a notation.
+ * @prop {string[]} images - Image URLs or filenames of the images without a file extension.
+ * @prop {string} [format] - File extension of the image files (when using only filenames).
+ * @prop {string} [path] - Image URLs without filename and file extension (when using only filenames).
+ * @example
+ * {
+ *   "key": "arial",
+ *   "title": "Abrial",
+ *   "centered": true,
+ *   "images": [
+ *     "https://ccmjs.github.io/eild/er_trainer/resources/img/abrial/e.svg",
+ *     "https://ccmjs.github.io/eild/er_trainer/resources/img/abrial/1.svg",
+ *     "https://ccmjs.github.io/eild/er_trainer/resources/img/abrial/c.svg",
+ *     "https://ccmjs.github.io/eild/er_trainer/resources/img/abrial/n.svg",
+ *     "https://ccmjs.github.io/eild/er_trainer/resources/img/abrial/cn.svg",
+ *     "https://ccmjs.github.io/eild/er_trainer/resources/img/abrial/r.svg",
+ *     "https://ccmjs.github.io/eild/er_trainer/resources/img/abrial/s.svg"
+ *   ]
+ * }
+ * @example
+ * {
+ *   "key": "arial",
+ *   "title": "Abrial",
+ *   "centered": true,
+ *   "format": "svg",
+ *   "images": [ "e", "1", "c", "n", "cn", "r", "s" ],
+ *   "path": "https://ccmjs.github.io/eild/er_trainer/resources/img/"
  * }
  */
 
@@ -793,7 +831,11 @@
  */
 
 /**
+ * number of an entity (1-N: entity 1-N)
+ * @typedef {number} entity_nr
+ */
+
+/**
  * number of a relation scheme table (0: extra table, 1-N: entity table 1-N)
  * @typedef {number} table_nr
- *
  */
