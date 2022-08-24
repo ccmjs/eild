@@ -6,7 +6,7 @@
  * @license The MIT License (MIT)
  * @version latest (2.0.0)
  * @changes
- * version 2.0.0 (23.08.2022)
+ * version 2.0.0 (24.08.2022)
  * - uses ccmjs v27.4.0 as default
  * - uses helper.mjs v8.4.0 as default
  * - uses ccm.modal.js v3.2.0 as default
@@ -39,7 +39,7 @@
    * @property {string} name - Unique identifier of the component
    * @property {number[]} [version] - Version of the component according to Semantic Versioning 2.0 (default: latest version)
    * @property {string} ccm - URL of the (interchangeable) ccmjs version used at the time of publication
-   * @property {config} config - Default instance configuration
+   * @property {config} config - Default instance configuration (app configuration)
    * @property {Class} Instance - Class from which component instances (app instances) are created.
    */
   const component = {

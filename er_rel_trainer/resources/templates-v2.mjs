@@ -265,8 +265,8 @@ export function main( app, show_solution ) {
             <img src="${ notation.images[ phrase.relation ? 5 : 6 ] }">
             <div ?data-centered=${ notation.centered } ?data-triangle=${ !phrase.relation }>
               ${ phrase.relation || html`
-                <div>${ app.text[ 'hierarchy_' + phrase.solution[ 0 ] ] }</div>
-                <div>${ app.text[ 'hierarchy_' + phrase.solution[ 1 ] ] }</div>
+                <div data-lang="hierarchy_${ phrase.solution[ 0 ] }">${ app.text[ 'hierarchy_' + phrase.solution[ 0 ] ] }</div>
+                <div data-lang="hierarchy_${ phrase.solution[ 1 ] }">${ app.text[ 'hierarchy_' + phrase.solution[ 1 ] ] }</div>
               ` || '' }
             </div>
           </div>
@@ -907,7 +907,7 @@ export function main( app, show_solution ) {
       if ( !input_table )
         return html`
           <div>
-            <button type="button" class="btn btn-${ solution ? ( solution_table === input_table ? 'success' : 'danger' ) : 'primary' } btn-sm text-nowrap" ?data-hidden=${ is_solution } ?disabled=${ solution } @click=${ () => app.events.onAddTable( table ) }>+ <span data-lang="main_table">${ app.text.main_table }</span> : "${ table ? phrase.entities[ table - 1 ] : phrase.relation || app.text.hierarchy_is }"</button>
+            <button type="button" class="btn btn-${ solution ? ( solution_table === input_table ? 'success' : 'danger' ) : 'primary' } btn-sm text-nowrap" ?data-hidden=${ is_solution } ?disabled=${ solution } @click=${ () => app.events.onAddTable( table ) }>+ <span data-lang="main_table">${ app.text.main_table }</span>: "${ table ? phrase.entities[ table - 1 ] : phrase.relation || app.text.hierarchy_is }"</button>
           </div>
         `;
 
@@ -1185,7 +1185,7 @@ export function tableDialogTitle( app, table ) {
   const data = app.getValue();
   const phrase = data.phrases[ data.results.length - 1 ];
   return html`
-    <span data-lang='table'>${ app.text.table }</span>: ${ table && phrase.entities[ table - 1 ] || phrase.relation || app.text.is }
+    <span data-lang='table'>${ app.text.table }</span>: ${ table && phrase.entities[ table - 1 ] || phrase.relation || app.text.hierarchy_is }
   `;
 }
 
@@ -1266,7 +1266,7 @@ export function tableDialogFooter( app ) {
  * @returns {string}
  */
 function getTableName( app, phrase, table ) {
-  return table && phrase.entities[ table - 1 ] || phrase.relation || app.text.is;
+  return table && phrase.entities[ table - 1 ] || phrase.relation || app.text.hierarchy_is;
 }
 
 /**

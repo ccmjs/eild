@@ -201,7 +201,7 @@ export const local = {
   "onfinish": { "log": true, "restart": true },
   "phrases": [ "ccm.load", "./../er_trainer/resources/resources-v5.mjs#phrases" ],
   "show_solution": true,
-  "shuffle": false,
+  "shuffle": true,
   "text": de
 };
 
