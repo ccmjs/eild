@@ -39,7 +39,7 @@
    * @property {string} name - Unique identifier of the component
    * @property {number[]} [version] - Version of the component according to Semantic Versioning 2.0 (default: latest version)
    * @property {string} ccm - URL of the (interchangeable) ccmjs version used at the time of publication
-   * @property {config} config - Default instance configuration (app configuration)
+   * @property {app_config} config - Default instance configuration (app configuration)
    * @property {Class} Instance - Class from which component instances (app instances) are created.
    */
   const component = {
@@ -656,8 +656,8 @@
 } )();
 
 /**
- * Instance configuration
- * @typedef {object} config
+ * Instance configuration (app configuration)
+ * @typedef {object} app_config
  * @prop {boolean} [anytime_finish] - Finish button is always unlocked. You no longer have to go through all the phrases to use it.
  * @prop {boolean} [auto_arrows] - The arrows between tables are automatically set correctly and haven't to be selected manually.
  * @prop {boolean} [auto_pk] - When creating a table, an artificial primary key is created automatically.

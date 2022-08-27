@@ -6,7 +6,7 @@
 
 /**
  * German translations
- * @type {object}
+ * @type {Object.<string,string>}
  */
 export const de = {
 
@@ -95,7 +95,7 @@ export const de = {
 
 /**
  * English translations
- * @type {object}
+ * @type {Object.<string,string>}
  */
 export const en = {
 
@@ -184,7 +184,7 @@ export const en = {
 
 /**
  * Local app configuration (relative paths)
- * @type {object}
+ * @type {app_config}
  */
 export const local = {
   "auto_arrows": false,
@@ -207,7 +207,7 @@ export const local = {
 
 /**
  * Demo app configuration
- * @type {object}
+ * @type {app_config}
  */
 export const demo = {
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
