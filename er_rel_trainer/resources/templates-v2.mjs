@@ -96,7 +96,7 @@ export function main( app, show_solution ) {
    * Translation index for the heading ('heading', 'correct' or 'failed')
    * @type {string}
    */
-  const heading = result.correct === undefined ? 'heading' : 'feedback_' + ( result.correct ? 'correct' : 'failed' );
+  const heading = result.correct === undefined ? 'main_heading' : 'feedback_' + ( result.correct ? 'correct' : 'failed' );
 
   return html`
     <div class="d-flex justify-content-between align-items-center">
@@ -106,7 +106,7 @@ export function main( app, show_solution ) {
     <header class="bg-light border rounded-top d-flex flex-wrap justify-content-between align-items-center p-2">
 
       <!-- Heading -->
-      <div id="heading" class="p-2 pe-3" data-lang="main_${ heading }">${ 'main_' + app.text[ heading ] }</div>
+      <div id="heading" class="p-2 pe-3" data-lang="${ heading }">${ app.text[ heading ] }</div>
 
       <div class="d-flex align-items-center text-nowrap px-2" ?data-hidden=${ app.fixed_notation }>
 
