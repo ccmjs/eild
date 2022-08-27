@@ -809,20 +809,20 @@
 /**
  * Bit mask of a table attribute<br>
  * 0: not set<br>
- * 2^0^=1: is optional (NULL)<br>
- * 2^1^=2: is mandatory (NOT NULL)<br>
- * 2^2^=4: is part of primary key (PK)<br>
- * 2^3^=8: is part of alternate key (AK)<br>
- * 2^4^=16: is part of foreign key to relation table (FK0)<br>
- * 2^5^=32: is part of foreign key to entity 1 (FK1)<br>
- * 2^6^=64: is part of foreign key to entity 2 (FK2)<br>
- * 2^7^=128: is part of foreign key to entity 3 (FK3)<br>
- * 2^8^=256: is part of foreign key to entity 4 (FK4)<br>
- * 2^9^=512: arrow for FK0 is set<br>
- * 2^10^=1024: arrow for FK1 is set<br>
- * 2^11^=2048: arrow for FK2 is set<br>
- * 2^12^=4096: arrow for FK3 is set<br>
- * 2^13^=8192: arrow for FK4 is set
+ * 2^0=1: is optional (NULL)<br>
+ * 2^1=2: is mandatory (NOT NULL)<br>
+ * 2^2=4: is part of primary key (PK)<br>
+ * 2^3=8: is part of alternate key (AK)<br>
+ * 2^4=16: is part of foreign key to relation table (FK0)<br>
+ * 2^5=32: is part of foreign key to entity 1 (FK1)<br>
+ * 2^6=64: is part of foreign key to entity 2 (FK2)<br>
+ * 2^7=128: is part of foreign key to entity 3 (FK3)<br>
+ * 2^8=256: is part of foreign key to entity 4 (FK4)<br>
+ * 2^9=512: arrow for FK0 is set<br>
+ * 2^10=1024: arrow for FK1 is set<br>
+ * 2^11=2048: arrow for FK2 is set<br>
+ * 2^12=4096: arrow for FK3 is set<br>
+ * 2^13=8192: arrow for FK4 is set
  * @typedef {number} attr_value
  * @example
  * 1058 // = 1024 + 32 + 2

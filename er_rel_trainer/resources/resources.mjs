@@ -5,8 +5,14 @@
  */
 
 /**
+ * Used app configuration
+ * @namespace DataResources
+ */
+
+/**
  * German translations
  * @type {Object.<string,string>}
+ * @memberOf DataResources
  */
 export const de = {
 
@@ -96,6 +102,7 @@ export const de = {
 /**
  * English translations
  * @type {Object.<string,string>}
+ * @memberOf DataResources
  */
 export const en = {
 
@@ -185,6 +192,7 @@ export const en = {
 /**
  * Local app configuration (relative paths)
  * @type {app_config}
+ * @memberOf DataResources
  */
 export const local = {
   "auto_arrows": false,
@@ -208,6 +216,7 @@ export const local = {
 /**
  * Demo app configuration
  * @type {app_config}
+ * @memberOf DataResources
  */
 export const demo = {
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
