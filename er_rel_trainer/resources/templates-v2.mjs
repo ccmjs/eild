@@ -204,7 +204,7 @@ export function main( app, show_solution ) {
         
         <!-- Comments on Correct Solution -->
         <section ?data-hidden=${ !( app.comments && app.comments.correct && result.correct === true ) }>
-          ${ comment( 'alternate_solution', result.alternate_solution ) }
+          ${ comment( 'alternate_solution', !!result.alternate_solution ) }
           ${ comment( 'mandatory', ( () => {
             switch ( phrase.solution.toString() ) {
               case '1,1':
@@ -354,13 +354,13 @@ export function main( app, show_solution ) {
      * State in which the tables are displayed.
      * @type {table_data[]}
      */
-    const input = is_solution ? result.alternate_solution || result.solution : result.input;
+    const input = is_solution ? result.solution : result.input;
 
     /**
      * Main solution with which the tables are compared for the automated feedback.
      * @type {table_data[]}
      */
-    const solution = !is_solution && result.solution;
+    const solution = !is_solution && ( result.alternate_solution || result.solution );
 
     return html`
       <form id="scheme" @submit=${ event => { event.preventDefault(); !is_solution && app.events.onSubmit(); } }>

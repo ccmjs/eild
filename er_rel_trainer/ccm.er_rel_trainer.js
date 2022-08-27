@@ -522,7 +522,7 @@
           result_data.correct = !!solution;
 
           // Note in the phrase status data whether a valid alternative solution was found.
-          if ( result_data.correct && result_data.solution !== solutions[ 0 ] ) result_data.alternate_solution = solution;
+          if ( result_data.correct && solution !== solutions[ 0 ] ) result_data.alternate_solution = solution;
 
           // Note the main solution in the status data of the phrase, which the feedback will refer to.
           result_data.solution = solutions[ 0 ];
