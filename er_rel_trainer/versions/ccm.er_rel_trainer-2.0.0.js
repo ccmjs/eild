@@ -1,12 +1,12 @@
 'use strict';
 
 /**
- * @overview <i>ccmjs</i>-based web component for ER model to relational scheme training.
+ * @overview <i>ccmjs</i>-based web component for ER-REL Trainer.
  * @author André Kless <andre.kless@web.de> 2021-2022
  * @license The MIT License (MIT)
  * @version 2.0.0
  * @changes
- * version 2.0.0 (24.08.2022)
+ * version 2.0.0 (29.08.2022)
  * - uses ccmjs v27.4.0 as default
  * - uses helper.mjs v8.4.0 as default
  * - uses ccm.modal.js v3.2.0 as default
@@ -34,13 +34,14 @@
 ( () => {
 
   /**
-   * Component for ER model to relational scheme training.
+   * <i>ccmjs</i>-based web component for ER-REL Trainer.
+   * @namespace WebComponent
    * @type {object}
-   * @property {string} name - Unique identifier of the component
-   * @property {number[]} [version] - Version of the component according to Semantic Versioning 2.0 (default: latest version)
-   * @property {string} ccm - URL of the (interchangeable) ccmjs version used at the time of publication
-   * @property {app_config} config - Default instance configuration (app configuration)
-   * @property {Class} Instance - Class from which component instances (app instances) are created.
+   * @property {string} name - Unique identifier of the component.
+   * @property {number[]} [version] - Version of the component according to Semantic Versioning 2.0 (default: latest version).
+   * @property {string} ccm - URL of the (interchangeable) ccmjs version used at the time of publication.
+   * @property {app_config} config - Default app configuration.
+   * @property {Class} Instance - Class from which app instances are created.
    */
   const component = {
     name: 'er_rel_trainer',
@@ -112,6 +113,10 @@
       "text": [ "ccm.load", "https://ccmjs.github.io/eild/er_rel_trainer/resources/resources.mjs#en" ],
 //    "user": [ "ccm.start", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js" ]
     },
+    /**
+     * @class
+     * @memberOf WebComponent
+     */
     Instance: function () {
 
       /**
@@ -237,6 +242,7 @@
 
       /**
        * Contains all event handlers.
+       * @namespace AppEvents
        * @readonly
        * @type {Object.<string,function>}
        */
@@ -246,7 +252,8 @@
          * When the notation used in the ER diagram is switched.
          * @function
          * @param {string} value - ID of the selected notation.
-         * @param {boolean} [show_solution] - correct solution is revealed
+         * @param {boolean} [show_solution] - Correct solution is revealed.
+         * @memberOf AppEvents
          */
         onNotation: ( value, show_solution ) => {
 
@@ -267,6 +274,7 @@
         /**
          * When the button to show the notation legend is clicked.
          * @function
+         * @memberOf AppEvents
          */
         onLegend: () => {
           this.modal.legend.open();                                               // Open modal dialog for notation legend
@@ -277,7 +285,8 @@
         /**
          * When the button to add a table is clicked.
          * @function
-         * @param {table_nr} nr - table number
+         * @param {table_nr} nr - Table number
+         * @memberOf AppEvents
          */
         onAddTable: nr => {
 
@@ -301,7 +310,8 @@
         /**
          * When the button for editing the table attributes is clicked.
          * @function
-         * @param {table_nr} nr - table number
+         * @param {table_nr} nr - Table number
+         * @memberOf AppEvents
          */
         onEditTable: nr => {
 
@@ -322,6 +332,7 @@
          * When the button for removing a table is clicked.
          * @function
          * @param {table_nr} nr - Table number
+         * @memberOf AppEvents
          */
         onRemoveTable: nr => {
 
@@ -342,6 +353,7 @@
          * @param {table_nr} table - Table number
          * @param {table_nr} attr - Table that references the attribute as a foreign key.
          * @param {number} badge_nr - 0: NULL, 1: NOT NULL, 2: PK, 3: AK, 4: FK0, 5: FK1, 6: FK2, 7: FK3, 8: FK4
+         * @memberOf AppEvents
          */
         onToggleBadge: ( table, attr, badge_nr ) => {
 
@@ -376,6 +388,7 @@
          * @param {string} value - The selected value in the selector box ('', 'line' or 'arrow').
          * @param {table_nr} from - Number of the table from which the connection starts.
          * @param {table_nr} to - Number of the table to which the connection goes.
+         * @memberOf AppEvents
          * @example onArrow( 'arrow', 1, 2 ) // Setting an arrow for the connection from entity table 1 to entity table 2 [E1]->[E2]
          */
         onArrow: ( value, from, to ) => {
@@ -393,6 +406,7 @@
         /**
          * When the button is clicked that allows the user to submit a solution.
          * @function
+         * @memberOf AppEvents
          */
         onSubmit: () => {
 
@@ -545,6 +559,7 @@
         /**
          * When the button is clicked that allows the user to correct an incorrect solution.
          * @function
+         * @memberOf AppEvents
          */
         onCorrection: () => {
 
@@ -563,6 +578,7 @@
         /**
          * When the button showing the sample solution for the current phrase is clicked.
          * @function
+         * @memberOf AppEvents
          */
         onSolution: () => {
 
@@ -575,6 +591,7 @@
         /**
          * When the button that starts the next phrase is clicked.
          * @function
+         * @memberOf AppEvents
          */
         onNext: () => {
 
@@ -592,6 +609,7 @@
         /**
          * When the button that finishes the app is clicked.
          * @function
+         * @memberOf AppEvents
          */
         onFinish: () => {
 
@@ -656,7 +674,7 @@
 } )();
 
 /**
- * Instance configuration (app configuration)
+ * App configuration.
  * @typedef {object} app_config
  * @prop {boolean} [anytime_finish] - Finish button is always unlocked. You no longer have to go through all the phrases to use it.
  * @prop {boolean} [auto_arrows] - The arrows between tables are automatically set correctly and haven't to be selected manually.
@@ -666,38 +684,38 @@
  * @prop {boolean} [comments.wrong] - Show comments as feedback on an incorrect solution.
  * @prop {boolean} [comments.correct] - Show comments as feedback on a correct solution.
  * @prop {boolean} [correction] - Allows the user to correct an incorrect solution.
- * @prop {array} css - CSS dependencies
- * @prop {object} [data] - Source of app state data
- * @prop {object} [default] - Default notations data
+ * @prop {array} css - CSS dependencies.
+ * @prop {object} [data] - Source of app state data.
+ * @prop {object} [default] - Default notations data.
  * @prop {boolean} [feedback] - Show visual feedback and any comments after submitting a solution.
  * @prop {boolean} [fixed_notation] - The notation used in the ER diagram cannot be changed.
- * @prop {array} helper - Dependency on helper functions
+ * @prop {array} helper - Dependency on helper functions.
  * @prop {boolean} [hide_own_fk] - No foreign key is offered for the table's own main attribute.
- * @prop {array} html - HTML template dependencies
- * @prop {array} [lang] - Dependency on component for multilingualism
- * @prop {boolean} [legend] - Button to display a legend for the different notations in the ER diagram
- * @prop {object} modal - Dependencies on component instances for modal dialogs
- * @prop {array} modal.attr - Modal dialog for editing attributes of a table
- * @prop {array} [modal.legend] - Modal dialog to display a legend for the different notations in the ER diagram
- * @prop {Object.<string,notation_data>} notations - Data of the different notations in the ER diagram
+ * @prop {array} html - HTML template dependencies.
+ * @prop {array} [lang] - Dependency on component for multilingualism.
+ * @prop {boolean} [legend] - Button to display a legend for the different notations in the ER diagram.
+ * @prop {object} modal - Dependencies on component instances for modal dialogs.
+ * @prop {array} modal.attr - Modal dialog for editing attributes of a table.
+ * @prop {array} [modal.legend] - Modal dialog to display a legend for the different notations in the ER diagram.
+ * @prop {Object.<string,notation_data>} notations - Data of the different notations in the ER diagram.
  * @prop {number} [number] - Number of phrases to be asked. By default, all phrases are asked.
  * @prop {function} [onchange] - When something changes in the app (notation change, show legend, submit, correction, show solution, next phrase).
  * @prop {function|object} [onfinish] - When the finish button is clicked. Sets the finish actions.
  * @prop {function} [onready] - Is called once before the first start of the app.
  * @prop {function} [onstart] - When the app has finished starting.
- * @prop {object} phrases - Data of the phrases
+ * @prop {object} phrases - Data of the phrases.
  * @prop {boolean} [show_solution] - If the user solves the phrase incorrectly, he can reveal a correct solution. After that, the user can no longer correct his input.
  * @prop {boolean} [shuffle] - The phrases are shuffled, so the order in which the phrases are asked is different each time the app is started.
  * @prop {boolean} [skip] - Phrases can be skipped, so that not all phrases have to be answered.
- * @prop {boolean} text - Contains the static texts (e.g. task description, labeling of buttons, hints on feedback)
- * @prop {boolean} [user] - Dependency on component for user authentication
+ * @prop {boolean} text - Contains the static texts (e.g. task description, labeling of buttons, hints on feedback).
+ * @prop {boolean} [user] - Dependency on component for user authentication.
  */
 
 /**
- * App state data
+ * App state data.
  * @typedef {object} app_state
- * @prop {number} correct - Number of correctly answered phrases
- * @prop {string} notation - Current selected notation (e.g. 'abrial', 'arrow', 'chen', 'crow', 'mc', 'uml')
+ * @prop {number} correct - Number of correctly answered phrases.
+ * @prop {string} notation - Current selected notation (e.g. 'abrial', 'arrow', 'chen', 'crow', 'mc', 'uml').
  * @prop {phrase_data[]} phrases - Phrases used in the order they are queried.
  * @prop {result_data[]} results - Result data of the phrases processed so far.
  * @example
@@ -725,10 +743,10 @@
  */
 
 /**
- * Notation data
+ * Notation data.
  * @typedef {object} notation_data
  * @prop {string} key - Unique key of the notation (e.g. 'abrial', 'arrow', 'chen', 'crow', 'mc', 'uml')
- * @prop {string} title - Title of the notation (used for the selection of the notation)
+ * @prop {string} title - Title of the notation (used for the selection of the notation).
  * @prop {boolean} [swap] - Notation has a reverse reading order than Abrial notation.
  * @prop {boolean} [centered] - The relational verb is centered vertically in the diagram and not slightly higher above a connecting line.
  * @prop {boolean} [mirrored] - The notation is mirrored on the left side.
@@ -763,13 +781,13 @@
  */
 
 /**
- * Phrase data
+ * Phrase data.
  * @typedef {object} phrase_data
- * @prop {string} text - Text of the phrase
- * @prop {string[]} entities - Names of the entities
- * @prop {string[]} [roles] - Role names of the entities (useful in recursive relationships)
- * @prop {string} [relation] - Name of the relation between the entities (default: has relation of a generalization/specialization)
- * @prop {string[]} solution - Solution of the phrase ('1': simple, 'c': conditional, 'n': multiple, 'cn': conditional multiple)
+ * @prop {string} text - Text of the phrase.
+ * @prop {string[]} entities - Names of the entities.
+ * @prop {string[]} [roles] - Role names of the entities (useful in recursive relationships).
+ * @prop {string} [relation] - Name of the relation between the entities (default: has relation of a generalization/specialization).
+ * @prop {string[]} solution - Solution of the phrase ('1': simple, 'c': conditional, 'n': multiple, 'cn': conditional multiple).
  * @example
  * {
  *   "text": "Eine Bibliothek möchte die einzelnen Seiten ausgewählter Bücher digitalisieren.",
@@ -780,12 +798,12 @@
  */
 
 /**
- * Result data of a phrase
+ * Result data of a phrase.
  * @typedef {object} result_data
- * @prop {table_data[]} input - Input data of the tables
- * @prop {boolean} [correct] - Phrase answered correctly
- * @prop {table_data[]} solution - Solution data of the tables (main solution)
- * @prop {table_data[]} [alternate_solution] - Alternate solution found
+ * @prop {table_data[]} input - Input data of the tables.
+ * @prop {boolean} [correct] - Phrase answered correctly.
+ * @prop {table_data[]} solution - Solution data of the tables (main solution).
+ * @prop {table_data[]} [alternate_solution] - Alternate solution found.
  * @example
  * {
  *   "correct": true,
@@ -795,7 +813,7 @@
  */
 
 /**
- * Table data<br>
+ * Table data.<br>
  * null: not created<br>
  * [0]: ID attribute of relation table<br>
  * [1]: ID attribute of entity 1<br>
@@ -808,7 +826,7 @@
  */
 
 /**
- * Bit mask of a table attribute<br>
+ * Bit mask of a table attribute.<br>
  * 0: not set<br>
  * 2^0=1: is optional (NULL)<br>
  * 2^1=2: is mandatory (NOT NULL)<br>
@@ -827,15 +845,15 @@
  * @typedef {number} attr_value
  * @example
  * 1058 // = 1024 + 32 + 2
- * // => Foreign key to entity 1 (FK1) with set arrow and NOT NULL
+ * // => Foreign key to entity 1 (FK1) with set arrow and NOT NULL.
  */
 
 /**
- * number of an entity (1-N: entity 1-N)
+ * Number of an entity (1-N: entity 1-N).
  * @typedef {number} entity_nr
  */
 
 /**
- * number of a relation scheme table (0: extra table, 1-N: entity table 1-N)
+ * Number of a relation scheme table (0: extra table, 1-N: entity table 1-N).
  * @typedef {number} table_nr
  */

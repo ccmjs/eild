@@ -1,23 +1,22 @@
 /**
- * @overview HTML templates of <i>ccmjs</i>-based web component for ER model to relational scheme training.
+ * @overview HTML templates of <i>ccmjs</i>-based web component for ER-REL Trainer.
  * @author André Kless <andre.kless@web.de> 2021-2022
  */
 
-import { html, render } from './../libs/lit/lit.js';
+import { html, render } from 'https://ccmjs.github.io/akless-components/libs/lit/lit.js';
 export { render };
 
 /**
- * HTML templates of <i>ccmjs</i>-based web component for ER model to relational scheme training.
- * @namespace HTMLTemplates
+ * HTML templates of <i>ccmjs</i>-based web component for ER-REL Trainer.
+ * @module HTMLTemplates
  */
 
 /**
  * Returns the main HTML template.
  * @function
- * @param {object} app - App instance
- * @param {boolean} [show_solution] - Reveal main solution
+ * @param {object} app - App instance.
+ * @param {boolean} [show_solution] - Reveal main solution.
  * @returns {*}
- * @memberOf HTMLTemplates
  */
 export function main( app, show_solution ) {
 
@@ -1158,9 +1157,8 @@ export function main( app, show_solution ) {
 /**
  * Returns the HTML template of the legend table that shows the different notations in the ER diagram.
  * @function
- * @param {object} app - App instance
+ * @param {object} app - App instance.
  * @returns {*}
- * @memberOf HTMLTemplates
  */
 export function legend( app ) {
   const ids = [ '1', 'c', 'n', 'cn' ];
@@ -1187,10 +1185,9 @@ export function legend( app ) {
 /**
  * Returns the HTML template for the title of the table dialog.
  * @function
- * @param {object} app - App instance
- * @param {table_nr} table - Table number
+ * @param {object} app - App instance.
+ * @param {table_nr} table - Table number.
  * @returns {*}
- * @memberOf HTMLTemplates
  */
 export function tableDialogTitle( app, table ) {
   const data = app.getValue();
@@ -1203,10 +1200,9 @@ export function tableDialogTitle( app, table ) {
 /**
  * Returns the HTML template for the body of the table dialog.
  * @function
- * @param {object} app - App instance
- * @param {table_nr} table - Table number
+ * @param {object} app - App instance.
+ * @param {table_nr} table - Table number.
  * @returns {*}
- * @memberOf HTMLTemplates
  */
 export function tableDialogBody( app, table ) {
   const data = app.getValue();
@@ -1249,9 +1245,8 @@ export function tableDialogBody( app, table ) {
 /**
  * Returns the HTML template for the footer of the table dialog.
  * @function
- * @param {object} app - App instance
+ * @param {object} app - App instance.
  * @returns {*}
- * @memberOf HTMLTemplates
  */
 export function tableDialogFooter( app ) {
   return html`
@@ -1277,11 +1272,10 @@ export function tableDialogFooter( app ) {
  * Returns the name of a table.
  * @private
  * @function
- * @param {object} app - App instance
+ * @param {object} app - App instance.
  * @param {phrase_data} phrase - Phrase to which the table belongs.
- * @param {table_nr} table - Table number
+ * @param {table_nr} table - Table number.
  * @returns {string}
- * @memberOf HTMLTemplates
  */
 function getTableName( app, phrase, table ) {
   return table && phrase.entities[ table - 1 ] || phrase.relation || app.text.hierarchy_is;
@@ -1291,11 +1285,10 @@ function getTableName( app, phrase, table ) {
  * Returns the name of a table attribute.
  * @private
  * @function
- * @param {object} app - App instance
+ * @param {object} app - App instance.
  * @param {phrase_data} phrase - Phrase to which the attribute belongs.
  * @param {table_nr} attr - Table that references the attribute as a foreign key.
  * @returns {string}
- * @memberOf HTMLTemplates
  */
 function getAttributeName( app, phrase, attr ) {
   const getRole = entity_nr => attr && phrase.roles && phrase.roles[ entity_nr - 1 ];
@@ -1310,7 +1303,6 @@ function getAttributeName( app, phrase, attr ) {
  * @function
  * @param {string} str
  * @returns {string}
- * @memberOf HTMLTemplates
  * @example
  * toID('Person') // => person_id
  */

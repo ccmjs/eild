@@ -1,18 +1,17 @@
 /**
- * @overview Data-based resources of <i>ccmjs</i>-based web component for ER model to relational scheme training.
+ * @overview Data-based resources of <i>ccmjs</i>-based web component for ER-REL Trainer.
  * @author André Kless <andre.kless@web.de> 2022
  * @license The MIT License (MIT)
  */
 
 /**
- * Used app configuration
- * @namespace DataResources
+ * Data-based resources of <i>ccmjs</i>-based web component for ER-REL Trainer.
+ * @module DataResources
  */
 
 /**
  * German translations
  * @type {Object.<string,string>}
- * @memberOf DataResources
  */
 export const de = {
 
@@ -102,7 +101,6 @@ export const de = {
 /**
  * English translations
  * @type {Object.<string,string>}
- * @memberOf DataResources
  */
 export const en = {
 
@@ -167,8 +165,8 @@ export const en = {
 
   /* Feedback */
   "feedback_correct": "Your answer was correct!",
-  "feedback_failed": "Ihre letzte Antwort war falsch!",
-  "feedback_solution": "Your last answer was wrong!",
+  "feedback_failed": "Your last answer was wrong!",
+  "feedback_solution": "Correct solution:",
 
   /* Generalisation/Specialisation Relation */
   "hierarchy_d": "disjoint",
@@ -192,13 +190,10 @@ export const en = {
 /**
  * Local app configuration (relative paths)
  * @type {app_config}
- * @memberOf DataResources
  */
 export const local = {
-  "auto_arrows": false,
   "css.1.1": "./../er_rel_trainer/resources/styles-v2.css",
   "default.path": "./../er_trainer/resources/img/",
-  "fixed_notation": false,
   "helper": [ "ccm.load", "./../libs/ccm/helper.mjs" ],
   "html.1": "./../er_rel_trainer/resources/templates-v2.mjs",
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
@@ -208,15 +203,12 @@ export const local = {
   "modal.attr.2.css.1.1": "./../er_rel_trainer/resources/modal.css",
   "onfinish": { "log": true, "restart": true },
   "phrases": [ "ccm.load", "./../er_trainer/resources/resources-v5.mjs#phrases" ],
-  "show_solution": true,
-  "shuffle": true,
   "text": de
 };
 
 /**
  * Demo app configuration
  * @type {app_config}
- * @memberOf DataResources
  */
 export const demo = {
   "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
