@@ -11,8 +11,11 @@
 export const local = {
   "css.1.1": "./../mc_analytics/resources/styles.css",
   "data": {
-    "store": [ "ccm.store", { "name": "mc-data", "url": "https://ccm2.inf.h-brs.de" } ],
-    "key": "test"
+    "store": [ "ccm.store", { "name": "mc-results", "url": "https://ccm2.inf.h-brs.de" } ],
+    "key": {
+      "app": "1636960873115X4972872488669309"
+    },
+    "convert": [ "ccm.load", "./../mc_analytics/resources/resources.mjs#convert" ]
   },
   "editor": [ "ccm.instance", "https://ccmjs.github.io/tkless-components/editor/versions/ccm.editor-4.0.0.js", {
     "editor": [ "ccm.load",
@@ -32,7 +35,7 @@ export const local = {
   } ],
   "html.1": "./../mc_analytics/resources/templates.mjs",
   "sort": [ "ccm.load", "./../mc_analytics/resources/resources.mjs#sort" ],
-  "source": [ "ccm.store", { "name": "dbs-questions", "url": "https://ccm2.inf.h-brs.de" } ],
+//  "source": [ "ccm.store", { "name": "dbs-questions", "url": "https://ccm2.inf.h-brs.de" } ],
   "text": {
     "answer": "Multiple Choice Antwort",
     "average": "Durchschnittlich erreichte Punkte",
@@ -80,4 +83,15 @@ export const demo = {
 export const sort = {
   "question": ( a, b ) => a.nr - b.nr,
   "answer":   ( a, b ) => a.nr - b.nr
+};
+
+export const convert = dataset => {
+  console.log( dataset );
+  const questions = [];
+  if ( !Array.isArray( dataset ) ) dataset = [ dataset ];
+  dataset.forEach( dataset => dataset.questions.forEach( question => {
+    questions.push( question );
+  } ) );
+  dataset.questions = questions;
+  return dataset;
 };
