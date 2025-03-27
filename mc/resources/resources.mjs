@@ -85,7 +85,7 @@ export const test = {
   "feedback": true,
   "helper.1": "./../libs/ccm/helper.mjs",
   "html.1": "./../mc/resources/templates-v2.mjs",
-  "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
+  "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.2.0.js", {
     "translations": { "de": de, "en": en }
   } ],
   "onfinish": { "log": true, "restart": true },

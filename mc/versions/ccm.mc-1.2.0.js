@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for multiple choice
  * @author André Kless <andre.kless@web.de> 2021-2022, 2025
  * @license The MIT License (MIT)
- * @version latest (1.2.0)
+ * @version 1.2.0
  * @changes
  * version 1.2.0 (27.03.2025)
  * - optional neutral button
@@ -20,6 +20,7 @@
 ( () => {
   const component = {
     name: 'mc',
+    version: [ 1, 2, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "css": [ "ccm.load",
