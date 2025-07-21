@@ -447,7 +447,7 @@ export const phrases = [
     ]
   },
   {
-    "text": "Eine Adoptionsstelle möchte für jedes Kind nachhalten, wer die biologische Mutter und werd der biologische Vater ist.",
+    "text": "Eine Adoptionsstelle möchte für jedes Kind nachhalten, wer die biologische Mutter und wer der biologische Vater ist.",
     "entities": [ "Vater", "Mutter", "Kind" ],
     "relation": "hat",
     "solution": [ "n", "n", "1" ],
